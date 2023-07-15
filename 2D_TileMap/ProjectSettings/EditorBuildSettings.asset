@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SeemLess/SeemLessBase.unity
+    guid: 9396d54a48881b143b5f93d0df76a688
+  - enabled: 1
+    path: Assets/Scenes/SeemLess/SeemLess0_0.unity
+    guid: f08a23eeabf99214eadd8dc43eea7d1e
+  - enabled: 1
+    path: Assets/Scenes/SeemLess/SeemLess0_1.unity
+    guid: b220dbd0047106c4080f278258e8d223
+  - enabled: 1
+    path: Assets/Scenes/SeemLess/SeemLess0_2.unity
+    guid: 2c8d497a46edc5e4183c5df2df00048b
+  - enabled: 1
+    path: Assets/Scenes/SeemLess/SeemLess1_0.unity
+    guid: 5db8dbd2e4c94c3419dbb859c04276d3
+  - enabled: 1
+    path: Assets/Scenes/SeemLess/SeemLess1_1.unity
+    guid: f7e43c033e868c94b8af41f5b699359f
+  - enabled: 1
+    path: Assets/Scenes/SeemLess/SeemLess1_2.unity
+    guid: 1465a60e97116a148b277d634ac2b663
+  - enabled: 1
+    path: Assets/Scenes/SeemLess/SeemLess2_0.unity
+    guid: 93ed29faec8f02b4a99b436c878d32d9
+  - enabled: 1
+    path: Assets/Scenes/SeemLess/SeemLess2_1.unity
+    guid: 2536bbb7f218c2f4f8067a3f97779a8f
+  - enabled: 1
+    path: Assets/Scenes/SeemLess/SeemLess2_2.unity
+    guid: a76d34887ca0bf845985a66a1e4915d0
+  m_configObjects: {}
