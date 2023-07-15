@@ -60,6 +60,8 @@ public class Slime : PooledObject
 
     public float moveSpeed = 2.0f;
 
+    public float lifeTimeBonus = 3.0f;
+
     const float visibleOutLineThickNess = 0.005f;//아웃라인이 보일때 설정하 두께
     const float visiblePhaseThickNess = 0.1f;//페이즈 진행시 두께
 

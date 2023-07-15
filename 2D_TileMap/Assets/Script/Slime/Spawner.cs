@@ -12,18 +12,21 @@ public class Spawner : MonoBehaviour
 
     float elapsed = 0.0f;//마지막 스폰에서 경과시간
 
+    
+
     public int capacity = 2;//이 스포너가 최대로 유지 가능한 슬라임 수 
     public int count= 0;//현재 스폰된 슬라임 수 
 
     List<Node> spawnAreaList;//스폰이 가능한 지역들을 모아 리스트로 저장
 
     MapManager mapManager;
+    Player player;
 
     private void Start()
     {
         mapManager = GetComponentInParent<MapManager>();
         spawnAreaList = mapManager.CalculateSpawnArea(this);
-
+        player = GameManager.Inst.Player;
     }
     private void Update()
     {
@@ -48,6 +51,7 @@ public class Spawner : MonoBehaviour
             slime.onDie += () =>
             {
                 count--; //죽을때 카운트 감소 
+                player.KillMonster(slime.lifeTimeBonus);
             };
             slime.transform.SetParent(transform); //슬라임을 풀에서 스포너의  자식으로 옮김
             count ++;

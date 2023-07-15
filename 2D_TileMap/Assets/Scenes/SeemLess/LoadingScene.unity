@@ -493,7 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd6441d03887834299de830339a974e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextSceneName: 
+  nextSceneName: SeemLessBase
   loadingBarSpeed: 1
 --- !u!4 &1365773977
 Transform:

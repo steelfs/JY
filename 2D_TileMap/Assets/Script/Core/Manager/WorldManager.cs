@@ -16,18 +16,20 @@ public class WorldManager : MonoBehaviour
     const string SceneNameBase = "SeemLess";//씬이름 조합용 기본 이름
 
     string[] sceneNames; //조합이 완료된 모든 씬의 이름 배열
-
+    
     enum SceneLoadState : byte// 씬의 로딩 상태를 나타낼 enum
     {
         UnLoad = 0, //로딩이 안되어있음
         PendingUnLoad, // 로딩 해제 진행중
         PendingLoad,// 로딩 진행중
         Loaded//로딩 완료됨
+            
     }
 
     private void Start()
     {
         Debug.Log(worldToGrid(new Vector3(41, 30, 0)));
+        
     }
 
     SceneLoadState[] sceneLoadState;
@@ -117,7 +119,7 @@ public class WorldManager : MonoBehaviour
         {
             unloadWork.RemoveAll((x) => x == index);//  있는 것들 중에서 x와 index가 같은 경우 removeAll 해라 지워라
         }
-        loadWorkComplete.Clear();
+        unloadWorkComplete.Clear();
 
         foreach (var index in unloadWork)
         {
@@ -180,7 +182,7 @@ public class WorldManager : MonoBehaviour
             {
                 //contains = 값이 단순히 들어있는지 확인용
                 //exist = 내가 설정한 조건에 맞는것이 있는지 확인하기 위한 것
-                if (open.Contains(new Vector2Int(x, y)))
+                if (!open.Contains(new Vector2Int(x, y)))
                 {
                     RequestAsyncSceneUnLoad(x, y);
                 }

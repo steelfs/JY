@@ -13,19 +13,76 @@ public class Player : MonoBehaviour
     Vector2 oldInputDir = Vector2.zero;// 이동중 공격했을때 공격하기 전의 방향 저장하기 위한 벡터
     public float speed = 5.0f;
 
-     float currentAttackCoolTime = 0.0f; //현재 남아있는 쿨타임
+    private int killCount = int.MinValue;
+    public int KillCount
+    {
+        get => killCount; 
+        set
+        {
+            if (killCount != value)
+            {
+                killCount = value;
+                onKillCountChange?.Invoke(value);
+            }
+        }
+    }
+    float totalPlayTime = 0.0f;
+
+
+
+    float currentAttackCoolTime = 0.0f; //현재 남아있는 쿨타임
     public float attackCoolTime = 0.5f;
     bool AttackReady => currentAttackCoolTime < 0;
     bool isAttackValid = false;// 공격이 현재 유효한지 표시하는 변수 (true면 유효)
 
     List<Slime> attackTargetList; //플레이어의 공격범위 안에 들어와있는 모든 슬라임
     Transform attackSensorAxis;
+    WorldManager worldManager;
 
     bool isMove = false;// 공격이 끝났을 때 이동키를 누르고 있다면 복구를 위해
 
+    Vector2Int currentMapPos;
+    public Vector2Int CurrentMapPos//currentMapPos가 변경되면 델리게이트 실행(현재 플레이어가 위치하고 있는 맵의 좌표 )
+    {
+        get => currentMapPos;
+        set
+        {
+            if (value != currentMapPos)
+            {
+                currentMapPos = value;
+                onMapMoved?.Invoke(currentMapPos);//
+            }
+        }
+    }
+    
     public Action<Vector2Int> onMapMoved;// 플레이어가 있는 서브맵이 변경되었을 때 실행(파라미터 = 진입한 맵의 그리드 좌표)
     public Action<float, int> onDie;// 플레이어가 죽었을 때 실행될 델리게이트 (파라미터 = 전체 플레이 시간, 킬 카운트)
+    public Action<int> onKillCountChange;
 
+    public float maxLifeTime = 10.0f;
+    float lifeTime;
+
+    public float LifeTime
+    {
+        get => lifeTime;
+        set
+        {
+            lifeTime = value;
+            if (lifeTime < 0 && !isDead)
+            {
+                Die();
+            }
+            else
+            {   //살아있는 상태면 최소 0 최대 maxLifeTime 으로 클램프 
+                lifeTime = Mathf.Clamp(lifeTime, 0.0f, maxLifeTime);// lifeTime이  maxLifeTime을 초과할 수 없도록 MathfClamp 사용
+            }
+            onLifeTimeChange?.Invoke(lifeTime / maxLifeTime);// 수명이 변했음을 알림
+        }
+    }
+    public Action<float> onLifeTimeChange;
+
+    bool isDead = false;
+  
     public bool isAttack = false;
 
     readonly int inputXhash = Animator.StringToHash("InputX");
@@ -76,6 +133,12 @@ public class Player : MonoBehaviour
         action.Player.Move.canceled -= OnStop; ;
         action.Player.Move.performed -= OnMove;
         action.Player.Disable();
+    }
+    private void Start()
+    {
+        worldManager = GameManager.Inst.WorldManager;
+        LifeTime = maxLifeTime;
+        KillCount = 0;
     }
     private void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
@@ -174,12 +237,38 @@ public class Player : MonoBehaviour
     private void Update()
     {
         currentAttackCoolTime -= Time.deltaTime;
-        Debug.Log(attackSensorAxis.rotation);
+        LifeTime -= Time.deltaTime;
+        totalPlayTime += Time.deltaTime;
     }
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + Time.fixedDeltaTime * speed * inputDir);
-      
+        CurrentMapPos = worldManager.worldToGrid(rb.position);
+    }
+    private void Die()
+    {
+        isDead = true;//죽었다고 표시 
+        LifeTime = 0.0f; // 수명으 ㄹ깔끔하게 0으로 표시 
+        action.Player.Disable();// 인풋시스템 비활성화
+        onDie?.Invoke(totalPlayTime, killCount);//죽었다고 알리기
     }
 
+    public void KillMonster(float bonus) // param = 추가될 LifeTime
+    {
+        if (!isDead)
+        {
+            LifeTime += bonus;
+            KillCount++;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Vector2 collisionPos;
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            collisionPos = collision.transform.position;
+            
+        }
+    }
+    
 }
