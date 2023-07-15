@@ -1,0 +1,16 @@
+6월 14일 Unassign - 플레이어 스크립트를 원하는 곳 외 다른곳에도 할당을 해 두어 참조해야할 오브젝트를 할당 했음에도  중복으로 스크립트가 들어간곳에 할당을 안해주어
+오류가 남.  원치않는곳에 할당된 Player 스크립트를 삭제해서 해결
+
+6월 15일
+EnemyStrike파괴시 PowerUp Item 두개씩 생성
+	원인 : EnemyStrike 프리팹에 스크립트 두개 할당되어있었음 , 하나 제거해서 해결 
+
+
+
+  TextMeshProUGUI lifeTxt; (TextMeshPro)
+lifeTxt = transform.GetChild(2)   했더니 null참조  
+   해결 lifeTxt = transform.GetChild(2).GetComponent<TextMeshProUGUI>(); GetChild 후 바로 컴포넌트까지 가져올 수 있다.
+
+
+플레이어가 다이함수 실행되도 중력적용받지 않음
+해결 : 인스펙터에서  키네마틱 -> 다이나믹으로 변경 해결
