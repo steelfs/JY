@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/SeemLess/LoadingScene.unity
+    guid: f85ed2e9ddd001d4f82990324c1ce445
+  - enabled: 1
     path: Assets/Scenes/SeemLess/SeemLessBase.unity
     guid: 9396d54a48881b143b5f93d0df76a688
   - enabled: 1
@@ -35,7 +38,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SeemLess/SeemLess2_2.unity
     guid: a76d34887ca0bf845985a66a1e4915d0
-  - enabled: 1
-    path: Assets/Scenes/SeemLess/LoadingScene.unity
-    guid: f85ed2e9ddd001d4f82990324c1ce445
   m_configObjects: {}

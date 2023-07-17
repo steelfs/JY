@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class WorldManager : MonoBehaviour
-{//ㄳ  ㄳ ㅅ
+{
     //서브맵의 가로 
     const int HeightCount = 3;
     const int WidthCount = 3;
