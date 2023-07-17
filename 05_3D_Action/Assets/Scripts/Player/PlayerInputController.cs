@@ -95,31 +95,25 @@ public class PlayerInputController : MonoBehaviour
         inputDir.z = input.y;
         inputDir.y =  -2.0f;// 안내려갈 경우
 
-        float moveSpeed = 0.0f;
-        if (inputDir.x != 0 && inputDir.z != 0)
-        {
-            moveSpeed = Mathf.Abs((inputDir.x + inputDir.z)  * 0.5f);
-        }
-        else if (inputDir.x != 0 )
-        {
-            moveSpeed = Mathf.Abs(inputDir.x);
-        }
-        else if (inputDir.z != 0)
-        {
-            moveSpeed = Mathf.Abs(inputDir.z);
-        }
-        anim.SetFloat(speedHash, moveSpeed); 
+        float moveSpeed = inputDir.x != 0 && inputDir.z != 0 ? Mathf.Max(Mathf.Abs(inputDir.x) , inputDir.z) : inputDir.x != 0 ? Mathf.Abs(inputDir.x) : inputDir.z != 0 ? Mathf.Abs(inputDir.z) : 0;
+ 
+        anim.SetFloat(speedHash, moveSpeed);
 
-       
+        if (input != Vector2.zero)
+        {
+            Vector3 rotateDir = transform.position + inputDir;
+            rotateDir.y = 0;
+            transform.LookAt(rotateDir);
+
+            //if (inputDir.x != 0)
+            //    transform.rotation = Quaternion.Euler(0, inputDir.x * 90, 0);
+            //else if (inputDir.z == -1)
+            //    transform.rotation = Quaternion.Euler(0, 180, 0);
+            //else if (inputDir.z == 1)
+            //    transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+ 
     }
 
-    //1. shift키 누를 시 이동모드 변경 OnMoveModeChange 3, 5
-    //2. 이동 속도에 따라 재생되는 애니메이션 변경 blendTree -> Speed값 조정
-
-    //3. W 누르면 카메라 기준 앞쪽방향으로 이동
-        //A - 카메라 왼쪽
-        //D - 오른쪽
         
-        
-
 }
