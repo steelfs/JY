@@ -9,7 +9,7 @@ using System;
 
 public class LoadingScene : MonoBehaviour
 {
-    public string nextSceneName = "12_BackGroundTileMap"; //다음에 로딩할 씬의 이름
+    public string nextSceneName = "SeemLessBase"; //다음에 로딩할 씬의 이름
 
     AsyncOperation async;//비동기 명령 처리용
 

@@ -229,7 +229,7 @@ public class WorldManager : MonoBehaviour
         Vector2 offset = (Vector2)worldPos - worldOrigin;
         return new Vector2Int((int)(offset.x / mapwidthLength), (int)(offset.y / mapheightLength));
     }
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
     public void TestLoadScene(int x, int y)
     {
         RequestAsyncSceneLoad(x, y);
@@ -242,5 +242,5 @@ public class WorldManager : MonoBehaviour
     {       
         RefreshScenes(x, y);
     }
-#endif
+//#endif
 }
