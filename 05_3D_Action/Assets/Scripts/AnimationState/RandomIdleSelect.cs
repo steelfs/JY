@@ -17,7 +17,8 @@ public class RandomIdleSelect : StateMachineBehaviour
     }
     int randomSelect()
     {
-        return Random.value < 0.15f? 1 : Random.value < 0.3f? 2 : Random.value < 0.45f? 3 : Random.value < 0.6f? 4 : 0;
+        float randValue = Random.value;
+        return randValue < 0.15f? 1 : randValue < 0.3f? 2 : randValue < 0.45f? 3 : randValue < 0.6f? 4 : 0;
     }
 
 }
