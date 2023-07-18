@@ -48,7 +48,7 @@ public class PlayerInputController : MonoBehaviour
 
     Vector3 inputDir = Vector3.zero;
     Quaternion targetRotation = Quaternion.identity;
-    public float turnSpeed = 10.0f;
+    public float turnSpeed = 5.0f;
 
     CharacterController characterController;
     private void Awake()
@@ -81,9 +81,7 @@ public class PlayerInputController : MonoBehaviour
     {
         characterController.Move(Time.deltaTime * currentSpeed * inputDir); // 비교적 수동에 가까운 느낌       
                                                                             //  characterController.SimpleMove(currentSpeed * inputDir); // 자동에 가까운 느낌
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed); 
-        
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);        
     }
     private void OnMoveModeChange(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
@@ -108,10 +106,11 @@ public class PlayerInputController : MonoBehaviour
 
         anim.SetFloat(speedHash, moveSpeed);
 
-        Quaternion camYRotation = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, 0);
+        Quaternion camYRotation = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, 0);// 카메라의 y축 회전값 가져오기
         inputDir.y = 0.0f; // 앞서 바닥으로 내려오지 않는 현상 때문에 Y 값을 -2 했기 때문에 값을 다시 초기화 해주지 않으면 x축이 회전하게 된다.
         inputDir = camYRotation * inputDir;// 카메라의 Y축 회전값을 입력 방향에 곱해서 같이 회전시키기// 생략할 시 월드기준으로 항상 같은 방향으로 회전하게 된다. 
 
+        if (!context.canceled)
         targetRotation =  Quaternion.LookRotation(inputDir);
         //if (input != Vector2.zero)
         //{
