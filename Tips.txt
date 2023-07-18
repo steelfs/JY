@@ -78,3 +78,20 @@ startSpeed 움직이는 속도
 Play On Awake
 게임시작시 자동시작 or 수동으로 플레이 할 건지 결정
 Max Particle 갯수 제한
+StopAction - 재생이 끝난 후 액션
+Culling Mode 카메라에 랜더링 되지 않을때 어떻게 할 것인가
+
+Renderer
+BillBoard 기법 간단한 눈속임 판때기를 시야의 각도로 회전시켜서 3D처럼 느끼게 함
+sortmode 설정시 연산이 많아 진다. 
+
+
+Emission,
+	rate over time - 몇개를 생성할 것인가  10 - 초당 10개 생성
+	rate over distance - 움직인 거리에 비례해서 갯수를 증가시킨다
+	burst - 폭발적으로 한번에 생성
+
+Shape
+	어떤 모양으로 파티클을 뿌릴 것인가
+
+Material Shader - URP - Particle - Unlit
