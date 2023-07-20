@@ -170,6 +170,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ChainLightning",
+                    "type": "Button",
+                    "id": "4cb1a6e2-dbc7-4225-a43f-fa7d9d097df7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -291,6 +300,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ChangeMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ded1c32e-51d9-4ec1-8e65-f0101f85a593",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChainLightning",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

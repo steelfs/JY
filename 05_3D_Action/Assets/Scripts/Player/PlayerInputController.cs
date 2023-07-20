@@ -63,7 +63,12 @@ public class PlayerInputController : MonoBehaviour
         action.Player.Move.performed += OnMove;
         action.Player.Move.canceled += OnMove;
         action.Player.ChangeMode.performed += OnMoveModeChange;
+        action.Player.ChainLightning.performed += ChainLightning;
+    }
 
+    private void ChainLightning(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+       
     }
 
     private void OnDisable()
