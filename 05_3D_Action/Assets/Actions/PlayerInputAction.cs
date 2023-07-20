@@ -192,6 +192,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChainLightning"",
+                    ""type"": ""Button"",
+                    ""id"": ""4cb1a6e2-dbc7-4225-a43f-fa7d9d097df7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -315,6 +324,17 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""ChangeMode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ded1c32e-51d9-4ec1-8e65-f0101f85a593"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChainLightning"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -379,6 +399,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_ChangeMode = m_Player.FindAction("ChangeMode", throwIfNotFound: true);
+        m_Player_ChainLightning = m_Player.FindAction("ChainLightning", throwIfNotFound: true);
         // Effect
         m_Effect = asset.FindActionMap("Effect", throwIfNotFound: true);
         m_Effect_PointerMove = m_Effect.FindAction("PointerMove", throwIfNotFound: true);
@@ -539,12 +560,14 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_ChangeMode;
+    private readonly InputAction m_Player_ChainLightning;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
         public PlayerActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @ChangeMode => m_Wrapper.m_Player_ChangeMode;
+        public InputAction @ChainLightning => m_Wrapper.m_Player_ChainLightning;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -560,6 +583,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @ChangeMode.started += instance.OnChangeMode;
             @ChangeMode.performed += instance.OnChangeMode;
             @ChangeMode.canceled += instance.OnChangeMode;
+            @ChainLightning.started += instance.OnChainLightning;
+            @ChainLightning.performed += instance.OnChainLightning;
+            @ChainLightning.canceled += instance.OnChainLightning;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -570,6 +596,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @ChangeMode.started -= instance.OnChangeMode;
             @ChangeMode.performed -= instance.OnChangeMode;
             @ChangeMode.canceled -= instance.OnChangeMode;
+            @ChainLightning.started -= instance.OnChainLightning;
+            @ChainLightning.performed -= instance.OnChainLightning;
+            @ChainLightning.canceled -= instance.OnChainLightning;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -656,6 +685,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnChangeMode(InputAction.CallbackContext context);
+        void OnChainLightning(InputAction.CallbackContext context);
     }
     public interface IEffectActions
     {
