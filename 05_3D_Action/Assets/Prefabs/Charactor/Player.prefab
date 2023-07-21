@@ -606,6 +606,7 @@ GameObject:
   - component: {fileID: 1621651703715955782}
   - component: {fileID: 1498185915977601868}
   - component: {fileID: 1498185915977601867}
+  - component: {fileID: 8375385309019641051}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -687,6 +688,20 @@ MonoBehaviour:
   walkSpeed: 3
   runSpeed: 7
   turnSpeed: 5
+--- !u!114 &8375385309019641051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891558505329716134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d1acbac15857b54abab4a03b209b76d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponParent: {fileID: 3583921758577965431}
+  shieldParent: {fileID: 2841215842074736348}
 --- !u!1 &2230109900343534633
 GameObject:
   m_ObjectHideFlags: 0

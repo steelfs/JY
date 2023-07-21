@@ -16,6 +16,8 @@ public class PlayerInputController : MonoBehaviour
 
     int speedHash = Animator.StringToHash("Speed");
     int attackHash = Animator.StringToHash("Attack");
+    int skillHash = Animator.StringToHash("Skill");
+    int dieHash = Animator.StringToHash("Die");
 
     Vector3 rotateAngle;
 
@@ -67,9 +69,19 @@ public class PlayerInputController : MonoBehaviour
         action.Player.Move.canceled += OnMove;
         action.Player.ChangeMode.performed += OnMoveModeChange;
         action.Player.Attack.performed += OnAttack;
+        action.Player.Skill.performed += Skill_performed;
+        action.Player.Die.performed += Die_performed;
     }
 
+    private void Die_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
+    {
+        anim.SetTrigger(dieHash);
+    }
 
+    private void Skill_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
+    {
+        anim.SetTrigger(skillHash);
+    }
 
     private void OnDisable()
     {
@@ -81,11 +93,11 @@ public class PlayerInputController : MonoBehaviour
     }
     private void Start()
     {
-        MoveSpeedMode = MoveMode.Run;
+        MoveSpeedMode = MoveMode.Walk;
     }
     private void Update()
     {
-        characterController.Move(Time.deltaTime * currentSpeed * inputDir); // 비교적 수동에 가까운 느낌   
+       characterController.Move(Time.deltaTime * currentSpeed * inputDir); // 비교적 수동에 가까운 느낌   
                                                                             //  characterController.SimpleMove(currentSpeed * inputDir); // 자동에 가까운 느낌
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);        
     }
@@ -104,7 +116,7 @@ public class PlayerInputController : MonoBehaviour
     private void OnAttack(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         if (currentSpeed != runSpeed)
-        anim.SetTrigger("Attack");
+        anim.SetTrigger(attackHash);
     }
     private void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
@@ -124,7 +136,8 @@ public class PlayerInputController : MonoBehaviour
         if (!context.canceled)
             targetRotation = Quaternion.LookRotation(inputDir);
 
-    
+      //  StartCoroutine(MovingCoroutine());
+        //코루틴으로 이동?
         //if (input != Vector2.zero)
         //{
         //    Vector3 rotateDir = transform.position + inputDir;
@@ -140,6 +153,14 @@ public class PlayerInputController : MonoBehaviour
         //}
 
     }
+    //IEnumerator MovingCoroutine()
+    //{
+    //    while (inputDir != Vector3.zero)
+    //    {
+    //        characterController.Move(Time.deltaTime * currentSpeed * inputDir); // 비교적 수동에 가까운 느낌   
+    //        yield return null;
+    //    }
+    //    yield break;
+    //}
 
-        
 }
