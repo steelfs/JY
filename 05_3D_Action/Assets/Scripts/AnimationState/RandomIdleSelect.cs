@@ -13,7 +13,7 @@ public class RandomIdleSelect : StateMachineBehaviour
         {
             animator.SetInteger("IdleSelect", randomSelect());
         }
-
+     
     }
     int randomSelect()
     {

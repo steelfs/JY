@@ -172,9 +172,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ChainLightning",
+                    "name": "Attack",
                     "type": "Button",
-                    "id": "4cb1a6e2-dbc7-4225-a43f-fa7d9d097df7",
+                    "id": "60eec9b5-4e8b-4e9c-a67c-e25f66230f84",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -305,12 +305,12 @@
                 },
                 {
                     "name": "",
-                    "id": "ded1c32e-51d9-4ec1-8e65-f0101f85a593",
-                    "path": "<Keyboard>/ctrl",
+                    "id": "35d77d89-237e-43ba-bacc-6d2b0a864bb5",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChainLightning",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

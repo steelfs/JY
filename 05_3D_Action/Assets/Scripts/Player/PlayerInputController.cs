@@ -12,7 +12,10 @@ public class PlayerInputController : MonoBehaviour
     public float runSpeed = 6.0f;
     float currentSpeed = 3.0f;
 
+
+
     int speedHash = Animator.StringToHash("Speed");
+    int attackHash = Animator.StringToHash("Attack");
 
     Vector3 rotateAngle;
 
@@ -63,19 +66,17 @@ public class PlayerInputController : MonoBehaviour
         action.Player.Move.performed += OnMove;
         action.Player.Move.canceled += OnMove;
         action.Player.ChangeMode.performed += OnMoveModeChange;
-        action.Player.ChainLightning.performed += ChainLightning;
+        action.Player.Attack.performed += OnAttack;
     }
 
-    private void ChainLightning(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-       
-    }
+
 
     private void OnDisable()
     {
         action.Player.Move.performed -= OnMove;
         action.Player.Move.canceled -= OnMove;
         action.Player.ChangeMode.performed -= OnMoveModeChange;
+        action.Player.Attack.performed -= OnAttack;
         action.Player.Disable();
     }
     private void Start()
@@ -99,6 +100,11 @@ public class PlayerInputController : MonoBehaviour
                 MoveSpeedMode = MoveMode.Run;
                 break;
         }
+    }
+    private void OnAttack(UnityEngine.InputSystem.InputAction.CallbackContext _)
+    {
+        if (MoveSpeedMode == MoveMode.Walk || currentSpeed  > 0.001f)
+        anim.SetTrigger("Attack");
     }
     private void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
