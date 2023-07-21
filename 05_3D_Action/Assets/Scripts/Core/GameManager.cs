@@ -23,5 +23,7 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         ItemData data = GameManager.Inst.ItemData[ItemCode.Ruby];
+        Inventory inven = new Inventory(player);
+        InvenSlot slot = inven[0];
     }
 }
