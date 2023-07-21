@@ -85,7 +85,7 @@ public class PlayerInputController : MonoBehaviour
     }
     private void Update()
     {
-        characterController.Move(Time.deltaTime * currentSpeed * inputDir); // 비교적 수동에 가까운 느낌       
+        characterController.Move(Time.deltaTime * currentSpeed * inputDir); // 비교적 수동에 가까운 느낌   
                                                                             //  characterController.SimpleMove(currentSpeed * inputDir); // 자동에 가까운 느낌
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);        
     }
@@ -103,7 +103,7 @@ public class PlayerInputController : MonoBehaviour
     }
     private void OnAttack(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
-        if (MoveSpeedMode == MoveMode.Walk || currentSpeed  > 0.001f)
+        if (currentSpeed != runSpeed)
         anim.SetTrigger("Attack");
     }
     private void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
@@ -122,7 +122,9 @@ public class PlayerInputController : MonoBehaviour
         inputDir = camYRotation * inputDir;// 카메라의 Y축 회전값을 입력 방향에 곱해서 같이 회전시키기// 생략할 시 월드기준으로 항상 같은 방향으로 회전하게 된다. 
 
         if (!context.canceled)
-        targetRotation =  Quaternion.LookRotation(inputDir);
+            targetRotation = Quaternion.LookRotation(inputDir);
+
+    
         //if (input != Vector2.zero)
         //{
         //    Vector3 rotateDir = transform.position + inputDir;
