@@ -113,6 +113,8 @@ waypoints = new Transform[2]; 으로 배열을 새로 만들어준 후 할당해
 애니메이션 직접 연결 말고 Exit으로 연결도 가능
 StateMachineBehaviour 의 OnStateExit는 하나의 애니메이션이 종료될 때 실행되지만 해당 애니메이션이 StateMachine 안에 있다면,
 				 해당 애니메이션이 끝나고 Exit으로 이동해서 소속된 해당 StateMachine이 끝나야 호출이 된다.
+	또한 IdelSelect 의 값이 몇이든 상관 없이 무조건 defaultState로 이동하는 문제
+	OnstateEnter에서 player의 무기와 방패를 SetActive(False) 로 하고있지만 Default State로 이동하면 다시 true가 되는 현상이 있다.
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
     public ItemData this[ItemCode code] => itemDatas[(int)code];
  this 부분에는 ItemData 가 들어가는게 아니라  위 코드를 정의한 클래스를 넣어줘야 한다.
