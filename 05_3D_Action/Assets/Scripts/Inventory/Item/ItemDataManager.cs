@@ -8,6 +8,12 @@ public enum ItemCode
     Emerald,
     Saphaire
 }
+public enum ItemSortBy// itemdata 안에있는 것 들 중 어떤것을 기준으로 정렬할 것인가 
+{
+    Code,
+    Name,
+    Price
+}
 //모든 아ㅣ템 종류에 대한 정보를 갖고 있는 관리자 클래스. 게임메니저를 통해 접근 가능
 public class ItemDataManager : MonoBehaviour
 {

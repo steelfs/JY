@@ -52,6 +52,7 @@ public class InvenSlot
         slotIndex = index;// slotIndex는 이후로 절대 변하면 안된다.
         ItemCount = 0;
         IsEquipped = false;
+        ItemData = null;
     }
     public void AssignSlotItem(ItemData Data, uint count = 1)//이 슬롯에 아이템을 설정하는 함수 , param = 설정할 아이템종류, 개수
     {
@@ -112,6 +113,7 @@ public class InvenSlot
             Debug.Log($"인벤토리 {slotIndex} 번째 슬롯에 \"{ItemData.itemName}\" 아이템이 {decreaseCount} 개 만큼 감소 현재 {ItemCount} 개");
         }
     }
+ 
     public void UseItem(GameObject target)
     {
 
