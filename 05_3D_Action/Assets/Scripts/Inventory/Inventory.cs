@@ -44,9 +44,11 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
         if (sameDataSlot != null)
         {
             //같은종류의 아이템이 있다.
+            sameDataSlot.IncreaseSlotItem(out uint overCount, 1);
         }
         else
         {
+            sameDataSlot.AssignSlotItem(data, 1);
             //같은종류의 아이템이 없다.
         }
 
@@ -66,23 +68,20 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
     //인벤토리를 정렬하는 함수 
     InvenSlot FindSameItem(ItemData data)//인벤토리에 파라미터와 같은 종류의 아이템이 들어있는 슬롯을 찾는 함수 
     {
-        InvenSlot _slot = null;
-        foreach(InvenSlot slot in slots)
+        foreach (InvenSlot slot in slots)
         {
             if (slot.ItemData == data)
             {
-                slot.IncreaseSlotItem(out uint overCount, 1);
-                _slot = slot;
+                return slot;
             }
         }
         foreach(InvenSlot slot in slots)
         {
             if (slot.isEmpty)
             {
-                slot.AssignSlotItem(data, 1);
-                _slot = slot;
+                return slot;
             }
         }
-        return _slot;
+        return null;
     }
 }
