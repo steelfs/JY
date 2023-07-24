@@ -113,7 +113,8 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
                     ItemData itemData = fromSlot.ItemData;
                     uint tempCount = fromSlot.ItemCount;
                     fromSlot.AssignSlotItem(toSlot.ItemData, toSlot.ItemCount);
-                    toSlot.AssignSlotItem(tempSlot.ItemData, tempCount);
+                    toSlot.AssignSlotItem(itemData, tempCount);
+                    Debug.Log($"{from}번 슬롯과 {to}번 슬롯의 아이템 교체");
                 }
             }
         }
@@ -268,12 +269,11 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
     public void PrintInventory()
     {
         string printText = "";
-        foreach(InvenSlot slot in slots)
+        for (int i = 0; i < SlotCount; i++)
         {
-            if (!slot.isEmpty)
+            if (!slots[i].isEmpty)
             {
-                printText += $"{slot.ItemData.itemName} ({slot.ItemCount}/{slot.ItemData.maxStackCount})";
-          
+                printText += $"{slots[i].ItemData.itemName} {slots[i].ItemCount}/{slots[i].ItemData.maxStackCount},";
             }
             else
             {

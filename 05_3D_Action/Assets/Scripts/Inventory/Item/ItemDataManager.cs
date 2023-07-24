@@ -6,7 +6,7 @@ public enum ItemCode
 {
     Ruby = 0,
     Emerald,
-    Saphaire
+    Sapphire
 }
 public enum ItemSortBy// itemdata 안에있는 것 들 중 어떤것을 기준으로 정렬할 것인가 
 {
