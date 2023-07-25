@@ -124,29 +124,29 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
         if (IsValidIndex(slotIndex))
         {
             InvenSlot slot = slots[slotIndex];
-            slot.DecreaseSlotItem(count);
             tempSlot.AssignSlotItem(slot.ItemData, count);
+            slot.DecreaseSlotItem(count);
         }
     }
     public void SlotSorting(ItemSortBy sortBy, bool isAcending = true)//isAcending = true면 오름차순
     {
-        List<InvenSlot> beforeSlots = new List<InvenSlot>(SlotCount);
-        foreach(InvenSlot slot in slots)
-        {
-            beforeSlots.Add(slot);
-        }
-        switch (sortBy)
+        List<InvenSlot> beforeSlots = new List<InvenSlot>(slots);// slots배열을 이용해서 리스트 만들기
+        //foreach(InvenSlot slot in slots)
+        //{
+        //    beforeSlots.Add(slot);
+        //}
+        switch (sortBy)// sort 함수의파라미터로 들어갈 람다함수를 다르게 작성
         {
             case ItemSortBy.Code:
-                beforeSlots.Sort((x, y) =>
+                beforeSlots.Sort((x, y) => // x, y는 서로 비교할 2개 beforeslots 에 들어있는 2개
                 {
-                    if (x.ItemData == null)
+                    if (x.ItemData == null) // itemData는 비어있을 수 있으니 비어있으면 비어있는것이 뒤쪽으로 설정
                         return 1;
                     if (y.ItemData == null)
                         return -1;
                     if (isAcending)
                     {
-                        return x.ItemData.code.CompareTo(y.ItemData.code);
+                        return x.ItemData.code.CompareTo(y.ItemData.code);// 오름차순일때 CompareTo 함수로 비교 
                     }
                     else
                     {
@@ -189,15 +189,29 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
                 });
                 break;
         }
-        List<(ItemData, uint)> sortedData = new List<(ItemData, uint)>(SlotCount);
-        foreach(var slot in beforeSlots)
+        //beforeSlots는 이 시점에서 정해진 기준에 따하 정렬 완료
+
+        //List<(ItemData, uint)> sortedData = new List<(ItemData, uint)>(SlotCount);//아이템 종류와 개수를 따로 저장하기
+        //foreach(var slot in beforeSlots)
+        //{
+        //    sortedData.Add((slot.ItemData, slot.ItemCount));
+        //}
+
+        ////슬롯에 아이템 종류와 개수를 순서대로 할당하기
+        //int index = 0;
+        //foreach(var data in sortedData)
+        //{
+        //    slots[index].AssignSlotItem(data.Item1, data.Item2);
+        //}
+        slots = beforeSlots.ToArray();//위 코드는 수동으로 넣기
+        RefreshInventory();
+    }
+
+    void RefreshInventory()//모든슬롯이 변경되었음을 알리는 함수 
+    {
+        foreach (var slot in slots)
         {
-            sortedData.Add((slot.ItemData, slot.ItemCount));
-        }
-        int index = 0;
-        foreach(var data in sortedData)
-        {
-            slots[index].AssignSlotItem(data.Item1, data.Item2);
+            slot.onSlotItemChange?.Invoke();
         }
     }
     public void RemoveItem(uint slotIndex, uint decreaseCount = 1)
