@@ -58,7 +58,7 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
             else
             {
                 // 빈 슬롯이 없다.
-                Debug.Log("아이템 추가 실패 , 인벤토리가 가득차 있습니다.");
+            //    Debug.Log("아이템 추가 실패 , 인벤토리가 가득차 있습니다.");
             }
         }
 
@@ -84,13 +84,13 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
                 }
                 else
                 {
-                    Debug.Log($"해당 슬롯에 아이템을 추가할 수 없습니다.{slotIndex} 번째 다른 아이템이 들어있습니다.");
+              //      Debug.Log($"해당 슬롯에 아이템을 추가할 수 없습니다.{slotIndex} 번째 다른 아이템이 들어있습니다.");
                 }
             }
         }
         else
         {
-            Debug.Log("해당 슬롯에 아이템을 추가할 수 없습니다.");
+        //    Debug.Log("해당 슬롯에 아이템을 추가할 수 없습니다.");
         }
         return result;
     }
@@ -106,7 +106,7 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
                 {
                     toSlot.IncreaseSlotItem(out uint overCount, fromSlot.ItemCount);//
                     fromSlot.DecreaseSlotItem(fromSlot.ItemCount - overCount);//넘친만큼 fromSlot의 개수 감소
-                    Debug.Log($"{from} 슬롯에서 {to}슬롯으로 아이템 합침");
+                //    Debug.Log($"{from} 슬롯에서 {to}슬롯으로 아이템 합침");
                 }
                 else
                 {
@@ -114,7 +114,7 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
                     uint tempCount = fromSlot.ItemCount;
                     fromSlot.AssignSlotItem(toSlot.ItemData, toSlot.ItemCount);
                     toSlot.AssignSlotItem(itemData, tempCount);
-                    Debug.Log($"{from}번 슬롯과 {to}번 슬롯의 아이템 교체");
+                //    Debug.Log($"{from}번 슬롯과 {to}번 슬롯의 아이템 교체");
                 }
             }
         }
@@ -223,7 +223,7 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
         }
         else
         {
-            Debug.Log($"감소 실패 : {slotIndex} 는 없는 인덱스 입니다.");
+         //   Debug.Log($"감소 실패 : {slotIndex} 는 없는 인덱스 입니다.");
         }
     }
     public void ClearSlot(uint slotIndex)
@@ -235,7 +235,7 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
         }
         else
         {
-            Debug.Log($"삭제 실패 : {slotIndex} 는 없는 인덱스 입니다.");
+        //    Debug.Log($"삭제 실패 : {slotIndex} 는 없는 인덱스 입니다.");
         }
     }
     public void ClearInventory()

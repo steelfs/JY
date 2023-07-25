@@ -5,12 +5,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+//인벤토리 슬롯의 UI
 public class InvenSlotUI : SlotUIBase,IDragHandler, IBeginDragHandler,IEndDragHandler,IPointerClickHandler, IPointerEnterHandler,IPointerExitHandler,IPointerMoveHandler
 {
     TextMeshProUGUI equippedText;
 
     public Action<uint> onDragBegin;
-    public Action<uint> onDragEnd;
+    public Action<uint, bool> onDragEnd;
     public Action<uint> onClick;
     public Action<uint> onPointerEnter;
     public Action<uint> onPointerExit;
@@ -21,7 +22,7 @@ public class InvenSlotUI : SlotUIBase,IDragHandler, IBeginDragHandler,IEndDragHa
         base.Awake();
         equippedText = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
     }
-    protected override void OnRefresh()
+    protected override void OnRefresh()//장비중이면 빨간색
     {
         if (InvenSlot.IsEquipped)
         {
@@ -45,38 +46,56 @@ public class InvenSlotUI : SlotUIBase,IDragHandler, IBeginDragHandler,IEndDragHa
         base.InitilizeSlot(slot);
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void OnDrag(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        //OnBeginDrag 와 OnEndDrag 를 발동시키기위해 추가한 것 , 별도 실행코드 없음
     }
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        Debug.Log($"드레그 시작 : {Index} 번 슬롯");
+        onDragBegin?.Invoke(Index);
+    }
+
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        GameObject obj = eventData.pointerCurrentRaycast.gameObject;// 마우스를 땠을때 마우스의 위치에 있는 오브젝트 불러오기
+        if (obj != null)
+        {
+            InvenSlotUI endSlot = obj.GetComponent<InvenSlotUI>();
+            if (endSlot != null)
+            {
+                Debug.Log($"드래그 종료 : {endSlot.Index}번 슬롯");
+                onDragEnd?.Invoke(endSlot.Index, true);
+            }
+            else
+            {
+                Debug.Log("슬롯이 아닙니다.");
+                onDragEnd?.Invoke(Index, false);
+            }
+        }
+        else
+        {
+            Debug.Log("아무런 오브젝트가 없습니다.");
+        }
+        Debug.Log($"드레그 종료 : {Index} 번 슬롯");
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        onClick?.Invoke(Index);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        onPointerEnter?.Invoke(Index);
     }
-
     public void OnPointerExit(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        onPointerExit?.Invoke(Index);
     }
-
     public void OnPointerMove(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        onPointerMove?.Invoke(eventData.position);
     }
 }

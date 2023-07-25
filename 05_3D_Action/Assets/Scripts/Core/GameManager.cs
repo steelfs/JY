@@ -9,11 +9,14 @@ public class GameManager : Singleton<GameManager>
 
     ItemDataManager itemDataManager;
     public ItemDataManager ItemData => itemDataManager;
+    InventoryUI inventoryUI;
+    public InventoryUI InvenUI => inventoryUI;
 
     protected override void OnPreInitialize()
     {
         base.OnPreInitialize();
         itemDataManager = GetComponent<ItemDataManager>();
+        inventoryUI = FindObjectOfType<InventoryUI>();
     }
     protected override void OnInitialize()
     {

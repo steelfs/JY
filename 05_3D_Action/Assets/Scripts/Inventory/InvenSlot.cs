@@ -61,7 +61,7 @@ public class InvenSlot
             ItemData = Data;
             ItemCount = count;
             IsEquipped = false;
-            Debug.Log($"인벤토리 {slotIndex} 슬롯에 \"{ItemData.itemName}\" 아이템이 {itemCount} 개 설정");
+           // Debug.Log($"인벤토리 {slotIndex} 슬롯에 \"{ItemData.itemName}\" 아이템이 {itemCount} 개 설정");
         }
         else
         {
@@ -73,7 +73,7 @@ public class InvenSlot
         ItemData = null;
         ItemCount = 0;
         IsEquipped = false;
-        Debug.Log($"인벤토리 {slotIndex} 번째 슬롯을 비웁니다.");
+       // Debug.Log($"인벤토리 {slotIndex} 번째 슬롯을 비웁니다.");
      
     }
     public bool IncreaseSlotItem(out  uint overCount, uint increaseCount = 1)//슬롯에 아이템 개수를 추가하는 함수  overCount = 출력용 // true면 성공, false면 넘쳤다.
@@ -88,14 +88,14 @@ public class InvenSlot
             ItemCount = ItemData.maxStackCount;
             overCount = (uint)over;
             result = false;
-            Debug.Log($"인벤토리 {slotIndex} 번재 빈슬롯에 \"{ItemData.itemName}\" 이 최대치까지 증가 현재  {ItemCount} 개 {over} 개 넘침");
+         //   Debug.Log($"인벤토리 {slotIndex} 번재 빈슬롯에 \"{ItemData.itemName}\" 이 최대치까지 증가 현재  {ItemCount} 개 {over} 개 넘침");
         }
         else
         {
             ItemCount = newCount;
             overCount = 0;
             result = true;
-            Debug.Log($"인벤토리 {slotIndex} 번재 빈슬롯에 \"{ItemData.itemName}\" 이 {increaseCount} 만큼 증가 현재  {ItemCount} 개");
+//Debug.Log($"인벤토리 {slotIndex} 번재 빈슬롯에 \"{ItemData.itemName}\" 이 {increaseCount} 만큼 증가 현재  {ItemCount} 개");
         }
 
         return result;
@@ -110,7 +110,7 @@ public class InvenSlot
         else//아이템이 남아있는 경우 
         {
             ItemCount = (uint)newCount;
-            Debug.Log($"인벤토리 {slotIndex} 번째 슬롯에 \"{ItemData.itemName}\" 아이템이 {decreaseCount} 개 만큼 감소 현재 {ItemCount} 개");
+          //  Debug.Log($"인벤토리 {slotIndex} 번째 슬롯에 \"{ItemData.itemName}\" 아이템이 {decreaseCount} 개 만큼 감소 현재 {ItemCount} 개");
         }
     }
  
