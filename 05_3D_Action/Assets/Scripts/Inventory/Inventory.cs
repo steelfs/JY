@@ -283,19 +283,28 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
     public void PrintInventory()
     {
         string printText = "";
-        for (int i = 0; i < SlotCount; i++)
+        for (int i = 0; i < SlotCount - 1; i++)
         {
             if (!slots[i].isEmpty)
             {
-                printText += $"{slots[i].ItemData.itemName} {slots[i].ItemCount}/{slots[i].ItemData.maxStackCount},";
+                printText += $"{slots[i].ItemData.itemName}({slots[i].ItemCount}/{slots[i].ItemData.maxStackCount})";
             }
             else
             {
                 printText += "(빈칸)";
             }
+            printText += ",  ";
+        }
+
+        InvenSlot last = slots[slots.Length - 1];
+        if (!last.isEmpty)
+        {
+            printText += $"{last.ItemData.itemName}({last.ItemCount}/{last.ItemData.maxStackCount})";
+        }
+        else
+        {
+            printText += "(빈칸)";
         }
         Debug.Log(printText);
-        InvenSlot last = slots[slots.Length - 1];
-
     }
 }
