@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 //인벤토리 슬롯의 UI
-public class InvenSlotUI : SlotUIBase,IDragHandler, IBeginDragHandler,IEndDragHandler,IPointerClickHandler, IPointerEnterHandler,IPointerExitHandler,IPointerMoveHandler,IPointerDownHandler,IPointerUpHandler
+public class InvenSlotUI : SlotUIBase,IDragHandler, IBeginDragHandler,IEndDragHandler,IPointerClickHandler, IPointerEnterHandler,IPointerExitHandler,IPointerMoveHandler
 {
     TextMeshProUGUI equippedText;
 
@@ -16,8 +16,6 @@ public class InvenSlotUI : SlotUIBase,IDragHandler, IBeginDragHandler,IEndDragHa
     public Action<uint> onPointerEnter;
     public Action<uint> onPointerExit;
 
-    public Action onPointerDown;
-    public Action onPointerUp;
     public Action<Vector2> onPointerMove;
 
     protected override void Awake()
@@ -25,10 +23,7 @@ public class InvenSlotUI : SlotUIBase,IDragHandler, IBeginDragHandler,IEndDragHa
         base.Awake();
         equippedText = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
     }
-    private void Start()
-    {
-        
-    }
+
     protected override void OnRefresh()//장비중이면 빨간색
     {
         if (InvenSlot.IsEquipped)
@@ -49,7 +44,6 @@ public class InvenSlotUI : SlotUIBase,IDragHandler, IBeginDragHandler,IEndDragHa
         onPointerEnter = null;
         onPointerExit = null;
         onPointerMove = null;
-        onPointerDown = null;
         base.InitilizeSlot(slot);
     }
 
@@ -104,15 +98,5 @@ public class InvenSlotUI : SlotUIBase,IDragHandler, IBeginDragHandler,IEndDragHa
     public void OnPointerMove(PointerEventData eventData)
     {
         onPointerMove?.Invoke(eventData.position);
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        onPointerDown?.Invoke();// 클릭시 디테일 팝업 방지용
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        onPointerUp?.Invoke();
     }
 }

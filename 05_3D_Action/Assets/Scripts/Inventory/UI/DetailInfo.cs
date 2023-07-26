@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class DetailInfo : MonoBehaviour
@@ -16,8 +17,20 @@ public class DetailInfo : MonoBehaviour
     TextMeshProUGUI itemDescription;
 
     InvenSlot invenSlot;
-
-    RectTransform rectTransform;
+    bool isPause = false;
+    public bool IsPause
+    {
+        get => isPause;
+        set
+        {
+            isPause = value;
+            if (isPause)
+            {
+                Close();
+            }
+        }
+    }
+    float alphaChangeSpeed = 5.0f;
 
     private void Awake()
     {
@@ -32,7 +45,6 @@ public class DetailInfo : MonoBehaviour
         child = transform.GetChild (4);
         itemDescription = child.GetComponent<TextMeshProUGUI>();
 
-        rectTransform = GetComponent<RectTransform>();
     }
     private void Start()
     {
@@ -40,52 +52,63 @@ public class DetailInfo : MonoBehaviour
     }
     public void Open(ItemData data)
     {
-        if (data != null && !inventoryUI.IsMoving)
+        if (!IsPause && data != null)// && !inventoryUI.IsMoving)
         {
             itemIcon.sprite = data.itemIcon;
             itemName.text = data.itemName;
             itemPrice.text = data.price.ToString("N0");
             itemDescription.text = data.itemDescription.ToString();
 
+            MovePosition(Mouse.current.position.ReadValue());
             // canvasGroup.alpha = 1.0f;
-            StartCoroutine(IncreaseAlpha()); 
+            StopAllCoroutines();
+            StartCoroutine(FadeIn()); 
         }
     }
     public void Close()
     {
         //canvasGroup.alpha = 0.0f;
-        StartCoroutine(DecreaseAlpha());
+        StopAllCoroutines();
+        StartCoroutine(FadeOut());
     }
-    IEnumerator IncreaseAlpha()
+    IEnumerator FadeIn()
     {
         while (canvasGroup.alpha < 1.0f)
         {
-            canvasGroup.alpha += 0.1f;
+            canvasGroup.alpha += Time.deltaTime * alphaChangeSpeed;
             yield return null;
         }
+        canvasGroup.alpha = 1.0f;
         yield break;
     }
-    IEnumerator DecreaseAlpha()
+    IEnumerator FadeOut()
     {
         while (canvasGroup.alpha > 0.0f)
         {
-            canvasGroup.alpha -= 0.1f;
+            canvasGroup.alpha -= Time.deltaTime * alphaChangeSpeed;
             yield return null;
         }
+        canvasGroup.alpha = 0.0f;
         yield break;
     }
-    public void MovePosition(Vector2 eventDataPos)
+    public void MovePosition(Vector2 screenPos)
     {
         if (canvasGroup.alpha > 0.0f)
         {
-            transform.position = eventDataPos;
-            if (rectTransform.anchoredPosition.x > -50.0f)
-            {
-                Vector2 newPos = rectTransform.anchoredPosition;
-                newPos.x = -50.0f;
-                rectTransform.anchoredPosition = newPos;
-                Debug.Log("범위 벗어남");
-            }
+            RectTransform rectTransform = (RectTransform)transform;
+
+            int overX = (int)(screenPos.x + rectTransform.sizeDelta.x) - Screen.width;//화면밖으로 넘친부분 계산, 저장
+            overX = Mathf.Max(0, overX); //음수일경우 0
+            screenPos.x -= overX;//넘친만큼 왼쪽으로 이동
+
+            transform.position = screenPos;
+            //if (rectTransform.anchoredPosition.x > -50.0f) //내가 쓴 코드
+            //{
+            //    Vector2 newPos = rectTransform.anchoredPosition;
+            //    newPos.x = -50.0f;
+            //    rectTransform.anchoredPosition = newPos;
+            //    Debug.Log("범위 벗어남");
+            //}
         }
     }
     public void OnDetailPause()
