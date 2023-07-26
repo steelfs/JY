@@ -10,13 +10,18 @@ public class InventoryUI : MonoBehaviour
 
     TempSlotUI tempSlotUI; // 아이템 이동, 분리시 사용함 임시슬롯의 UI
 
+    DetailInfo itemDetailInfo;
+
     public Player Owner => inven.Owner; //이 인벤토리의 소유자를 확인하기 위한 프로퍼티 
+
+    public bool IsMoving { get; set; } = false;
 
     private void Awake()
     {
         Transform  child = transform.GetChild(0);
         slotsUI = child.GetComponentsInChildren<InvenSlotUI>(); 
         tempSlotUI = GetComponentInChildren<TempSlotUI>();
+        itemDetailInfo = GetComponentInChildren<DetailInfo>();
     }
 
     public void InitializeInventory(Inventory playerInven)
@@ -33,12 +38,16 @@ public class InventoryUI : MonoBehaviour
             slotsUI[i].onPointerEnter += OnItemDetailOn;
             slotsUI[i].onPointerExit += OnItemDetailOff;
             slotsUI[i].onPointerMove += OnSlotPointerMove;
+
+            slotsUI[i].onPointerDown += itemDetailInfo.OnDetailPause;
+            slotsUI[i].onPointerUp += itemDetailInfo.OnDetailAvailable;
         }
 
         //임시슬롯 초기화
         tempSlotUI.InitilizeSlot(inven.TempSlot);
         tempSlotUI.onTempSlotOpenClose += OnDetailPause;
- 
+
+        itemDetailInfo.Close();
     }
 
 
@@ -54,6 +63,7 @@ public class InventoryUI : MonoBehaviour
         {
             tempSlotUI.Close();
         }
+
     }
     private void OnSlotClick(uint index)
     {
@@ -66,19 +76,19 @@ public class InventoryUI : MonoBehaviour
             OnItemMoveEnd(index, true);// 
         }
     }
-    private void OnSlotPointerMove(Vector2 vector)
+    private void OnSlotPointerMove(Vector2 screenPos)
     {
-        
+        itemDetailInfo.MovePosition(screenPos);
     }
 
     private void OnItemDetailOff(uint index)
     {
-    
+        itemDetailInfo.Close();
     }
 
     private void OnItemDetailOn(uint index)
     {
-       
+       itemDetailInfo.Open(slotsUI[index].InvenSlot.ItemData);
     }
     private void OnDetailPause(bool obj)
     {
