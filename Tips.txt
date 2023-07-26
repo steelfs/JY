@@ -120,3 +120,7 @@ StateMachineBehaviour 의 OnStateExit는 하나의 애니메이션이 종료될 
  this 부분에는 ItemData 가 들어가는게 아니라  위 코드를 정의한 클래스를 넣어줘야 한다.
 
 위 인덱서를 사용하면 굳이 string name = Enum.GetName() 같은 함수를 쓰지않아도 될 것 같다.
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+7월 26일
+UI오브젝트의 크기를 구하고싶으면 rectTransform 의 sizeDelta를 이용하면 된다.
+또한 스크린 클레스의  Screen.Width, height 를 사용하면 화면의 너비를 구할 수 있다.
