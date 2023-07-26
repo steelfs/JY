@@ -126,3 +126,4 @@ UI오브젝트의 크기를 구하고싶으면 rectTransform 의 sizeDelta를 �
 또한 스크린 클레스의  Screen.Width, height 를 사용하면 화면의 너비를 구할 수 있다.
 
 비활성화된 오브젝트를 대상으로 GetComponent를 하면 null 이 할당된다
+
