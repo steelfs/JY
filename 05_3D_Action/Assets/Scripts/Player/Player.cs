@@ -57,10 +57,7 @@ public class Player : MonoBehaviour
             {
                 Destroy(item.gameObject);
             }
-            if (inven.AddItem(item.ItemData.code))// 아이템 추가 시도, 성공시 아이템 오브젝트 파괴
-            {
-                Destroy(item.gameObject);
-            }
+    
         }
     }
 

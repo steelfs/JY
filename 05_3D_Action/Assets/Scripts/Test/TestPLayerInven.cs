@@ -40,6 +40,8 @@ public class TestPLayerInven : TestBase
     }
     protected override void Test3(InputAction.CallbackContext context)
     {
-        ItemFactory.MakeItem(ItemCode,UnityEngine.Random.insideUnitCircle);
+        Vector3 pos = UnityEngine.Random.insideUnitSphere * 5;
+        pos.y = 0;
+        ItemFactory.MakeItem(ItemCode,pos,true);
     }
 }
