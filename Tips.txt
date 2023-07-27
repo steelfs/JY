@@ -126,4 +126,26 @@ UI오브젝트의 크기를 구하고싶으면 rectTransform 의 sizeDelta를 �
 또한 스크린 클레스의  Screen.Width, height 를 사용하면 화면의 너비를 구할 수 있다.
 
 비활성화된 오브젝트를 대상으로 GetComponent를 하면 null 이 할당된다
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+7월 27일
+
+        Debug.Log($"{1 - Mathf.Cos(timeElapsed)}");  결과는 0 ~ 2 범위를 반환한다.  Mathf.Cos(timeElapsed) 의값은1과 -1 사이를 반복하는데 1 이면 1 - 1 = 0 이 되고
+											     -1이 되면  -1 - (-1) 이 되기때문에 결과적으로 2가 된다.
+
+        Debug.Log($"{0.5 *(1 - Mathf.Cos(timeElapsed))}");  위 값에 0.5를 곱하면 0일때 0이고 2일때 1이 되기 때문에 0 ~ 1 사이를 반복하게 된다.
+
+
+       Debug.Log($"{(0.5 *(1 - Mathf.Cos(timeElapsed))) * (maxY - minY)}");  위 값에 (maxY - minY)를 곱해서 진폭을 키워준다.
+
+
+       Debug.Log($"{minY + (0.5 *(1 - Mathf.Cos(timeElapsed))) * (maxY - minY)}"); 그 다음 거기에 minY를 더해서 최소값을 더해주면 원하는 범위내를 반복할 수 있게 된다.
+
+
+	
+	정리하자면   (maxY - minY)를 곱하는 이유는 원하는 만큼의 진폭을 키워주기 위함이고 minY 를 더해주는 이유는 최솟값을 보정하기 위함이며 
+	
+	0.5 *(1 - Mathf.Cos(timeElapsed) :        Mathf.Cos(timeElapsed) 의 값에 1을빼는 이유는 음수가 나오지 않게 하기 위함이며, 0.5를 곱하는 이유는  곱해서 뻥튀기된 최댓값을
+	다시 원위치 시키기 위함이다.
+
+
 
