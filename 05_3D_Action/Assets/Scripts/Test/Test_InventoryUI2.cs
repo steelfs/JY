@@ -25,8 +25,8 @@ public class Test_InventoryUI2 : TestBase
         inven.AddItem(ItemCode.Sapphire, 3);
         inven.AddItem(ItemCode.Sapphire, 3);
         inven.AddItem(ItemCode.Sapphire, 3);
-
-
+        inven.AddItem(ItemCode.Sapphire, 4);
+        inven.AddItem(ItemCode.Sapphire, 5);
         inven.PrintInventory();
 
         inventoryUI.InitializeInventory(inven);

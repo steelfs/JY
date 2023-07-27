@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -38,7 +39,10 @@ public class InventoryUI : MonoBehaviour
         inputActions.UI.Enable();
         inputActions.UI.Shift.performed += OnShiftPress;
         inputActions.UI.Shift.canceled += OnShiftPress;
+        inputActions.UI.Click.canceled += OnItemDrop;
     }
+
+
 
     private void OnShiftPress(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
@@ -76,12 +80,17 @@ public class InventoryUI : MonoBehaviour
         inven.MoveItem(index, tempSlotUI.Index);//시작슬롯에서 임시슬롯으로 아이템 옮기기
         tempSlotUI.Open();//임시슬롯 열기
     }
-    private void OnItemMoveEnd(uint index, bool succes)
+    private void OnItemMoveEnd(uint index, bool succes) //버리기 시작지점?
     {
         inven.MoveItem(tempSlotUI.Index, index);//임시슬롯에서 도착슬롯으로 아이템 옮기기
         if (tempSlotUI.InvenSlot.isEmpty)//비었다면 같은종류의 아이템일때 일부만 들어가는 경우가 있으므로
         {
             tempSlotUI.Close();
+        }
+        else
+        {
+            //RectTransform rectTransform = (RectTransform)transform;
+            //if ()
         }
         if (succes)
         {
@@ -133,5 +142,16 @@ public class InventoryUI : MonoBehaviour
         spliter.transform.position = target.transform.position + Vector3.up * 100;
         spliter.Open(target.InvenSlot);
         itemDetailInfo.IsPause = true;
+    }
+    private void OnItemDrop(UnityEngine.InputSystem.InputAction.CallbackContext _)// 마우스클릭이 떨어졌을 때 // 아이템 드랍용
+    {
+        Vector2 screenPos = Mouse.current.position.ReadValue();
+        RectTransform rect = (RectTransform)transform;
+        Vector2 diff = screenPos - (Vector2)transform.position;
+        if (!rect.rect.Contains(diff))
+        {
+            
+            tempSlotUI.OnDrop(screenPos);
+        }
     }
 }

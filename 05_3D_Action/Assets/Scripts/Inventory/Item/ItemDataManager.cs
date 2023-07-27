@@ -19,5 +19,6 @@ public class ItemDataManager : MonoBehaviour
 {
     public ItemData[] itemDatas = null;
     public ItemData this[ItemCode code] => itemDatas[(int)code]; // 아이템 종류별 접근을 위한 인덱서  enum값을 넣으면 인덱스번호를 자동으로 넣어 찾아준다. ex) ItemDataManager[Itemcode.Ruby]
+    public ItemData this[int index] => itemDatas[index];
     public int length => itemDatas.Length;
 }

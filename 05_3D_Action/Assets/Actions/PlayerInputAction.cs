@@ -219,6 +219,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PickUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""3ae4ecc4-d076-455d-8768-dc74aa4e4185"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -375,6 +384,28 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""Die"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad2451ee-ddc2-4289-8f79-45ba0980ed16"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be485724-1220-4398-9e49-0160c01ad408"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -501,6 +532,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Skill = m_Player.FindAction("Skill", throwIfNotFound: true);
         m_Player_Die = m_Player.FindAction("Die", throwIfNotFound: true);
+        m_Player_PickUp = m_Player.FindAction("PickUp", throwIfNotFound: true);
         // Effect
         m_Effect = asset.FindActionMap("Effect", throwIfNotFound: true);
         m_Effect_PointerMove = m_Effect.FindAction("PointerMove", throwIfNotFound: true);
@@ -668,6 +700,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Skill;
     private readonly InputAction m_Player_Die;
+    private readonly InputAction m_Player_PickUp;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -677,6 +710,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Skill => m_Wrapper.m_Player_Skill;
         public InputAction @Die => m_Wrapper.m_Player_Die;
+        public InputAction @PickUp => m_Wrapper.m_Player_PickUp;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -701,6 +735,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Die.started += instance.OnDie;
             @Die.performed += instance.OnDie;
             @Die.canceled += instance.OnDie;
+            @PickUp.started += instance.OnPickUp;
+            @PickUp.performed += instance.OnPickUp;
+            @PickUp.canceled += instance.OnPickUp;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -720,6 +757,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Die.started -= instance.OnDie;
             @Die.performed -= instance.OnDie;
             @Die.canceled -= instance.OnDie;
+            @PickUp.started -= instance.OnPickUp;
+            @PickUp.performed -= instance.OnPickUp;
+            @PickUp.canceled -= instance.OnPickUp;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -863,6 +903,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnSkill(InputAction.CallbackContext context);
         void OnDie(InputAction.CallbackContext context);
+        void OnPickUp(InputAction.CallbackContext context);
     }
     public interface IEffectActions
     {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2657099896452946602}
   - component: {fileID: 2657099896452946603}
   - component: {fileID: 2657099896452946596}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ItemRotater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 2657099897344230117}
   - component: {fileID: 2657099897344230118}
   - component: {fileID: 2412813054449646337}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ItemBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +13,14 @@ public class PlayerInputController : MonoBehaviour
     public float runSpeed = 6.0f;
     float currentSpeed = 3.0f;
 
-
-
     int speedHash = Animator.StringToHash("Speed");
     int attackHash = Animator.StringToHash("Attack");
     int skillHash = Animator.StringToHash("Skill");
     int dieHash = Animator.StringToHash("Die");
 
     Vector3 rotateAngle;
+
+    public Action onItemPickUp;//아이템 줍기버튼 누를 때 신호 보내기
 
     enum MoveMode
     {
@@ -71,6 +72,13 @@ public class PlayerInputController : MonoBehaviour
         action.Player.Attack.performed += OnAttack;
         action.Player.Skill.performed += Skill_performed;
         action.Player.Die.performed += Die_performed;
+        action.Player.PickUp.performed += OnPickUp;
+    }
+
+    private void OnPickUp(UnityEngine.InputSystem.InputAction.CallbackContext _)
+    {
+        onItemPickUp?.Invoke();
+        
     }
 
     private void Die_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
@@ -89,6 +97,7 @@ public class PlayerInputController : MonoBehaviour
         action.Player.Move.canceled -= OnMove;
         action.Player.ChangeMode.performed -= OnMoveModeChange;
         action.Player.Attack.performed -= OnAttack;
+        action.Player.PickUp.performed -= OnPickUp;
         action.Player.Disable();
     }
     private void Start()

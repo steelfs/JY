@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2657099896452946601, guid: 7f7f43912c2c7a14ca701865e8304931,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2657099896452946603, guid: 7f7f43912c2c7a14ca701865e8304931,
         type: 3}
       propertyPath: m_Sprite
@@ -16,7 +21,12 @@ PrefabInstance:
     - target: {fileID: 2657099897344230116, guid: 7f7f43912c2c7a14ca701865e8304931,
         type: 3}
       propertyPath: m_Name
-      value: ItemBase
+      value: 00_Ruby
+      objectReference: {fileID: 0}
+    - target: {fileID: 2657099897344230116, guid: 7f7f43912c2c7a14ca701865e8304931,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2657099897344230117, guid: 7f7f43912c2c7a14ca701865e8304931,
         type: 3}

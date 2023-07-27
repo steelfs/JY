@@ -13,16 +13,32 @@ public class ItemRotater : MonoBehaviour
     public float maxHeight = 1.5f;
 
     float timeElapsed = 0.0f;
-
-    float range = 0.0f;
-    float timeValue = 0.0f;
-
     private void Start()
     {
-        transform.rotation = Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0);
+        // transform.rotation = Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0);
+        transform.Rotate(0, UnityEngine.Random.Range(0, 360), 0);
     }
+
     private void Update()
     {
+        //if (headoverMax) //움직이긴 하나 딱딱 끊어지는 느낌이 강함. sin, cos 을 사용하면 좀더 완만하게 움직임
+        //{
+        //    transform.position += Time.deltaTime * transform.up;
+        //}
+        //else
+        //{
+        //    transform.position += Time.deltaTime * -transform.up;
+        //}
+        //if (transform.position.y > maxHeight)
+        //{
+        //    headoverMax = false;
+        //}
+        //else if (transform.position.y < minHeight)
+        //{
+        //    headoverMax = true;
+        //}
+
+
         timeElapsed += Time.deltaTime;
         Vector3 pos;
         pos.x = transform.parent.position.x;
@@ -31,7 +47,8 @@ public class ItemRotater : MonoBehaviour
 
         transform.position = pos;
 
-        transform.Rotate(0, Time.deltaTime * rotateSpeed, 0);
+        transform.Rotate(0, rotateSpeed * Time.deltaTime , 0);
+        //-----------------------------------------------------------------------------------------------------
 
         // (Cos() + 1) * 0.5 => 1 ~ 0
         // 1 - (cos() + 1) * 0.5 => 0 ~ 1
