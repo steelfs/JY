@@ -15,7 +15,7 @@ public class Test_InventoryUI2 : TestBase
 
     private void Start()
     {
-        inven = new Inventory(null, size);
+        inven = GameManager.Inst.Player.Inventory;
         inven.AddItem(ItemCode.Ruby, 0);
         inven.AddItem(ItemCode.Ruby, 0);
         inven.AddItem(ItemCode.Ruby, 0);

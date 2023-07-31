@@ -16,7 +16,7 @@ public class Test_InvenItemDrop : TestBase
 
     private void Start()
     {
-        inven = new Inventory(player, size);
+        inven = GameManager.Inst.Player.Inventory;
         inven.AddItem(ItemCode.Ruby, 0);
         inven.AddItem(ItemCode.Ruby, 0);
         inven.AddItem(ItemCode.Ruby, 0);

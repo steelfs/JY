@@ -9,8 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4832568002921797933}
-  - component: {fileID: 4832568002921797934}
-  - component: {fileID: 4832568002921797932}
+  - component: {fileID: 4320060365622574898}
   m_Layer: 0
   m_Name: Test_InventoryUI
   m_TagString: Untagged
@@ -33,27 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4832568002921797934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4832568002921797935}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baaf913e0f8f8bd45917cab8474acf5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryUI: {fileID: 0}
-  size: 6
-  code: 0
-  from: 0
-  to: 2
-  splitCount: 1
-  sortby: 0
-  isAcending: 1
---- !u!114 &4832568002921797932
+--- !u!114 &4320060365622574898
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,10 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4832568002921797935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa39b7b67306a934eb65e0660b9d83b4, type: 3}
+  m_Script: {fileID: 11500000, guid: eed77a5d9d3e36d46a7a0bf032f5d5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryUI: {fileID: 0}
-  size: 6
-  index: 0
-  itemSpliterUI: {fileID: 0}
+  ItemCode: 0

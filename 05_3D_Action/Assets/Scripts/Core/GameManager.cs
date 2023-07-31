@@ -16,17 +16,13 @@ public class GameManager : Singleton<GameManager>
     {
         base.OnPreInitialize();
         itemDataManager = GetComponent<ItemDataManager>();
-        inventoryUI = FindObjectOfType<InventoryUI>();
+      
     }
     protected override void OnInitialize()
     {
         base.OnInitialize();
         player = FindObjectOfType<Player>();
+        inventoryUI = FindObjectOfType<InventoryUI>();
     }
-    private void Start()
-    {
-        ItemData data = GameManager.Inst.ItemData[ItemCode.Ruby];
-        Inventory inven = new Inventory(player);
-        InvenSlot slot = inven[0];
-    }
+
 }

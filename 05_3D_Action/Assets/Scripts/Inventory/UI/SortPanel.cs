@@ -13,13 +13,13 @@ public class SortPanel : MonoBehaviour
 
     //ItemSortBy sortBy = ItemSortBy.Code;
 
-    public Action<ItemSortBy> onSort;
+    public Action<ItemSortBy> onSortRequest;
     private void Awake()
     {
         dropdown = GetComponentInChildren<TMP_Dropdown>();
         runButton = GetComponentInChildren<Button>();
 
        // dropdown.onValueChanged.AddListener((index) => sortBy = (ItemSortBy)index);
-        runButton.onClick.AddListener(() => onSort?.Invoke((ItemSortBy)dropdown.value));
+        runButton.onClick.AddListener(() => onSortRequest?.Invoke((ItemSortBy)dropdown.value));
     }
 }

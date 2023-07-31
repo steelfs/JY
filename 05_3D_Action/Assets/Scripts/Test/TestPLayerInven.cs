@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class TestPLayerInven : TestBase
 {
-    public ItemCode ItemCode;
+    public ItemCode ItemCode = ItemCode.Ruby;
     protected override void Test1(InputAction.CallbackContext context)
     {
         int index = UnityEngine.Random.Range(0, GameManager.Inst.ItemData.length);

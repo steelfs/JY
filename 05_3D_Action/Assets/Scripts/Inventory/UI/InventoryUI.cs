@@ -42,7 +42,7 @@ public class InventoryUI : MonoBehaviour
             if (isOpen)
             {
                 Open();
-                onInventoryOpen?.Invoke(false);
+                onInventoryOpen?.Invoke(false);//인벤토리 열리면 공격하지 마라 신호보내기
             }
             else
             {
@@ -125,7 +125,7 @@ public class InventoryUI : MonoBehaviour
         spliter.onCancel += () => itemDetailInfo.IsPause = false;
 
         Owner.onMoneyChange += (money) => moneyPanel.Money = money;
-        sortPanel.onSort += (ItemSortBy) => inven.SlotSorting(ItemSortBy);
+        sortPanel.onSortRequest += (ItemSortBy) => inven.SlotSorting(ItemSortBy);
 
 
         IsOpen = false;
@@ -139,7 +139,7 @@ public class InventoryUI : MonoBehaviour
         canvasGroup.alpha = 1;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true; //block 이 되며 감지가 됨
-        onInventoryOpen_?.Invoke();
+        onInventoryOpen_?.Invoke();// 공격가능하다고 알리는 대리자
     }
     void Close()
     {

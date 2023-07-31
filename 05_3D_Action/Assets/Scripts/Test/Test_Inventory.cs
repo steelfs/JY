@@ -13,7 +13,7 @@ public class Test_Inventory : TestBase
 
     private void Start()
     {
-        inven = new Inventory(null, size);
+        inven = GameManager.Inst.Player.Inventory;
         inven.AddItem(code, 0);
         inven.AddItem(code, 0);
         inven.AddItem(code, 0);

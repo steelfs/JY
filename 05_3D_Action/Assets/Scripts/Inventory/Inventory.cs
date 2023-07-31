@@ -201,6 +201,7 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
         foreach (var data in sorteddata)
         {
             slots[index].AssignSlotItem(data.Item1, data.Item2);
+            index++;
         }
        // slots = beforeSlots.ToArray();//위 코드는 수동으로 넣기
         RefreshInventory();
