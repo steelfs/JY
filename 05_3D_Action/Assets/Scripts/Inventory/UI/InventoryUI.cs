@@ -22,6 +22,8 @@ public class InventoryUI : MonoBehaviour
 
     PlayerInputAction inputActions;
 
+    MoneyPanel moneyPanel;
+
     private void Awake()
     {
         Transform  child = transform.GetChild(0);
@@ -33,6 +35,8 @@ public class InventoryUI : MonoBehaviour
         spliter.onOkClick += OnSpliterOk;
 
         inputActions = new PlayerInputAction();
+
+        moneyPanel = GetComponentInChildren<MoneyPanel>();
     }
 
     private void OnEnable()
@@ -73,6 +77,8 @@ public class InventoryUI : MonoBehaviour
         itemDetailInfo.Close();
         spliter.Close();
         spliter.onCancel += () => itemDetailInfo.IsPause = false;
+
+        Owner.onMoneyChange += (money) => moneyPanel.Money = money;
     }
 
 
@@ -100,20 +106,6 @@ public class InventoryUI : MonoBehaviour
         {
             itemDetailInfo.Open(inven[finalIndex].ItemData);
         }
-        //inven.MoveItem(tempSlotUI.Index, index);//임시슬롯에서 도착슬롯으로 아이템 옮기기
-        //if (tempSlotUI.InvenSlot.isEmpty)//비었다면 같은종류의 아이템일때 일부만 들어가는 경우가 있으므로
-        //{
-        //    tempSlotUI.Close();
-        //}
-        //else
-        //{
-        //    //RectTransform rectTransform = (RectTransform)transform;
-        //    //if ()
-        //}
-        //if (succes)
-        //{
-        //    itemDetailInfo.Open(inven[index].ItemData);// 그래그가 성공적으로 끝나면 상세정보창 열기
-        //}
     }
     private void OnSlotClick(uint index)
     {
