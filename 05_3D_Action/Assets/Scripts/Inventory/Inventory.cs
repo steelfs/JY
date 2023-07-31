@@ -14,6 +14,7 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
     public int SlotCount => slots.Length;// 인벤토리 슬롯의 개수
 
 
+
     InvenSlot tempSlot; //임시슬롯(드래그, 분리, swap 할 때 사용)
     public InvenSlot TempSlot => tempSlot;
 
@@ -275,6 +276,21 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
             }
         }
         return invenSlot;
+    }
+    const uint NotFindEmptySlot = uint.MaxValue;
+
+    public bool FindEmptySlotIndex(out uint index) //비어있는 슬롯의 인덱스를 리턴하는 함수// 리턴타입이 bool 인것이 고 out 파라미터를 bool  로 하는것 보다 더 수월하다.
+    {
+        bool result = false;
+        index = NotFindEmptySlot;
+        InvenSlot slot = FindEnptySlot();
+
+        if (slot != null)
+        {
+            index = slot.Index;
+            result = true; //찾으면 true;
+        }
+        return result; //못찾으면 false;
     }
     bool IsValidIndex(uint index) => (index < SlotCount) || (index == tempSlotIndex); //두 조건 중 하나라도 만족을 해야 valid한 인덱스
 

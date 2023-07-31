@@ -18,5 +18,5 @@ MonoBehaviour:
     type: 3}
   itemIcon: {fileID: 21300000, guid: 70e92df91699f664ab5bad7bf4723022, type: 3}
   price: 1000
-  maxStackCount: 10
+  maxStackCount: 5
   itemDescription: "\u314B"

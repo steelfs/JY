@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -82,20 +83,37 @@ public class InventoryUI : MonoBehaviour
     }
     private void OnItemMoveEnd(uint index, bool succes) //버리기 시작지점?
     {
-        inven.MoveItem(tempSlotUI.Index, index);//임시슬롯에서 도착슬롯으로 아이템 옮기기
-        if (tempSlotUI.InvenSlot.isEmpty)//비었다면 같은종류의 아이템일때 일부만 들어가는 경우가 있으므로
+        uint finalIndex = index;
+        if (!succes)
+        {
+            if (inven.FindEmptySlotIndex(out uint emptyIndex))//클릭 실패시
+            {
+                finalIndex = emptyIndex;
+            }           
+        }
+        inven.MoveItem(tempSlotUI.Index, finalIndex);
+        if (tempSlotUI.InvenSlot.isEmpty)
         {
             tempSlotUI.Close();
         }
-        else
-        {
-            //RectTransform rectTransform = (RectTransform)transform;
-            //if ()
-        }
         if (succes)
         {
-            itemDetailInfo.Open(inven[index].ItemData);// 그래그가 성공적으로 끝나면 상세정보창 열기
+            itemDetailInfo.Open(inven[finalIndex].ItemData);
         }
+        //inven.MoveItem(tempSlotUI.Index, index);//임시슬롯에서 도착슬롯으로 아이템 옮기기
+        //if (tempSlotUI.InvenSlot.isEmpty)//비었다면 같은종류의 아이템일때 일부만 들어가는 경우가 있으므로
+        //{
+        //    tempSlotUI.Close();
+        //}
+        //else
+        //{
+        //    //RectTransform rectTransform = (RectTransform)transform;
+        //    //if ()
+        //}
+        //if (succes)
+        //{
+        //    itemDetailInfo.Open(inven[index].ItemData);// 그래그가 성공적으로 끝나면 상세정보창 열기
+        //}
     }
     private void OnSlotClick(uint index)
     {
