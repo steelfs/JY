@@ -190,19 +190,19 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
         }
         //beforeSlots는 이 시점에서 정해진 기준에 따하 정렬 완료
 
-        //list<(itemdata, uint)> sorteddata = new list<(itemdata, uint)>(slotcount);//아이템 종류와 개수를 따로 저장하기
-        //foreach(var slot in beforeslots)
-        //{
-        //    sorteddata.add((slot.itemdata, slot.itemcount));
-        //}
+        List<(ItemData, uint)> sorteddata = new List<(ItemData, uint)>(SlotCount);//아이템 종류와 개수를 따로 저장하기
+        foreach (var slot in beforeSlots)
+        {
+            sorteddata.Add((slot.ItemData, slot.ItemCount));
+        }
 
-        ////슬롯에 아이템 종류와 개수를 순서대로 할당하기
-        //int index = 0;
-        //foreach(var data in sorteddata)
-        //{
-        //    slots[index].assignslotitem(data.item1, data.item2);
-        //}
-        slots = beforeSlots.ToArray();//위 코드는 수동으로 넣기
+        //슬롯에 아이템 종류와 개수를 순서대로 할당하기
+        int index = 0;
+        foreach (var data in sorteddata)
+        {
+            slots[index].AssignSlotItem(data.Item1, data.Item2);
+        }
+       // slots = beforeSlots.ToArray();//위 코드는 수동으로 넣기
         RefreshInventory();
     }
 

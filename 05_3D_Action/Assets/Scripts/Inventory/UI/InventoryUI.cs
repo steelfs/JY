@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -23,7 +24,34 @@ public class InventoryUI : MonoBehaviour
     PlayerInputAction inputActions;
 
     MoneyPanel moneyPanel;
+    SortPanel sortPanel;
 
+    Button closeButton;
+    CanvasGroup canvasGroup;
+
+    public Action onInventoryOpen_;
+    public Action onInventoryClose_;
+    public Action<bool> onInventoryOpen;
+    bool isOpen = false;
+    public bool IsOpen
+    {
+        get => isOpen;
+        set
+        {
+            isOpen = value;
+            if (isOpen)
+            {
+                Open();
+                onInventoryOpen?.Invoke(false);
+            }
+            else
+            {
+                Close();
+                onInventoryOpen?.Invoke(true);
+            }
+           
+        }
+    }
     private void Awake()
     {
         Transform  child = transform.GetChild(0);
@@ -37,6 +65,12 @@ public class InventoryUI : MonoBehaviour
         inputActions = new PlayerInputAction();
 
         moneyPanel = GetComponentInChildren<MoneyPanel>();
+        sortPanel = GetComponentInChildren<SortPanel>();
+
+        canvasGroup = GetComponent<CanvasGroup>();
+        closeButton = transform.GetChild(2).GetComponent<Button>();
+
+        closeButton.onClick.AddListener(ChangeIsOpenProperty);
     }
 
     private void OnEnable()
@@ -45,9 +79,21 @@ public class InventoryUI : MonoBehaviour
         inputActions.UI.Shift.performed += OnShiftPress;
         inputActions.UI.Shift.canceled += OnShiftPress;
         inputActions.UI.Click.canceled += OnItemDrop;
+        inputActions.UI.InventoryOnOff.performed += OnInventoryOnOff;
     }
 
-
+    private void OnInventoryOnOff(InputAction.CallbackContext _)
+    {
+        //if (canvasGroup.interactable)
+        //{
+        //    Open();
+        //}
+        //else
+        //{
+        //    Close();
+        //}
+        ChangeIsOpenProperty();
+    }
 
     private void OnShiftPress(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
@@ -79,9 +125,38 @@ public class InventoryUI : MonoBehaviour
         spliter.onCancel += () => itemDetailInfo.IsPause = false;
 
         Owner.onMoneyChange += (money) => moneyPanel.Money = money;
+        sortPanel.onSort += (ItemSortBy) => inven.SlotSorting(ItemSortBy);
+
+
+        IsOpen = false;
     }
+    void ChangeIsOpenProperty()
+    {
+        IsOpen = !IsOpen;
+    }
+    void Open()
+    {
+        canvasGroup.alpha = 1;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true; //block 이 되며 감지가 됨
+        onInventoryOpen_?.Invoke();
+    }
+    void Close()
+    {
+        if (tempSlotUI.InvenSlot.isEmpty)
+        {
+            OnItemMoveEnd(0, false);
+        }
+        canvasGroup.alpha = 0;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
 
-
+        onInventoryClose_?.Invoke();
+    }
+    //open함수실행시 알파 1
+    //close함수 실행시 alpha 0
+    //i 키 누르면 인벤토리가 열려있으면 닫히고 닫혀있으면 열린다.
+    //인벤토리가 열려있을때는 공격 할수없다 playerController. onAttack -=
     private void OnItemMoveBegin(uint index)
     {
         inven.MoveItem(index, tempSlotUI.Index);//시작슬롯에서 임시슬롯으로 아이템 옮기기

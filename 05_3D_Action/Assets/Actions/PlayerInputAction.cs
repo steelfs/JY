@@ -458,6 +458,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryOnOff"",
+                    ""type"": ""Button"",
+                    ""id"": ""fac4677d-df5c-43be-b979-24ba2e87ef7e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -491,6 +500,17 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""KM"",
                     ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b893f5b-6794-4e81-b30f-0321a1f18b53"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryOnOff"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -540,6 +560,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Shift = m_UI.FindAction("Shift", throwIfNotFound: true);
         m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
+        m_UI_InventoryOnOff = m_UI.FindAction("InventoryOnOff", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -829,12 +850,14 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Shift;
     private readonly InputAction m_UI_Click;
+    private readonly InputAction m_UI_InventoryOnOff;
     public struct UIActions
     {
         private @PlayerInputAction m_Wrapper;
         public UIActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Shift => m_Wrapper.m_UI_Shift;
         public InputAction @Click => m_Wrapper.m_UI_Click;
+        public InputAction @InventoryOnOff => m_Wrapper.m_UI_InventoryOnOff;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -850,6 +873,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Click.started += instance.OnClick;
             @Click.performed += instance.OnClick;
             @Click.canceled += instance.OnClick;
+            @InventoryOnOff.started += instance.OnInventoryOnOff;
+            @InventoryOnOff.performed += instance.OnInventoryOnOff;
+            @InventoryOnOff.canceled += instance.OnInventoryOnOff;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -860,6 +886,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Click.started -= instance.OnClick;
             @Click.performed -= instance.OnClick;
             @Click.canceled -= instance.OnClick;
+            @InventoryOnOff.started -= instance.OnInventoryOnOff;
+            @InventoryOnOff.performed -= instance.OnInventoryOnOff;
+            @InventoryOnOff.canceled -= instance.OnInventoryOnOff;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -913,5 +942,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     {
         void OnShift(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
+        void OnInventoryOnOff(InputAction.CallbackContext context);
     }
 }

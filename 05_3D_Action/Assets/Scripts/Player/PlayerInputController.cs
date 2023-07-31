@@ -22,6 +22,8 @@ public class PlayerInputController : MonoBehaviour
 
     public Action onItemPickUp;//아이템 줍기버튼 누를 때 신호 보내기
 
+    InventoryUI inventoryUI;
+
     enum MoveMode
     {
         Walk = 0,
@@ -75,6 +77,19 @@ public class PlayerInputController : MonoBehaviour
         action.Player.PickUp.performed += OnPickUp;
     }
 
+    void SetAttackValid(bool attack) //인벤토리가 켜질 때 InventoryUI에서 호출
+    {
+        if (attack)
+        {
+            action.Player.Attack.performed += OnAttack;
+            action.Player.Skill.performed += Skill_performed;
+        }
+        else
+        {
+            action.Player.Attack.performed -= OnAttack;
+            action.Player.Skill.performed -= Skill_performed;
+        }
+    }
     private void OnPickUp(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         onItemPickUp?.Invoke();
@@ -103,6 +118,12 @@ public class PlayerInputController : MonoBehaviour
     private void Start()
     {
         MoveSpeedMode = MoveMode.Walk;
+        inventoryUI = GameManager.Inst.InvenUI;
+        inventoryUI.onInventoryOpen += SetAttackValid;
+        if (inventoryUI != null)
+        {
+         //   inventoryUI.onInventoryOpen_ += action.Player.Attack.
+        }
     }
     private void Update()
     {
