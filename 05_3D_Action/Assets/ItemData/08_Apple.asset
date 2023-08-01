@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd1996fdc9c00f146911c0c1f1f6f314, type: 3}
-  m_Name: New item Data - Food
+  m_Name: 08_Apple
   m_EditorClassIdentifier: 
-  code: 0
+  code: 8
   itemName: "\uC0AC\uACFC"
-  modelPrefab: {fileID: 0}
-  itemIcon: {fileID: 0}
-  price: 0
-  maxStackCount: 1
-  itemDescription: "\uC124\uBA85"
-  recoveryHP_Value: 0
-  duration: 0
-  tick: 0
+  modelPrefab: {fileID: 2137334933676876601, guid: 0cbebef4ee5a65c449ad828a9d000ca2,
+    type: 3}
+  itemIcon: {fileID: 21300000, guid: c1d0e6764d9c5f8458571840fb1d57d3, type: 3}
+  price: 1000
+  maxStackCount: 200
+  itemDescription: "\uB9DB\uC788\uB294 \uC0AC\uACFC"
+  recoveryHP_Value: 10
+  duration: 0.5
+  tick: 5

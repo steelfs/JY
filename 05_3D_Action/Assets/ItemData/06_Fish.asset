@@ -20,4 +20,6 @@ MonoBehaviour:
   price: 2000
   maxStackCount: 200
   itemDescription: "\uB9DB\uC788\uB294 \uC0DD\uC120\uC774\uB2E4."
-  RecoveryHP_Value: 10
+  recoveryHP_Value: 10
+  duration: 0.5
+  tick: 5

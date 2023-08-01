@@ -20,4 +20,5 @@ MonoBehaviour:
   price: 2000
   maxStackCount: 200
   itemDescription: "\uC640\uC778"
-  recoveryMP_Value: 20
+  recoveryMP_Value: 50
+  duration: 1

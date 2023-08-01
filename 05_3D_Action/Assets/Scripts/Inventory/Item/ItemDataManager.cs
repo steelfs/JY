@@ -11,7 +11,10 @@ public enum ItemCode
     SilverCoin,
     GoldCoin,
     FishSteak,
-    Drink
+    Drink,
+    Apple,
+    HealingPotion,
+    ManaPotion
 }
 public enum ItemSortBy// itemdata 안에있는 것 들 중 어떤것을 기준으로 정렬할 것인가 
 {
