@@ -86,13 +86,13 @@ public class Player : MonoBehaviour, IHealth,IMana
     {
         StartCoroutine(RecoveryHealth(totalRegen, duration));       
     }
-    public void ManaRegenerate(float totalRegen, float duration)//duration동안 totalRegen만큼 회복하는 함수 
-    {
-        StartCoroutine(RecoveryMana(totalRegen, duration));
-    }
-    public void RecoveryHealthByTick_(float tickRegen, float tickTime, uint totalTickCount)
+    public void HealthRegenerateByTick(float tickRegen, float tickTime, uint totalTickCount)
     {
         StartCoroutine(RecoveryHpByTick(tickRegen, tickTime, totalTickCount));
+    }
+    public void RegenerateMana(float totalRegen, float duration)
+    {
+        StartCoroutine(RecoveryMana(totalRegen, duration));
     }
     IEnumerator RecoveryHealth(float totalRegen, float duration)
     {
@@ -109,9 +109,10 @@ public class Player : MonoBehaviour, IHealth,IMana
     IEnumerator RecoveryMana(float totalRegen, float duration)
     {
         float time = 0.0f;
+        float regenPerSec = totalRegen / duration;
         while (time < duration)
         {
-            MP += totalRegen / duration * Time.deltaTime;
+            MP += Time.deltaTime * regenPerSec;
             time += Time.deltaTime;
             yield return null;
         }
@@ -184,7 +185,9 @@ public class Player : MonoBehaviour, IHealth,IMana
         Handles.DrawWireDisc(transform.position, Vector3.up, itemPickUpRange);
     }
 
-  
+
+
+
 
 
 #endif

@@ -14,3 +14,5 @@ public class ItemData_Coin : ItemData, IConsumeable
         }
     }
 }
+// ItemData_Food - IConsumable 실행시 HP Tick으로 증가
+// Drink 동일 MP Regen으로 증가

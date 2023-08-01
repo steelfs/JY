@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1283420789, guid: a4cc32de871ed434faf11c0bc06a8589, type: 3}
       propertyPath: itemDatas.Array.size
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1283420789, guid: a4cc32de871ed434faf11c0bc06a8589, type: 3}
       propertyPath: itemDatas.Array.data[3]
@@ -148,6 +148,16 @@ PrefabInstance:
       propertyPath: itemDatas.Array.data[5]
       value: 
       objectReference: {fileID: 11400000, guid: 55851d6f784c86946a364b7ebb5ddeb4,
+        type: 2}
+    - target: {fileID: 1283420789, guid: a4cc32de871ed434faf11c0bc06a8589, type: 3}
+      propertyPath: itemDatas.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6df0f0148b287f3489444313c8e719db,
+        type: 2}
+    - target: {fileID: 1283420789, guid: a4cc32de871ed434faf11c0bc06a8589, type: 3}
+      propertyPath: itemDatas.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 75442e6023f89a443aa6ded48c055c71,
         type: 2}
     - target: {fileID: 4920124302729099517, guid: a4cc32de871ed434faf11c0bc06a8589,
         type: 3}
@@ -832,12 +842,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 568705086}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eed77a5d9d3e36d46a7a0bf032f5d5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemCode: 5
+  ItemCode: 7
 --- !u!4 &568705088
 Transform:
   m_ObjectHideFlags: 0
@@ -2532,7 +2542,7 @@ PrefabInstance:
     - target: {fileID: 8375385309019641051, guid: 41f52b40a176d864c8d74421afbb61d7,
         type: 3}
       propertyPath: itemPickUpRange
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41f52b40a176d864c8d74421afbb61d7, type: 3}

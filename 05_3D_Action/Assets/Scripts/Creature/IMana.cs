@@ -11,5 +11,5 @@ public interface IMana
 
     bool IsAlive { get; }//생존확인용 
 
-    void HealthRegenerate(float totalRegen, float duration);//체력을 지속적으로 지속시켜주는 함수 초당 totalRegen/duration 만큼 회복 
+    void RegenerateMana(float totalRegen, float duration);//체력을 지속적으로 지속시켜주는 함수 초당 totalRegen/duration 만큼 회복 
 }

@@ -40,7 +40,7 @@ public class TestPLayerInven : TestBase
     }
     protected override void Test3(InputAction.CallbackContext context)
     {
-        Vector3 pos = UnityEngine.Random.insideUnitSphere * 5;
+        Vector3 pos = UnityEngine.Random.insideUnitSphere * 3;
         pos.y = 0;
         ItemFactory.MakeItem(ItemCode,pos,true);
     }

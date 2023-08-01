@@ -9,7 +9,9 @@ public enum ItemCode
     Sapphire,
     CopperCoin,
     SilverCoin,
-    GoldCoin
+    GoldCoin,
+    FishSteak,
+    Drink
 }
 public enum ItemSortBy// itemdata 안에있는 것 들 중 어떤것을 기준으로 정렬할 것인가 
 {
