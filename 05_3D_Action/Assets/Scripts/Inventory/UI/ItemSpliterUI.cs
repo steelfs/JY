@@ -21,7 +21,7 @@ public class ItemSpliterUI : MonoBehaviour
             itemSplitCount = Math.Clamp(value, minItemCount, targetSlot.ItemCount - 1);
             inputField.text = itemSplitCount.ToString();
 
-            slider.value = itemSplitCount;//슬라이더 조절시 수량조절기능 추가 필요
+            slider.value = itemSplitCount;
         }
     }
 

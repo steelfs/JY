@@ -5,7 +5,7 @@ using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IHealth
 {
     public Transform weaponParent;
     public Transform shieldParent;
@@ -31,6 +31,48 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+
+    float hp = 100.0f;
+    public float HP
+    {
+        get => hp;
+        set
+        {
+            if (IsAlive)// 살아있을때만 변경
+            {
+                hp = value;
+                if (hp <= 0)
+                {
+                    Die();
+                }
+                hp = Mathf.Clamp(hp, 0, MaxHP);// hp는 항상 0 ~ 최대치까지
+                onHealthChange?.Invoke(hp / MaxHP); //비율을 파라미터로 호출
+            }
+        }
+    }
+    float maxHP = 100.0f;
+    public float MaxHP => maxHP;
+
+    public Action<float> onHealthChange { get; set; }
+    public Action onDie { get; set; }
+
+    public bool IsAlive => hp > 0.0f;
+
+    public void Die()
+    {
+        onDie?.Invoke();
+        Debug.Log("플레이어 사망");
+    }
+
+    public void HealthRegenerate(float totalRegen, float duration)//duration동안 totalRegen만큼 회복하는 함수 
+    {
+        
+    }
+    
+
+
+
     public Action<int> onMoneyChange;
 
     PlayerInputController controller;
@@ -75,7 +117,7 @@ public class Player : MonoBehaviour
         weaponParent.gameObject.SetActive(isShow);
         shieldParent.gameObject.SetActive(isShow);
     }
-
+ 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -83,5 +125,7 @@ public class Player : MonoBehaviour
 
         Handles.DrawWireDisc(transform.position, Vector3.up, itemPickUpRange);
     }
+
+  
 #endif
 }
