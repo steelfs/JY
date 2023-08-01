@@ -73,6 +73,42 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Test6"",
+                    ""type"": ""Button"",
+                    ""id"": ""0c17efb1-581d-423f-86f9-129309b8e9b2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Test7"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ba6bcf7-3f74-4687-af4c-f7f5835847fa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Test8"",
+                    ""type"": ""Button"",
+                    ""id"": ""5b071531-f8aa-412e-94fa-aaa6ee23712d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Test9"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f320edd-ab22-4926-8a7e-3597c83e6e91"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""LeftClick"",
                     ""type"": ""Button"",
                     ""id"": ""c06d74e5-eca3-4f39-b318-4427714c441c"",
@@ -166,6 +202,50 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""KM"",
                     ""action"": ""RightClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a3ab0be-9972-4d97-bed7-b2a9d04e7262"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Test6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e5c62ca-2f31-425a-8fa3-49c6c232e428"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Test7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6cdefacd-f937-44e7-aabd-78ec663c7c8a"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Test8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""42a50e31-4985-40c8-b7f8-b0547b6b5655"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Test9"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -377,7 +457,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5e80b2cf-1efe-4d8d-b581-047b9395024b"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""path"": ""<Keyboard>/0"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -543,6 +623,10 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Test_Test3 = m_Test.FindAction("Test3", throwIfNotFound: true);
         m_Test_Test4 = m_Test.FindAction("Test4", throwIfNotFound: true);
         m_Test_Test5 = m_Test.FindAction("Test5", throwIfNotFound: true);
+        m_Test_Test6 = m_Test.FindAction("Test6", throwIfNotFound: true);
+        m_Test_Test7 = m_Test.FindAction("Test7", throwIfNotFound: true);
+        m_Test_Test8 = m_Test.FindAction("Test8", throwIfNotFound: true);
+        m_Test_Test9 = m_Test.FindAction("Test9", throwIfNotFound: true);
         m_Test_LeftClick = m_Test.FindAction("LeftClick", throwIfNotFound: true);
         m_Test_RightClick = m_Test.FindAction("RightClick", throwIfNotFound: true);
         // Player
@@ -627,6 +711,10 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Test_Test3;
     private readonly InputAction m_Test_Test4;
     private readonly InputAction m_Test_Test5;
+    private readonly InputAction m_Test_Test6;
+    private readonly InputAction m_Test_Test7;
+    private readonly InputAction m_Test_Test8;
+    private readonly InputAction m_Test_Test9;
     private readonly InputAction m_Test_LeftClick;
     private readonly InputAction m_Test_RightClick;
     public struct TestActions
@@ -638,6 +726,10 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @Test3 => m_Wrapper.m_Test_Test3;
         public InputAction @Test4 => m_Wrapper.m_Test_Test4;
         public InputAction @Test5 => m_Wrapper.m_Test_Test5;
+        public InputAction @Test6 => m_Wrapper.m_Test_Test6;
+        public InputAction @Test7 => m_Wrapper.m_Test_Test7;
+        public InputAction @Test8 => m_Wrapper.m_Test_Test8;
+        public InputAction @Test9 => m_Wrapper.m_Test_Test9;
         public InputAction @LeftClick => m_Wrapper.m_Test_LeftClick;
         public InputAction @RightClick => m_Wrapper.m_Test_RightClick;
         public InputActionMap Get() { return m_Wrapper.m_Test; }
@@ -664,6 +756,18 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Test5.started += instance.OnTest5;
             @Test5.performed += instance.OnTest5;
             @Test5.canceled += instance.OnTest5;
+            @Test6.started += instance.OnTest6;
+            @Test6.performed += instance.OnTest6;
+            @Test6.canceled += instance.OnTest6;
+            @Test7.started += instance.OnTest7;
+            @Test7.performed += instance.OnTest7;
+            @Test7.canceled += instance.OnTest7;
+            @Test8.started += instance.OnTest8;
+            @Test8.performed += instance.OnTest8;
+            @Test8.canceled += instance.OnTest8;
+            @Test9.started += instance.OnTest9;
+            @Test9.performed += instance.OnTest9;
+            @Test9.canceled += instance.OnTest9;
             @LeftClick.started += instance.OnLeftClick;
             @LeftClick.performed += instance.OnLeftClick;
             @LeftClick.canceled += instance.OnLeftClick;
@@ -689,6 +793,18 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Test5.started -= instance.OnTest5;
             @Test5.performed -= instance.OnTest5;
             @Test5.canceled -= instance.OnTest5;
+            @Test6.started -= instance.OnTest6;
+            @Test6.performed -= instance.OnTest6;
+            @Test6.canceled -= instance.OnTest6;
+            @Test7.started -= instance.OnTest7;
+            @Test7.performed -= instance.OnTest7;
+            @Test7.canceled -= instance.OnTest7;
+            @Test8.started -= instance.OnTest8;
+            @Test8.performed -= instance.OnTest8;
+            @Test8.canceled -= instance.OnTest8;
+            @Test9.started -= instance.OnTest9;
+            @Test9.performed -= instance.OnTest9;
+            @Test9.canceled -= instance.OnTest9;
             @LeftClick.started -= instance.OnLeftClick;
             @LeftClick.performed -= instance.OnLeftClick;
             @LeftClick.canceled -= instance.OnLeftClick;
@@ -922,6 +1038,10 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnTest3(InputAction.CallbackContext context);
         void OnTest4(InputAction.CallbackContext context);
         void OnTest5(InputAction.CallbackContext context);
+        void OnTest6(InputAction.CallbackContext context);
+        void OnTest7(InputAction.CallbackContext context);
+        void OnTest8(InputAction.CallbackContext context);
+        void OnTest9(InputAction.CallbackContext context);
         void OnLeftClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
     }

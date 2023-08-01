@@ -5,7 +5,7 @@ using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-public class Player : MonoBehaviour, IHealth
+public class Player : MonoBehaviour, IHealth,IMana
 {
     public Transform weaponParent;
     public Transform shieldParent;
@@ -55,9 +55,26 @@ public class Player : MonoBehaviour, IHealth
     public float MaxHP => maxHP;
 
     public Action<float> onHealthChange { get; set; }
+    public Action<float> onManaChange { get; set; }
     public Action onDie { get; set; }
 
     public bool IsAlive => hp > 0.0f;
+
+    float mp = 200.0f;
+    public float MP
+    {
+        get => mp;
+        set
+        {
+            if (IsAlive)
+            {
+                mp = Mathf.Clamp(value, 0.0f, maxMP);
+                onManaChange?.Invoke(mp / MaxMP);
+            }
+        }
+    }
+    float maxMP = 200.0f;
+    public float MaxMP => maxMP;
 
     public void Die()
     {
@@ -67,9 +84,50 @@ public class Player : MonoBehaviour, IHealth
 
     public void HealthRegenerate(float totalRegen, float duration)//duration동안 totalRegen만큼 회복하는 함수 
     {
-        
+        StartCoroutine(RecoveryHealth(totalRegen, duration));       
     }
-    
+    public void ManaRegenerate(float totalRegen, float duration)//duration동안 totalRegen만큼 회복하는 함수 
+    {
+        StartCoroutine(RecoveryMana(totalRegen, duration));
+    }
+    public void RecoveryHealthByTick_(float tickRegen, float tickTime, uint totalTickCount)
+    {
+        StartCoroutine(RecoveryHpByTick(tickRegen, tickTime, totalTickCount));
+    }
+    IEnumerator RecoveryHealth(float totalRegen, float duration)
+    {
+        float regenPerSec = totalRegen / duration;
+        float time = 0.0f;
+        while(time < duration)
+        {
+            //HP += totalRegen / duration * Time.deltaTime; 값을 미리 캐싱 해두는 것이 연산량을 더 줄일 수 있다.
+            HP += Time.deltaTime * regenPerSec;
+            time += Time.deltaTime;
+            yield return null;
+        }
+    }
+    IEnumerator RecoveryMana(float totalRegen, float duration)
+    {
+        float time = 0.0f;
+        while (time < duration)
+        {
+            MP += totalRegen / duration * Time.deltaTime;
+            time += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    IEnumerator RecoveryHpByTick(float hpValuePerTick, float timePerTick, uint totalTick)
+    {
+        int tick = 0;
+        WaitForSeconds tickValue = new WaitForSeconds(timePerTick);
+        while(tick < totalTick)
+        {
+            HP += hpValuePerTick;
+            yield return tickValue;
+            tick++;
+        }
+    }
 
 
 
@@ -127,5 +185,7 @@ public class Player : MonoBehaviour, IHealth
     }
 
   
+
+
 #endif
 }

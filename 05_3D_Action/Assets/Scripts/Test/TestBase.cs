@@ -17,10 +17,33 @@ public class TestBase : MonoBehaviour
         inputActions.Test.Test3.performed += Test3;
         inputActions.Test.Test4.performed += Test4;
         inputActions.Test.Test5.performed += Test5;
+        inputActions.Test.Test6.performed += Test6;
+        inputActions.Test.Test7.performed += Test7;
+        inputActions.Test.Test8.performed += Test8;
+        inputActions.Test.Test9.performed += Test9;
         inputActions.Test.RightClick.performed += RightClick;
         inputActions.Test.LeftClick.performed += LeftClick;
     }
 
+    protected virtual void Test9(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+     
+    }
+
+    protected virtual void Test8(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+ 
+    }
+
+    protected virtual void Test7(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+    
+    }
+
+    protected virtual void Test6(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+      
+    }
 
     protected virtual void OnDisable()
     {

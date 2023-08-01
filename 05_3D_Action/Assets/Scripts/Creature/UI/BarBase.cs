@@ -28,6 +28,8 @@ public class BarBase : MonoBehaviour
     }
     protected void onvalueChange(float ratio)
     {
-
+        ratio = Mathf.Clamp01(ratio);//ratio 를 0~1로 변경
+        slider.value = ratio;
+        current.text = $"{(ratio * maxValue):f0}";
     }
 }
