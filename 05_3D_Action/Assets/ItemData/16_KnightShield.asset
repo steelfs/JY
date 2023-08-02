@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d48e5458a2e2c6742b6bba18dd12316d, type: 3}
+  m_Name: 16_KnightShield
+  m_EditorClassIdentifier: 
+  code: 16
+  itemName: "\uC544\uC774\uD15C"
+  modelPrefab: {fileID: 5987305458811812536, guid: f64939eaa09fa3943b7a7046618a48db,
+    type: 3}
+  itemIcon: {fileID: 21300000, guid: 256205b9c6ca12c45ab7762da8a65631, type: 3}
+  price: 500
+  maxStackCount: 1
+  itemDescription: "\uC124\uBA85"
+  equipPrefab: {fileID: 286882491109073952, guid: f9cbd41ca46a33f4da7edd1534178471,
+    type: 3}
+  defencePower: 30

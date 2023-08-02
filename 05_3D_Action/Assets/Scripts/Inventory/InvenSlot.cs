@@ -125,8 +125,14 @@ public class InvenSlot
             }
         }
     }
-    public void EquipItem(GameObject target)
+    public void EquipItem(GameObject target)//슬롯에 있는 아이템을 장비하는 함수 
     {
-
+        IEquipable equipable = ItemData as IEquipable;//장비가능한 아이템이면
+        if (equipable != null)
+        {
+            equipable.ToggleEquip(target, this); //타겟에게 장비 시도
+        }
+  
+        IEquipTarget equipTarget = target.GetComponent<IEquipTarget>();
     }
 }

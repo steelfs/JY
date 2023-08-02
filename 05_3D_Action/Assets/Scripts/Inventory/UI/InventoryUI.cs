@@ -193,6 +193,7 @@ public class InventoryUI : MonoBehaviour
             else
             {
                 inven[index].UseItem(Owner.gameObject);//소유자의 아이템 사용
+                inven[index].EquipItem(Owner.gameObject);
             }
             //아이템사용, 장비 등등
         }

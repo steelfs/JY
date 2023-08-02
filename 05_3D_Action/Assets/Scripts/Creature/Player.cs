@@ -5,7 +5,7 @@ using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-public class Player : MonoBehaviour, IHealth,IMana
+public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
 {
     public Transform weaponParent;
     public Transform shieldParent;
@@ -76,6 +76,30 @@ public class Player : MonoBehaviour, IHealth,IMana
     float maxMP = 200.0f;
     public float MaxMP => maxMP;
 
+    InvenSlot[] partsSlot;//장비아이템의 부위별 상태 (장착한 아이템이 있는 슬롯)
+    public InvenSlot this[EquipType part] => partsSlot[(int)part];// return이 null 이면 장비가 안되어있음, null 이 아니면 이미 장비되어있음// parts = 확인할 장비의 종류 
+
+    public void EquipItem(EquipType part, InvenSlot slot)
+    {
+        ItemData_Equip equip = slot.ItemData as ItemData_Equip;
+        if (equip != null)
+        {
+            Transform partsTransform = GetEquipParentTransform(part);
+            GameObject obj = Instantiate(equip.equipPrefab, partsTransform);
+
+            partsSlot[(int)part] = slot;
+        }
+    }
+
+    public void UnEquipItem(EquipType part)
+    {
+       
+    }
+
+    public Transform GetEquipParentTransform(EquipType part)
+    {
+        return null;
+    }
     public void Die()
     {
         onDie?.Invoke();
@@ -139,6 +163,7 @@ public class Player : MonoBehaviour, IHealth,IMana
     {
         controller = GetComponent<PlayerInputController>();
         controller.onItemPickUp = OnItemPickUp;
+        partsSlot = new InvenSlot[Enum.GetValues(typeof(EquipType)).Length];//EquipType의 Length만큼  만든다
     }
     private void OnItemPickUp() // 아이템 획득 
     {
@@ -184,6 +209,8 @@ public class Player : MonoBehaviour, IHealth,IMana
 
         Handles.DrawWireDisc(transform.position, Vector3.up, itemPickUpRange);
     }
+
+  
 
 
 
