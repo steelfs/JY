@@ -82,13 +82,13 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
     public void EquipItem(EquipType part, InvenSlot slot)
     {
         ItemData_Equip equip = slot.ItemData as ItemData_Equip;
-        if (equip != null)
+        if (equip != null)//장비가능하다면
         {
-            Transform partsTransform = GetEquipParentTransform(part);
+            Transform partsTransform = GetEquipParentTransform(part); //부모가될 트렌스폼 가져와서
             GameObject obj = Instantiate(equip.equipPrefab, partsTransform);
 
-            partsSlot[(int)part] = slot;
-            slot.IsEquipped = true;
+            partsSlot[(int)part] = slot;// 어느슬롯에 아이템이 장착되었는지 기록
+            slot.IsEquipped = true; // 장비되었다고 알림(프로퍼티 대리자 호출)
         }
     }
 
