@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea2c090110e7a743872da00ad40ea70, type: 3}
   m_Name: 13_SilverSword
   m_EditorClassIdentifier: 
-  code: 14
+  code: 13
   itemName: "\uC544\uC774\uD15C"
   modelPrefab: {fileID: 1821794908592158162, guid: 646823e779740f74abc0c5bcf10bdb59,
     type: 3}
