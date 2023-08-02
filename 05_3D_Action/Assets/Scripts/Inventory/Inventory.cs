@@ -116,6 +116,7 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
                 //    Debug.Log($"{from}번 슬롯과 {to}번 슬롯의 아이템 교체");
                 }
             }
+          
         }
     }
     public void SplitItem(uint slotIndex, uint count)

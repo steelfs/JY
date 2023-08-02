@@ -94,10 +94,10 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
 
     public void UnEquipItem(EquipType part)
     {
-        Transform partParent = GetEquipParentTransform(part);
-        while (partParent.childCount > 0)
+        Transform partParent = GetEquipParentTransform(part);// 파츠부모가 자식을 갖고있으면 장비중
+        while (partParent.childCount > 0) // 파츠부모가 자식을 가지고 있으면 모두 제거
         {
-            Transform child = partParent.GetChild(0);
+            Transform child = partParent.GetChild(0); 
             child.SetParent(null);
             Destroy(child.gameObject);
         }

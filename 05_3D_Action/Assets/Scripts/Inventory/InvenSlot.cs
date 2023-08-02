@@ -67,6 +67,7 @@ public class InvenSlot
         {
             ClearSlotItem(); //data가 null이면 해당슬롯은 초기화
         }
+        onSlotItemChange?.Invoke();
     }
     public void ClearSlotItem()
     {
