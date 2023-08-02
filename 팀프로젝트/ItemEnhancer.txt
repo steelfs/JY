@@ -43,3 +43,10 @@ Close,
     Alpha = 0;
     Interactable.false;
 }
+
+
+IEnhancable
+
+EnhanceType, TryEnhance, 
+
+성공확률 계산시 고려해야 할 것  = 아이템레벨, 다크포스 사용량, 
