@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EquipType
+{
+    Weapon,
+    Shield
+}
 public enum ItemCode
 {
     Ruby = 0,
