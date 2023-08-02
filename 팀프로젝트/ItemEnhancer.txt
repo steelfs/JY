@@ -1,0 +1,45 @@
+
+상태변경 조건 만족 시 enum 프로퍼티 변경
+상태변경 시 대리자 호출
+
+
+Open, - alpha, interacterble,
+
+SetItem,
+{
+
+ - before, afterSlot. SetItem,// ConfirmButton.interacable = true; // 슬라이더 value = minvalue, maxValue = player.DarkForce 설정
+eachSlot. Image, itemLeveltext 업데이트,  SuccessRateText 설정, Slot Animation,
+
+EachSlot.OnPointerEnter, Move - EnhancerDescription Popup
+}
+
+Process
+{
+    이펙트, 파티클 팝업 후 성공, 실패에 따라 Success, Fail로 상태 변경
+}
+
+Success
+{
+	Item스펙(Level, ATT, DP) 재설정 후 SlotManager의 알맞은 탭(List)의 빈슬롯에 ItemData 설정
+	성공이펙트 팝업, 
+	모두 실행 후  ClearItem으로 변경
+}
+,
+Fail
+{
+    SlotManager의 알맞은 탭(List)의 빈슬롯에 ItemData 설정 or 파괴, 실패 이펙트 팝업
+    모두 실행 후 ClearItem 으로변경
+}
+
+ClearItem,
+{
+    EachSlot.clearImage
+    Slider.value, maxvalue 재설정, confirmButton.interactable = false;
+}
+
+Close,
+{
+    Alpha = 0;
+    Interactable.false;
+}
