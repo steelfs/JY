@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   code: 9
   itemName: HealingPotion
-  modelPrefab: {fileID: 0}
-  itemIcon: {fileID: 0}
-  price: 0
-  maxStackCount: 1
-  itemDescription: "\uC124\uBA85"
-  heal: 30
+  modelPrefab: {fileID: 1513582356602189367, guid: 5fada295886b0134ba6fb46846df1d5b,
+    type: 3}
+  itemIcon: {fileID: 21300000, guid: 117b17facff65dc42b1b57deb7c21551, type: 3}
+  price: 1000
+  maxStackCount: 200
+  itemDescription: "HP \uD68C\uBCF5\uC6A9 \uD3EC\uC158"
+  heal: 50

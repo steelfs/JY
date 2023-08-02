@@ -190,6 +190,10 @@ public class InventoryUI : MonoBehaviour
             {
                 OnSpliterOpen(index);
             }
+            else
+            {
+                inven[index].UseItem(Owner.gameObject);//소유자의 아이템 사용
+            }
             //아이템사용, 장비 등등
         }
         else//임시슬롯에 아이템이있을때 클릭이 되었으면 

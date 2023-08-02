@@ -17,9 +17,16 @@ public class ItemData_HealingPotion : ItemData, IUseable
             IHealth health = target.GetComponent<IHealth>();
             if (health != null)
             {
-                health.HP += heal;
-                result = true;
-
+                if (health.HP < health.MaxHP)
+                {
+                    health.HP += heal;
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                    Debug.Log("HP 가 가득 차 있습니다.");
+                }
             }
         }
 
