@@ -15,7 +15,6 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
     public Inventory Inventory => inven;
 
     public float itemPickUpRange = 5.0f;
-
     //플레이어가 가진 돈
     int money = 0;
     public int Money
@@ -70,6 +69,7 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
             {
                 mp = Mathf.Clamp(value, 0.0f, maxMP);
                 onManaChange?.Invoke(mp / MaxMP);
+
             }
         }
     }
@@ -88,17 +88,36 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
             GameObject obj = Instantiate(equip.equipPrefab, partsTransform);
 
             partsSlot[(int)part] = slot;
+            slot.IsEquipped = true;
         }
     }
 
     public void UnEquipItem(EquipType part)
     {
-       
+        Transform partParent = GetEquipParentTransform(part);
+        while (partParent.childCount > 0)
+        {
+            Transform child = partParent.GetChild(0);
+            child.SetParent(null);
+            Destroy(child.gameObject);
+        }
+        partsSlot[(int)part].IsEquipped = false;
+        partsSlot[(int)part] = null;
     }
 
     public Transform GetEquipParentTransform(EquipType part)
     {
-        return null;
+        Transform result = null;
+        switch (part)
+        {
+            case EquipType.Weapon:
+                result = weaponParent;
+                break;
+            case EquipType.Shield:
+                result = shieldParent;
+                break;
+        }
+        return result;
     }
     public void Die()
     {
