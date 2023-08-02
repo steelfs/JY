@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Elixir
   modelPrefab: {fileID: 7812378700496954101, guid: d1b2662bcad78f54d84b63853fce75c2,
     type: 3}
-  itemIcon: {fileID: 21300000, guid: 2d7d9ae02b7159843ac7d5ead0f8b89a, type: 3}
+  itemIcon: {fileID: 21300000, guid: 805736230f06ac449a72b0ecb951e522, type: 3}
   price: 5000
   maxStackCount: 200
   itemDescription: "HP, MP\uB97C \uBAA8\uB450 \uD68C\uBCF5\uD558\uB294 \uC5D8\uB9AD\uC11C

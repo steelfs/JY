@@ -11,12 +11,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2d7d9ae02b7159843ac7d5ead0f8b89a,
+      objectReference: {fileID: 21300000, guid: 805736230f06ac449a72b0ecb951e522,
         type: 3}
     - target: {fileID: 2657099897344230116, guid: 7f7f43912c2c7a14ca701865e8304931,
         type: 3}
       propertyPath: m_Name
-      value: ItemBase
+      value: 11_RegenPotion
       objectReference: {fileID: 0}
     - target: {fileID: 2657099897344230117, guid: 7f7f43912c2c7a14ca701865e8304931,
         type: 3}
