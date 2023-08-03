@@ -114,6 +114,15 @@ public class InventoryUI : MonoBehaviour
             slotsUI[i].onPointerEnter += OnItemDetailOn;
             slotsUI[i].onPointerExit += OnItemDetailOff;
             slotsUI[i].onPointerMove += OnSlotPointerMove;
+            InvenSlot slot = slotsUI[i].InvenSlot;
+            slotsUI[i].InvenSlot.onSlotItemChange += () =>//슬롯의 아이템이 변경되었을 때
+            {
+                ItemData_Equip equipData = slot.ItemData as ItemData_Equip;//장비가능한 아이템이면
+                if (slot.IsEquipped && equipData != null)                  //장비가 되어있는 상태라면 
+                {
+                    inven.Owner.SetPartsSlot(equipData.EquipParts, slot);//어떤 장비가 어느 슬롯으로 변경되었다.
+                }
+            };
         }
 
         //임시슬롯 초기화

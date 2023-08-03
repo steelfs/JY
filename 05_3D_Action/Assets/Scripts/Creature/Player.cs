@@ -236,7 +236,22 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
         weaponParent.gameObject.SetActive(isShow);
         shieldParent.gameObject.SetActive(isShow);
     }
- 
+    public void WeaponEffectEnable(bool enable)
+    {
+        onWeaponEffectEnable?.Invoke(enable);
+    }
+    public void WeaponBladeEnable()
+    {
+        onWeaponBladeEnable?.Invoke(true);
+    }
+    public void WeaponBladedisable()
+    {
+        onWeaponBladeEnable?.Invoke(false);
+    }
+    public void SetPartsSlot(EquipType type, InvenSlot slot)//파츠별로 어떤슬롯의 아이템이 사용되고있는지를 설정하는 함수 
+    {
+        partsSlot[(int)type] = slot;
+    }
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {

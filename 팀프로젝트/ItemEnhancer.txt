@@ -8,8 +8,14 @@ Open, - alpha, interacterble,
 SetItem,
 {
 
- - before, afterSlot. SetItem,// ConfirmButton.interacable = true; // 슬라이더 value = minvalue, maxValue = player.DarkForce 설정
-eachSlot. Image, itemLeveltext 업데이트,  SuccessRateText 설정, Slot Animation,
+ - before, afterSlot. SetItem,
+ ConfirmButton.interacable = true; 
+ 슬라이더 value = minvalue
+, maxValue = player.DarkForce 
+eachSlot. Image, 
+itemLeveltext 업데이트,
+  SuccessRateText 설정,
+ Slot Animation,
 
 EachSlot.OnPointerEnter, Move - EnhancerDescription Popup
 }
