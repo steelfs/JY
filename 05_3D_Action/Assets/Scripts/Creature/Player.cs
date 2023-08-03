@@ -10,6 +10,9 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
     public Transform weaponParent;
     public Transform shieldParent;
 
+    public Action<bool> onWeaponBladeEnable;// 칼의 콜라이더, 활성화 타이밍 알림용
+    public Action<bool> onWeaponEffectEnable; // 파티클시스템
+
     Inventory inven;
 
     public Inventory Inventory => inven;
@@ -89,6 +92,13 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
 
             partsSlot[(int)part] = slot;// 어느슬롯에 아이템이 장착되었는지 기록
             slot.IsEquipped = true; // 장비되었다고 알림(프로퍼티 대리자 호출)
+
+            if (part == EquipType.Weapon)
+            {
+                Weapon weapon = obj.GetComponent<Weapon>();
+                onWeaponBladeEnable = weapon.BladeColliderEnable;
+                onWeaponEffectEnable = weapon.EffectEnable;
+            }
         }
     }
 
@@ -103,6 +113,12 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
         }
         partsSlot[(int)part].IsEquipped = false;
         partsSlot[(int)part] = null;
+
+        if (part == EquipType.Weapon)
+        {
+            onWeaponBladeEnable = null;
+            onWeaponEffectEnable = null;
+        }
     }
 
     public Transform GetEquipParentTransform(EquipType part)

@@ -54,13 +54,13 @@ public class InvenSlot
         IsEquipped = false;
         ItemData = null;
     }
-    public void AssignSlotItem(ItemData Data, uint count = 1)//이 슬롯에 아이템을 설정하는 함수 , param = 설정할 아이템종류, 개수
+    public void AssignSlotItem(ItemData Data, uint count = 1, bool isEquipped = false)//이 슬롯에 아이템을 설정하는 함수 , param = 설정할 아이템종류, 개수
     {
         if (Data != null)
         {
             ItemData = Data;
             ItemCount = count;
-            IsEquipped = false;
+            IsEquipped = isEquipped;
            // Debug.Log($"인벤토리 {slotIndex} 슬롯에 \"{ItemData.itemName}\" 아이템이 {itemCount} 개 설정");
         }
         else

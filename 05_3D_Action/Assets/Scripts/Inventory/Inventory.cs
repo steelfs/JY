@@ -111,8 +111,9 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
                 {
                     ItemData itemData = fromSlot.ItemData;
                     uint tempCount = fromSlot.ItemCount;
-                    fromSlot.AssignSlotItem(toSlot.ItemData, toSlot.ItemCount);
-                    toSlot.AssignSlotItem(itemData, tempCount);
+                    bool isEquipped = fromSlot.IsEquipped;
+                    fromSlot.AssignSlotItem(toSlot.ItemData, toSlot.ItemCount, toSlot.IsEquipped);
+                    toSlot.AssignSlotItem(itemData, tempCount, isEquipped);
                 //    Debug.Log($"{from}번 슬롯과 {to}번 슬롯의 아이템 교체");
                 }
             }
@@ -191,17 +192,17 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
         }
         //beforeSlots는 이 시점에서 정해진 기준에 따하 정렬 완료
 
-        List<(ItemData, uint)> sorteddata = new List<(ItemData, uint)>(SlotCount);//아이템 종류와 개수를 따로 저장하기
+        List<(ItemData, uint, bool)> sorteddata = new List<(ItemData, uint, bool)>(SlotCount);//아이템 종류와 개수를 따로 저장하기
         foreach (var slot in beforeSlots)
         {
-            sorteddata.Add((slot.ItemData, slot.ItemCount));
+            sorteddata.Add((slot.ItemData, slot.ItemCount, slot.IsEquipped));
         }
 
         //슬롯에 아이템 종류와 개수를 순서대로 할당하기
         int index = 0;
         foreach (var data in sorteddata)
         {
-            slots[index].AssignSlotItem(data.Item1, data.Item2);
+            slots[index].AssignSlotItem(data.Item1, data.Item2, data.Item3);
             index++;
         }
        // slots = beforeSlots.ToArray();//위 코드는 수동으로 넣기
@@ -322,5 +323,9 @@ public class Inventory //Inventory 의 내부 구현을 담당하는 클래스 UI 는 다른클래
             printText += "(빈칸)";
         }
         Debug.Log(printText);
+    }
+    public void TestItemEquip(uint index)
+    {
+        slots[index].EquipItem(Owner.gameObject);
     }
 }

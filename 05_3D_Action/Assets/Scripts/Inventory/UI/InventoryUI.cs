@@ -159,7 +159,10 @@ public class InventoryUI : MonoBehaviour
     //인벤토리가 열려있을때는 공격 할수없다 playerController. onAttack -=
     private void OnItemMoveBegin(uint index)
     {
-        
+        //if (inven[index].IsEquipped)
+        //{
+        //    inven[index].EquipItem(Owner.gameObject); //드래그 시작시 장비중이면 장비 해제(토글)
+        //}
         inven.MoveItem(index, tempSlotUI.Index);//시작슬롯에서 임시슬롯으로 아이템 옮기기
         tempSlotUI.Open();//임시슬롯 열기
     }
@@ -241,8 +244,8 @@ public class InventoryUI : MonoBehaviour
         Vector2 diff = screenPos - (Vector2)transform.position;
         if (!rect.rect.Contains(diff))
         {
-            
             tempSlotUI.OnDrop(screenPos);
         }
     }
+
 }
