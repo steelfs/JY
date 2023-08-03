@@ -36,6 +36,7 @@ ClearItem,
 {
     EachSlot.clearImage
     Slider.value, maxvalue 재설정, confirmButton.interactable = false;
+    SuccessRateText 초기화
 }
 
 Close,
@@ -49,4 +50,9 @@ IEnhancable
 
 EnhanceType, TryEnhance, 
 
-성공확률 계산시 고려해야 할 것  = 아이템레벨, 다크포스 사용량, 
+성공확률 계산시 고려해야 할 것  = 아이템레벨, 포스 사용량, 
+
+Level Property
+LevelUpValue
+
+LevelDown
