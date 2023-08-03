@@ -8,13 +8,13 @@ Open, - alpha, interacterble,
 SetItem,
 {
 
- - before, afterSlot. SetItem,
- ConfirmButton.interacable = true; 
- 슬라이더 value = minvalue
-, maxValue = player.DarkForce 
-eachSlot. Image, 
-itemLeveltext 업데이트,
-  SuccessRateText 설정,
+ - before, afterSlot. SetItem, @
+ ConfirmButton.interacable = true;  @
+ 슬라이더 value = minvalue @
+, maxValue = player.DarkForce @ 
+eachSlot. Image,  @
+itemLeveltext 업데이트, @
+  SuccessRateText 설정, @
  Slot Animation,
 
 EachSlot.OnPointerEnter, Move - EnhancerDescription Popup
@@ -52,13 +52,4 @@ Close,
 }
 
 
-IEnhancable
-
-EnhanceType, TryEnhance, 
-
-성공확률 계산시 고려해야 할 것  = 아이템레벨, 포스 사용량, 
-
-Level Property
-LevelUpValue
-
-LevelDown
+Warning PopUp할 차례
