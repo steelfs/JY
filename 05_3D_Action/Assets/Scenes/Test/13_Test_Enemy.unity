@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 95161444445861691}
-  moveTarget: {fileID: 250941734}
+  moveTarget: {fileID: 95161444445861692}
 --- !u!4 &777841184
 Transform:
   m_ObjectHideFlags: 0
@@ -308,7 +308,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777841182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.3, y: 0, z: 0.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -892,6 +892,12 @@ MonoBehaviour:
   sightHalfAngle: 50
   moveSpeed: 3
   wayPoints: {fileID: 1155122123}
+--- !u!4 &95161444445861692 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3342298884295957086, guid: 3b45a87caef02984090e9d7e7509e700,
+    type: 3}
+  m_PrefabInstance: {fileID: 3345172005909592763}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3345172005909592763
 PrefabInstance:
   m_ObjectHideFlags: 0

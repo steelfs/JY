@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
                         onStateUpdate = UpdateWait;
                         break;
                     case EnemyState.Patrol:
-                        agent.SetDestination(moveTarget.position);
+                        agent.SetDestination(moveTarget.position);//목적지 재설정
                         onStateUpdate = UpdatePatrol;
                         break;
                     case EnemyState.Chase:
@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
         get => waitTimer;
         set
         {
-            waitTime = value;
+            waitTimer = value;
             if (waitTimer < 0)
             {
                 State = EnemyState.Patrol;
