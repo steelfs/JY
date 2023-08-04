@@ -524,7 +524,7 @@ GameObject:
   - component: {fileID: 1498185915977601868}
   - component: {fileID: 1498185915977601867}
   - component: {fileID: 8375385309019641051}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponParent: {fileID: 3583921758577965431}
   shieldParent: {fileID: 2841215842074736348}
-  itemPickUpRange: 5
+  itemPickUpRange: 2
 --- !u!1 &2230109900343534633
 GameObject:
   m_ObjectHideFlags: 0

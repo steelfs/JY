@@ -2584,16 +2584,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7210691887256161808, guid: 41f52b40a176d864c8d74421afbb61d7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8375385309019641051, guid: 41f52b40a176d864c8d74421afbb61d7,
-        type: 3}
-      propertyPath: itemPickUpRange
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41f52b40a176d864c8d74421afbb61d7, type: 3}
 --- !u!1001 &2002420950
