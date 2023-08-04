@@ -30,6 +30,8 @@ Success
 	Item스펙(Level, ATT, DP) 재설정 후 SlotManager의 알맞은 탭(List)의 빈슬롯에 ItemData 설정
 	성공이펙트 팝업, 
 	모두 실행 후  ClearItem으로 변경
+
+	처음 Slot에서 TempSlot으로 옮길 때 기존슬롯의 ItemData를 null 로 설정 필요.
 }
 ,
 Fail
