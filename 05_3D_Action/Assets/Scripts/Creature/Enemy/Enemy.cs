@@ -37,17 +37,20 @@ public class Enemy : TestBase
                 switch (state)
                 {
                     case EnemyState.Wait:
+                        anim.SetTrigger("Stop");
                         agent.isStopped = true; //에이전트 정지 시키기
                         agent.velocity = Vector3.zero; // 남아있던 운동량, 관성 제거 
                         WaitTimer = waitTime;//대기시간 초기화
                         onStateUpdate = UpdateWait;// 대리자 신호를 보내는 것이 아니라  함수를 저장하는 용도로 사용 
                         break;
                     case EnemyState.Patrol:
+                        anim.SetTrigger("Move");
                         agent.isStopped = false; // 에이전트 다시 켜시
                         agent.SetDestination(wayPointTarget.position);//목적지 재설정
                         onStateUpdate = UpdatePatrol;
                         break;
                     case EnemyState.Chase:
+                        anim.SetTrigger("Move");
                         agent.isStopped = false;
                         onStateUpdate = UpdateChase;
                         break;
@@ -122,7 +125,7 @@ public class Enemy : TestBase
             wayPointTarget = wayPoints.Current;
         }
         State = EnemyState.Wait;
-    
+        anim.ResetTrigger("Stop"); // Wait tstate에서 stop트리거 오더가 바로 처리되지 못하고 쌓이는 현상 방지하기 위함
     }
     private void Update()
     {
@@ -243,7 +246,7 @@ public class Enemy : TestBase
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        bool playerShow = false; // 플레이어가 시야범위안에 들어왔는지 확인
+        bool playerShow = SearchPlayer(); // 플레이어가 시야범위안에 들어왔는지 확인
 
         Handles.color = playerShow ? Color.red : Color.green;
         Vector3 forward = transform.forward * farSightRange;
