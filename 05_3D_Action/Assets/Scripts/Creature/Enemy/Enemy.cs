@@ -234,6 +234,7 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
     void UpdateAttack()
     {
         attackCoolTime -= Time.deltaTime;
+        //attackTarget.transform.position - transform.position는 상대방쪽의 방향벡터를 구하는 것이다
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(attackTarget.transform.position - transform.position), 0.1f);
         if (attackCoolTime < 0)
         {
@@ -259,6 +260,7 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
             Vector3 playerPos = playerCollider[0].transform.position;
             Vector3 toPlayerDir = playerPos - transform.position; // 적 위치에서 플레이어로 가는 방향벡터 
 
+            //먼저 아주 가까운거리에 있는지 확인하는 코드sqrMagnitude가 제곱이기때문에 closeSightRange역시 제곱으로 비교한다
             if (toPlayerDir.sqrMagnitude < closeSightRange * closeSightRange)
             {
                 chaseTarget = playerCollider[0].transform;
@@ -293,7 +295,7 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
         //Vector3 dir2 = Quaternion.AngleAxis(sightHalfAngle, transform.up) * transform.forward;
         //float angle = Vector3.Angle(dir2, dir1);
         
-        float angle = Vector3.Angle(transform.forward, toTargetDirection);
+        float angle = Vector3.Angle(transform.forward, toTargetDirection);//두개의 벡터를 넣으면 두 위치 사이의 각을 리턴해주는 함수
         return sightHalfAngle > angle;
     }
     bool IsSightClear(Vector3 toTargetDirection)//대상을 바라볼 때 시야가 다른 오브젝트에 가려졌는지 확인하는 함수, Ray로 확인
