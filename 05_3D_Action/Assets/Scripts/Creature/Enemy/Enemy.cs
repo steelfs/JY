@@ -93,10 +93,8 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
     public float moveSpeed = 3.0f;
 
     public WayPoints wayPoints; //적이 순찰할 웨이포인트
-    protected Transform WayPointTarget
-    {
-        get => wayPoints.Current;
-    }
+    protected Transform WayPointTarget = null;
+
 
     public float attackPower = 10.0f;
     public float AttackPower => attackPower;
@@ -128,19 +126,19 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
     public Action<float> onHealthChange { get; set; }
     public Action onDie { get; set; }
 
-    public bool IsAlive => HP > 0;
+    public bool IsAlive => hp > 0;
 
 
 
     Action onStateUpdate;
 
-    IBattle attackTarget;
     
     Animator anim;
     NavMeshAgent agent;
     SphereCollider bodyCollider;
     Rigidbody rb;
     Transform chaseTarget = null; //추격대상
+    IBattle attackTarget = null;
     protected Transform wayPointTarget;// 적이 이동할 트렌스폼 (웨이포인트 위치 or 플레이어 위치) waypoints.Current
 
 

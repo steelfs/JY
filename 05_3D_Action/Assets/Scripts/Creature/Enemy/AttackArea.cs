@@ -20,7 +20,7 @@ public class AttackArea : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            IBattle battle = other as IBattle;
+            IBattle battle = other.GetComponent<IBattle>();
             onPlayerIn?.Invoke(battle);
         }
     }
@@ -28,7 +28,7 @@ public class AttackArea : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            IBattle battle = other as IBattle;
+            IBattle battle = other.GetComponent<IBattle>();
             onPlayerOut?.Invoke(battle);
         }
     }
