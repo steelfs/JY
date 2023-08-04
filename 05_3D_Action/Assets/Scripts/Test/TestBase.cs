@@ -5,7 +5,7 @@ using UnityEngine;
 public class TestBase : MonoBehaviour
 {
    protected  PlayerInputAction inputActions;
-    private void Awake()
+    protected virtual void Awake()
     {
         inputActions = new PlayerInputAction();
     }
