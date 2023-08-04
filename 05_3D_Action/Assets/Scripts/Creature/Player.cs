@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEditor.Animations;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
+public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
 {
     public Transform weaponParent;
     public Transform shieldParent;
 
     public Action<bool> onWeaponBladeEnable;// 칼의 콜라이더, 활성화 타이밍 알림용
     public Action<bool> onWeaponEffectEnable; // 파티클시스템
+
+    Animator anim;
 
     Inventory inven;
 
@@ -78,6 +81,26 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
     }
     float maxMP = 200.0f;
     public float MaxMP => maxMP;
+
+
+    public float attackPower = 20.0f;
+    public float AttackPower => attackPower;
+
+    public float defencePower = 5.0f;
+    public float DefencePower => defencePower;
+
+    public void Attack(IBattle target)
+    {
+        target.defence(AttackPower); // 대상에게 데미지를 주고 
+    }
+
+    public void defence(float damage)
+    {
+        if (IsAlive)
+        {
+            HP -= (damage - DefencePower);
+        }
+    }
 
     InvenSlot[] partsSlot;//장비아이템의 부위별 상태 (장착한 아이템이 있는 슬롯)
     public InvenSlot this[EquipType part] => partsSlot[(int)part];// return이 null 이면 장비가 안되어있음, null 이 아니면 이미 장비되어있음// parts = 확인할 장비의 종류 
@@ -198,6 +221,7 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
     {
         controller = GetComponent<PlayerInputController>();
         controller.onItemPickUp = OnItemPickUp;
+        anim = GetComponent<Animator>();
         partsSlot = new InvenSlot[Enum.GetValues(typeof(EquipType)).Length];//EquipType의 Length만큼  만든다
     }
     private void OnItemPickUp() // 아이템 획득 
@@ -260,7 +284,9 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget
         Handles.DrawWireDisc(transform.position, Vector3.up, itemPickUpRange);
     }
 
-  
+ 
+
+
 
 
 

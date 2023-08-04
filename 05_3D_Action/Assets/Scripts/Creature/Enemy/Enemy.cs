@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-public class Enemy : TestBase
+public class Enemy : MonoBehaviour, IBattle, IHealth
 {
     //상태머신
     // 대기 : 순찰 : 추적 : 공격 : 사망
@@ -55,6 +55,11 @@ public class Enemy : TestBase
                         onStateUpdate = UpdateChase;
                         break;
                     case EnemyState.Attack:
+                        agent.isStopped = true;
+                        agent.velocity = Vector3.zero;
+                        attackCoolTime = attackSpeed;
+                        anim.SetTrigger("Attack");
+
                         onStateUpdate = UpdateAttack;
                         break;
                     case EnemyState.Dead:
@@ -93,8 +98,44 @@ public class Enemy : TestBase
         get => wayPoints.Current;
     }
 
+    public float attackPower = 10.0f;
+    public float AttackPower => attackPower;
+
+    float attackSpeed = 1.0f;
+    float attackCoolTime = 1.0f;
+
+    public float defancePower = 3.0f;
+    public float DefencePower => defancePower;
+
+    float hp = 100.0f;
+    public float  maxHP= 100.0f;
+    public float HP
+    {
+        get => hp;
+        set
+        {
+            if (State != EnemyState.Dead && hp <= 0)
+            {
+                Die();
+            }
+            hp = Mathf.Clamp(hp, 0, maxHP);
+            onHealthChange?.Invoke(hp/maxHP);
+        }
+    }
+
+    public float MaxHP => maxHP;
+
+    public Action<float> onHealthChange { get; set; }
+    public Action onDie { get; set; }
+
+    public bool IsAlive => HP > 0;
+
+
+
     Action onStateUpdate;
 
+    IBattle attackTarget;
+    
     Animator anim;
     NavMeshAgent agent;
     SphereCollider bodyCollider;
@@ -104,13 +145,34 @@ public class Enemy : TestBase
 
 
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
+
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         bodyCollider = GetComponent<SphereCollider>();
         rb = GetComponent<Rigidbody>();
+
+        AttackArea attackArea = GetComponentInChildren<AttackArea>();
+        attackArea.onPlayerIn += (target) =>
+        {
+            if (State == EnemyState.Chase)//추적상태면 
+            {
+                attackTarget = target;
+                State = EnemyState.Attack;//공격상태로 변경
+            }
+        };
+        attackArea.onPlayerOut += (target) =>
+        {
+            if (attackTarget == target) // 공격대상이 나가면 
+            {
+                attackTarget = null; // 공격대상 비우고 
+                if (State != EnemyState.Dead) //죽은상태가 아니면
+                {
+                    State = EnemyState.Chase;// 추적상태로 변경 
+                }
+            }
+        };
     }
     private void Start()
     {
@@ -173,14 +235,20 @@ public class Enemy : TestBase
     }
     void UpdateAttack()
     {
-
+        attackCoolTime -= Time.deltaTime;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(attackTarget.transform.position - transform.position), 0.1f);
+        if (attackCoolTime < 0)
+        {
+            anim.SetTrigger("Attack");
+            Attack(attackTarget);
+        }
     }
     void UpdateDead()
     {
 
     }
 
-    bool SearchPlayer()//시야범위 안에 플레이어가 있는지 찾는 함수  찾으면 true 리턴, 
+    bool SearchPlayer()//시야범위 안에 플레이어가 있는지 찾는 함수  찾으면 true 리턴, //키보드로 플레이어 조작할 때 콜라이더가 null 이 아닌지 확인 필요 
     {
         //연산량 줄이기 - 완만한 조건을 먼저 체크하고 조건을 만족할 시 점점더 세세한 조건을 체크한다.
         bool result = false;
@@ -243,6 +311,58 @@ public class Enemy : TestBase
         }
         return result;
     }
+    public void Attack(IBattle target)
+    {
+        target.defence(AttackPower); // 대상에게 데미지를 주고 
+        attackCoolTime = attackSpeed;// 쿨타임 초기화 
+    }
+
+    public void defence(float damage)
+    {
+        if (State != EnemyState.Dead)
+        {
+            anim.SetTrigger("Hit");
+            HP -= (damage - defancePower);//방어력만큼 차감하고 HP감소 
+        }
+    }
+
+    public void Die()
+    {
+        State = EnemyState.Dead;
+        onDie?.Invoke();
+    }
+
+    public void HealthRegenerate(float totalRegen, float duration)//duration동안 totalRegen만큼 회복하는 함수 
+    {
+        StartCoroutine(RecoveryHealth(totalRegen, duration));
+    }
+    public void HealthRegenerateByTick(float tickRegen, float tickTime, uint totalTickCount)
+    {
+        StartCoroutine(RecoveryHpByTick(tickRegen, tickTime, totalTickCount));
+    }
+    IEnumerator RecoveryHealth(float totalRegen, float duration)
+    {
+        float regenPerSec = totalRegen / duration;
+        float time = 0.0f;
+        while (time < duration)
+        {
+            //HP += totalRegen / duration * Time.deltaTime; 값을 미리 캐싱 해두는 것이 연산량을 더 줄일 수 있다.
+            HP += Time.deltaTime * regenPerSec;
+            time += Time.deltaTime;
+            yield return null;
+        }
+    }
+    IEnumerator RecoveryHpByTick(float hpValuePerTick, float timePerTick, uint totalTick)
+    {
+        int tick = 0;
+        WaitForSeconds tickValue = new WaitForSeconds(timePerTick);
+        while (tick < totalTick)
+        {
+            HP += hpValuePerTick;
+            yield return tickValue;
+            tick++;
+        }
+    }
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -279,5 +399,7 @@ public class Enemy : TestBase
         //to = transform.position + dir2 * farSightRange;
         //Gizmos.DrawLine(from, to);
     }
+
+
 #endif
 }
