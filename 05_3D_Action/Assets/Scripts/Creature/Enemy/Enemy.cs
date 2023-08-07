@@ -13,8 +13,15 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
     // 대기 : 순찰 : 추적 : 공격 : 사망
     // 웨이포인트
     // 플레이어
-   
+    [System.Serializable]//직렬화  = 메모리 저장시 구조적으로 한 덩어리로 저장 // 하지 않을 시 데이터가 여기저기 흩어져있게된다.
+    public struct ItemDropInfo
+    {
+        public ItemCode code;
+        [Range(0.0f, 1.0f)]
+        public float dropChance;
+    }
 
+    public ItemDropInfo[] dropItems;
     protected enum EnemyState
     {
         Wait = 0,
@@ -338,17 +345,21 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
     public void Die()
     {
         State = EnemyState.Dead;
-        StartCoroutine(PopUpDeadEffect());
+        StartCoroutine(DeadSequence());
         onDie?.Invoke();
     }
-    IEnumerator PopUpDeadEffect()
+    IEnumerator DeadSequence()
     {
         //바닥에 보이는 이펙트 켜기
         //HP 바 없애기
         ps.Play();
         ps.transform.SetParent(null);// 같이 안떨어지게 하기
         enemyHP_Bar.gameObject.SetActive(false);
-        yield return new WaitForSeconds(1.5f);//죽는 애니메이션 끝날 때 까지
+        yield return new WaitForSeconds(0.35f);
+
+        MakeDropItems();
+
+        yield return new WaitForSeconds(1.15f);//죽는 애니메이션 끝날 때 까지
         agent.enabled = false;          // navMesh 가 켜져있으면 항상 navMesh  위에 있다.떨어지지 않는다.
         bodyCollider.enabled = false;
         rb.isKinematic = false;
@@ -361,6 +372,46 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
         //이펙트 삭제
         //navmeshagent끄기
         Destroy(ps.gameObject);
+    }
+
+    private void MakeDropItems()//아이템을 드랍하는 함수 
+    {
+        //Dictionary<ItemCode, uint> test = new Dictionary<ItemCode, uint>();
+        //test.Add(ItemCode.CopperCoin, 0);
+        //test.Add(ItemCode.SilverCoin, 0);
+        //for (int i = 0; i < 1000000; i++)
+        //{
+            foreach (var item in dropItems)
+            {
+                uint count = 0;
+                while (count < 3)//최대 3번 
+                {
+                    float percent = UnityEngine.Random.value;
+                    if (percent < item.dropChance)
+                    {
+                         ItemFactory.MakeItem(item.code, transform.position, true);
+                        count++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (count > 0)
+                {
+                    ItemFactory.MakeItems(item.code, count, transform.position, true);
+                }
+               // test[item.code] += count;
+          //  }
+        }
+
+        //foreach (var data in test)
+        //{
+        //    Debug.Log($"{data.Key} : {data.Value}");
+        //}
+        // 1.dropItems 에 기록되어있는 모든 아이템의 확률을 체크해서 통과시 아이템 생성
+        // 2. 생성확률을 통과하면 한번 더 확률을 체크한다, 최대3번까지
+
     }
 
     public void HealthRegenerate(float totalRegen, float duration)//duration동안 totalRegen만큼 회복하는 함수 
