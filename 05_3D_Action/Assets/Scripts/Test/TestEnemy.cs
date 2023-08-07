@@ -20,6 +20,10 @@ public class TestEnemy : TestBase
     }
     protected override void Test2(InputAction.CallbackContext context)
     {
-
+        enemy.HP -= 30;
+    }
+    protected override void Test3(InputAction.CallbackContext context)
+    {
+        enemy.HP += 30;
     }
 }

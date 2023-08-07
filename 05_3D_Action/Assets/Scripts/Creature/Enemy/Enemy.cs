@@ -63,6 +63,9 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
                         onStateUpdate = UpdateAttack;
                         break;
                     case EnemyState.Dead:
+                        agent.isStopped = true;
+                        agent.velocity = Vector3.zero;
+                        anim.SetTrigger("Die");
                         onStateUpdate = UpdateDead;
                         break;
                     default:
@@ -96,6 +99,7 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
     protected Transform WayPointTarget = null;
 
 
+
     public float attackPower = 10.0f;
     public float AttackPower => attackPower;
 
@@ -112,6 +116,7 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
         get => hp;
         set
         {
+            hp = value;
             if (State != EnemyState.Dead && hp <= 0)
             {
                 Die();
@@ -120,7 +125,6 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
             onHealthChange?.Invoke(hp/maxHP);
         }
     }
-
     public float MaxHP => maxHP;
 
     public Action<float> onHealthChange { get; set; }
@@ -132,7 +136,9 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
 
     Action onStateUpdate;
 
-    
+    EnemyHP_Bar enemyHP_Bar;
+    ParticleSystem ps;
+
     Animator anim;
     NavMeshAgent agent;
     SphereCollider bodyCollider;
@@ -145,11 +151,14 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
 
     private void Awake()
     {
+        enemyHP_Bar = GetComponentInChildren<EnemyHP_Bar>();
+        ps = transform.GetChild(4).GetComponent<ParticleSystem>();
 
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         bodyCollider = GetComponent<SphereCollider>();
         rb = GetComponent<Rigidbody>();
+        ps = GetComponentInChildren<ParticleSystem>();
 
         AttackArea attackArea = GetComponentInChildren<AttackArea>();
         attackArea.onPlayerIn += (target) =>
@@ -329,7 +338,29 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
     public void Die()
     {
         State = EnemyState.Dead;
+        StartCoroutine(PopUpDeadEffect());
         onDie?.Invoke();
+    }
+    IEnumerator PopUpDeadEffect()
+    {
+        //바닥에 보이는 이펙트 켜기
+        //HP 바 없애기
+        ps.Play();
+        ps.transform.SetParent(null);// 같이 안떨어지게 하기
+        enemyHP_Bar.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1.5f);//죽는 애니메이션 끝날 때 까지
+        agent.enabled = false;          // navMesh 가 켜져있으면 항상 navMesh  위에 있다.떨어지지 않는다.
+        bodyCollider.enabled = false;
+        rb.isKinematic = false;
+        rb.drag = 10.0f; //마찰력 조절 infinite => 마찰력이 너무 커서 안떨어짐
+        yield return new WaitForSeconds(1.5f); // 완전히 떨어질 때까지 대기
+
+        Destroy(this.gameObject);
+        //죽는 애니메이션 끝나면 바닥아래로 떨어트리기
+        //충분히 떨어지면 슬라임 삭제
+        //이펙트 삭제
+        //navmeshagent끄기
+        Destroy(ps.gameObject);
     }
 
     public void HealthRegenerate(float totalRegen, float duration)//duration동안 totalRegen만큼 회복하는 함수 
