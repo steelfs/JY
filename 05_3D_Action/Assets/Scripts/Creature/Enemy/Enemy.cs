@@ -377,14 +377,14 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
 
     private void MakeDropItems()//아이템을 드랍하는 함수 
     {
-        Dictionary<ItemCode, uint> droptable = new Dictionary<ItemCode, uint>(5);
-        droptable.Add(ItemCode.FishSteak, 0);
-        droptable.Add(ItemCode.CopperCoin, 0);
-        droptable.Add(ItemCode.SilverCoin, 0);
-        droptable.Add(ItemCode.GoldCoin, 0);
-        droptable.Add(ItemCode.Apple, 0);
-        for (int i = 0; i < 1000000; i++)
-        {
+        //Dictionary<ItemCode, uint> droptable = new Dictionary<ItemCode, uint>(5);
+        //droptable.Add(ItemCode.FishSteak, 0);
+        //droptable.Add(ItemCode.CopperCoin, 0);
+        //droptable.Add(ItemCode.SilverCoin, 0);
+        //droptable.Add(ItemCode.GoldCoin, 0);
+        //droptable.Add(ItemCode.Apple, 0);
+        //for (int i = 0; i < 1000000; i++)
+        //{
             foreach (var item in dropInfo)
             {
                 //uint repeatCount = 0;
@@ -401,15 +401,15 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
                         break;
                     }
                 }
-                droptable[item.code] += count;
+               // droptable[item.code] += count;
                 // ItemFactory.MakeItems(item.code, count, transform.position, true);
             }
-        }
+        //}
   
-        foreach (var item in droptable)
-        {
-            Debug.Log($"{item} : {droptable.Values}");
-        }
+        //foreach (var item in droptable)
+        //{
+        //    Debug.Log($"{item} : {droptable.Values}");
+        //}
     }
 
     public void HealthRegenerate(float totalRegen, float duration)//duration동안 totalRegen만큼 회복하는 함수 
