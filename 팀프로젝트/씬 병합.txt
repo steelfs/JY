@@ -1,0 +1,14 @@
+옮길 것
+GameManager,
+SlotManager
+ItemSpawner
+Playerdummy,
+
+UI
+Inventory,
+ItemEnhancer,
+WarningBox,
+ProceedAnim
+
+Opening, Test_map 씬의 인풋을 어떤 클래스에서 받고있는가.
+플레이어의 인풋, 아이템 획득, 장착은 어느클레스에서 작성해야하는가 
