@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1523,7 +1523,47 @@ PrefabInstance:
       objectReference: {fileID: 1155122123}
     - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
         type: 3}
+      propertyPath: farSightRange
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
+        type: 3}
+      propertyPath: sightHalfAngle
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
+        type: 3}
+      propertyPath: closeSightRange
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
+        type: 3}
+      propertyPath: dropInfo.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
+        type: 3}
       propertyPath: dropItems.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
+        type: 3}
+      propertyPath: dropInfo.Array.data[0].code
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
+        type: 3}
+      propertyPath: dropInfo.Array.data[1].code
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
+        type: 3}
+      propertyPath: dropInfo.Array.data[2].code
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
+        type: 3}
+      propertyPath: dropInfo.Array.data[3].code
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
@@ -1550,6 +1590,26 @@ PrefabInstance:
         type: 3}
       propertyPath: dropItems.Array.data[4].code
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
+        type: 3}
+      propertyPath: dropInfo.Array.data[0].dropRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
+        type: 3}
+      propertyPath: dropInfo.Array.data[1].dropRate
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
+        type: 3}
+      propertyPath: dropInfo.Array.data[2].dropRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
+        type: 3}
+      propertyPath: dropInfo.Array.data[3].dropRate
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 95161444445861691, guid: 3b45a87caef02984090e9d7e7509e700,
         type: 3}
@@ -1639,7 +1699,7 @@ PrefabInstance:
     - target: {fileID: 3344663122073862112, guid: 3b45a87caef02984090e9d7e7509e700,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3344663122073862112, guid: 3b45a87caef02984090e9d7e7509e700,
         type: 3}

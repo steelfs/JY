@@ -13,15 +13,16 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
     // 대기 : 순찰 : 추적 : 공격 : 사망
     // 웨이포인트
     // 플레이어
-    [System.Serializable]//직렬화  = 메모리 저장시 구조적으로 한 덩어리로 저장 // 하지 않을 시 데이터가 여기저기 흩어져있게된다.
+    [System.Serializable]
     public struct ItemDropInfo
     {
+        [Range(0, 1)]
+        public float dropRate;
         public ItemCode code;
-        [Range(0.0f, 1.0f)]
-        public float dropChance;
     }
+    public ItemDropInfo[] dropInfo;
+  
 
-    public ItemDropInfo[] dropItems;
     protected enum EnemyState
     {
         Wait = 0,
@@ -376,41 +377,39 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
 
     private void MakeDropItems()//아이템을 드랍하는 함수 
     {
-        //Dictionary<ItemCode, uint> test = new Dictionary<ItemCode, uint>();
-        //test.Add(ItemCode.CopperCoin, 0);
-        //test.Add(ItemCode.SilverCoin, 0);
-        //for (int i = 0; i < 1000000; i++)
-        //{
-        //}
-        foreach (var item in dropItems)// dropItems = 확률과 code를 갖는 Struct
+        Dictionary<ItemCode, uint> droptable = new Dictionary<ItemCode, uint>(5);
+        droptable.Add(ItemCode.FishSteak, 0);
+        droptable.Add(ItemCode.CopperCoin, 0);
+        droptable.Add(ItemCode.SilverCoin, 0);
+        droptable.Add(ItemCode.GoldCoin, 0);
+        droptable.Add(ItemCode.Apple, 0);
+        for (int i = 0; i < 1000000; i++)
         {
-            uint count = 0;
-            while (count < 3)//최대 3번 
+            foreach (var item in dropInfo)
             {
-                float percent = UnityEngine.Random.value;
-                if (percent < item.dropChance)//성공시 실패할때 까지 체크
+                //uint repeatCount = 0;
+                uint count = 0;
+                while (count < 3)
                 {
-                        ItemFactory.MakeItem(item.code, transform.position, true);
-                    count++;//갯수 증가
-                }
-                else
-                {
-                    break;//드랍실패시 루프 빠져나옴
-                }
-            }
-            if (count > 0)
-            {
-                ItemFactory.MakeItems(item.code, count, transform.position, true);
-            }
-            // test[item.code] += count;
-        }
-        //foreach (var data in test)
-        //{
-        //    Debug.Log($"{data.Key} : {data.Value}");
-        //}
-        // 1.dropItems 에 기록되어있는 모든 아이템의 확률을 체크해서 통과시 아이템 생성
-        // 2. 생성확률을 통과하면 한번 더 확률을 체크한다, 최대3번까지
+                    if (UnityEngine.Random.value < item.dropRate)
+                    {
+                        count++;
 
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                droptable[item.code] += count;
+                // ItemFactory.MakeItems(item.code, count, transform.position, true);
+            }
+        }
+  
+        foreach (var item in droptable)
+        {
+            Debug.Log($"{item} : {droptable.Values}");
+        }
     }
 
     public void HealthRegenerate(float totalRegen, float duration)//duration동안 totalRegen만큼 회복하는 함수 
