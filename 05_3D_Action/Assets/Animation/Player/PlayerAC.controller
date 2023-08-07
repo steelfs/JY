@@ -658,37 +658,37 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Speed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Attack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Skill
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Hit
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Die
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1003,26 +1003,26 @@ AnimatorStateMachine:
     m_Position: {x: 690, y: -90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2569461335092980538}
-    m_Position: {x: 360, y: 0, z: 0}
+    m_Position: {x: 370, y: 20, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 6698428473712570356}
     m_Position: {x: 350, y: 160, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: -4003718829703027197}
-    m_Position: {x: 350, y: 80, z: 0}
+    m_Position: {x: 380, y: 90, z: 0}
   m_AnyStateTransitions:
   - {fileID: -8805367764990896209}
   - {fileID: -2425051773269301997}
   - {fileID: -7398077866442884103}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: 6698428473712570356}
-    second:
-    - {fileID: 8581460740849463395}
   - first: {fileID: -4003718829703027197}
     second:
     - {fileID: -42597779178463893}
+  - first: {fileID: 6698428473712570356}
+    second:
+    - {fileID: 8581460740849463395}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 90, y: 70, z: 0}
   m_EntryPosition: {x: 70, y: 140, z: 0}

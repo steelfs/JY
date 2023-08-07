@@ -13,6 +13,10 @@ public class PlayerInputController : MonoBehaviour
     public float runSpeed = 6.0f;
     float currentSpeed = 0.0f;
 
+    const float AnimatorStopSpeed = 0.0f;   // 정지 상태일 때 animator의 speed 값
+    const float AnimatorWalkSpeed = 0.3f;   // 걷는 상태일 때 animator의 speed 값
+    const float AnimatorRunSpeed = 1.0f;    // 달리는 상태일 때 animator의 speed 값
+
     int speedHash = Animator.StringToHash("Speed");
     int attackHash = Animator.StringToHash("Attack");
     int skillHash = Animator.StringToHash("Skill");
@@ -45,7 +49,10 @@ public class PlayerInputController : MonoBehaviour
                         {
                             currentSpeed = runSpeed;
                         }
-                       // if ()
+                        if (inputDir != Vector3.zero)
+                        {
+                            anim.SetFloat(speedHash, AnimatorRunSpeed);
+                        }
                     }
                     currentSpeed = runSpeed;
                 //   anim.SetFloat(speedHash, 1.0f);
@@ -58,14 +65,9 @@ public class PlayerInputController : MonoBehaviour
                         }
                         if (inputDir != Vector3.zero)
                         {
-                            anim.SetFloat(speedHash, walkSpeed);
+                            anim.SetFloat(speedHash, AnimatorWalkSpeed);
                         }
                     }
-                    currentSpeed = walkSpeed;
-                //    anim.SetFloat(speedHash, 0.3f);
-                    break;
-                default:
-                    currentSpeed = walkSpeed;
                     break;
             }
         }
