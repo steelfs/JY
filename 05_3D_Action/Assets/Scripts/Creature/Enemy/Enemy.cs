@@ -13,8 +13,15 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
     // 대기 : 순찰 : 추적 : 공격 : 사망
     // 웨이포인트
     // 플레이어
-   
+    [System.Serializable]//직렬화  = 메모리 저장시 구조적으로 한 덩어리로 저장 // 하지 않을 시 데이터가 여기저기 흩어져있게된다.
+    public struct ItemDropInfo
+    {
+        public ItemCode code;
+        [Range(0.0f, 1.0f)]
+        public float dropChance;
+    }
 
+    public ItemDropInfo[] dropItems;
     protected enum EnemyState
     {
         Wait = 0,
@@ -63,6 +70,9 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
                         onStateUpdate = UpdateAttack;
                         break;
                     case EnemyState.Dead:
+                        agent.isStopped = true;
+                        agent.velocity = Vector3.zero;
+                        anim.SetTrigger("Die");
                         onStateUpdate = UpdateDead;
                         break;
                     default:
@@ -96,6 +106,7 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
     protected Transform WayPointTarget = null;
 
 
+
     public float attackPower = 10.0f;
     public float AttackPower => attackPower;
 
@@ -112,6 +123,7 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
         get => hp;
         set
         {
+            hp = value;
             if (State != EnemyState.Dead && hp <= 0)
             {
                 Die();
@@ -120,7 +132,6 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
             onHealthChange?.Invoke(hp/maxHP);
         }
     }
-
     public float MaxHP => maxHP;
 
     public Action<float> onHealthChange { get; set; }
@@ -132,7 +143,9 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
 
     Action onStateUpdate;
 
-    
+    EnemyHP_Bar enemyHP_Bar;
+    ParticleSystem ps;
+
     Animator anim;
     NavMeshAgent agent;
     SphereCollider bodyCollider;
@@ -145,11 +158,14 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
 
     private void Awake()
     {
+        enemyHP_Bar = GetComponentInChildren<EnemyHP_Bar>();
+        ps = transform.GetChild(4).GetComponent<ParticleSystem>();
 
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         bodyCollider = GetComponent<SphereCollider>();
         rb = GetComponent<Rigidbody>();
+        ps = GetComponentInChildren<ParticleSystem>();
 
         AttackArea attackArea = GetComponentInChildren<AttackArea>();
         attackArea.onPlayerIn += (target) =>
@@ -322,14 +338,79 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
         if (State != EnemyState.Dead)
         {
             anim.SetTrigger("Hit");
-            HP -= (damage - defancePower);//방어력만큼 차감하고 HP감소 
+            HP -= Mathf.Max(0, damage - defancePower);//방어력만큼 차감하고 HP감소 
         }
     }
 
     public void Die()
     {
         State = EnemyState.Dead;
+        StartCoroutine(DeadSequence());
         onDie?.Invoke();
+    }
+    IEnumerator DeadSequence()
+    {
+        //바닥에 보이는 이펙트 켜기
+        //HP 바 없애기
+        ps.Play();
+        ps.transform.SetParent(null);// 같이 안떨어지게 하기
+        enemyHP_Bar.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.35f);
+
+        MakeDropItems();
+
+        yield return new WaitForSeconds(1.15f);//죽는 애니메이션 끝날 때 까지
+        agent.enabled = false;          // navMesh 가 켜져있으면 항상 navMesh  위에 있다.떨어지지 않는다.
+        bodyCollider.enabled = false;
+        rb.isKinematic = false;
+        rb.drag = 10.0f; //마찰력 조절 infinite => 마찰력이 너무 커서 안떨어짐
+        yield return new WaitForSeconds(1.5f); // 완전히 떨어질 때까지 대기
+
+        Destroy(this.gameObject);
+        //죽는 애니메이션 끝나면 바닥아래로 떨어트리기
+        //충분히 떨어지면 슬라임 삭제
+        //이펙트 삭제
+        //navmeshagent끄기
+        Destroy(ps.gameObject);
+    }
+
+    private void MakeDropItems()//아이템을 드랍하는 함수 
+    {
+        //Dictionary<ItemCode, uint> test = new Dictionary<ItemCode, uint>();
+        //test.Add(ItemCode.CopperCoin, 0);
+        //test.Add(ItemCode.SilverCoin, 0);
+        //for (int i = 0; i < 1000000; i++)
+        //{
+        //}
+        foreach (var item in dropItems)// dropItems = 확률과 code를 갖는 Struct
+        {
+            uint count = 0;
+            while (count < 3)//최대 3번 
+            {
+                float percent = UnityEngine.Random.value;
+                if (percent < item.dropChance)//성공시 실패할때 까지 체크
+                {
+                        ItemFactory.MakeItem(item.code, transform.position, true);
+                    count++;//갯수 증가
+                }
+                else
+                {
+                    break;//드랍실패시 루프 빠져나옴
+                }
+            }
+            if (count > 0)
+            {
+                ItemFactory.MakeItems(item.code, count, transform.position, true);
+            }
+            // test[item.code] += count;
+        }
+        //foreach (var data in test)
+        //{
+        //    Debug.Log($"{data.Key} : {data.Value}");
+        //}
+        // 1.dropItems 에 기록되어있는 모든 아이템의 확률을 체크해서 통과시 아이템 생성
+        // 2. 생성확률을 통과하면 한번 더 확률을 체크한다, 최대3번까지
+
     }
 
     public void HealthRegenerate(float totalRegen, float duration)//duration동안 totalRegen만큼 회복하는 함수 

@@ -1,30 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-public class TestEnemy : TestBase
+public class TestPlayerBattle : TestBase
 {
-    public Enemy enemy;
-    NavMeshAgent agent;
-
-    public Transform moveTarget;
+    Player player;
     private void Start()
     {
-        agent = enemy.GetComponent<NavMeshAgent>();
+
+
+   
     }
     protected override void Test1(InputAction.CallbackContext context)
     {
-        agent.SetDestination(moveTarget.position);
+        player = GameManager.Inst.Player;
+        ItemFactory.MakeItem(ItemCode.IronSword);
+        ItemFactory.MakeItem(ItemCode.SilverSword);
+        ItemFactory.MakeItem(ItemCode.OldSword);
+        ItemFactory.MakeItem(ItemCode.RoundShield);
+        ItemFactory.MakeItem(ItemCode.KnightShield);
     }
     protected override void Test2(InputAction.CallbackContext context)
     {
-        enemy.HP -= 30;
+    
     }
     protected override void Test3(InputAction.CallbackContext context)
     {
-        enemy.HP += 30;
+        player.defence(75.0f);
     }
-    
 }

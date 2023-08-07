@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3a72833bb61cd43b31a206ba17735a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitEffect: {fileID: 3764076531957504761, guid: 22a51c36f3f38b34094904eb90e1556b,
+    type: 3}
 --- !u!136 &730720400204519105
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -123,7 +125,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 5
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
