@@ -222,4 +222,4 @@ Monobehaviour 를 상속받은 것이라면 반드시  게임오브젝트가 아
 
  public static T Instantiate<T>(T original) where T : Object 
 이기 때문에 Object만 상속받았으면 무엇이든 넣어도 상관없다.
->>>>>>> 472b32c1c5145d82153bb29cd536616c4fa1301b
+
