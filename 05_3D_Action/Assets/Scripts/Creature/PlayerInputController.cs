@@ -11,7 +11,7 @@ public class PlayerInputController : MonoBehaviour
 
     public float walkSpeed = 3.0f;
     public float runSpeed = 6.0f;
-    float currentSpeed = 3.0f;
+    float currentSpeed = 0.0f;
 
     int speedHash = Animator.StringToHash("Speed");
     int attackHash = Animator.StringToHash("Attack");
@@ -40,10 +40,27 @@ public class PlayerInputController : MonoBehaviour
             switch (moveSpeedMode)
             {
                 case MoveMode.Run:
+                    {
+                        if (currentSpeed > 0)
+                        {
+                            currentSpeed = runSpeed;
+                        }
+                       // if ()
+                    }
                     currentSpeed = runSpeed;
                 //   anim.SetFloat(speedHash, 1.0f);
                     break;
                 case MoveMode.Walk:
+                    {
+                        if (currentSpeed > 0)
+                        {
+                            currentSpeed = walkSpeed;
+                        }
+                        if (inputDir != Vector3.zero)
+                        {
+                            anim.SetFloat(speedHash, walkSpeed);
+                        }
+                    }
                     currentSpeed = walkSpeed;
                 //    anim.SetFloat(speedHash, 0.3f);
                     break;

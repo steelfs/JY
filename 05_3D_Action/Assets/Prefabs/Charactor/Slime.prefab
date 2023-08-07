@@ -746,6 +746,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a5ca5808fdc4b42bdc0ad4b606ede0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropItems:
+  - code: 3
+    dropChance: 0.7
+  - code: 4
+    dropChance: 0.5
+  - code: 5
+    dropChance: 0.2
+  - code: 9
+    dropChance: 0.1
+  - code: 6
+    dropChance: 0.2
   waitTime: 1
   farSightRange: 10
   closeSightRange: 2

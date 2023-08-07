@@ -338,7 +338,7 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
         if (State != EnemyState.Dead)
         {
             anim.SetTrigger("Hit");
-            HP -= (damage - defancePower);//방어력만큼 차감하고 HP감소 
+            HP -= Mathf.Max(0, damage - defancePower);//방어력만큼 차감하고 HP감소 
         }
     }
 
@@ -381,30 +381,29 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
         //test.Add(ItemCode.SilverCoin, 0);
         //for (int i = 0; i < 1000000; i++)
         //{
-            foreach (var item in dropItems)
+        //}
+        foreach (var item in dropItems)// dropItems = 확률과 code를 갖는 Struct
+        {
+            uint count = 0;
+            while (count < 3)//최대 3번 
             {
-                uint count = 0;
-                while (count < 3)//최대 3번 
+                float percent = UnityEngine.Random.value;
+                if (percent < item.dropChance)//성공시 실패할때 까지 체크
                 {
-                    float percent = UnityEngine.Random.value;
-                    if (percent < item.dropChance)
-                    {
-                         ItemFactory.MakeItem(item.code, transform.position, true);
-                        count++;
-                    }
-                    else
-                    {
-                        break;
-                    }
+                        ItemFactory.MakeItem(item.code, transform.position, true);
+                    count++;//갯수 증가
                 }
-                if (count > 0)
+                else
                 {
-                    ItemFactory.MakeItems(item.code, count, transform.position, true);
+                    break;//드랍실패시 루프 빠져나옴
                 }
-               // test[item.code] += count;
-          //  }
+            }
+            if (count > 0)
+            {
+                ItemFactory.MakeItems(item.code, count, transform.position, true);
+            }
+            // test[item.code] += count;
         }
-
         //foreach (var data in test)
         //{
         //    Debug.Log($"{data.Key} : {data.Value}");
