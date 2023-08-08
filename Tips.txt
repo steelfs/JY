@@ -223,3 +223,13 @@ Monobehaviour 를 상속받은 것이라면 반드시  게임오브젝트가 아
  public static T Instantiate<T>(T original) where T : Object 
 이기 때문에 Object만 상속받았으면 무엇이든 넣어도 상관없다.
 
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+8월 8일
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+NullReferenceException: Object reference not set to an instance of an object
+Item_Enhancer_UI.set_DarkForceCount (System.UInt32 value) (at Assets/_JY/JY/Script/Inventory/ItemEnhancement/Item_Enhancer_UI.cs:42)
+Item_Enhancer_UI.Close () (at Assets/_JY/JY/Script/Inventory/ItemEnhancement/Item_Enhancer_UI.cs:116)
+Item_Enhancer_UI.Start () (at Assets/_JY/JY/Script/Inventory/ItemEnhancement/Item_Enhancer_UI.cs:99)
+
+콜 스텍이다  오류는 맨 밑에서부터 99번째 줄을 통해 116번으로 이동하고 그후 42번째 줄에서 오류가 발생했다는 것이다.
+맨 밑부터 실행이 됐다는 뜻이다.
