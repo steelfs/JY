@@ -16,4 +16,4 @@ WarningBox
 
 조합은 새로운 아이템을 만들어야하기 때문에 그냥 Mixer 클레스에 StateMachine 과 기능(아이템 추가, 삭제, 조합테이블)을 추가할 생각이다. 
 
-Left, Middle, ResultSlot에 각각 NameText 참조 갖고있기 , Base에 넣을 지 각각 참조할지는 생각해봐야함
+Result Middle, Left 슬롯 모두 서로 각각의 정보를 참조해야하므로 이럴바에야 그냥 mixer에서 관리하는게 구조상 더 깔끔할것 같다
