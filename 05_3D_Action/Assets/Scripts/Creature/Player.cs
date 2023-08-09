@@ -115,9 +115,9 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
 
     public void defence(float damage)
     {
-        anim.SetTrigger("Hit");
         if (IsAlive)
         {
+            anim.SetTrigger("Hit");
             HP -= Mathf.Max(0, damage - DefencePower);
         }
     }
