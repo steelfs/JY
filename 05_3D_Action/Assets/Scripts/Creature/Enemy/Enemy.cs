@@ -351,6 +351,7 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
     }
     IEnumerator DeadSequence()
     {
+        bodyCollider.enabled = false;
         //바닥에 보이는 이펙트 켜기
         //HP 바 없애기
         ps.Play();
@@ -362,7 +363,6 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
 
         yield return new WaitForSeconds(1.15f);//죽는 애니메이션 끝날 때 까지
         agent.enabled = false;          // navMesh 가 켜져있으면 항상 navMesh  위에 있다.떨어지지 않는다.
-        bodyCollider.enabled = false;
         rb.isKinematic = false;
         rb.drag = 10.0f; //마찰력 조절 infinite => 마찰력이 너무 커서 안떨어짐
         yield return new WaitForSeconds(1.5f); // 완전히 떨어질 때까지 대기
@@ -444,7 +444,9 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
         }
     }
 #if UNITY_EDITOR
-    private void OnDrawGizmos()
+  
+
+    private void OnDrawGizmosSelected()
     {
         bool playerShow = SearchPlayer(); // 플레이어가 시야범위안에 들어왔는지 확인
 
@@ -461,23 +463,7 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
 
         Handles.color = playerShow ? Color.red : Color.yellow;
         Handles.DrawWireDisc(transform.position, transform.up, closeSightRange);
-        //Handles.DrawWireDisc(transform.position, transform.up, farSightRange, 2);
-        //Handles.color = Color.yellow;
-        //Handles.DrawWireDisc(transform.position, transform.up, closeSightRange, 2);
 
-        //Gizmos.DrawLine(transform.position, transform.position + transform.forward * farSightRange);
-
-        //Vector3 from = transform.position;
-        //Vector3 to = transform.position + transform.forward * farSightRange;
-
-        //Vector3 dir1 = Quaternion.AngleAxis(-sightHalfAngle, transform.up) * transform.forward;
-        //Vector3 dir2 = Quaternion.AngleAxis(sightHalfAngle, transform.up) * transform.forward;
-
-        //Gizmos.color = Color.white;
-        //to = transform.position + dir1 * farSightRange;
-        //Gizmos.DrawLine(from, to);
-        //to = transform.position + dir2 * farSightRange;
-        //Gizmos.DrawLine(from, to);
     }
 
 

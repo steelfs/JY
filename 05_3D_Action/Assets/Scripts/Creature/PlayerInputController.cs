@@ -6,6 +6,9 @@ using UnityEngine.Assertions.Must;
 
 public class PlayerInputController : MonoBehaviour
 {
+
+    //죽을때 입력막기
+    // 
     PlayerInputAction action;
     Animator anim;
     Player player;
@@ -86,6 +89,7 @@ public class PlayerInputController : MonoBehaviour
         anim = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         player = GetComponent<Player>();
+        player.onDie += () => action.Player.Disable();
     }
     private void OnEnable()
     {
@@ -143,6 +147,9 @@ public class PlayerInputController : MonoBehaviour
         action.Player.PickUp.performed -= OnPickUp;
         action.Player.Disable();
     }
+
+ 
+
     private void Start()
     {
         MoveSpeedMode = MoveMode.Walk;
@@ -155,9 +162,11 @@ public class PlayerInputController : MonoBehaviour
     }
     private void Update()
     {
-       characterController.Move(Time.deltaTime * currentSpeed * inputDir); // 비교적 수동에 가까운 느낌   
-                                                                            //  characterController.SimpleMove(currentSpeed * inputDir); // 자동에 가까운 느낌
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);        
+        if (player.IsAlive)
+        {
+            characterController.Move(Time.deltaTime * currentSpeed * inputDir); // 비교적 수동에 가까운 느낌   
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
+        }
     }
     private void OnMoveModeChange(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {

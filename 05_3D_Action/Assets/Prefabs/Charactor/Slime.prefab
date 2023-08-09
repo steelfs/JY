@@ -741,7 +741,7 @@ MonoBehaviour:
   sightHalfAngle: 40
   moveSpeed: 3
   wayPoints: {fileID: 0}
-  attackPower: 10
+  attackPower: 30
   defancePower: 3
   maxHP: 100
 --- !u!195 &95161444445861690

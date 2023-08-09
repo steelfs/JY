@@ -9,6 +9,44 @@ using UnityEditor;
 #endif
 public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
 {
+    Transform lockOnEffect;
+    Transform lockOnTarget = null;
+    IEnumerator LookTargetCoroutine;
+    public Transform LockOnTarget
+    {
+        get => lockOnTarget;
+        private set
+        {
+            lockOnTarget = value;
+            if (lockOnTarget != null)
+            {
+                Debug.Log($"LockOn Target : {lockOnTarget.name}");
+                Enemy enemy = lockOnTarget.GetComponent<Enemy>();
+                lockOnEffect.SetParent(enemy.transform);
+                lockOnEffect.transform.localPosition = Vector3.zero;
+                lockOnEffect.gameObject.SetActive(true);
+
+                enemy.onDie += () =>
+                {
+                    StopCoroutine(LookTargetCoroutine);
+                    lockOnEffect.SetParent(this.transform);
+                    lockOnEffect.transform.localPosition = Vector3.zero;
+                    lockOnEffect.gameObject.SetActive(false);
+                };
+                StartCoroutine(LookTargetCoroutine);
+            }
+            else
+            {
+                Debug.Log("대상 없음 ");
+                StopCoroutine(LookTargetCoroutine);
+                lockOnEffect.SetParent(this.transform);
+                lockOnEffect.transform.localPosition = Vector3.zero;
+                lockOnEffect.gameObject.SetActive(false);
+            }
+        }
+    }
+    public float lockOnRange;
+
     public Transform weaponParent;
     public Transform shieldParent;
 
@@ -99,6 +137,9 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
         anim = GetComponent<Animator>();
         partsSlot = new InvenSlot[Enum.GetValues(typeof(EquipType)).Length];//EquipType의 Length만큼  만든다
         dieVcam = GetComponentInChildren<CinemachineVirtualCamera>();
+
+        lockOnEffect = transform.GetChild(6).transform;
+        LookTargetCoroutine = LookTarget();
     }
     void Start()
     {
@@ -288,36 +329,18 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
     }
 
 
-    public float lockOnRange;
-    Transform lockOnTarget;
-    public Transform LockOnTarget
-    {
-        get => lockOnTarget;
-        private set
-        {
-            if (lockOnTarget != value)
-            {
-                lockOnTarget = value;
-                Debug.Log($"락온 대상 : {lockOnTarget.gameObject.name}");
-            }
-        }
-    }
     void LockOnToggle()
     {
-        //버튼을 눌렀을 때 실행
-        //락온 범위 안에 적이 있으면 가장 가까운 적을 선택한다.
-        // 범위안에 적이 없으면 락온 해제
-        //락온한 적이 죽으면 락온 해제
-
+        float nearestDistance = float.MaxValue;
+        float distance;
         Collider[] enemys = Physics.OverlapSphere(transform.position, lockOnRange, LayerMask.GetMask("AttackTarget"));
         if (enemys.Length > 0)
         {
             Transform nearest = null;
-            float nearestDistance = float.MaxValue;
-            foreach (Collider enemy in enemys)
+            foreach (var enemy in enemys)
             {
                 Vector3 dir = enemy.transform.position - transform.position;
-                float distance = dir.sqrMagnitude;
+                distance = dir.sqrMagnitude;
                 if (distance < nearestDistance)
                 {
                     nearestDistance = distance;
@@ -330,7 +353,14 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
         {
             LockOnTarget = null;
         }
-        
+    }
+    IEnumerator LookTarget()
+    {
+        while (LockOnTarget != null)
+        {
+            transform.LookAt(LockOnTarget);
+            yield return null;
+        }
     }
 #if UNITY_EDITOR
     private void OnDrawGizmos()
