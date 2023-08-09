@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEditor.Animations;
+using Cinemachine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
     public Action<bool> onWeaponBladeEnable;// 칼의 콜라이더, 활성화 타이밍 알림용
     public Action<bool> onWeaponEffectEnable; // 파티클시스템
 
+    CinemachineVirtualCamera dieVcam;
     Animator anim;
 
     Inventory inven;
@@ -89,6 +91,23 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
     public float defencePower = 5.0f;
     public float DefencePower => defencePower;
 
+    private void Awake()
+    {
+        controller = GetComponent<PlayerInputController>();
+        controller.onItemPickUp = OnItemPickUp;
+        controller.onLockOn = LockOnToggle;
+        anim = GetComponent<Animator>();
+        partsSlot = new InvenSlot[Enum.GetValues(typeof(EquipType)).Length];//EquipType의 Length만큼  만든다
+        dieVcam = GetComponentInChildren<CinemachineVirtualCamera>();
+    }
+    void Start()
+    {
+        inven = new Inventory(this);// Inventory 생성자에서  itemDataManager를 찾는거 ㅅ때문에 start에서 실행
+        if (GameManager.Inst.InvenUI != null)
+        {
+            GameManager.Inst.InvenUI.InitializeInventory(inven); // 인벤토리와 인벤토리 UI 연결
+        }
+    }
     public void Attack(IBattle target)
     {
         target.defence(AttackPower); // 대상에게 데미지를 주고 
@@ -163,6 +182,8 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
     {
         anim.SetTrigger("Die");
         onDie?.Invoke();
+        dieVcam.Priority = 20;
+        dieVcam.Follow = null;
         Debug.Log("플레이어 사망");
     }
 
@@ -219,13 +240,7 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
     public Action<int> onMoneyChange;
 
     PlayerInputController controller;
-    private void Awake()
-    {
-        controller = GetComponent<PlayerInputController>();
-        controller.onItemPickUp = OnItemPickUp;
-        anim = GetComponent<Animator>();
-        partsSlot = new InvenSlot[Enum.GetValues(typeof(EquipType)).Length];//EquipType의 Length만큼  만든다
-    }
+ 
     private void OnItemPickUp() // 아이템 획득 
     {
         Collider[] itemColliders = Physics.OverlapSphere(transform.position, itemPickUpRange, LayerMask.GetMask("Item"));// Item이라는 레이어를 가진 Collider를 모두 가져온다
@@ -248,14 +263,7 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
         }
     }
 
-    void Start()
-    {
-        inven = new Inventory(this);// Inventory 생성자에서  itemDataManager를 찾는거 ㅅ때문에 start에서 실행
-        if (GameManager.Inst.InvenUI != null)
-        {
-            GameManager.Inst.InvenUI.InitializeInventory(inven); // 인벤토리와 인벤토리 UI 연결
-        }
-    }
+
 
     public void ShowWep_Shield(bool isShow) //무기와 방패를 표시, 해제하는 함수 
     {
@@ -278,12 +286,61 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
     {
         partsSlot[(int)type] = slot;
     }
+
+
+    public float lockOnRange;
+    Transform lockOnTarget;
+    public Transform LockOnTarget
+    {
+        get => lockOnTarget;
+        private set
+        {
+            if (lockOnTarget != value)
+            {
+                lockOnTarget = value;
+                Debug.Log($"락온 대상 : {lockOnTarget.gameObject.name}");
+            }
+        }
+    }
+    void LockOnToggle()
+    {
+        //버튼을 눌렀을 때 실행
+        //락온 범위 안에 적이 있으면 가장 가까운 적을 선택한다.
+        // 범위안에 적이 없으면 락온 해제
+        //락온한 적이 죽으면 락온 해제
+
+        Collider[] enemys = Physics.OverlapSphere(transform.position, lockOnRange, LayerMask.GetMask("AttackTarget"));
+        if (enemys.Length > 0)
+        {
+            Transform nearest = null;
+            float nearestDistance = float.MaxValue;
+            foreach (Collider enemy in enemys)
+            {
+                Vector3 dir = enemy.transform.position - transform.position;
+                float distance = dir.sqrMagnitude;
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearest = enemy.transform;
+                }
+            }
+            LockOnTarget = nearest;
+        }
+        else
+        {
+            LockOnTarget = null;
+        }
+        
+    }
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        Handles.color = Color.blue;
-
+        Handles.color = Color.blue;//아이템 획득 범위
         Handles.DrawWireDisc(transform.position, Vector3.up, itemPickUpRange);
+
+        //락온 범위
+        Handles.color = Color.red;
+        Handles.DrawWireDisc(transform.position, Vector3.up, lockOnRange, 2.0f);
     }
 
  

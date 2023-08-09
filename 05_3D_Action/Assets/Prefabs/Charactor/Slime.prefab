@@ -635,9 +635,9 @@ GameObject:
   - component: {fileID: 95161444445861688}
   - component: {fileID: 95161444445861691}
   - component: {fileID: 95161444445861690}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Slime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -724,10 +724,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a5ca5808fdc4b42bdc0ad4b606ede0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropInfo:
+  - dropRate: 1
+    code: 8
+  - dropRate: 0.8
+    code: 3
+  - dropRate: 0.5
+    code: 4
+  - dropRate: 0.3
+    code: 5
+  - dropRate: 0.3
+    code: 6
   waitTime: 1
   farSightRange: 10
   closeSightRange: 2
-  sightHalfAngle: 50
+  sightHalfAngle: 40
   moveSpeed: 3
   wayPoints: {fileID: 0}
   attackPower: 10

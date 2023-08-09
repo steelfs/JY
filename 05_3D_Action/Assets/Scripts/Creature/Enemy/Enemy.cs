@@ -402,7 +402,7 @@ public class Enemy : MonoBehaviour, IBattle, IHealth
                     }
                 }
                // droptable[item.code] += count;
-                // ItemFactory.MakeItems(item.code, count, transform.position, true);
+                 ItemFactory.MakeItems(item.code, count, transform.position, true);
             }
         //}
   

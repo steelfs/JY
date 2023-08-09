@@ -394,6 +394,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8375385309019641051, guid: 41f52b40a176d864c8d74421afbb61d7,
+        type: 3}
+      propertyPath: lockOnRange
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41f52b40a176d864c8d74421afbb61d7, type: 3}
 --- !u!1 &832799665
@@ -1871,6 +1876,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 3344663122073862112, guid: 3b45a87caef02984090e9d7e7509e700,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3344663122073862112, guid: 3b45a87caef02984090e9d7e7509e700,
         type: 3}

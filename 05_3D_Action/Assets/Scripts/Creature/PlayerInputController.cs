@@ -8,6 +8,7 @@ public class PlayerInputController : MonoBehaviour
 {
     PlayerInputAction action;
     Animator anim;
+    Player player;
 
     public float walkSpeed = 3.0f;
     public float runSpeed = 6.0f;
@@ -25,6 +26,7 @@ public class PlayerInputController : MonoBehaviour
     Vector3 rotateAngle;
 
     public Action onItemPickUp;//아이템 줍기버튼 누를 때 신호 보내기
+    public Action onLockOn;
 
     InventoryUI inventoryUI;
 
@@ -83,6 +85,7 @@ public class PlayerInputController : MonoBehaviour
         action = new PlayerInputAction();
         anim = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        player = GetComponent<Player>();
     }
     private void OnEnable()
     {
@@ -94,6 +97,12 @@ public class PlayerInputController : MonoBehaviour
         action.Player.Skill.performed += Skill_performed;
         action.Player.Die.performed += Die_performed;
         action.Player.PickUp.performed += OnPickUp;
+        action.Player.LockOn.performed += LockOn;
+    }
+
+    private void LockOn(UnityEngine.InputSystem.InputAction.CallbackContext _)
+    {
+        onLockOn?.Invoke();
     }
 
     void SetAttackValid(bool attack) //인벤토리가 켜질 때 InventoryUI에서 호출
