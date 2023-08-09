@@ -175,6 +175,10 @@ public class PlayerInputController : MonoBehaviour
         if (player.IsAlive)
         {
             characterController.Move(Time.deltaTime * currentSpeed * inputDir); // 비교적 수동에 가까운 느낌   
+            if (player.LockOnTarget != null)
+            {
+                targetRotation = Quaternion.LookRotation(player.LockOnTarget.position - transform.position);
+            }
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
         }
     }

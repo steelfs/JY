@@ -33,7 +33,7 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
                     lockOnEffect.transform.localPosition = Vector3.zero;
                     lockOnEffect.gameObject.SetActive(false);
                 };
-                StartCoroutine(LookTargetCoroutine);
+               // StartCoroutine(LookTargetCoroutine);
             }
             else
             {
