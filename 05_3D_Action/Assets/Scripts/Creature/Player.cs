@@ -158,6 +158,7 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
     {
         if (IsAlive)
         {
+            WeaponBladedisable();
             anim.SetTrigger("Hit");
             HP -= Mathf.Max(0, damage - DefencePower);
         }

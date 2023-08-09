@@ -23,7 +23,9 @@ public class PlayerInputController : MonoBehaviour
 
     int speedHash = Animator.StringToHash("Speed");
     int attackHash = Animator.StringToHash("Attack");
-    int skillHash = Animator.StringToHash("Skill");
+    int skillStartHash = Animator.StringToHash("SkillStart");
+    int skillEndHash = Animator.StringToHash("SkillEnd");
+  
     int dieHash = Animator.StringToHash("Die");
 
     Vector3 rotateAngle;
@@ -98,10 +100,21 @@ public class PlayerInputController : MonoBehaviour
         action.Player.Move.canceled += OnMove;
         action.Player.ChangeMode.performed += OnMoveModeChange;
         action.Player.Attack.performed += OnAttack;
-        action.Player.Skill.performed += Skill_performed;
+        action.Player.Skill.performed += Skill_Start;
+        action.Player.Skill.canceled += Skill_canceled;
         action.Player.Die.performed += Die_performed;
         action.Player.PickUp.performed += OnPickUp;
         action.Player.LockOn.performed += LockOn;
+    }
+
+    private void Skill_Start(UnityEngine.InputSystem.InputAction.CallbackContext _)
+    {
+        anim.SetTrigger(skillStartHash);
+        anim.SetBool(skillEndHash, false);
+    }
+    private void Skill_canceled(UnityEngine.InputSystem.InputAction.CallbackContext _)
+    {
+        anim.SetBool(skillEndHash, true);
     }
 
     private void LockOn(UnityEngine.InputSystem.InputAction.CallbackContext _)
@@ -114,12 +127,12 @@ public class PlayerInputController : MonoBehaviour
         if (attack)
         {
             action.Player.Attack.performed += OnAttack;
-            action.Player.Skill.performed += Skill_performed;
+            action.Player.Skill.performed += Skill_Start;
         }
         else
         {
             action.Player.Attack.performed -= OnAttack;
-            action.Player.Skill.performed -= Skill_performed;
+            action.Player.Skill.performed -= Skill_Start;
         }
     }
     private void OnPickUp(UnityEngine.InputSystem.InputAction.CallbackContext _)
@@ -133,10 +146,7 @@ public class PlayerInputController : MonoBehaviour
         anim.SetTrigger(dieHash);
     }
 
-    private void Skill_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
-    {
-        anim.SetTrigger(skillHash);
-    }
+   
 
     private void OnDisable()
     {
