@@ -25,7 +25,6 @@ public class PlayerInputController : MonoBehaviour
     int attackHash = Animator.StringToHash("Attack");
     int skillStartHash = Animator.StringToHash("SkillStart");
     int skillEndHash = Animator.StringToHash("SkillEnd");
-  
     int dieHash = Animator.StringToHash("Die");
 
     Vector3 rotateAngle;
