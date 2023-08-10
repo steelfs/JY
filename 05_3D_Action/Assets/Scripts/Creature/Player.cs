@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEditor.Animations;
 using Cinemachine;
+using Unity.VisualScripting;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -53,6 +54,8 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
     public Action<bool> onWeaponBladeEnable;// 칼의 콜라이더, 활성화 타이밍 알림용
     public Action<bool> onWeaponEffectEnable; // 파티클시스템
 
+
+    SkillCollider skillCollider;
     CinemachineVirtualCamera dieVcam;
     Animator anim;
 
@@ -102,6 +105,8 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
     public Action<float> onHealthChange { get; set; }
     public Action<float> onManaChange { get; set; }
     public Action onDie { get; set; }
+  
+
 
     public bool IsAlive => hp > 0.0f;
 
@@ -123,7 +128,8 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
     public float MaxMP => maxMP;
 
 
-    public float attackPower = 20.0f;
+    float basePower = 5.0f;
+    public float attackPower = 0.0f;
     public float AttackPower => attackPower;
 
     public float defencePower = 5.0f;
@@ -134,6 +140,11 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
         controller = GetComponent<PlayerInputController>();
         controller.onItemPickUp = OnItemPickUp;
         controller.onLockOn = LockOnToggle;
+        controller.onSkillStart = () => OnSkillUse(true);
+        controller.onSkillEnd = () => OnSkillUse(false);
+
+        skillCollider = GetComponentInChildren<SkillCollider>(true);
+
         anim = GetComponent<Animator>();
         partsSlot = new InvenSlot[Enum.GetValues(typeof(EquipType)).Length];//EquipType의 Length만큼  만든다
         dieVcam = GetComponentInChildren<CinemachineVirtualCamera>();
@@ -141,6 +152,14 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
         lockOnEffect = transform.GetChild(6).transform;
         LookTargetCoroutine = LookTarget();
     }
+
+    private void OnSkillUse(bool skillStart)
+    {
+        skillCollider.skillPower = attackPower;
+        skillCollider.gameObject.SetActive(skillStart);
+        //onWeaponBladeEnable?
+    }
+
     void Start()
     {
         inven = new Inventory(this);// Inventory 생성자에서  itemDataManager를 찾는거 ㅅ때문에 start에서 실행
@@ -148,6 +167,8 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
         {
             GameManager.Inst.InvenUI.InitializeInventory(inven); // 인벤토리와 인벤토리 UI 연결
         }
+        attackPower = basePower;
+        defencePower = basePower;
     }
     public void Attack(IBattle target)
     {
@@ -178,11 +199,22 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
             partsSlot[(int)part] = slot;// 어느슬롯에 아이템이 장착되었는지 기록
             slot.IsEquipped = true; // 장비되었다고 알림(프로퍼티 대리자 호출)
 
-            if (part == EquipType.Weapon)
+     
+            switch (part)
             {
-                Weapon weapon = obj.GetComponent<Weapon>();
-                onWeaponBladeEnable = weapon.BladeColliderEnable;
-                onWeaponEffectEnable = weapon.EffectEnable;
+                case EquipType.Weapon:
+                    Weapon weapon = obj.GetComponent<Weapon>();
+                    onWeaponBladeEnable = weapon.BladeColliderEnable;
+                    onWeaponEffectEnable = weapon.EffectEnable;
+
+                    ItemData_Weapon weaponData = equip as ItemData_Weapon;
+                    attackPower = basePower + weaponData.attackPower;
+                    break;
+                case EquipType.Shield:
+                    ItemData_Shield shieldData = equip as ItemData_Shield;
+                    defencePower = basePower + shieldData.defencePower;
+                    break;
+
             }
         }
     }
@@ -199,10 +231,19 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
         partsSlot[(int)part].IsEquipped = false;
         partsSlot[(int)part] = null;
 
-        if (part == EquipType.Weapon)
+        switch (part)
         {
-            onWeaponBladeEnable = null;
-            onWeaponEffectEnable = null;
+            case EquipType.Weapon:
+                onWeaponBladeEnable = null;
+                onWeaponEffectEnable = null;
+
+                attackPower = basePower;
+                break;
+            case EquipType.Shield:
+            
+                defencePower = basePower;
+                break;
+
         }
     }
 

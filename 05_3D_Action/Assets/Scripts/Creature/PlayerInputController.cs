@@ -31,6 +31,8 @@ public class PlayerInputController : MonoBehaviour
 
     public Action onItemPickUp;//아이템 줍기버튼 누를 때 신호 보내기
     public Action onLockOn;
+    public Action onSkillStart;//스킬스타트
+    public Action onSkillEnd;
 
     InventoryUI inventoryUI;
 
@@ -108,12 +110,17 @@ public class PlayerInputController : MonoBehaviour
 
     private void Skill_Start(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
+        player.WeaponBladeEnable();
         anim.SetTrigger(skillStartHash);
         anim.SetBool(skillEndHash, false);
+        onSkillStart?.Invoke();
+        //mp감소  코루틴 호출 신호 보내기
     }
     private void Skill_canceled(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
+        player.WeaponBladedisable();
         anim.SetBool(skillEndHash, true);
+        onSkillEnd?.Invoke();
     }
 
     private void LockOn(UnityEngine.InputSystem.InputAction.CallbackContext _)
