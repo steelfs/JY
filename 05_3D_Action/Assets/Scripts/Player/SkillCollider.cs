@@ -10,7 +10,8 @@ public class SkillCollider : MonoBehaviour
 
     private void OnEnable()
     {
-        Clear();
+        enemies.Clear();
+        StartCoroutine(SkillCoroutine());
     }
     List<Enemy> enemies = new List<Enemy>();
     private void OnTriggerEnter(Collider other)
@@ -32,28 +33,23 @@ public class SkillCollider : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
             if (other != null)
             {
-                enemies.Remove(enemy);
+                enemies.Remove(enemy);// 만약 리스트가 비어있더라도 문제가 발생하진 않는다.
             }
 
         }
     }
-    public void Clear()
-    {
-        enemies.Clear();
-        StartCoroutine(SkillCoroutine());
-    }
     private void OnDisable()
     {
-        StopAllCoroutines();
+        StopAllCoroutines(); 
     }
     IEnumerator SkillCoroutine()
     {
         while (true)
         {
-            yield return new WaitForSeconds(skillTick);
+            yield return new WaitForSeconds(skillTick); 
             foreach(var enemy in enemies)
             {
-                enemy.defence(skillPower);
+                enemy.defence(skillPower);//모든 적은 공격
             }
         }
     }

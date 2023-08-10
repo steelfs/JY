@@ -10,28 +10,46 @@ using UnityEditor;
 #endif
 public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
 {
+    InvenSlot[] partsSlot;//장비아이템의 부위별 상태 (장착한 아이템이 있는 슬롯)
+    public InvenSlot this[EquipType part] => partsSlot[(int)part];// return이 null 이면 장비가 안되어있음, null 이 아니면 이미 장비되어있음// parts = 확인할 장비의 종류 
+
+    Inventory inven;
     Transform lockOnEffect;
     Transform lockOnTarget = null;
     IEnumerator LookTargetCoroutine;
+    IEnumerator skillCoroutine;
+
+    SkillCollider skillCollider; // 스킬사용시 켜질 콜라이더 
+    CinemachineVirtualCamera dieVcam;
+    Animator anim;
+
+    public Action<int> onMoneyChange;
+    PlayerInputController controller;
+
+
+    public Action<float> onHealthChange { get; set; }
+    public Action<float> onManaChange { get; set; }
+    public Action onDie { get; set; }
+
     public Transform LockOnTarget
     {
         get => lockOnTarget;
         private set
         {
             lockOnTarget = value;
-            if (lockOnTarget != null)
+            if (lockOnTarget != null)// 대상 변경시 적용
             {
                 Debug.Log($"LockOn Target : {lockOnTarget.name}");
                 Enemy enemy = lockOnTarget.GetComponent<Enemy>();
-                lockOnEffect.SetParent(enemy.transform);
-                lockOnEffect.transform.localPosition = Vector3.zero;
+                lockOnEffect.SetParent(enemy.transform); // 이펙트를 target으로 옮기기
+                lockOnEffect.transform.localPosition = Vector3.zero;// target의 기준 0, 0, 0으로 설정
                 lockOnEffect.gameObject.SetActive(true);
 
                 enemy.onDie += () =>
                 {
-                    StopCoroutine(LookTargetCoroutine);
-                    lockOnEffect.SetParent(this.transform);
-                    lockOnEffect.transform.localPosition = Vector3.zero;
+                    StopCoroutine(LookTargetCoroutine);// 적을 향에 바라보는 코루틴 스탑
+                    lockOnEffect.SetParent(this.transform); // 이펙트를 다시 내 밑으로 가져옴
+                    lockOnEffect.transform.localPosition = Vector3.zero;// 내기준 0, 0, 0 설정
                     lockOnEffect.gameObject.SetActive(false);
                 };
                // StartCoroutine(LookTargetCoroutine);
@@ -54,13 +72,6 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
     public Action<bool> onWeaponBladeEnable;// 칼의 콜라이더, 활성화 타이밍 알림용
     public Action<bool> onWeaponEffectEnable; // 파티클시스템
 
-
-    SkillCollider skillCollider;
-    CinemachineVirtualCamera dieVcam;
-    Animator anim;
-
-    Inventory inven;
-
     public Inventory Inventory => inven;
 
     public float itemPickUpRange = 5.0f;
@@ -79,8 +90,6 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
             }
         }
     }
-
-
     float hp = 100.0f;
     public float HP
     {
@@ -101,13 +110,6 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
     }
     float maxHP = 100.0f;
     public float MaxHP => maxHP;
-
-    public Action<float> onHealthChange { get; set; }
-    public Action<float> onManaChange { get; set; }
-    public Action onDie { get; set; }
-  
-
-
     public bool IsAlive => hp > 0.0f;
 
     float mp = 200.0f;
@@ -120,13 +122,12 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
             {
                 mp = Mathf.Clamp(value, 0.0f, maxMP);
                 onManaChange?.Invoke(mp / MaxMP);
-
             }
         }
     }
     float maxMP = 200.0f;
     public float MaxMP => maxMP;
-
+    public float skillCost = 20.0f;
 
     float basePower = 5.0f;
     public float attackPower = 0.0f;
@@ -151,12 +152,21 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
 
         lockOnEffect = transform.GetChild(6).transform;
         LookTargetCoroutine = LookTarget();
+        skillCoroutine = skillManaDecrease();
     }
 
     private void OnSkillUse(bool skillStart)
     {
-        skillCollider.skillPower = attackPower;
-        skillCollider.gameObject.SetActive(skillStart);
+        skillCollider.skillPower = attackPower; // 공격력을 스킬에 적용
+        if (skillStart)
+        {
+            StartCoroutine(skillCoroutine); // 스킬사용시작시 마나 감소 
+        }
+        else
+        {
+            StopCoroutine(skillCoroutine);
+        }
+        skillCollider.gameObject.SetActive(skillStart);// 충동처리용 오브젝트(콜라이더) 활성화, 비활성화
         //onWeaponBladeEnable?
     }
 
@@ -185,8 +195,7 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
         }
     }
 
-    InvenSlot[] partsSlot;//장비아이템의 부위별 상태 (장착한 아이템이 있는 슬롯)
-    public InvenSlot this[EquipType part] => partsSlot[(int)part];// return이 null 이면 장비가 안되어있음, null 이 아니면 이미 장비되어있음// parts = 확인할 장비의 종류 
+
 
     public void EquipItem(EquipType part, InvenSlot slot)
     {
@@ -317,12 +326,20 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
             tick++;
         }
     }
+    IEnumerator skillManaDecrease()
+    {
+        while (true)
+        {
+            MP -= skillCost * Time.deltaTime;
+            if (MP <= 0)
+            {
+                controller.SkillEndSequence();
+            }
+            yield return null;
+        }
+    }
 
 
-
-    public Action<int> onMoneyChange;
-
-    PlayerInputController controller;
  
     private void OnItemPickUp() // 아이템 획득 
     {
@@ -353,7 +370,7 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
         weaponParent.gameObject.SetActive(isShow);
         shieldParent.gameObject.SetActive(isShow);
     }
-    public void WeaponEffectEnable(bool enable)
+    public void WeaponEffectEnable(bool enable)//무기의 파티클
     {
         onWeaponEffectEnable?.Invoke(enable);
     }
@@ -361,7 +378,7 @@ public class Player : MonoBehaviour, IHealth,IMana,IEquipTarget, IBattle
     {
         onWeaponBladeEnable?.Invoke(true);
     }
-    public void WeaponBladedisable()
+    public void WeaponBladedisable()//무기의 콜라이더 활성화
     {
         onWeaponBladeEnable?.Invoke(false);
     }

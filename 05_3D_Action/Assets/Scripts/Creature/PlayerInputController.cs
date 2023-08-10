@@ -116,6 +116,11 @@ public class PlayerInputController : MonoBehaviour
         onSkillStart?.Invoke();
         //mp감소  코루틴 호출 신호 보내기
     }
+    public void SkillEndSequence()
+    {
+        anim.SetBool(skillEndHash, true);
+        onSkillEnd?.Invoke();
+    }
     private void Skill_canceled(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         player.WeaponBladedisable();
@@ -170,10 +175,10 @@ public class PlayerInputController : MonoBehaviour
     {
         MoveSpeedMode = MoveMode.Walk;
         inventoryUI = GameManager.Inst.InvenUI;
-        inventoryUI.onInventoryOpen += SetAttackValid;
+       // inventoryUI.onInventoryOpen += SetAttackValid;
         if (inventoryUI != null)
         {
-         //   inventoryUI.onInventoryOpen_ += action.Player.Attack.
+           // inventoryUI.onInventoryOpen_ += action.Player.Attack;
         }
     }
     private void Update()
