@@ -162,13 +162,13 @@ public class Board : TestBase
     }
     public void Shuffle(int[] source)
     {
-        int loopCount = source.Length - 1;
-        for (int i = 0; i < loopCount; i++)
+        int loofCount = source.Length - 1;
+        for (int i = 0; i < loofCount; i++)
         {
-            int randomIndex = UnityEngine.Random.Range(0, source.Length - i);//(0, source.Length - i) i를 빼주지 않으면 균일한 확률이 나오지 않는다
-            int lastIndex = loopCount - i;
+            int randomIndex = UnityEngine.Random.Range(0, source.Length - i);
+            int lastIndex = loofCount - i;
 
-            (source[lastIndex], source[randomIndex]) = (source[randomIndex], source[lastIndex]);//스왑 
+            (source[randomIndex], source[lastIndex]) = (source[lastIndex], source[randomIndex]);
         }
     }
     public void Test_ResetBoard()
@@ -179,29 +179,27 @@ public class Board : TestBase
     public void Test_Shuffle()
     {
         int[,] result = new int[10, 10];
-
         for (int i = 0; i < 1000000; i++)
         {
             int[] source = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             Shuffle(source);
-
             for (int j = 0; j < source.Length; j++)
             {
-                result[source[j], j]++;     // (j행, source[j]열)에 1 증가
+                result[source[j], j]++;
             }
         }
 
-        string output = "";
-        for (int y = 0; y < 10; y++)
+        string num = "";
+        for (int x = 0; x < 10; x++)
         {
-            output += $"숫자{y} : ";
-            for (int x = 0; x < 10; x++)
+            num += $"숫자{x} : ";
+            for (int y = 0; y < 10; y++)
             {
-                output += $"{result[y, x]} ";
+                num += $" {result[x, y]}";
             }
-            output += "\n";
+            num += "\n";
         }
-        Debug.Log(output);
+        Debug.Log(num);
     }
     //public void shuffleMine(int[] source)
     //{
