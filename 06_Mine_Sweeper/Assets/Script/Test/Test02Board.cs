@@ -12,7 +12,7 @@ public class Test02Board : TestBase
     }
     protected override void Test2(InputAction.CallbackContext context)
     {
-        board.TestResetBoard();
+        board.Test_Shuffle();
     }
     protected override void LeftClick(InputAction.CallbackContext context)
     {
