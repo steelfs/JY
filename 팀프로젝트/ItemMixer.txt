@@ -36,5 +36,8 @@ mixer에 셋팅될 때 , 제거될때 델리게이트로 해당 탭을 순회하
 
 slot의 OnEndDrag에서 다시 원상태로 리턴되는현상 막아야함
 
-OnEndDrag 가 실행 된 후에 제거를 해야하는데  실행되기 전에 RemoveItem이 실행되면 슬롯의 ItemData가 null 이라서 업데이트가 안됨
+
+WaitForResult 구조
+상태진입 (신호보냄)-> UI에서 신호받고 if (table.LevelUp) 체크 후 성공, 실패 애니메이션 팝업 코루틴 종료 후 팝업창 열고 인벤토리 추가 -> UI 초기화
+
 
