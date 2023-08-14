@@ -8,6 +8,10 @@ public class Test02Board : TestBase
     public Board board;
     protected override void Test1(InputAction.CallbackContext context)
     {
-        board.Initialize(3, 3, 1);
+        board.Initialize(15, 15, 15);
+    }
+    protected override void Test2(InputAction.CallbackContext context)
+    {
+        board.TestResetBoard();
     }
 }

@@ -255,3 +255,8 @@ Item_Enhancer_UI.Start () (at Assets/_JY/JY/Script/Inventory/ItemEnhancement/Ite
 결국 모든 문제와 그 해결방법은 값을 복사 하는 것으로 시작해서 값을 복사하는 것으로 끝나는게 아닐까? 하는 생각이 든다.
 
 어떤 코드를 봐도 결국 큰 틀에서 a = b; 라고 하는 것의 반복인것 같은 생각이 든다
+
+
+shuffle
+0번 인덱스부터 
+5,8,3,10,1,7,9,4,2,6
