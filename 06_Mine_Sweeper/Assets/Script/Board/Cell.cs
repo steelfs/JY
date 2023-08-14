@@ -7,6 +7,18 @@ public class Cell : MonoBehaviour
     const int ID_NOT_VALID = -1;
     int id = ID_NOT_VALID;
 
+    public int ID
+    {
+        get => id;
+        set
+        {
+            if (id == ID_NOT_VALID)
+            {
+                id = value;
+            }
+        }
+    }
+
     SpriteRenderer cover;
     SpriteRenderer inside;
 
@@ -22,5 +34,26 @@ public class Cell : MonoBehaviour
     bool hasMine = false;
     bool isOpen = false;
 
-    Board parentBoard;
+    Board parentBoard = null;
+    public Board Board
+    {
+        get => parentBoard;
+        set
+        {
+            if (parentBoard == null)
+            {
+                parentBoard = value;
+            }
+        }
+    }
+
+    public void ResetData()
+    {
+        markState = CellMarkState.None;
+        isOpen = false;
+        hasMine = false;
+        aroundMineCount = 0;
+
+        cover.gameObject.SetActive(true);// 다시 닫는 함수는 없음
+    }
 }
