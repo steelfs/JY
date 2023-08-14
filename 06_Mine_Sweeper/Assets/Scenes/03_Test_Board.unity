@@ -277,7 +277,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710725851}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.143609, y: -0.11526325, z: 0.04261133}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -296,7 +296,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ab3e64938303942aab7a02e0a2774e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  width: 16
+  height: 16
+  mineCount: 10
   cellPrefab: {fileID: 8175870347593173436, guid: 8a00d9c1f61ca114fa7627bbcbac6ea6, type: 3}
+  cells: []
   openCellImage:
   - {fileID: -1000183657, guid: 68f7514a789e79947969d75b61ce8dce, type: 3}
   - {fileID: -2059017785, guid: 68f7514a789e79947969d75b61ce8dce, type: 3}
