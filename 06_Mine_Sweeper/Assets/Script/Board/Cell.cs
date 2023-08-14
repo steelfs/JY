@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Cell : MonoBehaviour
 {
@@ -70,4 +71,14 @@ public class Cell : MonoBehaviour
         inside.sprite = Board[OpenCellType.Mine_NotFound];// 기본 지뢰스프라이트 설정
         onMineSet?.Invoke(ID);//신호보내기
     }
+    public void IncreaseAroundMineCount()//이 셀 주변에 지뢰가 배치되면 AroundMineCount를 1증가 시키는 함수 (이 셀에 지뢰가 배치되어있지 않을 때만)
+    {
+        if (!hasMine)
+        {
+            aroundMineCount++;
+            inside.sprite = Board[(OpenCellType)aroundMineCount];
+        }
+    }
+
+
 }

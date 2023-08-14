@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class Board : MonoBehaviour
+public class Board : TestBase
 {
-    private int width = 16;
-    private int height = 16;
-    private int mineCount = 10;
+    public int width = 16;
+    public int height = 16;
+    public int mineCount = 10;
 
     const float distance = 1.0f;//셀 한 변의 길이
 
@@ -22,13 +23,31 @@ public class Board : MonoBehaviour
     public Sprite this[OpenCellType type] => openCellImage[(int)type];
     public Sprite this[CloseCellType type] => closeCellImage[(int)type];
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         action = new PlayerInputAction();
     }
-    private void OnEnable()
+    protected override void OnEnable()
     {
         
+    }
+    protected override void LeftClick(InputAction.CallbackContext context)
+    {
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Debug.Log(mousePos);
+        Vector2 fixedPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Debug.Log(fixedPos);
+
+        Vector2Int fixedMousePos = Vector2Int.zero;
+        fixedMousePos.x = (int)fixedPos.x;
+        fixedMousePos.y = (int)fixedPos.y;
+
+        if (IsValidGrid(fixedMousePos))
+        {
+            Debug.Log(fixedMousePos);
+        }
+       // if (IsValidGrid((Vector2Int)fixedPos))
     }
     public void Initialize(int newWidth, int newHeight, int newMineCount)
     {
@@ -73,10 +92,26 @@ public class Board : MonoBehaviour
     {
         //셀 위치 찾기 
         //위치 주변 셀을 찾는다
+
+       // List<Cell> neighbors = new List<Cell>(8);
+        Vector2Int grid = IndexToGrid(id);
+        for (int y = -1; y < 2; y++)
+        {
+            for (int x = -1; x < 2; x++)
+            {
+                int index = GridToIndex(x + grid.x, y + grid.y);
+                if (index != Cell.ID_NOT_VALID && !((x==0) && (y == 0))) // 인덱스가 Valid하고 (0, 0)이 아닌경우 처리
+                {
+                    Cell cell = cells[index];
+                    cell.IncreaseAroundMineCount();
+                   // neighbors.Add(cells[index]);
+                }
+            }
+        }
+
         //주변 셀의 aroundMineCount를 1씩 증가시킨다.
 
-        Cell cell = cells[id];
-
+       
     }
     private Vector2Int IndexToGrid(int index)
     {

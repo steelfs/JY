@@ -81,7 +81,7 @@ public class TestBase : MonoBehaviour
 
     }
 
-    private void LeftClick(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    protected virtual void LeftClick(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
 
     }

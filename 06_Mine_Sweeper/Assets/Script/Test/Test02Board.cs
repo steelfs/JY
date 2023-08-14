@@ -14,4 +14,8 @@ public class Test02Board : TestBase
     {
         board.TestResetBoard();
     }
+    protected override void LeftClick(InputAction.CallbackContext context)
+    {
+
+    }
 }
