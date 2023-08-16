@@ -111,6 +111,8 @@ public class Board : MonoBehaviour
                 cell.onMineSet += MineSet;
                 cell.onFlagUse += gameManager.DecreaseFlagCount;
                 cell.onFlagReturn += gameManager.IncreaseFlagCount;
+               // cell.onOpenAroundCell_Request += OpenAroundMines;
+                cell.onOpenAroundCell += OpenAroundCell;
 
                 cells[cell.ID] = cell; //배열에 저장
                 cellObj.name = $"Cell_{cell.ID}_({x}, {y})";
@@ -139,10 +141,56 @@ public class Board : MonoBehaviour
                 }
             }
         }
-
-        //주변 셀의 aroundMineCount를 1씩 증가시킨다.
-
-       
+    }
+    void OpenAroundCell(int id)
+    {
+        Vector2Int grid = IndexToGrid(id);
+        for (int y = -1; y < 2; y++)
+        {
+            for (int x = -1; x < 2; x++)
+            {
+                int index = GridToIndex(x + grid.x, y + grid.y);
+                if (index != Cell.ID_NOT_VALID && !((x == 0) && (y == 0))) // 인덱스가 Valid하고 (0, 0)이 아닌경우 처리
+                {
+                    Cell cell = cells[index];
+                    cell.Open();
+                    // cell.CellLeftRelease();
+                    // neighbors.Add(cells[index]);
+                }
+            }
+        }
+    }
+    void __OpenAroundCells(int id)
+    {
+        Vector2Int grid = IndexToGrid(id);
+        Cell origin = cells[id];
+        List<Cell> aroundCells = new List<Cell>(8);
+        int mineCount = 0;
+        for (int y = -1; y < 2; y++)
+        {
+            for (int x = -1; x < 2; x++)
+            {
+                int index = GridToIndex(x + grid.x, y + grid.y);
+                if (index != Cell.ID_NOT_VALID && !((x == 0) && (y == 0))) // 인덱스가 Valid하고 (0, 0)이 아닌경우 처리
+                {
+                    Cell cell = cells[index];
+                    if (cell.HasMine)
+                    {
+                        mineCount++;
+                    }
+                    aroundCells.Add(cell);
+                   // cell.CellLeftRelease();
+                    // neighbors.Add(cells[index]);
+                }
+            }
+        }
+        if (origin.AroundMineCount == mineCount)
+        {
+            foreach(Cell cell in aroundCells)
+            {
+                cell.Open();
+            }
+        }
     }
     private Vector2Int IndexToGrid(int index)
     {

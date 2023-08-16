@@ -27,9 +27,9 @@ public class GameManager : Singleton<GameManager>
     Board board;
     public Board Board => board;
 
-    public int mineCount = 10;
-    public int boardWidth = 8;
-    public int boardHeight = 8;
+    public int mineCount = 20;
+    public int boardWidth = 15;
+    public int boardHeight = 15;
     //보드 관련 ----------------------------------------------------------------------------------------------
 
     //깃발개수 관련 -----------------------------------------------------------------

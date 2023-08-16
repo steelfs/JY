@@ -63,7 +63,9 @@ public class Cell : MonoBehaviour
 
 
     int aroundMineCount = 0;//주변 8방향 지뢰 개수
+    public int AroundMineCount => aroundMineCount;
     bool hasMine = false;//지뢰가 있는지
+    public bool HasMine => hasMine;
     bool isOpen = false;//셀이 열려있는지 
 
     Board parentBoard = null;
@@ -110,7 +112,7 @@ public class Cell : MonoBehaviour
             inside.sprite = Board[(OpenCellType)aroundMineCount];
         }
     }
-    void Open()//이 셀을 여는 함수 // 셀을 마우스 왼쪽버튼 눌렀다 땠을 때
+    public void Open()//이 셀을 여는 함수 // 셀을 마우스 왼쪽버튼 눌렀다 땠을 때
     {
         if (!isOpen && !IsFlaged)
         {
@@ -127,16 +129,23 @@ public class Cell : MonoBehaviour
             }
         }
     }
+    public Action<int> onOpenAroundCell;
+    public Action<int> onOpenAroundCell_Request;
     public void CellLeftRelease()
     {
         if (isOpen)
         {
+            onOpenAroundCell?.Invoke(id);
             // 셀에기록된 깃발 갯수와 주변셀에 설치된 지뢰의 갯수가 같으면 모두 연다.
             // 아니면 모두 원상복구 
         }
         else
         {
-            // 이 셀을 연다.
+            if (aroundMineCount == 0)
+            {
+                onOpenAroundCell?.Invoke(id);
+            }
+
             Open();
         }
     }
