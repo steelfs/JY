@@ -14,6 +14,21 @@ public class Board : MonoBehaviour
 
     public GameObject cellPrefab;
     public Cell[] cells;
+    Cell currentCell = null;
+    Cell CurrentCell
+    {
+        get => currentCell;
+        set
+        {
+            if (currentCell != value)
+            {
+                currentCell?.RestoreCover();//이전 셀을 원래상태로 되돌림
+                currentCell = value;
+                currentCell?.CellLeftPressed();// 새로운 셀 프레스
+            }
+        }
+    }
+
 
     public Sprite[] openCellImage;
     public Sprite[] closeCellImage;
@@ -33,9 +48,10 @@ public class Board : MonoBehaviour
         action.Player.LClick.performed += On_LeftPress;
         action.Player.LClick.canceled += On_LeftRelease;
         action.Player.RClick.performed += On_RightPress;
+        action.Player.PointerMove.performed += On_PointerMove;
     }
 
- 
+
 
     private void OnDisable()
     {
@@ -172,7 +188,26 @@ public class Board : MonoBehaviour
         }
     }
 
-    private void On_LeftPress(InputAction.CallbackContext _)
+    private void On_PointerMove(InputAction.CallbackContext context)
+    {
+        if (Mouse.current.leftButton.isPressed)
+        {
+            Vector2 pos = context.ReadValue<Vector2>();
+            Vector2Int grid = ScreenToGrid(pos);
+            int index = GridToIndex(grid.x, grid.y);
+
+            if (index != Cell.ID_NOT_VALID)
+            {
+                CurrentCell = cells[index];
+            }
+            else
+            {
+                CurrentCell = null;
+            }
+        }
+  
+    }
+    private void On_LeftPress(InputAction.CallbackContext context)
     {
         Vector2 screenPos = Mouse.current.position.ReadValue(); //마우스위치 받아오기
         Vector2Int grid = ScreenToGrid(screenPos); //그리드좌표로 변경
@@ -182,6 +217,7 @@ public class Board : MonoBehaviour
         if (index != Cell.ID_NOT_VALID)
         {
             Cell target = cells[index];
+            CurrentCell = target;
             target.CellLeftPressed();// 델리게이트를 사용하는게 유용한 경우는 타이밍과 결합도측면에서 고민을 해봐야한다. 델리게이트를 사용하면 결합도가 낮아질 수는 있다.
         }
     }
@@ -211,7 +247,7 @@ public class Board : MonoBehaviour
             target.CellRightPressed();// 델리게이트를 사용하는게 유용한 경우는 타이밍과 결합도측면에서 고민을 해봐야한다. 델리게이트를 사용하면 결합도가 낮아질 수는 있다.
         }
     }
- 
+
     private Vector2Int ScreenToGrid(Vector2 screenPos)
     {
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);// 스크린좌표를 월드좌표로

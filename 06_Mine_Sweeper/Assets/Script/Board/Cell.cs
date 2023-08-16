@@ -35,13 +35,12 @@ public class Cell : MonoBehaviour
         Question
     }
     CellMarkState markState = CellMarkState.None;//현재 표시된 마크
-    CellMarkState MarkState
+    public CellMarkState MarkState
     {
         get => markState;
         set
         {
-            if (markState != value)
-            {
+  
                 markState = value;
                 switch (markState)
                 {
@@ -57,7 +56,7 @@ public class Cell : MonoBehaviour
                     default:
                         break;
                 }
-            }
+            
         }
     }
     public bool IsFlaged => markState == CellMarkState.Flag;
@@ -115,10 +114,34 @@ public class Cell : MonoBehaviour
     {
         if (!isOpen && !IsFlaged)
         {
-
+            isOpen = true;
+            cover.gameObject.SetActive(false);
+            if (hasMine)
+            {
+                inside.sprite = Board[OpenCellType.Mine_Explosion];
+                //게임오버
+            }
+            else if (aroundMineCount == 0)
+            {
+                //주변 셀을 모두 연다.
+            }
+        }
+    }
+    public void CellLeftRelease()
+    {
+        if (isOpen)
+        {
+            // 셀에기록된 깃발 갯수와 주변셀에 설치된 지뢰의 갯수가 같으면 모두 연다.
+            // 아니면 모두 원상복구 
+        }
+        else
+        {
+            // 이 셀을 연다.
+            Open();
         }
     }
 
+    //왼쪽버튼 누른상태에서 마우스 위치 변경시 셀의 상태 업데이트
     public void CellLeftPressed()
     {
         if (isOpen)//이미 클릭이 된 것이라면
@@ -144,19 +167,7 @@ public class Cell : MonoBehaviour
 
         }
     }
-    public void CellLeftRelease()
-    {
-        if (isOpen)
-        {
-            // 셀에기록된 깃발 갯수와 주변셀에 설치된 지뢰의 갯수가 같으면 모두 연다.
-            // 아니면 모두 원상복구 
-        }
-        else
-        {
-            // 이 셀을 연다.
-            Open();
-        }
-    }
+ 
     public void CellRightPressed()
     {
         //markState에 따라 cover의 스프라이트 변경
@@ -178,4 +189,24 @@ public class Cell : MonoBehaviour
         }
 
     }
+
+    public void RestoreCover()
+    {
+        switch (markState)
+        {
+            case CellMarkState.None:
+                cover.sprite = Board[CloseCellType.Close];
+                break;
+            case CellMarkState.Flag:
+                
+                break;
+            case CellMarkState.Question:
+                break;
+            default:
+                break;
+        }
+    }
 }
+//release될 때 주변 지뢰 개수가 0이면 주변셀을 모두 연다.
+// 열려있는 셀을 눌렀을 경우 주변 8개 셀 중 닫혀있는 셀은 모두 눌린표시
+// 위 상태에서 마우스를 땠을 때 주변 깃발개수와 aroundMineCount가 같으면 깃발표시가된 셀을 제외하고 모두 연다
