@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Board : TestBase
+public class Board : MonoBehaviour
 {
     public int width = 16;
     public int height = 16;
@@ -23,32 +23,43 @@ public class Board : TestBase
     public Sprite this[OpenCellType type] => openCellImage[(int)type];
     public Sprite this[CloseCellType type] => closeCellImage[(int)type];
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         action = new PlayerInputAction();
     }
-    protected override void OnEnable()
+    private void OnEnable()
     {
-        
+        action.Player.Enable();
+        action.Player.LClick.performed += On_LeftPress;
+        action.Player.RClick.performed += On_RightPress;
     }
-    protected override void LeftClick(InputAction.CallbackContext context)
+
+
+
+    private void OnDisable()
     {
-        Vector2 mousePos = Mouse.current.position.ReadValue();
-        Debug.Log(mousePos);
-        Vector2 fixedPos = Camera.main.ScreenToWorldPoint(mousePos);
-        Debug.Log(fixedPos);
-
-        Vector2Int fixedMousePos = Vector2Int.zero;
-        fixedMousePos.x = (int)fixedPos.x;
-        fixedMousePos.y = (int)fixedPos.y;
-
-        if (IsValidGrid(fixedMousePos))
-        {
-            Debug.Log(fixedMousePos);
-        }
-       // if (IsValidGrid((Vector2Int)fixedPos))
+        action.Player.LClick.performed -= On_LeftPress;
+        action.Player.Disable();
     }
+ 
+
+    //protected override void LeftClick(InputAction.CallbackContext context)
+    //{
+    //    Vector2 mousePos = Mouse.current.position.ReadValue();
+    //    Debug.Log(mousePos);
+    //    Vector2 fixedPos = Camera.main.ScreenToWorldPoint(mousePos);
+    //    Debug.Log(fixedPos);
+
+    //    Vector2Int fixedMousePos = Vector2Int.zero;
+    //    fixedMousePos.x = (int)fixedPos.x;
+    //    fixedMousePos.y = (int)fixedPos.y;
+
+    //    if (IsValidGrid(fixedMousePos))
+    //    {
+    //        Debug.Log(fixedMousePos);
+    //    }
+    //   // if (IsValidGrid((Vector2Int)fixedPos))
+    //}
     public void Initialize(int newWidth, int newHeight, int newMineCount)
     {
         width = newWidth;
@@ -156,6 +167,46 @@ public class Board : TestBase
             cells[ids[i]].SetMine();
         }
     }
+
+    private void On_LeftPress(InputAction.CallbackContext _)
+    {
+        Vector2 screenPos = Mouse.current.position.ReadValue(); //마우스위치 받아오기
+        Vector2Int grid = ScreenToGrid(screenPos); //그리드좌표로 변경
+
+        int index = GridToIndex(grid.x, grid.y);
+
+        if (index != Cell.ID_NOT_VALID)
+        {
+            Debug.Log(index);
+            Cell target = cells[index];
+            target.CellLeftPressed();// 델리게이트를 사용하는게 유용한 경우는 타이밍과 결합도측면에서 고민을 해봐야한다. 델리게이트를 사용하면 결합도가 낮아질 수는 있다.
+        }
+    }
+    private void On_RightPress(InputAction.CallbackContext _)
+    {
+        Vector2 screenPos = Mouse.current.position.ReadValue(); //마우스위치 받아오기
+        Vector2Int grid = ScreenToGrid(screenPos); //그리드좌표로 변경
+
+        int index = GridToIndex(grid.x, grid.y);
+
+        if (index != Cell.ID_NOT_VALID)
+        {
+            Debug.Log(index);
+            Cell target = cells[index];
+            target.CellRightPressed();// 델리게이트를 사용하는게 유용한 경우는 타이밍과 결합도측면에서 고민을 해봐야한다. 델리게이트를 사용하면 결합도가 낮아질 수는 있다.
+        }
+    }
+
+    private Vector2Int ScreenToGrid(Vector2 screenPos)
+    {
+        Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);// 스크린좌표를 월드좌표로
+        Vector2 diff = worldPos - (Vector2)transform.position; // 보드의 피봇에서 얼마나 떨어져있는지 확인
+
+        return new Vector2Int(Mathf.FloorToInt(diff.x / distance), Mathf.FloorToInt(-diff.y / distance)); // 차이를 한칸당 간격으로 나눠서 몇번째 그리드인지 확인 
+    }
+
+
+    //--------------------------------------------------------------------------------------------
     public void TestResetBoard()
     {
         ResetBoard();

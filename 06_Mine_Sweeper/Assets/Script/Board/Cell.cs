@@ -24,13 +24,36 @@ public class Cell : MonoBehaviour
     SpriteRenderer cover;//겉면 표시용 스프라이트
     SpriteRenderer inside;//안쪽 스프라이트
 
-    enum CellMarkState
+    public enum CellMarkState
     {
         None = 0,
         Flag,
         Question
     }
     CellMarkState markState = CellMarkState.None;//현재 표시된 마크
+    public CellMarkState MarkState
+    {
+        get => markState;
+        set
+        {
+            if (markState != value)
+            {
+                markState = value;
+                switch (markState)
+                {
+                    case CellMarkState.None:
+                        cover.sprite = Board[CloseCellType.Close];
+                        break;
+                    case CellMarkState.Flag:
+                        cover.sprite = Board[CloseCellType.Flag];
+                        break;
+                    case CellMarkState.Question:
+                        cover.sprite = Board[CloseCellType.Question];
+                        break;
+                }
+            }
+        }
+    }
 
     int aroundMineCount = 0;//주변 8방향 지뢰 개수
     bool hasMine = false;//지뢰가 있는지
@@ -45,6 +68,7 @@ public class Cell : MonoBehaviour
             if (parentBoard == null)//한번만 설정 가능
             {
                 parentBoard = value;
+
             }
         }
     }
@@ -79,6 +103,28 @@ public class Cell : MonoBehaviour
             inside.sprite = Board[(OpenCellType)aroundMineCount];
         }
     }
+    public void CellLeftPressed()
+    {
+        if (markState == CellMarkState.None)
+        {
+            cover.sprite = Board[CloseCellType.Close_Press];
+        }
+    }
+    public void CellRightPressed()
+    {
+        //markState에 따라 cover의 스프라이트 변경
+        switch (markState)
+        {
+            case CellMarkState.None:
+                MarkState = CellMarkState.Flag;
+                break;
+            case CellMarkState.Flag:
+                MarkState = CellMarkState.Question;
+                break;
+            case CellMarkState.Question:
+                MarkState = CellMarkState.None;
+                break;
+        }
 
-
+    }
 }

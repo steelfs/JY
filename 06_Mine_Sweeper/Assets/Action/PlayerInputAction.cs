@@ -28,9 +28,18 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             ""id"": ""4cc72c6d-61ae-4590-ac90-baa56393a821"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""LClick"",
                     ""type"": ""Button"",
                     ""id"": ""ad17f564-0e44-42b8-9b58-569f223aacfd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""2c325c83-de19-434a-aec5-bac340713811"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -41,11 +50,22 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""eec03cb3-e1b1-429e-87df-b8255626179c"",
-                    ""path"": """",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""LClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d686041-996e-4cf2-b9dc-21f1300b34b7"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -284,7 +304,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Newaction = m_Player.FindAction("New action", throwIfNotFound: true);
+        m_Player_LClick = m_Player.FindAction("LClick", throwIfNotFound: true);
+        m_Player_RClick = m_Player.FindAction("RClick", throwIfNotFound: true);
         // Test
         m_Test = asset.FindActionMap("Test", throwIfNotFound: true);
         m_Test_Test1 = m_Test.FindAction("Test1", throwIfNotFound: true);
@@ -359,12 +380,14 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_Newaction;
+    private readonly InputAction m_Player_LClick;
+    private readonly InputAction m_Player_RClick;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
         public PlayerActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Player_Newaction;
+        public InputAction @LClick => m_Wrapper.m_Player_LClick;
+        public InputAction @RClick => m_Wrapper.m_Player_RClick;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -374,16 +397,22 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
+            @LClick.started += instance.OnLClick;
+            @LClick.performed += instance.OnLClick;
+            @LClick.canceled += instance.OnLClick;
+            @RClick.started += instance.OnRClick;
+            @RClick.performed += instance.OnRClick;
+            @RClick.canceled += instance.OnRClick;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
+            @LClick.started -= instance.OnLClick;
+            @LClick.performed -= instance.OnLClick;
+            @LClick.canceled -= instance.OnLClick;
+            @RClick.started -= instance.OnRClick;
+            @RClick.performed -= instance.OnRClick;
+            @RClick.canceled -= instance.OnRClick;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -529,7 +558,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     public TestActions @Test => new TestActions(this);
     public interface IPlayerActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnLClick(InputAction.CallbackContext context);
+        void OnRClick(InputAction.CallbackContext context);
     }
     public interface ITestActions
     {
