@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,6 +9,9 @@ public class Cell : MonoBehaviour
 {
     public const int ID_NOT_VALID = -1;// Id가 정상이 아니라는 것을 알리기 위한 상수
     int id = ID_NOT_VALID;//셀의 ID 위치계산에도 사용가능 
+
+    public Action onFlagUse;//깃발 설치시 실행될 델리게이트
+    public Action onFlagReturn;// 깃발 해제시
 
     public int ID
     {
@@ -31,7 +35,7 @@ public class Cell : MonoBehaviour
         Question
     }
     CellMarkState markState = CellMarkState.None;//현재 표시된 마크
-    public CellMarkState MarkState
+    CellMarkState MarkState
     {
         get => markState;
         set
@@ -50,10 +54,14 @@ public class Cell : MonoBehaviour
                     case CellMarkState.Question:
                         cover.sprite = Board[CloseCellType.Question];
                         break;
+                    default:
+                        break;
                 }
             }
         }
     }
+    public bool IsFlaged => markState == CellMarkState.Flag;
+
 
     int aroundMineCount = 0;//주변 8방향 지뢰 개수
     bool hasMine = false;//지뢰가 있는지
@@ -103,11 +111,50 @@ public class Cell : MonoBehaviour
             inside.sprite = Board[(OpenCellType)aroundMineCount];
         }
     }
+    void Open()//이 셀을 여는 함수 // 셀을 마우스 왼쪽버튼 눌렀다 땠을 때
+    {
+        if (!isOpen && !IsFlaged)
+        {
+
+        }
+    }
+
     public void CellLeftPressed()
     {
-        if (markState == CellMarkState.None)
+        if (isOpen)//이미 클릭이 된 것이라면
         {
-            cover.sprite = Board[CloseCellType.Close_Press];
+            //주변 8개 중 닫혀있는 셀들만 누르는 표시를 한다.
+        }
+        else//아직 클릭이 안됐으면
+        {
+            //이 셀만 누르고있는 표시를 한다.
+            switch (markState)
+            {
+                case CellMarkState.None:
+                    cover.sprite = Board[CloseCellType.Close_Press];
+                    break;
+                case CellMarkState.Question:
+                    cover.sprite = Board[CloseCellType.Question_Press];
+                    break;
+                case CellMarkState.Flag:
+                    break;
+                default:
+                    break;
+            }
+
+        }
+    }
+    public void CellLeftRelease()
+    {
+        if (isOpen)
+        {
+            // 셀에기록된 깃발 갯수와 주변셀에 설치된 지뢰의 갯수가 같으면 모두 연다.
+            // 아니면 모두 원상복구 
+        }
+        else
+        {
+            // 이 셀을 연다.
+            Open();
         }
     }
     public void CellRightPressed()
@@ -117,12 +164,16 @@ public class Cell : MonoBehaviour
         {
             case CellMarkState.None:
                 MarkState = CellMarkState.Flag;
+                onFlagUse?.Invoke();
                 break;
             case CellMarkState.Flag:
                 MarkState = CellMarkState.Question;
+                onFlagReturn?.Invoke();
                 break;
             case CellMarkState.Question:
                 MarkState = CellMarkState.None;
+                break;
+            default:
                 break;
         }
 

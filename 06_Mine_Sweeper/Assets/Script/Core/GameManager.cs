@@ -22,6 +22,16 @@ public class GameManager : Singleton<GameManager>
     public Action onGameOver;
     //게임 상태관련 -----------------------------------------------------------------------
 
+
+    //보드 관련 ----------------------------------------------------------------------------------------------
+    Board board;
+    public Board Board => board;
+
+    public int mineCount = 10;
+    public int boardWidth = 8;
+    public int boardHeight = 8;
+    //보드 관련 ----------------------------------------------------------------------------------------------
+
     //깃발개수 관련 -----------------------------------------------------------------
     int flagCount = 0;
     public int FlagCount
@@ -37,6 +47,23 @@ public class GameManager : Singleton<GameManager>
     public Action<int> onFlagCountChange;
     //깃발개수 관련 End -----------------------------------------------------------------
 
+    protected override void OnInitialize()
+    {
+        FlagCount = mineCount;
+        board = FindObjectOfType<Board>();
+        board.Initialize(boardWidth, boardHeight, mineCount);// 보드 초기화 
+    }
+    public void IncreaseFlagCount()
+    {
+        FlagCount++;
+    }
+    public void DecreaseFlagCount()
+    {
+        FlagCount--;
+    }
+
+
+    // 테스트 코드-------------------------------------------------------------------------
     public void TestFlag(int flag)
     {
         FlagCount = flag;
@@ -45,13 +72,13 @@ public class GameManager : Singleton<GameManager>
     {
         switch (state)
         {
-            case GameManager.GameState.Ready:
+            case GameState.Ready:
                 onGameReady?.Invoke();
                 break;
-            case GameManager.GameState.Play:
+            case GameState.Play:
                 onGamePlay?.Invoke();
                 break;
-            case GameManager.GameState.GameClear:
+            case GameState.GameClear:
                 onGameClear?.Invoke();
                 break;
         }
