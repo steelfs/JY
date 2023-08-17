@@ -268,4 +268,11 @@ shuffle
 Enum을 클래스 외부에서 선언한 다는 것은 다른 곳에서도 사용할 수 있도록 Open 노출한다는 것이다. 
 내부적으로 사용할 것이라면 바깥으로 노출시키는 것은 나를 포함한 다른사람에게도 의도에 혼란을 줄 수 있다.
 
-람다식 안의 내용들은 힙메모리에 저장이 된다. 8월 17일 4교시 영상 참조
+람다식 안의 지역변수들은 힙메모리에 저장이 된다. 8월 17일 4교시 영상 참조
+        board.onBoardLeftPress += () =>
+        {
+            if (manager.IsPlaying)   //  따라서 이것을manager.IsPlaying => GameManager.Inst.IsPlaying 으로 바꿀 수 있다
+            {
+                State = ButtonState.Normal;
+            }
+        };
