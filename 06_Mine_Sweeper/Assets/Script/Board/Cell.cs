@@ -81,12 +81,23 @@ public class Cell : MonoBehaviour
             }
         }
     }
+
+    List<Cell> neighbors = null;
+    List<Cell> pressedCells = null;// 이 셀에 의해 눌려진 셀의 목록
+
     public Action<int> onMineSet;
 
     private void Awake()
     {
         cover = transform.GetChild(0).GetComponent<SpriteRenderer>();
         inside = transform.transform.GetChild(1).GetComponent<SpriteRenderer>();
+
+        pressedCells = new List<Cell>(9);
+    }
+
+    private void Start()
+    {
+        neighbors = Board.GetNeighbors(id);//주변 셀 미리 찾아놓기
     }
     public void ResetData()
     {
@@ -125,6 +136,10 @@ public class Cell : MonoBehaviour
             }
             else if (aroundMineCount == 0)
             {
+                foreach(Cell cell in neighbors)
+                {
+                    cell.Open();
+                }
                 //주변 셀을 모두 연다.
             }
         }
@@ -135,16 +150,31 @@ public class Cell : MonoBehaviour
     {
         if (isOpen)
         {
-            onOpenAroundCell?.Invoke(id);
-            // 셀에기록된 깃발 갯수와 주변셀에 설치된 지뢰의 갯수가 같으면 모두 연다.
-            // 아니면 모두 원상복구 
+            //주변 깃발개수 확인
+            int flagCount = 0;
+            foreach(Cell cell in neighbors)
+            {
+                if (cell.IsFlaged)
+                {
+                    flagCount++;
+                }
+            }
+            if (flagCount == aroundMineCount)
+            {
+                foreach(Cell cell in pressedCells)
+                {
+                    cell.Open();
+                }
+            }
+            else
+            {
+                RestoreCovers();// 깃발갯수와 지뢰의 갯수가 다르면 되돌리기.
+            }
+            RestoreCovers();
         }
         else
         {
-            if (aroundMineCount == 0)
-            {
-                onOpenAroundCell?.Invoke(id);
-            }
+     
 
             Open();
         }
@@ -153,9 +183,18 @@ public class Cell : MonoBehaviour
     //왼쪽버튼 누른상태에서 마우스 위치 변경시 셀의 상태 업데이트
     public void CellLeftPressed()
     {
+        pressedCells.Clear();// 새로 눌려졌으니 기존것들을 제거 
         if (isOpen)//이미 클릭이 된 것이라면
         {
             //주변 8개 중 닫혀있는 셀들만 누르는 표시를 한다.
+            foreach (var cell in neighbors)//stack overflow
+            {
+                if (!cell.isOpen && !cell.IsFlaged)//열리지 않은 것과 플레그가 없는것만
+                {
+                    pressedCells.Add(cell);
+                    cell.CellLeftPressed();
+                }
+            }
         }
         else//아직 클릭이 안됐으면
         {
@@ -173,7 +212,7 @@ public class Cell : MonoBehaviour
                 default:
                     break;
             }
-
+            pressedCells.Add(this);
         }
     }
  
@@ -214,6 +253,14 @@ public class Cell : MonoBehaviour
             default:
                 break;
         }
+    }
+    public void RestoreCovers()//주위 눌려진 모든 셀들을 되돌리기
+    {
+        foreach (var cell in pressedCells)
+        {
+            cell.RestoreCover();
+        }
+        pressedCells.Clear();
     }
 }
 //release될 때 주변 지뢰 개수가 0이면 주변셀을 모두 연다.

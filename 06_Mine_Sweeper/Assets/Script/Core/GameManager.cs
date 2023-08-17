@@ -10,12 +10,40 @@ public class GameManager : Singleton<GameManager>
     public enum GameState
     {
         Ready = 0, // 게임 시작 전 (첫번째 셀이 아직 열리지 않은 상태)
-        Play, // 진행중(첫번째 셀이 열린 이후 )
+        Play, // 진행중(첫번째 셀이 열린 이후, 또는 깃발이 설치된 이후 )
         GameClear, //모든 지뢰를 찾았을 때
         GameOver// 지뢰가 있는 셀을 열었을 때
     }
 
-    public GameState state = GameState.Ready;
+    GameState state = GameState.Ready;
+    public GameState State
+    {
+        get => state;
+        set
+        {
+            if (state != value)
+            {
+                state = value;
+                switch (state)
+                {
+                    case GameState.Ready:
+                        onGameReady?.Invoke();
+                        break;
+                    case GameState.Play:
+                        onGamePlay?.Invoke();
+                        break;
+                    case GameState.GameClear:
+                        onGameClear?.Invoke();
+                        break;
+                    case GameState.GameOver:
+                        onGameOver?.Invoke();
+                        break;
+                }
+            }
+            Debug.Log($"현재상태 : {state}");
+        }
+    }
+
     public Action onGameReady; // 게임 초기화시
     public Action onGamePlay;
     public Action onGameClear;
@@ -61,7 +89,13 @@ public class GameManager : Singleton<GameManager>
     {
         FlagCount--;
     }
-
+    public void GameStart()
+    {
+        if (state == GameState.Ready)
+        {
+            State = GameState.Play;
+        }
+    }
 
     // 테스트 코드-------------------------------------------------------------------------
     public void TestFlag(int flag)
