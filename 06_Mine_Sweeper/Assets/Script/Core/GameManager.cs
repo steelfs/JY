@@ -60,6 +60,8 @@ public class GameManager : Singleton<GameManager>
     public int mineCount = 20;
     public int boardWidth = 15;
     public int boardHeight = 15;
+
+    
     //보드 관련 ----------------------------------------------------------------------------------------------
 
     //깃발개수 관련 -----------------------------------------------------------------
@@ -91,6 +93,13 @@ public class GameManager : Singleton<GameManager>
     public void DecreaseFlagCount()
     {
         FlagCount--;
+    }
+    public void FinishPlayerAction()
+    {
+        if (board.IsBoardClear)
+        {
+            GameClear();
+        }
     }
     public void GameStart()
     {

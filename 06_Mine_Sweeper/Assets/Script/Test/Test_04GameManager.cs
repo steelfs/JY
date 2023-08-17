@@ -13,4 +13,8 @@ public class Test_04GameManager : TestBase
     {
         GameManager.Inst.GameOver();
     }
+    protected override void Test3(InputAction.CallbackContext context)
+    {
+        GameManager.Inst.GameClear();
+    }
 }

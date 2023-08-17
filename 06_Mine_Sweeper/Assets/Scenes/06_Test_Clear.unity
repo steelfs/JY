@@ -929,7 +929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0521650b0c07b4a41a324b33b811a643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineCount: 10
+  mineCount: 3
   boardWidth: 8
   boardHeight: 8
   startFlagCount: 10

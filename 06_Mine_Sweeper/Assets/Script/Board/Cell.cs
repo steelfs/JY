@@ -12,6 +12,9 @@ public class Cell : MonoBehaviour
 
     public Action onFlagUse;//깃발 설치시 실행될 델리게이트
     public Action onFlagReturn;// 깃발 해제시
+    public Action onCellOpen;//셀이 열릴때 Board의 CloseCellCount를 깎는 신호
+    public Action onAction; // 어떤 행동을 했을 때 무조건 신호를 보내서 카운트를 증가시키는 신호 
+    public Action onExplosion;//지뢰가 터졌을 때
 
     public int ID
     {
@@ -129,6 +132,7 @@ public class Cell : MonoBehaviour
         {
             isOpen = true;
             cover.gameObject.SetActive(false);
+            onCellOpen?.Invoke();
             if (hasMine)
             {
                 inside.sprite = Board[OpenCellType.Mine_Explosion];
@@ -168,6 +172,7 @@ public class Cell : MonoBehaviour
                     {
                         cell.Open();
                     }
+                    onAction?.Invoke();
                 }
                 else
                 {
@@ -178,6 +183,7 @@ public class Cell : MonoBehaviour
             else
             {
                 Open();
+                onAction?.Invoke();
             }
         }
     }
@@ -225,16 +231,18 @@ public class Cell : MonoBehaviour
     public void CellRightPressed()
     {
         //markState에 따라 cover의 스프라이트 변경
-        if (GameManager.Inst.IsPlaying)
+        if (GameManager.Inst.IsPlaying && !isOpen)//플레이중이고 닫혀있을 때만
         {
             switch (markState)
             {
                 case CellMarkState.None:
                     MarkState = CellMarkState.Flag;
+                    onAction?.Invoke();
                     onFlagUse?.Invoke();
                     break;
                 case CellMarkState.Flag:
                     MarkState = CellMarkState.Question;
+                    onAction?.Invoke();
                     onFlagReturn?.Invoke();
                     break;
                 case CellMarkState.Question:

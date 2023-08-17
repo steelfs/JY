@@ -10,6 +10,12 @@ public class Board : MonoBehaviour
     public int height = 16;
     public int mineCount = 10;
 
+    int closeCellCount = 0;
+
+    public bool IsBoardClear => closeCellCount == mineCount && GameManager.Inst.IsPlaying;//보드가 클리어 되었는지 확인하는 프로퍼티 //외부클래스의 조건을 추가하게되면 결합도가 높아져서 좋지않을 수 있다.
+   // public bool IsBoardClear => closeCellCount == mineCount && !isBoardOver;
+   // bool isBoardOver = false;//보드가
+
     const float distance = 1.0f;//셀 한 변의 길이
 
     public GameObject cellPrefab;
@@ -32,6 +38,9 @@ public class Board : MonoBehaviour
 
     public Sprite[] openCellImage;
     public Sprite[] closeCellImage;
+
+    public Action onBoardLeftPress;
+    public Action onBoardLeftRelease;
 
     PlayerInputAction action;
 
@@ -111,6 +120,12 @@ public class Board : MonoBehaviour
                 cell.onMineSet += MineSet;
                 cell.onFlagUse += gameManager.DecreaseFlagCount;
                 cell.onFlagReturn += gameManager.IncreaseFlagCount;
+                cell.onCellOpen += () => closeCellCount--;
+                cell.onAction += gameManager.FinishPlayerAction;
+              //  cell.onExplosion += gameManager.GameOver;
+
+               // cell.onExplosion += () => isBoardOver = true;
+                   
 
                 cells[cell.ID] = cell; //배열에 저장
                 cellObj.name = $"Cell_{cell.ID}_({x}, {y})";
@@ -204,6 +219,7 @@ public class Board : MonoBehaviour
         {
             cells[ids[i]].SetMine();
         }
+        closeCellCount = cells.Length;//닫힌 셀의 갯수 (게임클리어 조건 닫힌 셀의 갯수 == mineCount)
     }
 
     private void OnGameOver()
@@ -233,6 +249,10 @@ public class Board : MonoBehaviour
     }
     private void On_LeftPress(InputAction.CallbackContext context)
     {
+        if (GameManager.Inst.IsPlaying)
+        {
+            onBoardLeftPress?.Invoke();
+        }
         Vector2 screenPos = Mouse.current.position.ReadValue(); //마우스위치 받아오기
         Vector2Int grid = ScreenToGrid(screenPos); //그리드좌표로 변경
 
@@ -249,6 +269,10 @@ public class Board : MonoBehaviour
     }
     private void On_LeftRelease(InputAction.CallbackContext _)
     {
+        if (GameManager.Inst.IsPlaying)
+        {
+            onBoardLeftRelease?.Invoke();
+        }
         Vector2 screenPos = Mouse.current.position.ReadValue(); //마우스위치 받아오기
         Vector2Int grid = ScreenToGrid(screenPos); //그리드좌표로 변경
 
@@ -331,18 +355,6 @@ public class Board : MonoBehaviour
         }
         Debug.Log(num);
     }
-    //public void shuffleMine(int[] source)
-    //{
-    //    for (int i = 0; i < source.Length; i++)
-    //    {
-    //        int randomIndex = source[UnityEngine.Random.Range(0, source.Length - 1)];
-    //        int tempValue = source[randomIndex];
-    //        int origin = source[i];
-    //        source[i] = tempValue;
-    //        source[randomIndex] = origin;
-    //    }
-    //    //source의 순서 섞기
-    //}
+
 }
-//셔플함수 완성
-//sell 의 SetMine 함수
+
