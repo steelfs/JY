@@ -12,6 +12,9 @@ public class Cell : MonoBehaviour
 
     public Action onFlagUse;//깃발 설치시 실행될 델리게이트
     public Action onFlagReturn;// 깃발 해제시
+    public Action onCellOpen;//셀이 열릴때 Board의 CloseCellCount를 깎는 신호
+    public Action onAction; // 어떤 행동을 했을 때 무조건 신호를 보내서 카운트를 증가시키는 신호 
+   // public Action onExplosion;//지뢰가 터졌을 때
 
     public int ID
     {
@@ -81,12 +84,23 @@ public class Cell : MonoBehaviour
             }
         }
     }
+
+    List<Cell> neighbors = null;
+    List<Cell> pressedCells = null;// 이 셀에 의해 눌려진 셀의 목록
+
     public Action<int> onMineSet;
 
     private void Awake()
     {
         cover = transform.GetChild(0).GetComponent<SpriteRenderer>();
         inside = transform.transform.GetChild(1).GetComponent<SpriteRenderer>();
+
+        pressedCells = new List<Cell>(9);
+    }
+
+    private void Start()
+    {
+        neighbors = Board.GetNeighbors(id);//주변 셀 미리 찾아놓기
     }
     public void ResetData()
     {
@@ -118,13 +132,19 @@ public class Cell : MonoBehaviour
         {
             isOpen = true;
             cover.gameObject.SetActive(false);
+            onCellOpen?.Invoke();
             if (hasMine)
             {
                 inside.sprite = Board[OpenCellType.Mine_Explosion];
+                GameManager.Inst.GameOver();
                 //게임오버
             }
             else if (aroundMineCount == 0)
             {
+                foreach(Cell cell in neighbors)
+                {
+                    cell.Open();
+                }
                 //주변 셀을 모두 연다.
             }
         }
@@ -133,70 +153,105 @@ public class Cell : MonoBehaviour
     public Action<int> onOpenAroundCell_Request;
     public void CellLeftRelease()
     {
-        if (isOpen)
+        if (GameManager.Inst.IsPlaying)
         {
-            onOpenAroundCell?.Invoke(id);
-            // 셀에기록된 깃발 갯수와 주변셀에 설치된 지뢰의 갯수가 같으면 모두 연다.
-            // 아니면 모두 원상복구 
-        }
-        else
-        {
-            if (aroundMineCount == 0)
+            if (isOpen)
             {
-                onOpenAroundCell?.Invoke(id);
+                //주변 깃발개수 확인
+                int flagCount = 0;
+                foreach (Cell cell in neighbors)
+                {
+                    if (cell.IsFlaged)
+                    {
+                        flagCount++;
+                    }
+                }
+                if (flagCount == aroundMineCount)
+                {
+                    foreach (Cell cell in pressedCells)
+                    {
+                        cell.Open();
+                    }
+                    onAction?.Invoke();
+                }
+                else
+                {
+                    RestoreCovers();// 깃발갯수와 지뢰의 갯수가 다르면 되돌리기.
+                }
+                RestoreCovers();
             }
-
-            Open();
+            else
+            {
+                Open();
+                onAction?.Invoke();
+            }
         }
     }
 
     //왼쪽버튼 누른상태에서 마우스 위치 변경시 셀의 상태 업데이트
     public void CellLeftPressed()
     {
-        if (isOpen)//이미 클릭이 된 것이라면
+        if (GameManager.Inst.IsPlaying)
         {
-            //주변 8개 중 닫혀있는 셀들만 누르는 표시를 한다.
-        }
-        else//아직 클릭이 안됐으면
-        {
-            //이 셀만 누르고있는 표시를 한다.
-            switch (markState)
+            pressedCells.Clear();// 새로 눌려졌으니 기존것들을 제거 
+            if (isOpen)//이미 클릭이 된 것이라면
             {
-                case CellMarkState.None:
-                    cover.sprite = Board[CloseCellType.Close_Press];
-                    break;
-                case CellMarkState.Question:
-                    cover.sprite = Board[CloseCellType.Question_Press];
-                    break;
-                case CellMarkState.Flag:
-                    break;
-                default:
-                    break;
+                //주변 8개 중 닫혀있는 셀들만 누르는 표시를 한다.
+                foreach (var cell in neighbors)//stack overflow
+                {
+                    if (!cell.isOpen && !cell.IsFlaged)//열리지 않은 것과 플레그가 없는것만
+                    {
+                        pressedCells.Add(cell);
+                        cell.CellLeftPressed();
+                    }
+                }
             }
-
+            else//아직 클릭이 안됐으면
+            {
+                //이 셀만 누르고있는 표시를 한다.
+                switch (markState)
+                {
+                    case CellMarkState.None:
+                        cover.sprite = Board[CloseCellType.Close_Press];
+                        break;
+                    case CellMarkState.Question:
+                        cover.sprite = Board[CloseCellType.Question_Press];
+                        break;
+                    case CellMarkState.Flag:
+                        break;
+                    default:
+                        break;
+                }
+                pressedCells.Add(this);
+            }
         }
+       
     }
  
     public void CellRightPressed()
     {
         //markState에 따라 cover의 스프라이트 변경
-        switch (markState)
+        if (GameManager.Inst.IsPlaying && !isOpen)//플레이중이고 닫혀있을 때만
         {
-            case CellMarkState.None:
-                MarkState = CellMarkState.Flag;
-                onFlagUse?.Invoke();
-                break;
-            case CellMarkState.Flag:
-                MarkState = CellMarkState.Question;
-                onFlagReturn?.Invoke();
-                break;
-            case CellMarkState.Question:
-                MarkState = CellMarkState.None;
-                break;
-            default:
-                break;
+            switch (markState)
+            {
+                case CellMarkState.None:
+                    MarkState = CellMarkState.Flag;
+                    onAction?.Invoke();
+                    onFlagUse?.Invoke();
+                    break;
+                case CellMarkState.Flag:
+                    MarkState = CellMarkState.Question;
+                    onAction?.Invoke();
+                    onFlagReturn?.Invoke();
+                    break;
+                case CellMarkState.Question:
+                    MarkState = CellMarkState.None;
+                    break;
+                default:
+                    break;
+            }
         }
-
     }
 
     public void RestoreCover()
@@ -214,6 +269,14 @@ public class Cell : MonoBehaviour
             default:
                 break;
         }
+    }
+    public void RestoreCovers()//주위 눌려진 모든 셀들을 되돌리기
+    {
+        foreach (var cell in pressedCells)
+        {
+            cell.RestoreCover();
+        }
+        pressedCells.Clear();
     }
 }
 //release될 때 주변 지뢰 개수가 0이면 주변셀을 모두 연다.
