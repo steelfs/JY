@@ -132,6 +132,7 @@ public class Cell : MonoBehaviour
             if (hasMine)
             {
                 inside.sprite = Board[OpenCellType.Mine_Explosion];
+                GameManager.Inst.GameOver();
                 //게임오버
             }
             else if (aroundMineCount == 0)
@@ -148,94 +149,101 @@ public class Cell : MonoBehaviour
     public Action<int> onOpenAroundCell_Request;
     public void CellLeftRelease()
     {
-        if (isOpen)
+        if (GameManager.Inst.IsPlaying)
         {
-            //주변 깃발개수 확인
-            int flagCount = 0;
-            foreach(Cell cell in neighbors)
+            if (isOpen)
             {
-                if (cell.IsFlaged)
+                //주변 깃발개수 확인
+                int flagCount = 0;
+                foreach (Cell cell in neighbors)
                 {
-                    flagCount++;
+                    if (cell.IsFlaged)
+                    {
+                        flagCount++;
+                    }
                 }
-            }
-            if (flagCount == aroundMineCount)
-            {
-                foreach(Cell cell in pressedCells)
+                if (flagCount == aroundMineCount)
                 {
-                    cell.Open();
+                    foreach (Cell cell in pressedCells)
+                    {
+                        cell.Open();
+                    }
                 }
+                else
+                {
+                    RestoreCovers();// 깃발갯수와 지뢰의 갯수가 다르면 되돌리기.
+                }
+                RestoreCovers();
             }
             else
             {
-                RestoreCovers();// 깃발갯수와 지뢰의 갯수가 다르면 되돌리기.
+                Open();
             }
-            RestoreCovers();
-        }
-        else
-        {
-     
-
-            Open();
         }
     }
 
     //왼쪽버튼 누른상태에서 마우스 위치 변경시 셀의 상태 업데이트
     public void CellLeftPressed()
     {
-        pressedCells.Clear();// 새로 눌려졌으니 기존것들을 제거 
-        if (isOpen)//이미 클릭이 된 것이라면
+        if (GameManager.Inst.IsPlaying)
         {
-            //주변 8개 중 닫혀있는 셀들만 누르는 표시를 한다.
-            foreach (var cell in neighbors)//stack overflow
+            pressedCells.Clear();// 새로 눌려졌으니 기존것들을 제거 
+            if (isOpen)//이미 클릭이 된 것이라면
             {
-                if (!cell.isOpen && !cell.IsFlaged)//열리지 않은 것과 플레그가 없는것만
+                //주변 8개 중 닫혀있는 셀들만 누르는 표시를 한다.
+                foreach (var cell in neighbors)//stack overflow
                 {
-                    pressedCells.Add(cell);
-                    cell.CellLeftPressed();
+                    if (!cell.isOpen && !cell.IsFlaged)//열리지 않은 것과 플레그가 없는것만
+                    {
+                        pressedCells.Add(cell);
+                        cell.CellLeftPressed();
+                    }
                 }
             }
-        }
-        else//아직 클릭이 안됐으면
-        {
-            //이 셀만 누르고있는 표시를 한다.
-            switch (markState)
+            else//아직 클릭이 안됐으면
             {
-                case CellMarkState.None:
-                    cover.sprite = Board[CloseCellType.Close_Press];
-                    break;
-                case CellMarkState.Question:
-                    cover.sprite = Board[CloseCellType.Question_Press];
-                    break;
-                case CellMarkState.Flag:
-                    break;
-                default:
-                    break;
+                //이 셀만 누르고있는 표시를 한다.
+                switch (markState)
+                {
+                    case CellMarkState.None:
+                        cover.sprite = Board[CloseCellType.Close_Press];
+                        break;
+                    case CellMarkState.Question:
+                        cover.sprite = Board[CloseCellType.Question_Press];
+                        break;
+                    case CellMarkState.Flag:
+                        break;
+                    default:
+                        break;
+                }
+                pressedCells.Add(this);
             }
-            pressedCells.Add(this);
         }
+       
     }
  
     public void CellRightPressed()
     {
         //markState에 따라 cover의 스프라이트 변경
-        switch (markState)
+        if (GameManager.Inst.IsPlaying)
         {
-            case CellMarkState.None:
-                MarkState = CellMarkState.Flag;
-                onFlagUse?.Invoke();
-                break;
-            case CellMarkState.Flag:
-                MarkState = CellMarkState.Question;
-                onFlagReturn?.Invoke();
-                break;
-            case CellMarkState.Question:
-                MarkState = CellMarkState.None;
-                break;
-            default:
-                break;
+            switch (markState)
+            {
+                case CellMarkState.None:
+                    MarkState = CellMarkState.Flag;
+                    onFlagUse?.Invoke();
+                    break;
+                case CellMarkState.Flag:
+                    MarkState = CellMarkState.Question;
+                    onFlagReturn?.Invoke();
+                    break;
+                case CellMarkState.Question:
+                    MarkState = CellMarkState.None;
+                    break;
+                default:
+                    break;
+            }
         }
-
     }
 
     public void RestoreCover()

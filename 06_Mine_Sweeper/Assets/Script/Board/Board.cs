@@ -116,6 +116,9 @@ public class Board : MonoBehaviour
                 cellObj.name = $"Cell_{cell.ID}_({x}, {y})";
             }
         }
+
+        gameManager.onGameReady += ResetBoard;
+        gameManager.onGameOver += OnGameOver;
         ResetBoard();
     }
 
@@ -140,56 +143,7 @@ public class Board : MonoBehaviour
             }
         }
     }
-    //void OpenAroundCell(int id)
-    //{
-    //    Vector2Int grid = IndexToGrid(id);
-    //    for (int y = -1; y < 2; y++)
-    //    {
-    //        for (int x = -1; x < 2; x++)
-    //        {
-    //            int index = GridToIndex(x + grid.x, y + grid.y);
-    //            if (index != Cell.ID_NOT_VALID && !((x == 0) && (y == 0))) // 인덱스가 Valid하고 (0, 0)이 아닌경우 처리
-    //            {
-    //                Cell cell = cells[index];
-    //                cell.Open();
-    //                // cell.CellLeftRelease();
-    //                // neighbors.Add(cells[index]);
-    //            }
-    //        }
-    //    }
-    //}
-    //void __OpenAroundCells(int id)
-    //{
-    //    Vector2Int grid = IndexToGrid(id);
-    //    Cell origin = cells[id];
-    //    List<Cell> aroundCells = new List<Cell>(8);
-    //    int mineCount = 0;
-    //    for (int y = -1; y < 2; y++)
-    //    {
-    //        for (int x = -1; x < 2; x++)
-    //        {
-    //            int index = GridToIndex(x + grid.x, y + grid.y);
-    //            if (index != Cell.ID_NOT_VALID && !((x == 0) && (y == 0))) // 인덱스가 Valid하고 (0, 0)이 아닌경우 처리
-    //            {
-    //                Cell cell = cells[index];
-    //                if (cell.HasMine)
-    //                {
-    //                    mineCount++;
-    //                }
-    //                aroundCells.Add(cell);
-    //               // cell.CellLeftRelease();
-    //                // neighbors.Add(cells[index]);
-    //            }
-    //        }
-    //    }
-    //    if (origin.AroundMineCount == mineCount)
-    //    {
-    //        foreach(Cell cell in aroundCells)
-    //        {
-    //            cell.Open();
-    //        }
-    //    }
-    //}
+    
     public List<Cell> GetNeighbors(int id)
     {
         List<Cell> result = new List<Cell>(8);
@@ -250,6 +204,12 @@ public class Board : MonoBehaviour
         {
             cells[ids[i]].SetMine();
         }
+    }
+
+    private void OnGameOver()
+    {
+        //잘못찾은것 X 표시
+        //못찾은 지뢰의 커버 제거
     }
 
     private void On_PointerMove(InputAction.CallbackContext context)

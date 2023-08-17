@@ -44,6 +44,8 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public bool IsPlaying => State == GameState.Play;//게임이 진행중인지 아닌지 확인하기 위한 프로퍼티
+
     public Action onGameReady; // 게임 초기화시
     public Action onGamePlay;
     public Action onGameClear;
@@ -61,6 +63,7 @@ public class GameManager : Singleton<GameManager>
     //보드 관련 ----------------------------------------------------------------------------------------------
 
     //깃발개수 관련 -----------------------------------------------------------------
+    public int startFlagCount = 10;
     int flagCount = 0;
     public int FlagCount
     {
@@ -96,7 +99,27 @@ public class GameManager : Singleton<GameManager>
             State = GameState.Play;
         }
     }
+    public void GameReset()
+    {
+        //게임 초기화 하기
+        // 보드, 타이머, 플레그카운터
+        FlagCount = mineCount;
+        if (state == GameState.GameClear || state == GameState.GameOver)
+        {
+            State = GameState.Ready;
+        }
+    }
+    public void GameOver()
+    {
+        State = GameState.GameOver;
+        //타이머 정지,
+        //셀이 더이상 열리지 않기(플레이 상태일때만 열리게 하기)
+    }
 
+    public void GameClear()
+    {
+        State = GameState.GameClear;
+    }
     // 테스트 코드-------------------------------------------------------------------------
     public void TestFlag(int flag)
     {
