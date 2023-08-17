@@ -265,7 +265,6 @@ public class Board : MonoBehaviour
         if (index != Cell.ID_NOT_VALID)
         {
             Cell target = cells[index];
-            CurrentCell = target;
             target.CellLeftPressed();// 델리게이트를 사용하는게 유용한 경우는 타이밍과 결합도측면에서 고민을 해봐야한다. 델리게이트를 사용하면 결합도가 낮아질 수는 있다.
         }
     }
