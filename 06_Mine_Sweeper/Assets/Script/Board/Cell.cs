@@ -14,7 +14,7 @@ public class Cell : MonoBehaviour
     public Action onFlagReturn;// 깃발 해제시
     public Action onCellOpen;//셀이 열릴때 Board의 CloseCellCount를 깎는 신호
     public Action onAction; // 어떤 행동을 했을 때 무조건 신호를 보내서 카운트를 증가시키는 신호 
-    public Action onExplosion;//지뢰가 터졌을 때
+   // public Action onExplosion;//지뢰가 터졌을 때
 
     public int ID
     {
