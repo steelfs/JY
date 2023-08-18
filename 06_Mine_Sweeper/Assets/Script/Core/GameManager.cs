@@ -80,6 +80,24 @@ public class GameManager : Singleton<GameManager>
     public Action<int> onFlagCountChange;
     //깃발개수 관련 End -----------------------------------------------------------------
 
+    public Action<int> onActionCountChange;
+    int actionCount = 0;
+    public int ActionCount
+    {
+        get => actionCount;
+        set
+        {
+            if (actionCount != value)
+            {
+                actionCount = value;
+                onActionCountChange?.Invoke(actionCount);
+            }
+        }
+    }
+    public Action<int, int> onUpdateUI;
+    int findCount = 0;
+
+
     protected override void OnInitialize()
     {
         FlagCount = mineCount;
@@ -89,16 +107,20 @@ public class GameManager : Singleton<GameManager>
     public void IncreaseFlagCount()
     {
         FlagCount++;
+        findCount--;
     }
     public void DecreaseFlagCount()
     {
         FlagCount--;
+        findCount++;
     }
     public void FinishPlayerAction()
     {
+        ActionCount++;
         if (board.IsBoardClear)
         {
             GameClear();
+            findCount = mineCount;
         }
     }
     public void GameStart()
@@ -112,14 +134,19 @@ public class GameManager : Singleton<GameManager>
     {
         //게임 초기화 하기
         // 보드, 타이머, 플레그카운터
-        FlagCount = mineCount;
+      
         if (state == GameState.GameClear || state == GameState.GameOver)
         {
             State = GameState.Ready;
+            FlagCount = mineCount;
+            ActionCount = 0;
+            findCount = 0;
+            onUpdateUI?.Invoke(mineCount, findCount);
         }
     }
     public void GameOver()
     {
+        onUpdateUI?.Invoke(mineCount, findCount);
         State = GameState.GameOver;
         //타이머 정지,
         //셀이 더이상 열리지 않기(플레이 상태일때만 열리게 하기)
@@ -127,6 +154,7 @@ public class GameManager : Singleton<GameManager>
 
     public void GameClear()
     {
+        onUpdateUI?.Invoke(mineCount, mineCount);
         State = GameState.GameClear;
     }
     // 테스트 코드-------------------------------------------------------------------------

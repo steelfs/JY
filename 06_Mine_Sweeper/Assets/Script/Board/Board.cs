@@ -20,6 +20,7 @@ public class Board : MonoBehaviour
 
     public GameObject cellPrefab;
     public Cell[] cells;
+    List<Cell> cellWithMine;
     Cell currentCell = null;
     Cell CurrentCell
     {
@@ -134,7 +135,9 @@ public class Board : MonoBehaviour
 
         gameManager.onGameReady += ResetBoard;
         gameManager.onGameOver += OnGameOver;
+        gameManager.onGameOver += OpenCellWithMine;
         ResetBoard();
+
     }
 
     private void MineSet(int id)//특정 셀에 지뢰가 설치되었을 때 델리게이트 실호를 받아 처리할 함수 
@@ -201,6 +204,14 @@ public class Board : MonoBehaviour
 
     private void ResetBoard()// 보드에 존재하는 모든 셀의 데이터를 리셋하고 지뢰를 새로 배치하는 함수 (게임 재 시작용)
     {
+        if (cellWithMine == null || cellWithMine.Count == 0)
+        {
+            cellWithMine = new List<Cell>(mineCount);
+        }
+        else
+        {
+            cellWithMine.Clear();
+        }
         //셀의 데이터 초기화
         foreach(var cell in cells)
         {
@@ -218,10 +229,17 @@ public class Board : MonoBehaviour
         for (int i = 0; i < mineCount; i++)
         {
             cells[ids[i]].SetMine();
+            cellWithMine.Add(cells[ids[i]]);
         }
         closeCellCount = cells.Length;//닫힌 셀의 갯수 (게임클리어 조건 닫힌 셀의 갯수 == mineCount)
     }
-
+    void OpenCellWithMine()
+    {
+        foreach (var cell in cellWithMine)
+        {
+            cell.Open();
+        }
+    }
     private void OnGameOver()
     {
         //잘못찾은것 X 표시
