@@ -85,7 +85,7 @@ public class GameManager : Singleton<GameManager>
     public int ActionCount
     {
         get => actionCount;
-        set
+        private set
         {
             if (actionCount != value)
             {
@@ -95,7 +95,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
     public Action<int, int> onUpdateUI;
-    int findCount = 0;
+    int foundCount = 0;
 
 
     protected override void OnInitialize()
@@ -107,12 +107,12 @@ public class GameManager : Singleton<GameManager>
     public void IncreaseFlagCount()
     {
         FlagCount++;
-        findCount--;
+        foundCount--;
     }
     public void DecreaseFlagCount()
     {
         FlagCount--;
-        findCount++;
+        foundCount++;
     }
     public void FinishPlayerAction()
     {
@@ -120,7 +120,7 @@ public class GameManager : Singleton<GameManager>
         if (board.IsBoardClear)
         {
             GameClear();
-            findCount = mineCount;
+            foundCount = mineCount;
         }
     }
     public void GameStart()
@@ -140,13 +140,13 @@ public class GameManager : Singleton<GameManager>
             State = GameState.Ready;
             FlagCount = mineCount;
             ActionCount = 0;
-            findCount = 0;
-            onUpdateUI?.Invoke(mineCount, findCount);
+            foundCount = 0;
+            onUpdateUI?.Invoke(mineCount, foundCount);
         }
     }
     public void GameOver()
     {
-        onUpdateUI?.Invoke(mineCount, findCount);
+        onUpdateUI?.Invoke(mineCount, foundCount);
         State = GameState.GameOver;
         //타이머 정지,
         //셀이 더이상 열리지 않기(플레이 상태일때만 열리게 하기)

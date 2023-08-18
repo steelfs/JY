@@ -135,7 +135,6 @@ public class Board : MonoBehaviour
 
         gameManager.onGameReady += ResetBoard;
         gameManager.onGameOver += OnGameOver;
-        gameManager.onGameOver += OpenCellWithMine;
         ResetBoard();
 
     }
@@ -242,10 +241,28 @@ public class Board : MonoBehaviour
     }
     private void OnGameOver()
     {
+        OpenCellWithMine();
+        ShowMistake();
         //잘못찾은것 X 표시
         //못찾은 지뢰의 커버 제거
     }
-
+    public Action<int> onFixCount;
+    void ShowMistake()
+    {
+        List<Cell> incorrectCells = new List<Cell>();
+        foreach (var cell in cells)
+        {
+            if (!cell.HasMine && cell.IsFlaged)
+            {
+                incorrectCells.Add(cell);
+            }
+        }
+        foreach (var cell in incorrectCells)
+        {
+            cell.SetFlagIncorrect();
+        }
+        onFixCount?.Invoke(incorrectCells.Count);
+    }
     private void On_PointerMove(InputAction.CallbackContext context)
     {
         if (Mouse.current.leftButton.isPressed)

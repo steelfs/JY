@@ -237,6 +237,10 @@ public class Cell : MonoBehaviour
             {
                 case CellMarkState.None:
                     MarkState = CellMarkState.Flag;
+                    if (isOpen)
+                    {
+                        return;
+                    }
                     onAction?.Invoke();
                     onFlagUse?.Invoke();
                     break;
@@ -278,7 +282,14 @@ public class Cell : MonoBehaviour
         }
         pressedCells.Clear();
     }
+    public void SetFlagIncorrect()
+    {
+        //지뢰가 없는데 플레그를 세웠을 때
+        cover.sprite = Board[OpenCellType.Mine_Mistake];
+    }
+    public void SetMineNotFound()
+    {
+
+    }
 }
-//release될 때 주변 지뢰 개수가 0이면 주변셀을 모두 연다.
-// 열려있는 셀을 눌렀을 경우 주변 8개 셀 중 닫혀있는 셀은 모두 눌린표시
-// 위 상태에서 마우스를 땠을 때 주변 깃발개수와 aroundMineCount가 같으면 깃발표시가된 셀을 제외하고 모두 연다
+
