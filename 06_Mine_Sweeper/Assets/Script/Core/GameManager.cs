@@ -80,6 +80,24 @@ public class GameManager : Singleton<GameManager>
     public Action<int> onFlagCountChange;
     //깃발개수 관련 End -----------------------------------------------------------------
 
+    public Action<int> onActionCountChange;
+    int actionCount = 0;
+    public int ActionCount
+    {
+        get => actionCount;
+        private set
+        {
+            if (actionCount != value)
+            {
+                actionCount = value;
+                onActionCountChange?.Invoke(actionCount);
+            }
+        }
+    }
+    public Action<int, int> onUpdateUI;
+    int foundCount = 0;
+
+
     protected override void OnInitialize()
     {
         FlagCount = mineCount;
@@ -89,16 +107,20 @@ public class GameManager : Singleton<GameManager>
     public void IncreaseFlagCount()
     {
         FlagCount++;
+        foundCount--;
     }
     public void DecreaseFlagCount()
     {
         FlagCount--;
+        foundCount++;
     }
     public void FinishPlayerAction()
     {
+        ActionCount++;
         if (board.IsBoardClear)
         {
             GameClear();
+            foundCount = mineCount;
         }
     }
     public void GameStart()
@@ -112,14 +134,19 @@ public class GameManager : Singleton<GameManager>
     {
         //게임 초기화 하기
         // 보드, 타이머, 플레그카운터
-        FlagCount = mineCount;
+      
         if (state == GameState.GameClear || state == GameState.GameOver)
         {
             State = GameState.Ready;
+            FlagCount = mineCount;
+            ActionCount = 0;
+            foundCount = 0;
+            onUpdateUI?.Invoke(mineCount, foundCount);
         }
     }
     public void GameOver()
     {
+        onUpdateUI?.Invoke(mineCount, foundCount);
         State = GameState.GameOver;
         //타이머 정지,
         //셀이 더이상 열리지 않기(플레이 상태일때만 열리게 하기)
@@ -127,6 +154,7 @@ public class GameManager : Singleton<GameManager>
 
     public void GameClear()
     {
+        onUpdateUI?.Invoke(mineCount, mineCount);
         State = GameState.GameClear;
     }
     // 테스트 코드-------------------------------------------------------------------------
