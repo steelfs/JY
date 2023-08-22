@@ -16,7 +16,4 @@ DragEnd => 마우스 위치 슬롯에 TempSlot Data 설정
 슬롯매니저에 LinkedSlots 딕셔너리 => key = QuickSlotValue,  Value = 퀵슬롯과 연결된 같은 타입의 아이템이 있는 모든 슬롯의 List
 각 슬롯의 아이템 갯수가 바뀌면 슬롯메니저에게 갯수를 알리고, 슬롯매니저는 리스트를 순회하면 총 아이템의 갯수를 파악 후 연결된 큇슬롯에 전달
 
-퀵슬롯에 포션이 세팅되면 SlotManager의  슬롯의 delegate를 연결, 퀵슬롯의 itemData가 null이 될때 델리게이트 해제
-slot의 아이템카운트가 줄어들면 퀵슬롯의 아이템카운트가 같이 줄어들도록 하기
-
-     //linkedSlots에 등록되지 않은 슬롯에 델리게이트신호를 보내서 해당 슬롯과 linkedSlots에 추가로 바운딩 해줘야한다.
+바인딩된 Slot들에서 아이템 카운트가 변경될 때 delegate 신호 보내고 슬롯매니저에서 토탈카운트 받아서 LinkedSlot[targetSlot] 에 신호 보내기
