@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,11 +8,12 @@ public class Player : MonoBehaviour
 {
     enum PlayerAnimState
     {
+        None,
         Idle,
         Walk,
         BackWalk
     }
-    PlayerAnimState state = PlayerAnimState.BackWalk;
+    PlayerAnimState state = PlayerAnimState.None;
     PlayerAnimState State// 상태가 바뀔때만 animator의 트리거를 변경해서 특정상태 애니메이션 트리거가 백그라운드에 쌓이는 것을 방지하기 위함
     {
         get => state;
@@ -20,7 +22,7 @@ public class Player : MonoBehaviour
             if (state != value)
             {
                 state = value;
-                anim.SetTrigger(state.ToString());
+                anim.SetTrigger(state.ToString());// Enum.GetName(typeof(PlayerAnimState), value) 이렇게 할 필요 없이 state.ToString()이렇게만 하면 된다.
             }
         }
     }
@@ -48,13 +50,20 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         action.Player.Enable();
-        action.Player.Move.performed += OnMove;
-        action.Player.Move.canceled += OnMove;
+        action.Player.MoveForward.performed += OnMove;
+        action.Player.MoveForward.canceled += OnMove;
+        action.Player.Rotate.performed += Rotate;
+        action.Player.Rotate.canceled += Rotate;
     }
+
+
+
     private void OnDisable()
     {
-        action.Player.Move.performed -= OnMove;
-        action.Player.Move.canceled -= OnMove;
+        action.Player.MoveForward.performed -= OnMove;
+        action.Player.MoveForward.canceled -= OnMove;
+        action.Player.Rotate.performed -= Rotate;
+        action.Player.Rotate.canceled -= Rotate;
         action.Player.Disable();
     }
     private void Update()
@@ -64,11 +73,15 @@ public class Player : MonoBehaviour
         characterController.SimpleMove(dir * transform.forward);//transform.forward 를 곱해서 항상 나를 기준으로 이동하게 한다
         transform.Rotate(0, rotate * Time.deltaTime, 0, Space.World);
     }
-
+    private void Rotate(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        float rotateInput = context.ReadValue<float>();
+        rotate = rotateInput * rotateSpeed;
+    }
     private void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        Vector2 dir_ = context.ReadValue<Vector2>();
-        dir = dir_.y * moveSpeed; // 앞 뒤 정지와 이동속도 곱하기
+        float moveInput = context.ReadValue<float>();
+        dir = moveInput * moveSpeed; // 앞 뒤 정지와 이동속도 곱하기
 
         //dir.z = dir_.y;
         //dir.x = dir_.x;
@@ -87,7 +100,5 @@ public class Player : MonoBehaviour
         {
             State = PlayerAnimState.Idle;
         }
-        rotate = dir_.x * rotateSpeed;// 좌, 우  회전 속도 곱해서 저장
-
     }
 }
