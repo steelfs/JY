@@ -1,0 +1,234 @@
+{
+    "name": "PlayerInputAction",
+    "maps": [
+        {
+            "name": "Test",
+            "id": "000e50cc-e527-4e2b-96e4-866f5973b6b4",
+            "actions": [
+                {
+                    "name": "Test1",
+                    "type": "Button",
+                    "id": "2d40385c-cbb3-4fe9-a142-2de83700c192",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Test2",
+                    "type": "Button",
+                    "id": "9da43f3f-aa5d-4c00-a105-709aaeebebf1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Test3",
+                    "type": "Button",
+                    "id": "a2cef98a-6d12-4b5f-904d-923828f9520e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Test4",
+                    "type": "Button",
+                    "id": "416f7228-ada3-4932-a502-88a28b0ad550",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Test5",
+                    "type": "Button",
+                    "id": "d6774d49-769d-4dd1-b2c3-5879455e1b7d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Test6",
+                    "type": "Button",
+                    "id": "3e9f8a6c-738a-47fa-8500-10e5d7424d74",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Test7",
+                    "type": "Button",
+                    "id": "52ef7b06-b60c-454a-a625-2170423d67e5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Test8",
+                    "type": "Button",
+                    "id": "dfdf2777-d72a-4e7b-bb68-e845804bdf2a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Test9",
+                    "type": "Button",
+                    "id": "bec005d1-2df0-4f03-891a-981dd4f91a3d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LClick",
+                    "type": "Button",
+                    "id": "a65e656c-0967-4263-b572-14b09328364b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RClick",
+                    "type": "Button",
+                    "id": "d4d56240-1e66-48e6-866b-38a66848ff8f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "521a798f-eb84-48a0-83a2-11a39cca30ae",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dd8ca400-32a8-459a-8db6-3812eaf6fba5",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e9c773f-6127-473e-99c7-f23f8e95579a",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "449ff97d-c340-4677-9cf9-76d41d57a6b6",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d78460d-f7cb-40e5-bdac-f5437f2262f0",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8799b8cc-90b0-4ded-a13b-250a5f634212",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test6",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4aa0c8d4-0ca4-4417-96d9-54f760937759",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test7",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43575b91-89fc-4b8e-ac16-b9d5dfb1c0b3",
+                    "path": "<Keyboard>/8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test8",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c9529aee-1ac0-4b61-a6cf-dfa077ec5c9a",
+                    "path": "<Keyboard>/9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test9",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3b03708-21c3-47a7-b39d-bf3d8a7a1173",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91c96a4c-82b2-4ec9-bdfe-2abf0dbe0fc0",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
