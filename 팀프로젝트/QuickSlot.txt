@@ -17,3 +17,13 @@ DragEnd => 마우스 위치 슬롯에 TempSlot Data 설정
 각 슬롯의 아이템 갯수가 바뀌면 슬롯메니저에게 갯수를 알리고, 슬롯매니저는 리스트를 순회하면 총 아이템의 갯수를 파악 후 연결된 큇슬롯에 전달
 
 바인딩된 Slot들에서 아이템 카운트가 변경될 때 delegate 신호 보내고 슬롯매니저에서 토탈카운트 받아서 LinkedSlot[targetSlot] 에 신호 보내기
+
+
+slot의 ItemCount가 바뀔 때 SlotManager가 해야할 일
+
+어떤 아이템인지 받아서 해당 퀵슬롯에 카운트를 동기화시키고
+
+=> 슬롯의 onItemCountChange 델리게이트가 퀵슬롯에 등록되기 전 까지는 null이었다가 퀵슬롯에 등록되면  델리게이트에 
+ SlotManager의 함수에 등록 
+
+퀵슬롯이 null 이 될 때 바깥부분에서 EndDrag 될 때  Slot의 델리게이트 = null
