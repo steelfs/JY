@@ -315,6 +315,8 @@ animation 의 Speed 를 -1로 설정하면 애니메이션을 역재생하는 �
 
 characterController의 SimpleMove는 그냥 Move와는 다르게 Time.DeltaTime 과 중력을 자동으로 계산해준다.
 
+VCCam - Noise - 카메라가 흔들리는 효과
+
 
 
 
