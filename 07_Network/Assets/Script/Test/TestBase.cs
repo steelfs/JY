@@ -8,6 +8,7 @@ public class TestBase : MonoBehaviour
 {
     protected  PlayerInputAction inputActions;
     public Action onSit;
+    
    
     protected virtual void Awake()
     {
