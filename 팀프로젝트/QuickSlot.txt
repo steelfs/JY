@@ -27,3 +27,8 @@ slot의 ItemCount가 바뀔 때 SlotManager가 해야할 일
  SlotManager의 함수에 등록 
 
 퀵슬롯이 null 이 될 때 바깥부분에서 EndDrag 될 때  Slot의 델리게이트 = null
+
+퀵슬롯의 위치가 바뀔 때, 인벤토리 슬롯의 위치가 바뀔 때, 인벤토리 아이템카운트가 0이 될 때, 
+
+필요함수 => 퀵슬롯을 받아서 바인딩된 Slot들을 리턴하는 함수, Slot을 받아서 같은 아이템들이 연결된 QuickSlot을 리턴하는 함수
+
