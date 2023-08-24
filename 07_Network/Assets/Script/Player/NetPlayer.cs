@@ -7,10 +7,61 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class NetPlayer : NetworkBehaviour
 {
+    PlayerInputAction action;
     public NetworkVariable<Vector3> position = new NetworkVariable<Vector3>();//생성자로 읽기, 쓰기 권한을 조정할 수 있다.
+    //NetworkVariable rotate 만들기
+    Vector3 fixedPos;
+
+    float moveDir;
+    float moveSpeed = 3.0f;
+    float rotateDir;
+    float rotateSpeed = 180.0f;
+
+    private void Awake()
+    {
+        action = new();
+    }
+    private void OnEnable()
+    {
+        action.Player.Enable();
+        action.Player.MoveForward.performed += OnMoveForward;
+        action.Player.MoveForward.canceled += OnMoveForward;
+        action.Player.Rotate.performed += OnRotate;
+    }
+
+    private void OnMoveForward(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        if (IsOwner)
+        {
+            moveDir = moveSpeed * context.ReadValue<float>();
+        }
+        //fixedPos = transform.position + transform.forward * moveDir;
+        //position.Value = Time.deltaTime * moveSpeed * fixedPos;
+    }
+    private void OnRotate(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        rotateDir = rotateSpeed * context.ReadValue<float>();
+    }
+    private void Update()
+    {
+        if (NetworkManager.Singleton.IsServer)
+        {
+            position.Value = Time.deltaTime * transform.forward * moveDir;
+        }
+        else
+        {
+            if (IsOwner)
+            {
+                MovePos_RequestServerRpc();
+            }
+        }
+        transform.position += position.Value;
+    }
+    
 
     public override void OnNetworkSpawn()//나 뿐만 아니라 다른 오브젝트가 스폰됐을 때도 실행이 되는 함수 이기때문에 Owner인지 체크를 하지 않으면 다른 오브젝트가 실행됐을 때도 실행이 된다.
     {
+     
         if (IsOwner)
         {
             Move();
@@ -39,8 +90,9 @@ public class NetPlayer : NetworkBehaviour
         position.Value = newPos;
     }
 
-    private void Update()
+    [ServerRpc]
+    void MovePos_RequestServerRpc(ServerRpcParams rpcParams = default)
     {
-        transform.position = position.Value;
+       position.Value = Time.deltaTime * transform.forward * moveDir;
     }
 }
