@@ -8,7 +8,8 @@ using UnityEngine.Scripting.APIUpdating;
 public class NetPlayer : NetworkBehaviour
 {
     PlayerInputAction action;
-    public NetworkVariable<Vector3> position = new NetworkVariable<Vector3>();//생성자로 읽기, 쓰기 권한을 조정할 수 있다.
+    CharacterController controller;
+  //  public NetworkVariable<Vector3> position = new NetworkVariable<Vector3>();//생성자로 읽기, 쓰기 권한을 조정할 수 있다.
     //NetworkVariable rotate 만들기
     Vector3 fixedPos;
 
@@ -20,6 +21,7 @@ public class NetPlayer : NetworkBehaviour
     private void Awake()
     {
         action = new();
+        controller = GetComponent<CharacterController>();
     }
     private void OnEnable()
     {
@@ -27,35 +29,32 @@ public class NetPlayer : NetworkBehaviour
         action.Player.MoveForward.performed += OnMoveForward;
         action.Player.MoveForward.canceled += OnMoveForward;
         action.Player.Rotate.performed += OnRotate;
+        action.Player.Rotate.canceled += OnRotate;
     }
 
     private void OnMoveForward(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        if (IsOwner)
+        if (!IsOwner)
         {
-            moveDir = moveSpeed * context.ReadValue<float>();
+            return;
         }
+        
+            moveDir = moveSpeed * context.ReadValue<float>();
+        
         //fixedPos = transform.position + transform.forward * moveDir;
         //position.Value = Time.deltaTime * moveSpeed * fixedPos;
     }
     private void OnRotate(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        rotateDir = rotateSpeed * context.ReadValue<float>();
+        if (IsOwner)
+        {
+            rotateDir = rotateSpeed * context.ReadValue<float>();
+        }
     }
     private void Update()
     {
-        if (NetworkManager.Singleton.IsServer)
-        {
-            position.Value = Time.deltaTime * transform.forward * moveDir;
-        }
-        else
-        {
-            if (IsOwner)
-            {
-                MovePos_RequestServerRpc();
-            }
-        }
-        transform.position += position.Value;
+        controller.SimpleMove(moveDir * transform.forward);
+        transform.Rotate(0, Time.deltaTime * rotateDir, 0);
     }
     
 
@@ -73,7 +72,7 @@ public class NetPlayer : NetworkBehaviour
         {
             Vector3 newPos = UnityEngine.Random.insideUnitCircle * 0.5f;
             newPos.y = 0;
-            position.Value = newPos;
+          //  position.Value = newPos;
             transform.position = newPos;
         }
         else
@@ -87,12 +86,12 @@ public class NetPlayer : NetworkBehaviour
     {
         Vector3 newPos = UnityEngine.Random.insideUnitCircle * 0.5f;
         newPos.y = 0;
-        position.Value = newPos;
+       // position.Value = newPos;
     }
 
     [ServerRpc]
     void MovePos_RequestServerRpc(ServerRpcParams rpcParams = default)
     {
-       position.Value = Time.deltaTime * transform.forward * moveDir;
+     //  position.Value = Time.deltaTime * transform.forward * moveDir;
     }
 }
