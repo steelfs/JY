@@ -9,7 +9,7 @@ public class NetPlayer : NetworkBehaviour
 {
     public NetworkVariable<Vector3> position = new NetworkVariable<Vector3>();//생성자로 읽기, 쓰기 권한을 조정할 수 있다.
 
-    public override void OnNetworkSpawn()
+    public override void OnNetworkSpawn()//나 뿐만 아니라 다른 오브젝트가 스폰됐을 때도 실행이 되는 함수 이기때문에 Owner인지 체크를 하지 않으면 다른 오브젝트가 실행됐을 때도 실행이 된다.
     {
         if (IsOwner)
         {
