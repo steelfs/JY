@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test/02_NetWork.unity
     guid: cd81528de9295b44eb1037feb7062ea8
+  - enabled: 1
+    path: Assets/Scenes/Test/Custom_Console.unity
+    guid: e6726786e37ea7d4f99066e5cc91502b
   m_configObjects: {}

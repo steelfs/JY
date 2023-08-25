@@ -34,36 +34,33 @@ public class Logger : MonoBehaviour
     //string[] result = str5.Split('(', ')');
 
     //sb.AppendLine
-    public void Log(string logText)// 로거에 문장 추가하는 함수 //색깔 변경할 문자를 미리 저장 후 어디서 삽입할지를 구하기 위해 몇번째 인덱스에서 [], {} 가 나왔는지 저장 후 그곳에 삽입
+    public void Log(string logText)
     {
-        string[] red = logText.Split('[', ']');
-        string[] yellow = logText.Split('{', '}');
-
-        char[] chars = new char[logText.Length];
+        sb.Append("</color>");
         for (int i = 0; i < logText.Length; i++)
         {
             if (logText[i] == '[')
             {
-                for (int j = i; j < logText.Length; j++)
-                {
-                    if (logText[j] == ']')
-                    {
-
-                    }
-                }
+                sb.Append("<color=#ff0000>");
+            }
+            else if (logText[i] == ']')
+            {
+                sb.Append("</color>");
             }
             else if (logText[i] == '{')
             {
-
+                sb.Append("<color=#ffff00>");
+            }
+            else if (logText[i] == '}')
+            {
+                sb.Append("</color>");
             }
             else
             {
-                chars[i] = logText[i];
+                sb.Append(logText[i]);
             }
         }
-
-     
-        sb.Append($"<#ff0000>{yellow[1]}</color>");
+        sb.AppendLine();
         
        
         log.text = sb.ToString();
