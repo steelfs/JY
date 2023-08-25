@@ -1,10 +1,5 @@
-using Cinemachine.Utility;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
 
 public class NetPlayer : NetworkBehaviour
 {
@@ -18,6 +13,8 @@ public class NetPlayer : NetworkBehaviour
     float moveSpeed = 3.0f;
     float rotateSpeed = 180.0f;
 
+    //float rotateDir;
+    //float moveDir;
     //실 행 순서 awake - enable - OnNetworkSpawn - start
     //Isowner  true 가되는 시점 -> OnNetworkSpawn
     private void Awake()
@@ -67,7 +64,7 @@ public class NetPlayer : NetworkBehaviour
         {
             Move_RequestServerRpc(moveDir);//클라이언트면 RPC를 통해 수정요청
         }
-  
+
     }
     private void OnRotate(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
@@ -123,6 +120,8 @@ public class NetPlayer : NetworkBehaviour
 
     private void OnPositionChange(Vector3 previousValue, Vector3 newValue) //네트워크 변수  position이 변경되었을 때 실행될 함수  previousValue = 변경되기 전 값
     {
+        //controller.transform.position = newValue;
         transform.position = newValue;
+
     }
 }
