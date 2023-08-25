@@ -1,3 +1,4 @@
+using Cinemachine.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,89 +10,119 @@ public class NetPlayer : NetworkBehaviour
 {
     PlayerInputAction action;
     CharacterController controller;
-  //  public NetworkVariable<Vector3> position = new NetworkVariable<Vector3>();//생성자로 읽기, 쓰기 권한을 조정할 수 있다.
-    //NetworkVariable rotate 만들기
-    Vector3 fixedPos;
 
-    float moveDir;
+    public NetworkVariable<Vector3> position = new NetworkVariable<Vector3>();//플레이어의 위치를 조정할 변수, 생성자로 읽기, 쓰기 권한을 조정할 수 있다.
+    NetworkVariable<float> netMoveDir = new NetworkVariable<float>(); //입력받은 전진 / 후진 정도
+    NetworkVariable<float> netRotateDir = new NetworkVariable<float>();
+
     float moveSpeed = 3.0f;
-    float rotateDir;
     float rotateSpeed = 180.0f;
 
+    //실 행 순서 awake - enable - OnNetworkSpawn - start
+    //Isowner  true 가되는 시점 -> OnNetworkSpawn
     private void Awake()
     {
-        action = new();
         controller = GetComponent<CharacterController>();
-    }
-    private void OnEnable()
-    {
-        action.Player.Enable();
-        action.Player.MoveForward.performed += OnMoveForward;
-        action.Player.MoveForward.canceled += OnMoveForward;
-        action.Player.Rotate.performed += OnRotate;
-        action.Player.Rotate.canceled += OnRotate;
+
+        position.OnValueChanged += OnPositionChange;//position 의 value가 바뀔때 실행되는 델리게이트
     }
 
-    private void OnMoveForward(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-        if (!IsOwner)
-        {
-            return;
-        }
-        
-            moveDir = moveSpeed * context.ReadValue<float>();
-        
-        //fixedPos = transform.position + transform.forward * moveDir;
-        //position.Value = Time.deltaTime * moveSpeed * fixedPos;
-    }
-    private void OnRotate(UnityEngine.InputSystem.InputAction.CallbackContext context)
+
+    public override void OnNetworkSpawn()//나 뿐만 아니라 다른 오브젝트가 스폰됐을 때도 실행이 되는 함수 이기때문에 Owner인지 체크를 하지 않으면 다른 오브젝트가 실행됐을 때도 실행이 된다.
     {
         if (IsOwner)
         {
-            rotateDir = rotateSpeed * context.ReadValue<float>();
+            action = new();//오너일 때만
+            action.Player.Enable();
+            action.Player.MoveForward.performed += OnMove;
+            action.Player.MoveForward.canceled += OnMove;
+            action.Player.Rotate.performed += OnRotate;
+            action.Player.Rotate.canceled += OnRotate;
+
+            SetSpawnPos();
+        }
+    }
+    public override void OnNetworkDespawn() // 네트워크 오브젝트가 디스폰 됐을 때 실행되는 함수 
+    {
+        if (IsOwner && action != null)
+        {
+            action.Player.MoveForward.performed -= OnMove;
+            action.Player.MoveForward.canceled -= OnMove;
+            action.Player.Rotate.performed -= OnRotate;
+            action.Player.Rotate.canceled -= OnRotate;
+            action.Player.Disable();
+            action = null;
+        }
+    }
+    private void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        float input = context.ReadValue<float>();
+        float moveDir = moveSpeed * input;
+
+        if (NetworkManager.Singleton.IsServer)// 서버이면 네트워크변수 직접 바로 변경
+        {
+            netMoveDir.Value = moveDir;
+        }
+        else
+        {
+            Move_RequestServerRpc(moveDir);//클라이언트면 RPC를 통해 수정요청
+        }
+  
+    }
+    private void OnRotate(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        float rotateInput = context.ReadValue<float>();
+        float rotateDir = rotateSpeed * rotateInput;
+        if (NetworkManager.Singleton.IsServer)
+        {
+            netRotateDir.Value = rotateDir;
+        }
+        else
+        {
+            Rotate_RequestServerRpc(rotateDir);
         }
     }
     private void Update()
     {
-        controller.SimpleMove(moveDir * transform.forward);
-        transform.Rotate(0, Time.deltaTime * rotateDir, 0);
+       controller.SimpleMove(netMoveDir.Value * transform.forward);
+       transform.Rotate(0, Time.deltaTime * netRotateDir.Value, 0, Space.World);
     }
     
 
-    public override void OnNetworkSpawn()//나 뿐만 아니라 다른 오브젝트가 스폰됐을 때도 실행이 되는 함수 이기때문에 Owner인지 체크를 하지 않으면 다른 오브젝트가 실행됐을 때도 실행이 된다.
+
+    private void SetSpawnPos()
     {
-     
-        if (IsOwner)
-        {
-            Move();
-        }
-    }
-    private void Move()
-    {
+        Vector3 newPos = UnityEngine.Random.insideUnitSphere;
+        newPos.y = 0;
         if (NetworkManager.Singleton.IsServer)
         {
-            Vector3 newPos = UnityEngine.Random.insideUnitCircle * 0.5f;
-            newPos.y = 0;
-          //  position.Value = newPos;
-            transform.position = newPos;
+            position.Value = newPos;
         }
         else
         {
-            submitPos_RequestServerRpc();
+            submitPos_RequestServerRpc(newPos);
         }
     }
 
     [ServerRpc]// RPC = Remote procedure Call 원격함수 호출
-    void submitPos_RequestServerRpc(ServerRpcParams rpcParams = default)// 함수 이름의 끝은 반드시 ServerRpc 이어야 한다 아니면 오류발생
+    void submitPos_RequestServerRpc(Vector3 newPos)// 함수 이름의 끝은 반드시 ServerRpc 이어야 한다 아니면 오류발생
     {
-        Vector3 newPos = UnityEngine.Random.insideUnitCircle * 0.5f;
-        newPos.y = 0;
-       // position.Value = newPos;
+        position.Value = newPos;
     }
 
     [ServerRpc]
-    void MovePos_RequestServerRpc(ServerRpcParams rpcParams = default)
+    void Move_RequestServerRpc(float move)// 함수 이름의 끝은 반드시 ServerRpc 이어야 한다 아니면 오류발생
     {
-     //  position.Value = Time.deltaTime * transform.forward * moveDir;
+        netMoveDir.Value = move;
+    }
+    [ServerRpc]
+    void Rotate_RequestServerRpc(float rotate)// 함수 이름의 끝은 반드시 ServerRpc 이어야 한다 아니면 오류발생
+    {
+        netRotateDir.Value = rotate;
+    }
+
+    private void OnPositionChange(Vector3 previousValue, Vector3 newValue) //네트워크 변수  position이 변경되었을 때 실행될 함수  previousValue = 변경되기 전 값
+    {
+        transform.position = newValue;
     }
 }
