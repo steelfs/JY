@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Console_Clear",
+                    "type": "Button",
+                    "id": "997ae985-3a60-4ebf-83ce-2c0b8c469d30",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -239,13 +248,46 @@
                 {
                     "name": "",
                     "id": "2352951c-c0bf-4146-874c-7c1f38082480",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Console",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "ca55cec1-0bea-47e7-953d-b348d0ee74b8",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Console_Clear",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "0010c165-339d-4b55-9e35-3631f4b20dbd",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Console_Clear",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "d2a9ec51-d24d-4d9a-97f6-2a95f3eff245",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Console_Clear",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

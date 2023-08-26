@@ -134,6 +134,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Console_Clear"",
+                    ""type"": ""Button"",
+                    ""id"": ""997ae985-3a60-4ebf-83ce-2c0b8c469d30"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -261,13 +270,46 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2352951c-c0bf-4146-874c-7c1f38082480"",
-                    ""path"": ""<Keyboard>/enter"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Console"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""ca55cec1-0bea-47e7-953d-b348d0ee74b8"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Console_Clear"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""0010c165-339d-4b55-9e35-3631f4b20dbd"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Console_Clear"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""d2a9ec51-d24d-4d9a-97f6-2a95f3eff245"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Console_Clear"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -397,6 +439,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Test_LClick = m_Test.FindAction("LClick", throwIfNotFound: true);
         m_Test_RClick = m_Test.FindAction("RClick", throwIfNotFound: true);
         m_Test_Console = m_Test.FindAction("Console", throwIfNotFound: true);
+        m_Test_Console_Clear = m_Test.FindAction("Console_Clear", throwIfNotFound: true);
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_MoveForward = m_Player.FindAction("MoveForward", throwIfNotFound: true);
@@ -474,6 +517,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Test_LClick;
     private readonly InputAction m_Test_RClick;
     private readonly InputAction m_Test_Console;
+    private readonly InputAction m_Test_Console_Clear;
     public struct TestActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -490,6 +534,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @LClick => m_Wrapper.m_Test_LClick;
         public InputAction @RClick => m_Wrapper.m_Test_RClick;
         public InputAction @Console => m_Wrapper.m_Test_Console;
+        public InputAction @Console_Clear => m_Wrapper.m_Test_Console_Clear;
         public InputActionMap Get() { return m_Wrapper.m_Test; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -535,6 +580,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Console.started += instance.OnConsole;
             @Console.performed += instance.OnConsole;
             @Console.canceled += instance.OnConsole;
+            @Console_Clear.started += instance.OnConsole_Clear;
+            @Console_Clear.performed += instance.OnConsole_Clear;
+            @Console_Clear.canceled += instance.OnConsole_Clear;
         }
 
         private void UnregisterCallbacks(ITestActions instance)
@@ -575,6 +623,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Console.started -= instance.OnConsole;
             @Console.performed -= instance.OnConsole;
             @Console.canceled -= instance.OnConsole;
+            @Console_Clear.started -= instance.OnConsole_Clear;
+            @Console_Clear.performed -= instance.OnConsole_Clear;
+            @Console_Clear.canceled -= instance.OnConsole_Clear;
         }
 
         public void RemoveCallbacks(ITestActions instance)
@@ -669,6 +720,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnLClick(InputAction.CallbackContext context);
         void OnRClick(InputAction.CallbackContext context);
         void OnConsole(InputAction.CallbackContext context);
+        void OnConsole_Clear(InputAction.CallbackContext context);
     }
     public interface IPlayerActions
     {
