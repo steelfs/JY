@@ -46,52 +46,58 @@ public class Console_Box : MonoBehaviour
 
     void OnEndEdit(string input)
     {
-        consoleList.Add(input);
-        sb.AppendLine(input);
-        if (consoleList.Count > 5)
-        {
-            consoleList.RemoveAt(0);
-            sb.Clear();
-            for (int i = 0; i < consoleList.Count - 1; i++)//갯수가 넘치면 가장 먼저 입력한 Line을지우고 업데이트  완료시점
-            {
-                sb.AppendLine(consoleList[i]);
-            }
-        }
+        sb.Append("</color>");
         if (Include(input))
         {
             ChangeFontColor(input);
         }
         else
         {
-            sb.AppendLine(consoleList[consoleList.Count - 1]);
+            sb.AppendLine(input);
+            consoleList.Add(input);
+        }
+
+  
+        if (consoleList.Count > 5)
+        {
+            consoleList.RemoveAt(0);
+            sb.Clear();
+            for (int i = 0; i < consoleList.Count; i++)//갯수가 넘치면 가장 먼저 입력한 Line을지우고 업데이트  완료시점
+            {
+                sb.AppendLine(consoleList[i]);
+            }
         }
         consoleText.text = sb.ToString();
     }
     void ChangeFontColor(string input)
     {
-
         char[] chars = input.ToCharArray();
-
+        string value = "";
         for (int i = 0; i < chars.Length; i++)
         {
             switch (chars[i])
             {
                 case '[':
                     sb.Append("<color=#ff0000>");
+                    value += "<color=#ff0000>";
                     break;
                 case '{':
                     sb.Append("<color=#ffff00>");
+                    value += "<color=#ffff00>";
                     break;
                 case ']':
                 case '}':
                     sb.Append("</color>");
+                    value += "</color>";
                     break;
                 default:
                     sb.Append(chars[i]);
+                    value += chars[i];
                     break;
             }
         }
         sb.AppendLine();
+        consoleList.Add(value);
     }
     bool Include(string input)
     {
