@@ -1,0 +1,25 @@
+<mxfile host="Electron" modified="2023-08-27T06:24:35.774Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="5ZLZyvZ7T4kmdDkV9RJw" version="21.6.5" type="device">
+  <diagram name="페이지-1" id="4cuWuBfcob33C7NAcfMD">
+    <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-1" value="기능&lt;br&gt;&lt;br&gt;장비창" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-2" value="Action" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="150" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-3" value="열기, 닫기 Toggle" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="200" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-4" value="인벤토리에서 장비창으로 드롭했을 때&lt;br&gt;(Canceled)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-5" value="기능&lt;br&gt;&lt;br&gt;장비창" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

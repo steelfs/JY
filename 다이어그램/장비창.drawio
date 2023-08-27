@@ -1,0 +1,76 @@
+<mxfile host="Electron" modified="2023-08-27T12:24:36.255Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="GFR3GygkkMnVA4NGoUNA" version="21.6.5" type="device">
+  <diagram name="페이지-1" id="4cuWuBfcob33C7NAcfMD">
+    <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-1" value="기능&lt;br&gt;&lt;br&gt;장비창" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-2" value="Action" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="150" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="tWTw7sCvbpiB83nG-uwN-3" target="tWTw7sCvbpiB83nG-uwN-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-3" value="열기, 닫기 Toggle" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="240" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tWTw7sCvbpiB83nG-uwN-4" target="tWTw7sCvbpiB83nG-uwN-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-4" value="인벤토리에서 장비창으로 드롭했을 때&lt;br&gt;Double-Click" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="tWTw7sCvbpiB83nG-uwN-5" target="tWTw7sCvbpiB83nG-uwN-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-5" value="장비창에서 인벤토리로 드랍했을 때&lt;br&gt;Double-Click" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-6" value="Hat" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="145" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-7" value="Weapon" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="230" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-8" value="Jewel" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="100" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.842;entryY=0.983;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="tWTw7sCvbpiB83nG-uwN-10" target="tWTw7sCvbpiB83nG-uwN-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-10" value="이미 장비한 아이템이 있을 경우&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.075;entryY=1.067;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="tWTw7sCvbpiB83nG-uwN-11" target="tWTw7sCvbpiB83nG-uwN-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-11" value="장비창이 비어있을 경우" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.392;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="tWTw7sCvbpiB83nG-uwN-12" target="tWTw7sCvbpiB83nG-uwN-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-12" value="장비창의 해당슬롯에 알맞은 타입의 ItemData가 셋팅될 때&lt;br&gt;준비된 프리팹을 생성 후 플레이어 프리팹의 알맞은 트렌스폼 의Child로 등록해준다.&lt;br&gt;&lt;br&gt;만약에 대비해 트렌스폼의 자식으로 붙히기 전 child를 null로 초기화 한후 붙혀준다" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="400" width="170" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="tWTw7sCvbpiB83nG-uwN-13" target="tWTw7sCvbpiB83nG-uwN-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-13" value="새로운 아이템이 등록되기 전 ItemData를 null 로 하여 플레이어 하위의 트렌스폼과 인벤토리 두 곳에 신호를 보내 기존에 장착중이던 아이템을 인벤토리로 되돌린 후 새로운 ItemData를 셋팅 한다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="400" width="130" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-14" value="장비창의ItemData가 null이 될 때마다 인벤토리와 플레이어 하위 트렌스폼 두 곳에 신호를 보내 화면에서 지움과 동시에 인벤토리에 해당아이템을 추가시켜준다" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="340" width="130" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-15" value="Suit" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="190" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-23" value="장비창은 각 4개의 슬롯을 갖고 있으며 4개 슬롯 모두 ItemData가 null 이 되거나 셋팅될 때&amp;nbsp;&lt;br&gt;&lt;br&gt;인벤토리와 플레이어 트렌스폼에 신호를 보낸다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="590" width="170" height="190" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
