@@ -1,0 +1,55 @@
+<mxfile host="Electron" modified="2023-08-26T13:10:30.914Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="ILwLjWAbhcNzNPhIgYZL" version="21.6.5" type="device">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1098" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="40pjFghJT_TEUv-CEexI-0" value="기능&lt;br&gt;&lt;br&gt;콘솔창" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="414" y="30" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="40pjFghJT_TEUv-CEexI-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="40pjFghJT_TEUv-CEexI-5" target="40pjFghJT_TEUv-CEexI-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="40pjFghJT_TEUv-CEexI-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="40pjFghJT_TEUv-CEexI-5" target="40pjFghJT_TEUv-CEexI-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="40pjFghJT_TEUv-CEexI-5" value="상태, Action" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="414" y="120" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="40pjFghJT_TEUv-CEexI-7" value="처음 단축키, 또는 버튼을 클릭해 팝업할 때 PopUp_Toggle" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="504" y="200" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="40pjFghJT_TEUv-CEexI-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.463;entryY=-0.014;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="40pjFghJT_TEUv-CEexI-8" edge="1" target="Ds2CYM-AN2nWmtIw234r-0">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ds2CYM-AN2nWmtIw234r-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.594;entryY=0.014;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="40pjFghJT_TEUv-CEexI-8" target="Ds2CYM-AN2nWmtIw234r-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="40pjFghJT_TEUv-CEexI-8" value="EndEdit" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="270" y="215" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Ds2CYM-AN2nWmtIw234r-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Ds2CYM-AN2nWmtIw234r-0" target="Ds2CYM-AN2nWmtIw234r-91">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="130" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ds2CYM-AN2nWmtIw234r-0" value="줄 수가 5개 라인을 넘었을 때" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="90" y="300" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Ds2CYM-AN2nWmtIw234r-1" value="[], {} 중괄호, 대괄호가 추가되었을 때" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="300" y="300" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Ds2CYM-AN2nWmtIw234r-91" value="List" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="40" y="430" width="290" height="270" as="geometry">
+            <mxRectangle x="40" y="430" width="60" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ds2CYM-AN2nWmtIw234r-92" value="&lt;span style=&quot;text-align: center;&quot;&gt;List&amp;lt;string&amp;gt; 의 카운트를 비교하기 전 파라미터로 받은 input에 중괄호, 대괄호가 있는지 검사하고 있다면 char[] 만든 후 한글자씩 추가하고 중괄호가 나오는 시점에 색깔을 바꿔준 후 스트링빌더에 추가하면서 List&amp;lt;string&amp;gt; 에도 색깔이 변경된 문자열을 함께&amp;nbsp; 저장해 준다.&amp;nbsp;&lt;br&gt;&lt;br&gt;대괄호, 중괄호가 파라미터로 받은 input에 없다면 그냥 스트링빌더와 리스트에 추가해준다.&lt;br&gt;&lt;br&gt;그 후 리스트의 카운트가 최대 라인 갯수를 초과할 시 리스트의0번째 인덱스를 지우고 스트링빌더를 Clear 한 후 foreach문을 돌면서 List&amp;lt;string&amp;gt; 의 문자열들을 다시 스트링빌더에 추가해 준 후 최종 UI에 ToString 으로 넣어준다.&lt;br&gt;&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ds2CYM-AN2nWmtIw234r-91">
+          <mxGeometry y="30" width="290" height="240" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,43 @@
+<mxfile host="Electron" modified="2023-08-10T11:26:32.413Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="zwLhFBvYrkxVIzsORw0J" version="21.6.5" type="device">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1098" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="cBb1Hve45FMavjP_mmCh-0" value="구현된것" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="170" y="140" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cBb1Hve45FMavjP_mmCh-1" value="구현예정" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="610" y="140" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cBb1Hve45FMavjP_mmCh-3" value="아이템 탭 분할(장비, 소비, 기타, 조합)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="110" y="210" width="210" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cBb1Hve45FMavjP_mmCh-6" value="아이템 장착, 해제&lt;br&gt;9월 1일 ~&amp;nbsp; 9월 8일" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="560" y="340" width="190" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cBb1Hve45FMavjP_mmCh-7" value="아이템 조합" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="610" y="210" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cBb1Hve45FMavjP_mmCh-8" value="8월 8일 ~ 현재&lt;br&gt;&amp;nbsp;2주 예상" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="570" y="240" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cBb1Hve45FMavjP_mmCh-19" value="8월 1일 ~ 8월 7일 " style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="120" y="510" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cBb1Hve45FMavjP_mmCh-20" value="6월 5일 ~ 6월 20일 " style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="110" y="260" width="210" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="cBb1Hve45FMavjP_mmCh-21" value="아이템 강화 - (게임 내 재화를 사용해 성공확률 조절 가능)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="45" y="460" width="340" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cBb1Hve45FMavjP_mmCh-22" value="아이템 세부정보 설정 &lt;br&gt;인벤토리 기능 - 이동, 스왑, 정렬, 분할, 버리기, " style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="110" y="310" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cBb1Hve45FMavjP_mmCh-23" value="6월 25일 ~ 7월 30일&lt;br&gt;시행착오, 잦은 구조변경&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="110" y="370" width="210" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

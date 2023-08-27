@@ -1,0 +1,124 @@
+<mxfile host="Electron" modified="2023-08-10T11:17:19.866Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="J9j9esDrP2spqCEEtoG6" version="21.6.5" type="device">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1925" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-0" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;박중용&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="20" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-1" value="계층구조&lt;br&gt;Hierarchy" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="230" y="80" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-2" value="GameManager" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="230" y="170" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-3" target="pC-8XUvFtVWs4L6YeP_i-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-3" value="Inventory" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-130" y="260" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-4" target="pC-8XUvFtVWs4L6YeP_i-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-4" value="Slot_Manager" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="10" y="260" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-5" target="pC-8XUvFtVWs4L6YeP_i-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-5" value="Item_Factory" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="160" y="260" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.844;entryY=1.075;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-6" target="pC-8XUvFtVWs4L6YeP_i-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-6" value="Item_DropTable" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="294" y="260" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-8" target="pC-8XUvFtVWs4L6YeP_i-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-8" value="Item_Enhancer" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="414" y="260" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-9" target="pC-8XUvFtVWs4L6YeP_i-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-9" value="ItemData_Manager" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="640" y="160" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-16" value="Scriptable_Object " style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="640" y="260" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-17" target="pC-8XUvFtVWs4L6YeP_i-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-17" value="ItemData_Enhancable" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="640" y="440" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.592;entryY=1.075;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-18" target="pC-8XUvFtVWs4L6YeP_i-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-18" value="강화가 가능한 아이템은 ItemData를 상속받고 추가로 필요한 데이터 구현 " style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="640" y="505" width="130" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.454;entryY=-0.025;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-19" target="pC-8XUvFtVWs4L6YeP_i-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-19" value="ItemData의 배열과 Enum의 데이터 정의" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="640" y="67.5" width="130" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-20" target="pC-8XUvFtVWs4L6YeP_i-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-20" value="ItemData" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="640" y="350" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-24" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;endWidth=27;endSize=5.32;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-16" target="pC-8XUvFtVWs4L6YeP_i-20">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="470" y="450" as="sourcePoint" />
+            <mxPoint x="520" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-25" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;endWidth=27;endSize=5.32;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="704.5" y="390" as="sourcePoint" />
+            <mxPoint x="704.5" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-28" target="pC-8XUvFtVWs4L6YeP_i-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-28" value="아이템강화의 내부로직에 대한 상태머신을 갖고있으며 하위 클래스들을 컨트롤하는 클래스" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="414" y="350" width="130" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-29" target="pC-8XUvFtVWs4L6YeP_i-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-29" value="각 몬스터별로 어떤 아이템을 어떤 확률로 드롭하는지 저장하는 클래스" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="274" y="350" width="130" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-30" target="pC-8XUvFtVWs4L6YeP_i-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-30" value="게임뷰에 보여질 프리팹을 원하는 곳에 생성하는 클래스" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="140" y="350" width="130" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-31" target="pC-8XUvFtVWs4L6YeP_i-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-31" value="게임시작시 4개 의 탭에 슬롯 생성, 인덱스부여, 슬롯 추가, 삭제, 교환, 드롭, 정렬 등 내부로직과 다른 클래스와 상호작용" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-15" y="350" width="140" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.411;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="pC-8XUvFtVWs4L6YeP_i-32" target="pC-8XUvFtVWs4L6YeP_i-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pC-8XUvFtVWs4L6YeP_i-32" value="인벤토리와 하위 UI, 버튼과 상호작용," style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-170" y="340" width="130" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

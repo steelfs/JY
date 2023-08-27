@@ -1,0 +1,124 @@
+<mxfile host="Electron" modified="2023-08-27T01:15:36.374Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="fPjIV-pN4yPlaGJhbx6e" version="21.6.5" type="device">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1925" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="40pjFghJT_TEUv-CEexI-0" value="기능&lt;br&gt;&lt;br&gt;퀵슬롯" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="414" y="30" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="40pjFghJT_TEUv-CEexI-5" target="40pjFghJT_TEUv-CEexI-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="40pjFghJT_TEUv-CEexI-5" target="40pjFghJT_TEUv-CEexI-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="40pjFghJT_TEUv-CEexI-5" target="rQ5peRrFgbungoV4VilV-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="40pjFghJT_TEUv-CEexI-5" target="rQ5peRrFgbungoV4VilV-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="40pjFghJT_TEUv-CEexI-5" target="rQ5peRrFgbungoV4VilV-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="40pjFghJT_TEUv-CEexI-5" value="상태, Action" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="414" y="120" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="40pjFghJT_TEUv-CEexI-7" target="rQ5peRrFgbungoV4VilV-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="40pjFghJT_TEUv-CEexI-7" target="rQ5peRrFgbungoV4VilV-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="40pjFghJT_TEUv-CEexI-7" value="퀵슬롯에서 드래그를 시작할 때" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="17" y="220" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="40pjFghJT_TEUv-CEexI-8" value="인벤토리에서&lt;br&gt;퀵슬롯에 드롭될 때" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="-143" y="220" width="120" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Ds2CYM-AN2nWmtIw234r-91" target="40pjFghJT_TEUv-CEexI-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Ds2CYM-AN2nWmtIw234r-91" value="조건 1 소비아이템 일 때" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1" collapsed="1">
+          <mxGeometry x="-253" y="290" width="130" height="30" as="geometry">
+            <mxRectangle x="-220" y="330" width="290" height="310" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ds2CYM-AN2nWmtIw234r-92" value="&lt;span style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="Ds2CYM-AN2nWmtIw234r-91" vertex="1">
+          <mxGeometry y="30" width="290" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="40pjFghJT_TEUv-CEexI-5" target="40pjFghJT_TEUv-CEexI-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.44;entryY=-0.033;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="rQ5peRrFgbungoV4VilV-1" target="rQ5peRrFgbungoV4VilV-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="rQ5peRrFgbungoV4VilV-1" target="rQ5peRrFgbungoV4VilV-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-1" value="드래그가 끝났을 때" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="201" y="220" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-5" value="바인딩된 슬롯의 아이템을 다른 슬롯으로 옮겼을 때" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="670" y="220" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-7" value="바인딩된 슬롯의 아이템갯수가 변경됐을 때(사용, 버리기 획득)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="880" y="220" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="rQ5peRrFgbungoV4VilV-9" target="40pjFghJT_TEUv-CEexI-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-9" value="조건 2 스킬 일 때" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" collapsed="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-403" y="300" width="130" height="30" as="geometry">
+            <mxRectangle x="-220" y="330" width="290" height="310" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-10" value="&lt;span style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="rQ5peRrFgbungoV4VilV-9">
+          <mxGeometry y="30" width="290" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-13" value="조건 1 DragEnd 된 QuickSlot 이 비어있을 때" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" collapsed="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="77" y="330" width="150" height="30" as="geometry">
+            <mxRectangle x="300" y="320" width="290" height="310" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-14" value="&lt;span style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="rQ5peRrFgbungoV4VilV-13">
+          <mxGeometry y="30" width="290" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-16" value="조건 2 DragEnd 된 QuickSlot 이 포션, 또는 스킬이 이미 등록되어있는 경우" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=120;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" collapsed="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="238" y="320" width="176" height="50" as="geometry">
+            <mxRectangle x="238" y="320" width="170" height="170" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-17" value="&lt;span style=&quot;text-align: center;&quot;&gt;데이터를 변경하기 전&lt;br&gt;TempSlot에 데이터를 먼저 옮긴다.&lt;br&gt;&lt;br&gt;&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="rQ5peRrFgbungoV4VilV-16">
+          <mxGeometry y="120" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-20" value="조건 1 소비아이템 일 때" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" collapsed="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-73" y="350" width="130" height="30" as="geometry">
+            <mxRectangle x="-220" y="330" width="290" height="310" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-21" value="&lt;span style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="rQ5peRrFgbungoV4VilV-20">
+          <mxGeometry y="30" width="290" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-22" value="조건 2 스킬 일 때" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" collapsed="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-223" y="350" width="130" height="30" as="geometry">
+            <mxRectangle x="-220" y="330" width="290" height="310" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-23" value="&lt;span style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="rQ5peRrFgbungoV4VilV-22">
+          <mxGeometry y="30" width="290" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-29" value="퀵슬롯에서 해야할 일" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-10" y="70" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-30" value="인벤토리에서 에서 해야할 일" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="670" y="70" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rQ5peRrFgbungoV4VilV-31" value="슬롯매니저와, 퀵슬롯매니저 모두&lt;br&gt;등록된 아이템, 스킬을 저장하기 위한 리스트를 만든다.&lt;br&gt;&lt;br&gt;인벤토리에서 아이템이 퀵슬롯에 드랍 될 때 두 리스트에 해당아이템을 추가해준다.&lt;br&gt;&lt;br&gt;퀵슬롯에는 DragEnd 될 때마다 아이템 데이터, 또는 스킬을 셋팅되도록 하고 이 때마다 셋팅된 데이터와 자신을 파라미터로 슬롯메니저에 신호를 보낸다.&amp;nbsp;&lt;br&gt;&lt;br&gt;슬롯매니저는 소비창을 순회하며 파라미터로 받은 아이템과 같은 아이템이 있다면 해당 슬롯들을 리스트에 저장한 후 그 리스트를 순회하며 아이템카운트가 변경될 때마다 실행될 델리게이트를 연결.&lt;br&gt;(이미 연결이 되어있다면 델리게이트를 null 로 한후 다시 연결)&lt;br&gt;&lt;br&gt;바인딩 된 슬롯의 아이템을 다른 슬롯으로 움직 였을 때 슬롯에서 슬롯메니저로 설정된 ItemData를 파라미터로 신호를 보내고&amp;nbsp;&lt;br&gt;&lt;br&gt;슬롯메니저에서는 해당 아이템 데이터를 가진 슬롯을 모두 찾은 후 델리게이트를 null로 초기화 한후 다시 추가한다.&lt;br&gt;그리고 기존에 연결되어있던&amp;nbsp; LastChangeIndex 슬롯의 델리게이트를 삭제해준다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="238" y="420" width="632" height="260" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
