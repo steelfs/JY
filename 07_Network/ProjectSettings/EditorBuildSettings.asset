@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test/Custom_Console.unity
     guid: e6726786e37ea7d4f99066e5cc91502b
+  - enabled: 1
+    path: Assets/Scenes/Test/03_Log.unity
+    guid: c33f538f7ef3229449f2428d0abafd52
   m_configObjects: {}
