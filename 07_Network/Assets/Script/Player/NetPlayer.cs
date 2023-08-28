@@ -30,26 +30,7 @@ public class NetPlayer : NetworkBehaviour
     }
 
 
-    private void OnChatRecieve(FixedString512Bytes previousValue, FixedString512Bytes newValue)
-    {
-        GameManager.Inst.Log(newValue.ToString());
-    }
-    public void SendChat(string message)//채팅을 전송하는 함수 
-    {
-        if (IsServer)
-        {
-            chatString.Value = message;
-        }
-        else
-        {
-            RequestChat_ServerRpc(message);
-        }
-    }
-    [ServerRpc]
-    public void RequestChat_ServerRpc(string text)
-    {
-        chatString.Value = text;
-    }
+   
     public override void OnNetworkSpawn()//나 뿐만 아니라 다른 오브젝트가 스폰됐을 때도 실행이 되는 함수 이기때문에 Owner인지 체크를 하지 않으면 다른 오브젝트가 실행됐을 때도 실행이 된다.
     {
         if (IsOwner)
@@ -125,7 +106,26 @@ public class NetPlayer : NetworkBehaviour
             submitPos_RequestServerRpc(newPos);
         }
     }
-
+    private void OnChatRecieve(FixedString512Bytes previousValue, FixedString512Bytes newValue)
+    {
+        GameManager.Inst.Log(newValue.ToString());
+    }
+    public void SendChat(string message)//채팅을 전송하는 함수 
+    {
+        if (IsServer)
+        {
+            chatString.Value = message; // 내가 서버면 직접 수정
+        }
+        else
+        {
+            RequestChat_ServerRpc(message);
+        }
+    }
+    [ServerRpc]
+    public void RequestChat_ServerRpc(string text)
+    {
+        chatString.Value = text;
+    }
     [ServerRpc]// RPC = Remote procedure Call 원격함수 호출
     void submitPos_RequestServerRpc(Vector3 newPos)// 함수 이름의 끝은 반드시 ServerRpc 이어야 한다 아니면 오류발생
     {

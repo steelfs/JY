@@ -26,9 +26,14 @@ public class Logger : MonoBehaviour
         inputField = GetComponentInChildren<TMP_InputField>();
         inputField.onSubmit.AddListener((input) => // onSubmit 이벤트에 입력이 완료되었을 때 실행, 비어있을 때나 focus를 옮길 때는 발동하지 않음. EndEdit은 focus를 옮겨도 실행된다.
         {
-            
-            NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
-
+            if (GameManager.Inst.Player != null)
+            {
+                NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();//접속중이면 채팅으로
+            }
+            else
+            {
+                Log(input); //아니면 로그만 찍기
+            }
             GameManager.Inst.Player.SendChat(input);
             inputField.text = string.Empty;//입력창 비우고
             inputField.ActivateInputField();//포커스 다시 활성화(무조건 활성화)
