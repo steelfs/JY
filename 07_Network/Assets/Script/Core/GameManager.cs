@@ -41,7 +41,10 @@ public class GameManager : Net_SingleTon<GameManager>
         }
         else
         {
-            Sub_Playercount_RequestServerRpc();
+            if (IsOwner)
+            {
+                Sub_Playercount_RequestServerRpc();
+            }
         }
         if (netobj.IsOwner)
         {
@@ -58,7 +61,11 @@ public class GameManager : Net_SingleTon<GameManager>
         }
         else
         {
-            Add_Playercount_RequestServerRpc();
+            if (IsOwner)//서버가 아니면 IsOwner 일 때만
+            {
+                Add_Playercount_RequestServerRpc();
+            }
+          
         }
         NetworkObject netObj = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(id);
         if (netObj.IsOwner)//내 케릭터 일 때 
