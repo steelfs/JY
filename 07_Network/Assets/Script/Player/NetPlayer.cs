@@ -1,3 +1,4 @@
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -5,6 +6,9 @@ public class NetPlayer : NetworkBehaviour
 {
     PlayerInputAction action;
     CharacterController controller;
+
+    Logger logger;
+    NetworkVariable<FixedString512Bytes> chatString = new NetworkVariable<FixedString512Bytes>();//지금 내가 보낸 채팅
 
     public NetworkVariable<Vector3> position = new NetworkVariable<Vector3>();//플레이어의 위치를 조정할 변수, 생성자로 읽기, 쓰기 권한을 조정할 수 있다.
     NetworkVariable<float> netMoveDir = new NetworkVariable<float>(); //입력받은 전진 / 후진 정도
@@ -22,9 +26,30 @@ public class NetPlayer : NetworkBehaviour
         controller = GetComponent<CharacterController>();
 
         position.OnValueChanged += OnPositionChange;//position 의 value가 바뀔때 실행되는 델리게이트
+        chatString.OnValueChanged += OnChatRecieve;
     }
 
 
+    private void OnChatRecieve(FixedString512Bytes previousValue, FixedString512Bytes newValue)
+    {
+        GameManager.Inst.Log(newValue.ToString());
+    }
+    public void SendChat(string message)//채팅을 전송하는 함수 
+    {
+        if (IsServer)
+        {
+            chatString.Value = message;
+        }
+        else
+        {
+            RequestChat_ServerRpc(message);
+        }
+    }
+    [ServerRpc]
+    public void RequestChat_ServerRpc(string text)
+    {
+        chatString.Value = text;
+    }
     public override void OnNetworkSpawn()//나 뿐만 아니라 다른 오브젝트가 스폰됐을 때도 실행이 되는 함수 이기때문에 Owner인지 체크를 하지 않으면 다른 오브젝트가 실행됐을 때도 실행이 된다.
     {
         if (IsOwner)

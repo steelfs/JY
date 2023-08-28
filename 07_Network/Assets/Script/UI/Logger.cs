@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 
 public class Logger : MonoBehaviour
@@ -10,7 +11,7 @@ public class Logger : MonoBehaviour
     public Color warningColor;
     public Color errorColor;
 
-    const int maxLineCount = 5;// 로거에서 표시 가능한 최대 줄 수 
+    const int maxLineCount = 20;// 로거에서 표시 가능한 최대 줄 수 
     int currentLine = 0;
     TextMeshProUGUI log;
 
@@ -19,13 +20,16 @@ public class Logger : MonoBehaviour
 
     private void Awake()
     {
-        log = GetComponent<TextMeshProUGUI>();
+        log = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         sb = new StringBuilder(maxLineCount + 5);
         logLines = new Queue<string>(maxLineCount + 5);//string 타입의 32비트
         inputField = GetComponentInChildren<TMP_InputField>();
         inputField.onSubmit.AddListener((input) => // onSubmit 이벤트에 입력이 완료되었을 때 실행, 비어있을 때나 focus를 옮길 때는 발동하지 않음. EndEdit은 focus를 옮겨도 실행된다.
         {
-            Log(input);
+            
+            NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
+
+            GameManager.Inst.Player.SendChat(input);
             inputField.text = string.Empty;//입력창 비우고
             inputField.ActivateInputField();//포커스 다시 활성화(무조건 활성화)
            // inputField.Select();//활성화 되어있으면 비활성화 , 비활성화되어있을 때는 활성화 
@@ -130,7 +134,6 @@ public class Logger : MonoBehaviour
                 }
             }
         }
-
         if (count == 0 || count % 2 != 0)//괄호가 하나도 없거나 쌍이 안맞으면 false;
         {
             result = false;
