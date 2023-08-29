@@ -15,42 +15,38 @@ public class GameManager : Net_SingleTon<GameManager>
 
     NetworkVariable<int> playersInGame = new NetworkVariable<int>(0);//현재 동접자 수 
 
+    public Action<int> onPlayersInGameChange;
+
     protected override void OnInitialize()
     {
         logger = FindObjectOfType<Logger>(); // 로컬에서 사용되는 것. 이타이밍에 찾아도 됨
         playerOnLine = FindObjectOfType<PlayerOnLine>();
         NetworkManager.Singleton.OnClientConnectedCallback += OnclientConnect; //나를 포함한 모든 클라이언트가 접속할 떄 마다 실행되는 함수 
         NetworkManager.Singleton.OnClientDisconnectCallback += OnclientDisConnect;
-        playersInGame.OnValueChanged += UpdatePlayercount;
-        UpdatePlayercount(0, 0);
+        playersInGame.OnValueChanged += (_,newValue) => onPlayersInGameChange?.Invoke(newValue);
     }
 
-    private void UpdatePlayercount(int previousValue, int newValue)
-    {
-        playerOnLine.UpdateCount(newValue);
-    }
+  
 
   
     private void OnclientDisConnect(ulong id)
     {
         NetworkObject netobj = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(id);
-
-        if (IsServer)
-        {
-            playersInGame.Value--;
-        }
-        else
-        {
-            if (IsOwner)
-            {
-                Sub_Playercount_RequestServerRpc();
-            }
-        }
         if (netobj.IsOwner)
         {
             player = null;
         }
-
+        if (IsServer)
+        {
+            playersInGame.Value--;
+        }
+        //else
+        //{
+        //    if (IsOwner)
+        //    {
+        //        Sub_Playercount_RequestServerRpc();
+        //    }
+        //}
     }
 
     private void OnclientConnect(ulong id)// param = 접속한 클라이언트의 ID
@@ -59,14 +55,13 @@ public class GameManager : Net_SingleTon<GameManager>
         {
             playersInGame.Value++;
         }
-        else
-        {
-            if (IsOwner)//서버가 아니면 IsOwner 일 때만
-            {
-                Add_Playercount_RequestServerRpc();
-            }
-          
-        }
+        //else
+        //{
+        //    if (IsOwner)//서버가 아니면 IsOwner 일 때만
+        //    {
+        //        Add_Playercount_RequestServerRpc();
+        //    }
+        //}
         NetworkObject netObj = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(id);
         if (netObj.IsOwner)//내 케릭터 일 때 
         {
@@ -93,19 +88,22 @@ public class GameManager : Net_SingleTon<GameManager>
             }
         }
     }
-
+    //private void OnPlayerInGameChange(int previousValue, int newValue)
+    //{
+    //    playerOnLine.UpdateCount(newValue);
+    //}
     public void Log(string message)//로그만 남기는 함수 
     {
         logger.Log(message);
     }
-    [ServerRpc]
-    void Add_Playercount_RequestServerRpc()
-    {
-        playersInGame.Value++;
-    }
-    [ServerRpc]
-    void Sub_Playercount_RequestServerRpc()
-    {
-        playersInGame.Value--;
-    }
+    //[ServerRpc]
+    //void Add_Playercount_RequestServerRpc()
+    //{
+    //    playersInGame.Value++;
+    //}
+    //[ServerRpc]
+    //void Sub_Playercount_RequestServerRpc()
+    //{
+    //    playersInGame.Value--;
+    //}
 }
