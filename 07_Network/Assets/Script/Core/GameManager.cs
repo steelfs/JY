@@ -1,19 +1,17 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
 using Unity.Netcode;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class GameManager : Net_SingleTon<GameManager>
 {
+
     PlayerOnLine playerOnLine;
     Logger logger;
     NetPlayer player;
     public NetPlayer Player => player;//내 플레이어 
 
     NetworkVariable<int> playersInGame = new NetworkVariable<int>(0);//현재 동접자 수 
+    NetworkVariable<Color> playerColor = new NetworkVariable<Color>();
 
     public Action<int> onPlayersInGameChange;
 
@@ -26,9 +24,7 @@ public class GameManager : Net_SingleTon<GameManager>
         playersInGame.OnValueChanged += (_,newValue) => onPlayersInGameChange?.Invoke(newValue);
     }
 
-  
 
-  
     private void OnclientDisConnect(ulong id)
     {
         NetworkObject netobj = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(id);
@@ -40,29 +36,20 @@ public class GameManager : Net_SingleTon<GameManager>
         {
             playersInGame.Value--;
         }
-        //else
-        //{
-        //    if (IsOwner)
-        //    {
-        //        Sub_Playercount_RequestServerRpc();
-        //    }
-        //}
+   
     }
 
     private void OnclientConnect(ulong id)// param = 접속한 클라이언트의 ID
     {
+        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(id);
+
         if (IsServer)
         {
             playersInGame.Value++;
+            
         }
-        //else
-        //{
-        //    if (IsOwner)//서버가 아니면 IsOwner 일 때만
-        //    {
-        //        Add_Playercount_RequestServerRpc();
-        //    }
-        //}
-        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(id);
+      
+    
         if (netObj.IsOwner)//내 케릭터 일 때 
         {
           
