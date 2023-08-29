@@ -98,6 +98,7 @@ public class Logger : MonoBehaviour
                 {
                     GameManager.Inst.PlayerDeco.SetColor(color);
                 }
+                GameManager.Inst.UserColor = color;
                 break;
             default:
                 break;

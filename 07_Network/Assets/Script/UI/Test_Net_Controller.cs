@@ -59,9 +59,13 @@ public class Test_Net_Controller : MonoBehaviour
         GameManager.Inst.onUserNameChange += (name) =>
         {
             userNameText = name;
-            userName.text = $"Name : {name}";//델리게이트에 연결되면 힙메모리에 올라가게 된다.
+            userName.text = $"Name : {colorText}{userNameText}</color>";//델리게이트에 연결되면 힙메모리에 올라가게 된다.
         };
-        GameManager.Inst.onUserColorChange += (color) => colorText = $"<#{ColorUtility.ToHtmlStringRGB(color)}>";
+        GameManager.Inst.onUserColorChange += (color) =>
+        {
+            colorText = $"<#{ColorUtility.ToHtmlStringRGB(color)}>";
+            userName.text = $"Name : {colorText}{userNameText}</color>";
+        };
     }
     //public void SetUserName(string name)
     //{
