@@ -13,7 +13,36 @@ public class GameManager : Net_SingleTon<GameManager>
     NetworkVariable<int> playersInGame = new NetworkVariable<int>(0);//현재 동접자 수 
     NetworkVariable<Color> playerColor = new NetworkVariable<Color>();
 
+
+    Color userColor = Color.clear;//현재 접속자의 컬러
+    public Color UserColor
+    {
+        get => userColor;
+        set
+        {
+            userColor = value;
+            onUserColorChange?.Invoke(userColor);
+        }
+    }
+    public Action<Color> onUserColorChange;
+
+    NetPlayerDeco playerDeco;
+    public NetPlayerDeco PlayerDeco => playerDeco;
+
     public Action<int> onPlayersInGameChange;
+    public Action<string> onUserNameChange;
+    string userName = "Default";
+    public string UserName
+    {
+        get => userName;
+        set
+        {
+            userName = value;
+            onUserNameChange?.Invoke (userName);
+        }
+    }
+
+
 
     protected override void OnInitialize()
     {
@@ -56,6 +85,12 @@ public class GameManager : Net_SingleTon<GameManager>
             player = netObj.GetComponent<NetPlayer>();
             player.gameObject.name = $"Player - {id}";
 
+            playerDeco = netObj.GetComponent<NetPlayerDeco>();
+            if (userColor != Color.clear)
+            {
+                playerDeco.SetColor(userColor);
+            }
+
             foreach (var net in NetworkManager.Singleton.SpawnManager.SpawnedObjectsList) //모든 오브젝트들을 순회
             {
                 NetPlayer netplayer = net.GetComponent<NetPlayer>();
@@ -83,14 +118,8 @@ public class GameManager : Net_SingleTon<GameManager>
     {
         logger.Log(message);
     }
-    //[ServerRpc]
-    //void Add_Playercount_RequestServerRpc()
-    //{
-    //    playersInGame.Value++;
-    //}
-    //[ServerRpc]
-    //void Sub_Playercount_RequestServerRpc()
-    //{
-    //    playersInGame.Value--;
-    //}
+    public void SetUserName(string name)
+    {
+        UserName = name;
+    }
 }

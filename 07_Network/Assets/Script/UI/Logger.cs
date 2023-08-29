@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -26,15 +27,25 @@ public class Logger : MonoBehaviour
         inputField = GetComponentInChildren<TMP_InputField>();
         inputField.onSubmit.AddListener((input) => // onSubmit 이벤트에 입력이 완료되었을 때 실행, 비어있을 때나 focus를 옮길 때는 발동하지 않음. EndEdit은 focus를 옮겨도 실행된다.
         {
-            if (GameManager.Inst.Player != null)
+            if (input[0] == '/')
             {
-                NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();//접속중이면 채팅으로
+                //개발용
+                ConsoleCommand(input);
             }
             else
             {
-                Log(input); //아니면 로그만 찍기
+                if (GameManager.Inst.Player != null)
+                {
+                    //일반 채팅 처리
+                    NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();//접속중이면 채팅으로
+                }
+                else
+                {
+                    //접속해있지 않은 상황
+                    Log(input); //아니면 로그만 찍기
+                }
             }
-            GameManager.Inst.Player.SendChat(input);
+           // GameManager.Inst.Player.SendChat(input);
             inputField.text = string.Empty;//입력창 비우고
             inputField.ActivateInputField();//포커스 다시 활성화(무조건 활성화)
            // inputField.Select();//활성화 되어있으면 비활성화 , 비활성화되어있을 때는 활성화 
@@ -44,21 +55,56 @@ public class Logger : MonoBehaviour
     {
         Clear();
     }
-    // string str1 = "11111"; //값을 바꾸는 순간 가비지 발생 
-    // string str2 = "22222";
-    //
-    // string str3 = str1 + "\n" + str2;//최악
-    // string str4 = $"{str1}\n{str2}";// 차악 // 많이 합칠수록 sb의 효율이 올라간다.
+    void ConsoleCommand(string commandLine)
+    {
+        int space = commandLine.IndexOf(' ');//첫번째 스페이스의 인덱스 
+        string commandToken = commandLine.Substring(0, space);//0번째부터 space 인덱스까지 
+        string parameterToken = commandLine.Substring(space + 1);// space 이후 인덱스부터
+        commandToken = commandToken.ToLower();
 
-    //logText = "[위험]합니다. {경고}입니다."
-    //위험이라는 글자는 빨간색으로 출력, 경고글자는 노란색
-    //"<#ff0000>1111</color>"
-    //"<#00ff00>1111</color>"
-    //string str5 = "(가가가){나나나}[다다다]";
-    //string[] result = str5.Split('(', ')');
+        switch (commandToken)
+        {
+            case "/setname":
+                GameManager.Inst.UserName = parameterToken;
+                Debug.Log("이름 변경");
+                break;
+            case "/setcolor":
+                string[] splitNumbers = parameterToken.Split(',', ' ');
+
+                float[] colorValue = new float[4] { 0, 0, 0, 0 };
+                int count = 0;
+                foreach (string number in splitNumbers)
+                {
+                    if (number.Length == 0)// 비었으면 스킵
+                        continue;
+
+                    if (count > 3)
+                    {
+                        break;
+                    }
+                    if (!float.TryParse(number, out colorValue[count]))//number 를 float 으로 변환
+                    {
+                        colorValue[count] = 0;
+                    }
+                    count++;
+                }
+                for (int i = 0; i < colorValue.Length; i++)
+                {
+                    colorValue[i] = Mathf.Clamp01(colorValue[i]);
+                }
+             
+                Color color = new Color(colorValue[0], colorValue[1], colorValue[2], colorValue[3]);
+                if (GameManager.Inst.PlayerDeco != null)
+                {
+                    GameManager.Inst.PlayerDeco.SetColor(color);
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
 
-    //sb.AppendLine
     public void Log(string logText)
     {
         logText = Emphasize(logText, '[', ']', errorColor);

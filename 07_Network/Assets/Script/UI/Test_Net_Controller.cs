@@ -9,12 +9,18 @@ using UnityEngine.UI;
 public class Test_Net_Controller : MonoBehaviour
 {
     TextMeshProUGUI playersInGame;
+    TextMeshProUGUI userName;
+
+    string colorText = "";
+    string userNameText = "";
+
     private void Awake()
     {
         Button startHost = transform.GetChild(0).GetComponent<Button>();
         Button startClient = transform.GetChild(1).GetComponent<Button>();
         Button disconnect = transform.GetChild(2).GetComponent<Button>();
         playersInGame = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+        userName = transform.GetChild(4).GetComponent<TextMeshProUGUI>();
 
         startHost.onClick.AddListener(() =>
         {
@@ -46,6 +52,19 @@ public class Test_Net_Controller : MonoBehaviour
         });
 
         GameManager.Inst.onPlayersInGameChange += (newPlayerCount) => playersInGame.text = $"Players : {newPlayerCount}";
-        //델리게이트에 연결되면 힙메모리에 올라가게 된다.
+
+        userNameText = GameManager.Inst.UserName;
+
+
+        GameManager.Inst.onUserNameChange += (name) =>
+        {
+            userNameText = name;
+            userName.text = $"Name : {name}";//델리게이트에 연결되면 힙메모리에 올라가게 된다.
+        };
+        GameManager.Inst.onUserColorChange += (color) => colorText = $"<#{ColorUtility.ToHtmlStringRGB(color)}>";
     }
+    //public void SetUserName(string name)
+    //{
+    //    userName.text = $"Name : {name}";
+    //}
 }
