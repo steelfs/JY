@@ -70,7 +70,6 @@ public class GameManager : Net_SingleTon<GameManager>
 
     private void OnclientConnect(ulong id)// param = 접속한 클라이언트의 ID
     {
-        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(id);
 
         if (IsServer)
         {
@@ -78,6 +77,7 @@ public class GameManager : Net_SingleTon<GameManager>
             
         }
       
+        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(id);
     
         if (netObj.IsOwner)//내 케릭터 일 때 
         {

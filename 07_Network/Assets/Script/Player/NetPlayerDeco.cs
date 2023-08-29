@@ -23,19 +23,23 @@ public class NetPlayerDeco : NetworkBehaviour
 
         bodyColor.OnValueChanged += OnColorChange;
     }
-
+    private void Start()
+    {
+        GameManager.Inst.onUserNameChange += ChangeName;
+    }
     private void OnColorChange(Color previousValue, Color newValue)
     {
-        bodyMat.SetColor("_BaseColor", newValue);
+        bodyMat.SetColor("_BaseColor", newValue);//셰이더 프로퍼티 값 변경
     }
 
     void ChangeName(string name)
     {
+        
         if (IsServer)
         {
             playerName.Value = name;
         }
-        namePlate.SetName(name);
+    
     }
  
     public override void OnNetworkSpawn()
@@ -74,4 +78,6 @@ public class NetPlayerDeco : NetworkBehaviour
     {
         bodyColor.Value = color;
     }
+
+
 }

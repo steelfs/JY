@@ -82,7 +82,7 @@ public class Logger : MonoBehaviour
                     {
                         break;
                     }
-                    if (!float.TryParse(number, out colorValue[count]))//number 를 float 으로 변환
+                    if (!float.TryParse(number, out colorValue[count]))//number 를 float 으로 변환 colorValue의 count 번째 인덱스에 복사됨
                     {
                         colorValue[count] = 0;
                     }
