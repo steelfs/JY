@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-08-29T02:26:23.175Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="mlNY9vgwMoA5kAZDejU9" version="21.2.8" type="device">
+<mxfile host="Electron" modified="2023-08-30T13:53:36.980Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="X9XEX3hyVHRKbEJGHNKs" version="21.6.5" type="device">
   <diagram name="페이지-1" id="4cuWuBfcob33C7NAcfMD">
-    <mxGraphModel dx="903" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -67,8 +67,8 @@
         <mxCell id="tWTw7sCvbpiB83nG-uwN-15" value="Suit" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="10" y="190" width="120" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="tWTw7sCvbpiB83nG-uwN-23" value="Slot, ItemData는 Hat, Weapon, Body, Jewel 로 이루어진 각각 Enum을 갖는다&amp;nbsp;&lt;br&gt;&lt;br&gt;장비창은 각 4개의 슬롯을 갖고 있으며 4개 슬롯 모두 ItemData가 null 이 되거나 셋팅될 때&amp;nbsp;&lt;br&gt;&lt;br&gt;인벤토리와 플레이어 트렌스폼에 신호를 보낸다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="390" y="590" width="170" height="190" as="geometry" />
+        <mxCell id="tWTw7sCvbpiB83nG-uwN-23" value="Slot, ItemData는 Hat, Weapon, Body, Jewel 로 이루어진 각각 Enum을 갖는다&amp;nbsp;&lt;br&gt;&lt;br&gt;장비창은 각 4개의 슬롯을 가진다.&lt;br&gt;인벤토리 슬롯과 장비창의 슬롯은서로 상호작용하며&lt;br&gt;만약 인벤토리 장비아이템을 더블클릭 할 경우&amp;nbsp;&lt;br&gt;Description 의 팝업중인 아이템을 장비창에 추가하고&amp;nbsp; 인벤토리의 아이템을null로 셋팅한다.&lt;br&gt;반대로 장비창의 아이템을 더블클릭할 경우 인벤토리의 탭에 추가 성공할 경우에만(빈 슬롯이 있을 경우) 장비창 슬롯의 ItemData를 null 로 셋팅 한다.&lt;br&gt;&lt;br&gt;또한 장비창 슬롯의 ItemData가 바뀌었고 null이 아니라면 플레이어 트렌스폼에도 신호를 보내 알맞은 곳에 아이템을 장착시킨다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="320" y="610" width="370" height="220" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
