@@ -37,7 +37,8 @@ public class Logger : MonoBehaviour
                 if (GameManager.Inst.Player != null)
                 {
                     //일반 채팅 처리
-                    NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();//접속중이면 채팅으로
+                    //NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();//접속중이면 채팅으로
+                    GameManager.Inst.Player.SendChat(input);
                 }
                 else
                 {
@@ -45,7 +46,6 @@ public class Logger : MonoBehaviour
                     Log(input); //아니면 로그만 찍기
                 }
             }
-           // GameManager.Inst.Player.SendChat(input);
             inputField.text = string.Empty;//입력창 비우고
             inputField.ActivateInputField();//포커스 다시 활성화(무조건 활성화)
            // inputField.Select();//활성화 되어있으면 비활성화 , 비활성화되어있을 때는 활성화 
@@ -94,9 +94,9 @@ public class Logger : MonoBehaviour
                 }
              
                 Color color = new Color(colorValue[0], colorValue[1], colorValue[2], colorValue[3]);
-                if (GameManager.Inst.PlayerDeco != null)
+                if (GameManager.Inst.Deco != null)
                 {
-                    GameManager.Inst.PlayerDeco.SetColor(color);
+                    GameManager.Inst.Deco.SetColor(color);
                 }
                 GameManager.Inst.UserColor = color;
                 break;

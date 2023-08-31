@@ -15,4 +15,8 @@ public class NamePlate : MonoBehaviour
     {
         nameText.text = name;
     }
+    private void LateUpdate()
+    {
+        transform.rotation = Camera.main.transform.rotation;
+    }
 }

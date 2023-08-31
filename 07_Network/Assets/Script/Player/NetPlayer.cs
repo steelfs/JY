@@ -1,3 +1,4 @@
+using Cinemachine;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -7,12 +8,15 @@ public class NetPlayer : NetworkBehaviour
     PlayerInputAction action;
     CharacterController controller;
 
+    
+
     Logger logger;
     NetworkVariable<FixedString512Bytes> chatString = new NetworkVariable<FixedString512Bytes>();//지금 내가 보낸 채팅
 
     public NetworkVariable<Vector3> position = new NetworkVariable<Vector3>();//플레이어의 위치를 조정할 변수, 생성자로 읽기, 쓰기 권한을 조정할 수 있다.
     NetworkVariable<float> netMoveDir = new NetworkVariable<float>(); //입력받은 전진 / 후진 정도
     NetworkVariable<float> netRotateDir = new NetworkVariable<float>();
+   // NetworkVariable<FixedString32Bytes> = new NetworkVariable<FixedString32Bytes>;
 
     float moveSpeed = 3.0f;
     float rotateSpeed = 180.0f;
@@ -43,6 +47,8 @@ public class NetPlayer : NetworkBehaviour
             action.Player.Rotate.canceled += OnRotate;
 
             SetSpawnPos();
+
+            GameManager.Inst.Vcam.Follow = transform.GetChild(0);
         }
     }
     public override void OnNetworkDespawn() // 네트워크 오브젝트가 디스폰 됐을 때 실행되는 함수 

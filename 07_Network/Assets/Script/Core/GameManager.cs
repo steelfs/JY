@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using Unity.Netcode;
 using UnityEngine;
@@ -9,6 +10,9 @@ public class GameManager : Net_SingleTon<GameManager>
     Logger logger;
     NetPlayer player;
     public NetPlayer Player => player;//내 플레이어 
+
+    CinemachineVirtualCamera virtualCam;
+    public CinemachineVirtualCamera Vcam => virtualCam;
 
     NetworkVariable<int> playersInGame = new NetworkVariable<int>(0);//현재 동접자 수 
     NetworkVariable<Color> playerColor = new NetworkVariable<Color>();
@@ -26,8 +30,8 @@ public class GameManager : Net_SingleTon<GameManager>
     }
     public Action<Color> onUserColorChange;
 
-    NetPlayerDeco playerDeco;
-    public NetPlayerDeco PlayerDeco => playerDeco;
+    NetPlayerDeco deco;
+    public NetPlayerDeco Deco => deco;
 
     public Action<int> onPlayersInGameChange;
     public Action<string> onUserNameChange;
@@ -47,7 +51,7 @@ public class GameManager : Net_SingleTon<GameManager>
     protected override void OnInitialize()
     {
         logger = FindObjectOfType<Logger>(); // 로컬에서 사용되는 것. 이타이밍에 찾아도 됨
-        playerOnLine = FindObjectOfType<PlayerOnLine>();
+        virtualCam = FindObjectOfType<CinemachineVirtualCamera>();
         NetworkManager.Singleton.OnClientConnectedCallback += OnclientConnect; //나를 포함한 모든 클라이언트가 접속할 떄 마다 실행되는 함수 
         NetworkManager.Singleton.OnClientDisconnectCallback += OnclientDisConnect;
         playersInGame.OnValueChanged += (_,newValue) => onPlayersInGameChange?.Invoke(newValue);
@@ -85,11 +89,12 @@ public class GameManager : Net_SingleTon<GameManager>
             player = netObj.GetComponent<NetPlayer>();
             player.gameObject.name = $"Player - {id}";
 
-            playerDeco = netObj.GetComponent<NetPlayerDeco>();
+            deco = netObj.GetComponent<NetPlayerDeco>();
             if (userColor != Color.clear)
             {
-                playerDeco.SetColor(userColor);
+                deco.SetColor(userColor);
             }
+            deco.SetName($"{UserName}_{id}");//타인을 제외한 내이름만 처리
 
             foreach (var net in NetworkManager.Singleton.SpawnManager.SpawnedObjectsList) //모든 오브젝트들을 순회
             {
@@ -97,6 +102,12 @@ public class GameManager : Net_SingleTon<GameManager>
                 if (netplayer != null && player != netplayer)// 내것이 아니라면 
                 {
                     net.gameObject.name = $"Other Player - {id}";
+                }
+
+                NetPlayerDeco netDeco = net.GetComponent<NetPlayerDeco>();
+                if (netDeco != null && netDeco != deco)
+                {
+                    netDeco.RefreshNamePlate();// 다른 유저들의 이름 갱신
                 }
             }
         }

@@ -7,7 +7,7 @@ using UnityEngine;
 public class NetPlayerDeco : NetworkBehaviour
 {
     NetworkVariable<Color> bodyColor = new NetworkVariable<Color>();
-    NetworkVariable<FixedString32Bytes> playerName = new NetworkVariable<FixedString32Bytes>();
+    NetworkVariable<FixedString32Bytes> userName = new NetworkVariable<FixedString32Bytes>();
     NamePlate namePlate;
     Logger logger;
 
@@ -22,25 +22,37 @@ public class NetPlayerDeco : NetworkBehaviour
         logger = FindObjectOfType<Logger>();
 
         bodyColor.OnValueChanged += OnColorChange;
+        userName.OnValueChanged += OnNameSet;
     }
+
+    private void OnNameSet(FixedString32Bytes previousValue, FixedString32Bytes newValue)
+    {
+
+        namePlate.SetName(newValue.ToString());
+
+    }
+
     private void Start()
     {
-        GameManager.Inst.onUserNameChange += ChangeName;
+        //GameManager.Inst.onUserNameChange += ChangeName;
     }
     private void OnColorChange(Color previousValue, Color newValue)
     {
         bodyMat.SetColor("_BaseColor", newValue);//셰이더 프로퍼티 값 변경
     }
 
-    void ChangeName(string name)
-    {
+    //void ChangeName(string name)
+    //{
         
-        if (IsServer)
-        {
-            playerName.Value = name;
-        }
-    
-    }
+    //    if (IsServer)
+    //    {
+    //        playerName.Value = name;
+    //    }
+    //    else
+    //    {
+    //        RequestBillBoardNAmeChangeServerRpc(name);
+    //    }
+    //}
  
     public override void OnNetworkSpawn()
     {
@@ -80,4 +92,28 @@ public class NetPlayerDeco : NetworkBehaviour
     }
 
 
+
+    [ServerRpc]
+    void RequestBillBoardNAmeChangeServerRpc(string name)
+    {
+        userName.Value = name;
+    }
+    public void SetName(string name)
+    {
+        if (IsOwner)
+        {
+            if (IsServer)
+            {
+                userName.Value = name;
+            }
+            else
+            {
+                RequestBillBoardNAmeChangeServerRpc(name);
+            }
+        }
+    }
+    public void RefreshNamePlate()
+    {
+        namePlate.SetName(userName.Value.ToString());
+    }
 }
