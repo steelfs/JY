@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -7,11 +8,12 @@ public class NetPlayer : NetworkBehaviour
 {
     PlayerInputAction action;
     CharacterController controller;
-
-    
+    Animator anim;
+    public string userName;
 
     Logger logger;
     NetworkVariable<FixedString512Bytes> chatString = new NetworkVariable<FixedString512Bytes>();//지금 내가 보낸 채팅
+    public NetworkVariable<FixedString32Bytes> nameString = new NetworkVariable<FixedString32Bytes>();
 
     public NetworkVariable<Vector3> position = new NetworkVariable<Vector3>();//플레이어의 위치를 조정할 변수, 생성자로 읽기, 쓰기 권한을 조정할 수 있다.
     NetworkVariable<float> netMoveDir = new NetworkVariable<float>(); //입력받은 전진 / 후진 정도
@@ -20,6 +22,30 @@ public class NetPlayer : NetworkBehaviour
 
     float moveSpeed = 3.0f;
     float rotateSpeed = 180.0f;
+
+    enum PlayerAnimState
+    {
+        None,
+        Idle,
+        Walk,
+        BackWalk
+    }
+    PlayerAnimState state = PlayerAnimState.None;
+    NetworkVariable<PlayerAnimState> netAnimState = new NetworkVariable<PlayerAnimState>();
+    //PlayerAnimState State// 상태가 바뀔때만 animator의 트리거를 변경해서 특정상태 애니메이션 트리거가 백그라운드에 쌓이는 것을 방지하기 위함
+    //{
+    //    get => state;
+    //    set
+    //    {
+    //        if (state != value)
+    //        {
+    //            state = value;
+    //            anim.SetTrigger(state.ToString());// Enum.GetName(typeof(PlayerAnimState), value) 이렇게 할 필요 없이 state.ToString()이렇게만 하면 된다.
+    //        }
+    //    }
+    //}
+
+
 
     //float rotateDir;
     //float moveDir;
@@ -31,10 +57,13 @@ public class NetPlayer : NetworkBehaviour
 
         position.OnValueChanged += OnPositionChange;//position 의 value가 바뀔때 실행되는 델리게이트
         chatString.OnValueChanged += OnChatRecieve;
+        anim = GetComponent<Animator>();
+
+        netAnimState.OnValueChanged += OnAnimStateChange;
     }
 
+ 
 
-   
     public override void OnNetworkSpawn()//나 뿐만 아니라 다른 오브젝트가 스폰됐을 때도 실행이 되는 함수 이기때문에 Owner인지 체크를 하지 않으면 다른 오브젝트가 실행됐을 때도 실행이 된다.
     {
         if (IsOwner)
@@ -49,8 +78,21 @@ public class NetPlayer : NetworkBehaviour
             SetSpawnPos();
 
             GameManager.Inst.Vcam.Follow = transform.GetChild(0);
+            GameManager.Inst.onUserNameChange += SetOwnName;
         }
     }
+    void SetOwnName(string newName)
+    {
+        if (IsServer)
+        {
+            nameString.Value = newName;
+        }
+        else
+        {
+            UpdateNameStateServerRpc(newName);
+        }
+    }
+
     public override void OnNetworkDespawn() // 네트워크 오브젝트가 디스폰 됐을 때 실행되는 함수 
     {
         if (IsOwner && action != null)
@@ -77,6 +119,34 @@ public class NetPlayer : NetworkBehaviour
             Move_RequestServerRpc(moveDir);//클라이언트면 RPC를 통해 수정요청
         }
 
+        if (moveDir > 0.001f)// 전진 0.001 = float 오차를 감안한 임계값
+        {
+            state = PlayerAnimState.Walk;
+            //rotateAngle = Quaternion.LookRotation(dir);
+            //anim.SetTrigger(walkHash);
+        }
+        else if (moveDir < -0.001f)//후진
+        {
+            state = PlayerAnimState.BackWalk;
+            //anim.SetBool(isWalkHash, false);
+        }
+        else//정지
+        {
+            state = PlayerAnimState.Idle;
+        }
+
+        //상태가 변경되면 네트워크상태도 같이 변경
+        if (state != netAnimState.Value)
+        {
+            if (IsServer)
+            {
+                netAnimState.Value = state;
+            }
+            else
+            {
+                UpdateAnimStateServerRpc(state);
+            }
+        }
     }
     private void OnRotate(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
@@ -127,6 +197,11 @@ public class NetPlayer : NetworkBehaviour
             RequestChat_ServerRpc(message);
         }
     }
+    private void OnAnimStateChange(PlayerAnimState previousValue, PlayerAnimState newValue)//netAnimState가 변경되었을 때
+    {
+        anim.SetTrigger(newValue.ToString());
+    }
+
     [ServerRpc]
     public void RequestChat_ServerRpc(string text)
     {
@@ -147,6 +222,18 @@ public class NetPlayer : NetworkBehaviour
     void Rotate_RequestServerRpc(float rotate)// 함수 이름의 끝은 반드시 ServerRpc 이어야 한다 아니면 오류발생
     {
         netRotateDir.Value = rotate;
+    }
+
+    [ServerRpc]
+    void UpdateAnimStateServerRpc(PlayerAnimState newState)// 함수 이름의 끝은 반드시 ServerRpc 이어야 한다 아니면 오류발생
+    {
+        netAnimState.Value = newState;
+    }
+
+    [ServerRpc]
+    void UpdateNameStateServerRpc(string newName)// 함수 이름의 끝은 반드시 ServerRpc 이어야 한다 아니면 오류발생
+    {
+        nameString.Value = newName;
     }
 
     private void OnPositionChange(Vector3 previousValue, Vector3 newValue) //네트워크 변수  position이 변경되었을 때 실행될 함수  previousValue = 변경되기 전 값

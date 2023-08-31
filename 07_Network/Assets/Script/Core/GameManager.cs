@@ -118,6 +118,7 @@ public class GameManager : Net_SingleTon<GameManager>
             if (netplayer != null || player != netplayer)
             {
                 netObj.gameObject.name = $"Other Player - {id}";//다른사람의 오브젝트 이름 변경
+                logger.Log($"{netplayer.nameString.Value}_{id} 가 접속했습니다.");
             }
         }
     }

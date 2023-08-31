@@ -50,8 +50,8 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         action.Player.Enable();
-        action.Player.MoveForward.performed += OnMove;
-        action.Player.MoveForward.canceled += OnMove;
+        action.Player.MoveForward.performed += OnMoveInput;
+        action.Player.MoveForward.canceled += OnMoveInput;
         action.Player.Rotate.performed += Rotate;
         action.Player.Rotate.canceled += Rotate;
     }
@@ -60,8 +60,8 @@ public class Player : MonoBehaviour
 
     private void OnDisable()
     {
-        action.Player.MoveForward.performed -= OnMove;
-        action.Player.MoveForward.canceled -= OnMove;
+        action.Player.MoveForward.performed -= OnMoveInput;
+        action.Player.MoveForward.canceled -= OnMoveInput;
         action.Player.Rotate.performed -= Rotate;
         action.Player.Rotate.canceled -= Rotate;
         action.Player.Disable();
@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
         float rotateInput = context.ReadValue<float>();
         rotate = rotateInput * rotateSpeed;
     }
-    private void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    private void OnMoveInput(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         float moveInput = context.ReadValue<float>();
         dir = moveInput * moveSpeed; // 앞 뒤 정지와 이동속도 곱하기
