@@ -88,17 +88,7 @@ public class NetPlayer : NetworkBehaviour
             //};
         }
     }
-    void SetOwnName(string newName)
-    {
-        if (IsServer)
-        {
-            nameString.Value = newName;
-        }
-        else
-        {
-            UpdateNameStateServerRpc(newName);
-        }
-    }
+
 
     public override void OnNetworkDespawn() // 네트워크 오브젝트가 디스폰 됐을 때 실행되는 함수 
     {
