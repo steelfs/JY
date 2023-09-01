@@ -1,0 +1,22 @@
+<mxfile host="Electron" modified="2023-09-01T05:44:49.340Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="z2Kti71IE4K6MEjj9BD6" version="21.6.5" type="device">
+  <diagram name="페이지-1" id="PhYcTHoq-hMDFmyrk_0T">
+    <mxGraphModel dx="1098" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="d8cW__4GrSLjrCk8XKqX-1" value="버츄얼패드" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d8cW__4GrSLjrCk8XKqX-2" value="드래그할 때&amp;nbsp;&lt;br&gt;IDragHandler&lt;br&gt;transform.Position 을&lt;br&gt;eventData.Position으로 설정한다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="170" width="140" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="d8cW__4GrSLjrCk8XKqX-3" value="드래그 끝날 때&amp;nbsp;&lt;br&gt;IEndDragHandler&lt;br&gt;포지션을 Vector2.zero 로 설정" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="210" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="d8cW__4GrSLjrCk8XKqX-4" value="드래그 중 영역을 벗어날 때&lt;br&gt;백그라운드의 크기 - 스틱의 크기.sqrmagnitude (거리)&lt;br&gt;가&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="360" width="300" height="160" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
