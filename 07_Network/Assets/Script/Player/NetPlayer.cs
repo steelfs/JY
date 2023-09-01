@@ -78,7 +78,14 @@ public class NetPlayer : NetworkBehaviour
             SetSpawnPos();
 
             GameManager.Inst.Vcam.Follow = transform.GetChild(0);
-            GameManager.Inst.onUserNameChange += SetOwnName;
+            GameManager.Inst.VirtualPad.onMoveInput += (inputDir) => SetMoveInput(inputDir.y);
+            GameManager.Inst.VirtualPad.onMoveInput += (inputDir) => SetRotateInput(inputDir.x);
+
+            //GameManager.Inst.VirtualPad.onMoveInput = (inputDir) =>
+            //{
+            //    SetMoveInput(inputDir.y);
+            //    SetRotateInput(inputDir.x);
+            //};
         }
     }
     void SetOwnName(string newName)
@@ -97,6 +104,10 @@ public class NetPlayer : NetworkBehaviour
     {
         if (IsOwner && action != null)
         {
+            if (GameManager.Inst != null && GameManager.Inst.VirtualPad != null)
+            {
+                GameManager.Inst.VirtualPad.onMoveInput = null;
+            }
             action.Player.MoveForward.performed -= OnMove;
             action.Player.MoveForward.canceled -= OnMove;
             action.Player.Rotate.performed -= OnRotate;
@@ -108,6 +119,11 @@ public class NetPlayer : NetworkBehaviour
     private void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         float input = context.ReadValue<float>();
+        SetMoveInput(input);
+    }
+
+    public void SetMoveInput(float input)
+    {
         float moveDir = moveSpeed * input;
 
         if (NetworkManager.Singleton.IsServer)// 서버이면 네트워크변수 직접 바로 변경
@@ -148,9 +164,15 @@ public class NetPlayer : NetworkBehaviour
             }
         }
     }
+
     private void OnRotate(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         float rotateInput = context.ReadValue<float>();
+        SetRotateInput(rotateInput);
+    }
+
+    public void SetRotateInput(float rotateInput)
+    {
         float rotateDir = rotateSpeed * rotateInput;
         if (NetworkManager.Singleton.IsServer)
         {
@@ -161,6 +183,7 @@ public class NetPlayer : NetworkBehaviour
             Rotate_RequestServerRpc(rotateDir);
         }
     }
+
     private void Update()
     {
        controller.SimpleMove(netMoveDir.Value * transform.forward);

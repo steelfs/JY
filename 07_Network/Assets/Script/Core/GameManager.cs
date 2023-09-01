@@ -1,5 +1,6 @@
 using Cinemachine;
 using System;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -16,6 +17,9 @@ public class GameManager : Net_SingleTon<GameManager>
 
     NetworkVariable<int> playersInGame = new NetworkVariable<int>(0);//현재 동접자 수 
     NetworkVariable<Color> playerColor = new NetworkVariable<Color>();
+
+    VirtualPad virtualPad;
+    public VirtualPad VirtualPad => virtualPad;
 
 
     Color userColor = Color.clear;//현재 접속자의 컬러
@@ -55,13 +59,16 @@ public class GameManager : Net_SingleTon<GameManager>
         NetworkManager.Singleton.OnClientConnectedCallback += OnclientConnect; //나를 포함한 모든 클라이언트가 접속할 떄 마다 실행되는 함수 
         NetworkManager.Singleton.OnClientDisconnectCallback += OnclientDisConnect;
         playersInGame.OnValueChanged += (_,newValue) => onPlayersInGameChange?.Invoke(newValue);
+        virtualPad = FindObjectOfType<VirtualPad>();
+        
     }
+
 
 
     private void OnclientDisConnect(ulong id)
     {
-        NetworkObject netobj = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(id);
-        if (netobj.IsOwner)
+        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(id);
+        if (netObj.IsOwner)
         {
             player = null;
         }
@@ -75,12 +82,6 @@ public class GameManager : Net_SingleTon<GameManager>
     private void OnclientConnect(ulong id)// param = 접속한 클라이언트의 ID
     {
 
-        if (IsServer)
-        {
-            playersInGame.Value++;
-            
-        }
-      
         NetworkObject netObj = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(id);
     
         if (netObj.IsOwner)//내 케릭터 일 때 
@@ -88,6 +89,7 @@ public class GameManager : Net_SingleTon<GameManager>
           
             player = netObj.GetComponent<NetPlayer>();
             player.gameObject.name = $"Player - {id}";
+          
 
             deco = netObj.GetComponent<NetPlayerDeco>();
             if (userColor != Color.clear)
@@ -121,11 +123,23 @@ public class GameManager : Net_SingleTon<GameManager>
                 logger.Log($"{netplayer.nameString.Value}_{id} 가 접속했습니다.");
             }
         }
+
+        if (IsServer)
+        {
+            playersInGame.Value++;
+        }
+
     }
-    //private void OnPlayerInGameChange(int previousValue, int newValue)
-    //{
-    //    playerOnLine.UpdateCount(newValue);
-    //}
+    private void OnUserConnected(FixedString32Bytes previousValue, FixedString32Bytes newValue)
+    {
+      
+    }
+    private void OnUserDisConnected(FixedString32Bytes previousValue, FixedString32Bytes newValue)
+    {
+        Log($"[{newValue}] 가 접속 해제 했습니다.");
+    }
+
+ 
     public void Log(string message)//로그만 남기는 함수 
     {
         logger.Log(message);

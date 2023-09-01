@@ -1,6 +1,7 @@
 using Cinemachine;
 using System;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -23,12 +24,15 @@ public class NetPlayerDeco : NetworkBehaviour
 
         bodyColor.OnValueChanged += OnColorChange;
         userName.OnValueChanged += OnNameSet;
+
     }
 
     private void OnNameSet(FixedString32Bytes previousValue, FixedString32Bytes newValue)
     {
 
         namePlate.SetName(newValue.ToString());
+
+        GameManager.Inst.Log($"Deco : [{newValue}] 가 접속  했습니다.");
 
     }
 
@@ -41,18 +45,6 @@ public class NetPlayerDeco : NetworkBehaviour
         bodyMat.SetColor("_BaseColor", newValue);//셰이더 프로퍼티 값 변경
     }
 
-    //void ChangeName(string name)
-    //{
-        
-    //    if (IsServer)
-    //    {
-    //        playerName.Value = name;
-    //    }
-    //    else
-    //    {
-    //        RequestBillBoardNAmeChangeServerRpc(name);
-    //    }
-    //}
  
     public override void OnNetworkSpawn()
     {
