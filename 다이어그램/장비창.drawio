@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-08-31T13:18:14.076Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="Bp6zklM39hwsx0DAucnK" version="21.6.5" type="device">
+<mxfile host="Electron" modified="2023-09-01T13:13:32.367Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="1G0qzW_iOjETKzL454tw" version="21.6.5" type="device">
   <diagram name="페이지-1" id="4cuWuBfcob33C7NAcfMD">
     <mxGraphModel dx="1418" dy="1997" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -19,7 +19,7 @@
         <mxCell id="tWTw7sCvbpiB83nG-uwN-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="tWTw7sCvbpiB83nG-uwN-4" target="tWTw7sCvbpiB83nG-uwN-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="CAL7HfomNE_c9x4v4a5j-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tWTw7sCvbpiB83nG-uwN-4" target="CAL7HfomNE_c9x4v4a5j-1">
+        <mxCell id="CAL7HfomNE_c9x4v4a5j-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="tWTw7sCvbpiB83nG-uwN-4" target="CAL7HfomNE_c9x4v4a5j-1" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="tWTw7sCvbpiB83nG-uwN-4" value="인벤토리에서 장비창으로 드롭했을 때&lt;br&gt;Double-Click" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -28,7 +28,7 @@
         <mxCell id="tWTw7sCvbpiB83nG-uwN-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="tWTw7sCvbpiB83nG-uwN-5" target="tWTw7sCvbpiB83nG-uwN-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="CAL7HfomNE_c9x4v4a5j-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tWTw7sCvbpiB83nG-uwN-5" target="CAL7HfomNE_c9x4v4a5j-1">
+        <mxCell id="CAL7HfomNE_c9x4v4a5j-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="tWTw7sCvbpiB83nG-uwN-5" target="CAL7HfomNE_c9x4v4a5j-1" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="tWTw7sCvbpiB83nG-uwN-5" value="장비창에서 인벤토리로 드랍했을 때&lt;br&gt;Double-Click" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -76,32 +76,35 @@
         <mxCell id="tWTw7sCvbpiB83nG-uwN-23" value="Slot, ItemData는 Hat, Weapon, Body, Jewel 로 이루어진 각각 Enum을 갖는다&amp;nbsp;&lt;br&gt;&lt;br&gt;장비창은 각 4개의 슬롯을 가진다.&lt;br&gt;인벤토리 슬롯과 장비창의 슬롯은서로 상호작용하며&lt;br&gt;만약 인벤토리 장비아이템을 더블클릭 할 경우 조건 없이&lt;br&gt;Description 의 팝업중인 아이템을 장비창에 추가하고&amp;nbsp; 인벤토리의 아이템을null로 셋팅한다.&lt;br&gt;반대로 장비창의 아이템을 더블클릭할 경우 인벤토리의 탭에 추가 성공할 경우에만(빈 슬롯이 있을 경우) 장비창 슬롯의 ItemData를 null 로 셋팅 한다.&lt;br&gt;&lt;br&gt;또한 장비창 슬롯의 ItemData가 바뀌었고 null이 아니라면 플레이어 트렌스폼에도 신호를 보내 알맞은 곳에 아이템을 장착시킨다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="390" y="560" width="370" height="220" as="geometry" />
         </mxCell>
-        <mxCell id="CAL7HfomNE_c9x4v4a5j-1" value="description.ItemData&lt;br&gt;가 null 이 아닐 경우" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="CAL7HfomNE_c9x4v4a5j-1" value="description.ItemData&lt;br&gt;가 null 이 아닐 경우" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="353.5" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="CAL7HfomNE_c9x4v4a5j-5" value="EquipSlot_Box" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="CAL7HfomNE_c9x4v4a5j-5" value="EquipSlot_Box" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="360" y="-300" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="CAL7HfomNE_c9x4v4a5j-6" value="PlayerDummy" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="CAL7HfomNE_c9x4v4a5j-6" value="PlayerDummy" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="120" y="-300" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="CAL7HfomNE_c9x4v4a5j-7" value="EquipSlot_Box_Slot" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="CAL7HfomNE_c9x4v4a5j-7" value="EquipSlot_Box_Slot" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="360" y="-170" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="CAL7HfomNE_c9x4v4a5j-8" value="SlotManager" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="CAL7HfomNE_c9x4v4a5j-8" value="SlotManager" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="580" y="-300" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="CAL7HfomNE_c9x4v4a5j-9" value="인벤토리슬롯, 장비창 슬롯 더블클릭시 Description.ItemData 파라미터로 신호 보내기&lt;br&gt;&lt;br&gt;장착시 -&amp;gt; 장비창으로&lt;br&gt;해제시 슬롯메니저로" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="CAL7HfomNE_c9x4v4a5j-9" value="인벤토리슬롯, 장비창 슬롯 더블클릭시 Description.ItemData 파라미터로 신호 보내기&lt;br&gt;&lt;br&gt;장착시 -&amp;gt; 장비창으로&lt;br&gt;해제시 슬롯메니저로" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="107.5" y="-240" width="145" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="CAL7HfomNE_c9x4v4a5j-10" value="신호를 받아서 ItemData타입에 맞는 슬롯에 아이템 데이터를 셋팅하면서 인벤토리에서 해당 아이템 슬롯을 null로 설정&lt;br&gt;&lt;br&gt;슬롯메니저에세 해제 신호를 받으면 해당아이템을 가진 장비창 슬롯의 ItemData를 null로 설정한다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="CAL7HfomNE_c9x4v4a5j-10" value="신호를 받아서 ItemData타입에 맞는 슬롯에 아이템 데이터를 셋팅하면서 인벤토리에서 해당 아이템 슬롯을 null로 설정&lt;br&gt;&lt;br&gt;슬롯메니저에세 해제 신호를 받으면 해당아이템을 가진 장비창 슬롯의 ItemData를 null로 설정한다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="318" y="-470" width="204" height="170" as="geometry" />
         </mxCell>
-        <mxCell id="CAL7HfomNE_c9x4v4a5j-11" value="신호를 받아 아이템을 장착하고&amp;nbsp;&lt;br&gt;이미 장착중이라면 해당 아이템을 인벤토리로 돌려보낸다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="CAL7HfomNE_c9x4v4a5j-11" value="신호를 받아 아이템을 장착하고&amp;nbsp;&lt;br&gt;이미 장착중이라면 해당 아이템을 인벤토리로 돌려보낸다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="355" y="-110" width="130" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="CAL7HfomNE_c9x4v4a5j-12" value="해제신호를 받아 인벤토리에 해당 아이템을 추가하고 EquipSlotBox에 신호를 보낸다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="CAL7HfomNE_c9x4v4a5j-12" value="해제신호를 받아 인벤토리에 해당 아이템을 추가하고 EquipSlotBox에 신호를 보낸다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="570" y="-410" width="140" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="PSTV-YWmymd0Pqk6UvTR-1" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="580" y="-170" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
