@@ -1,0 +1,22 @@
+<mxfile host="Electron" modified="2023-09-03T11:18:40.819Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="4b9KMIoQA08DFxyVPkch" version="21.6.5" type="device">
+  <diagram name="페이지-1" id="3xUhel04jhYSrKF4ljVP">
+    <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="zXyJz1itQiy2e0ath6fj-1" value="플레이어 애니메이션" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="230" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zXyJz1itQiy2e0ath6fj-2" value="Idle&lt;br&gt;가만히 서 있을 때" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zXyJz1itQiy2e0ath6fj-3" value="Attack&lt;br&gt;Riffle, ShotGun, Pistol" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="339" y="410" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zXyJz1itQiy2e0ath6fj-4" value="공격대기&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;Riffle, ShotGun, Pistol" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="339" y="510" width="150" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
