@@ -1,20 +1,26 @@
-<mxfile host="Electron" modified="2023-09-03T14:05:17.474Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="Fbo9H6cxfknvRyM5DaPV" version="21.6.5" type="device">
+<mxfile host="Electron" modified="2023-09-04T23:57:53.686Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="OE48ZeItQB-kvhXkvMEU" version="21.2.8" type="device">
   <diagram name="페이지-1" id="3xUhel04jhYSrKF4ljVP">
-    <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="903" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="zXyJz1itQiy2e0ath6fj-1" value="플레이어 애니메이션" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="354" y="230" width="120" height="60" as="geometry" />
+          <mxGeometry x="354" y="150" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="zXyJz1itQiy2e0ath6fj-2" value="Idle&lt;br&gt;가만히 서 있을 때" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="354" y="320" width="120" height="60" as="geometry" />
+        <mxCell id="VCXD5lx_3G-CmCGCO5Ku-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.431;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="zXyJz1itQiy2e0ath6fj-2" target="zXyJz1itQiy2e0ath6fj-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zXyJz1itQiy2e0ath6fj-2" value="Idle W/O Weapon" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="350" y="350" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="zXyJz1itQiy2e0ath6fj-3" value="Attack&lt;br&gt;Riffle, ShotGun, Pistol" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="339" y="410" width="150" height="60" as="geometry" />
+          <mxGeometry x="470" y="520" width="150" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="zXyJz1itQiy2e0ath6fj-4" value="공격대기&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;Riffle, ShotGun, Pistol" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="339" y="510" width="150" height="60" as="geometry" />
+        <mxCell id="zXyJz1itQiy2e0ath6fj-4" value="Walk w/o weapon" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="260" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="VCXD5lx_3G-CmCGCO5Ku-1" value="Entry" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="320" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
