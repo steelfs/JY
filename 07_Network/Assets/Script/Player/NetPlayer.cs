@@ -2,6 +2,7 @@ using Cinemachine;
 using System;
 using Unity.Collections;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NetPlayer : NetworkBehaviour
@@ -18,11 +19,39 @@ public class NetPlayer : NetworkBehaviour
     public NetworkVariable<Vector3> position = new NetworkVariable<Vector3>();//플레이어의 위치를 조정할 변수, 생성자로 읽기, 쓰기 권한을 조정할 수 있다.
     NetworkVariable<float> netMoveDir = new NetworkVariable<float>(); //입력받은 전진 / 후진 정도
     NetworkVariable<float> netRotateDir = new NetworkVariable<float>();
-   // NetworkVariable<FixedString32Bytes> = new NetworkVariable<FixedString32Bytes>;
 
     float moveSpeed = 3.0f;
     float rotateSpeed = 180.0f;
 
+   
+    Material bodyMat;
+    NetworkVariable<bool> netEffectState = new NetworkVariable<bool>();
+    public bool IsEffectOn
+    {
+        get => netEffectState.Value;
+        set
+        {
+            if (netEffectState.Value != value)
+            {
+                if (IsServer)
+                {
+                    netEffectState.Value = value;
+                }
+                else
+                {
+                    UpdateEffectStateServerRpc(value);
+                }
+            }
+        }
+    }
+    [ServerRpc]
+    void UpdateEffectStateServerRpc(bool IsEffectOn)
+    {
+        netEffectState.Value = IsEffectOn;
+    }
+    //netEffectState true 일때 안면부 빛나기
+    // 빛나는 모습은 다른 플레이어에게도 보여야함
+    //접속시 이름판에 자신의 이름 설정
     enum PlayerAnimState
     {
         None,
@@ -32,20 +61,6 @@ public class NetPlayer : NetworkBehaviour
     }
     PlayerAnimState state = PlayerAnimState.None;
     NetworkVariable<PlayerAnimState> netAnimState = new NetworkVariable<PlayerAnimState>();
-    //PlayerAnimState State// 상태가 바뀔때만 animator의 트리거를 변경해서 특정상태 애니메이션 트리거가 백그라운드에 쌓이는 것을 방지하기 위함
-    //{
-    //    get => state;
-    //    set
-    //    {
-    //        if (state != value)
-    //        {
-    //            state = value;
-    //            anim.SetTrigger(state.ToString());// Enum.GetName(typeof(PlayerAnimState), value) 이렇게 할 필요 없이 state.ToString()이렇게만 하면 된다.
-    //        }
-    //    }
-    //}
-
-
 
     //float rotateDir;
     //float moveDir;
@@ -60,9 +75,12 @@ public class NetPlayer : NetworkBehaviour
         anim = GetComponent<Animator>();
 
         netAnimState.OnValueChanged += OnAnimStateChange;
+
+        Renderer renderer = transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>();
+        bodyMat = renderer.material;
+        netEffectState.OnValueChanged += OnEffectChange;
     }
 
- 
 
     public override void OnNetworkSpawn()//나 뿐만 아니라 다른 오브젝트가 스폰됐을 때도 실행이 되는 함수 이기때문에 Owner인지 체크를 하지 않으면 다른 오브젝트가 실행됐을 때도 실행이 된다.
     {
@@ -80,6 +98,8 @@ public class NetPlayer : NetworkBehaviour
             GameManager.Inst.Vcam.Follow = transform.GetChild(0);
             GameManager.Inst.VirtualPad.onMoveInput += (inputDir) => SetMoveInput(inputDir.y);
             GameManager.Inst.VirtualPad.onMoveInput += (inputDir) => SetRotateInput(inputDir.x);
+
+          
 
             //GameManager.Inst.VirtualPad.onMoveInput = (inputDir) =>
             //{
@@ -199,6 +219,18 @@ public class NetPlayer : NetworkBehaviour
     {
         GameManager.Inst.Log(newValue.ToString());
     }
+    private void OnEffectChange(bool previousValue, bool newValue)
+    {
+        if (newValue)
+        {
+            bodyMat.SetFloat("_Emission_Value", 1.0f);
+        }
+        else
+        {
+            bodyMat.SetFloat("_Emission_Value", 0.0f);
+        }
+    }
+
     public void SendChat(string message)//채팅을 전송하는 함수 
     {
         if (IsServer)

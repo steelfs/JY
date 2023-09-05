@@ -6,11 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Test/05_Network_Anim.unity
-    guid: b4c5f4d125c997c44956c41c3b3cacb9
-  - enabled: 1
-    path: Assets/Scenes/Test/06_VirtualPad.unity
-    guid: 74ea2bc3a389f81439f0f2912411f941
+    path: Assets/Scenes/Test/08_NetEffect.unity
+    guid: bee731d62562210488945b646c8f0e48
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7,
       type: 2}
