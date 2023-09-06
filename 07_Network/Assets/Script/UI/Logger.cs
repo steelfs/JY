@@ -13,7 +13,6 @@ public class Logger : MonoBehaviour
     public Color errorColor;
 
     const int maxLineCount = 20;// 로거에서 표시 가능한 최대 줄 수 
-    int currentLine = 0;
     TextMeshProUGUI log;
 
     StringBuilder sb;//문자열을 합치기 위한 클래스
