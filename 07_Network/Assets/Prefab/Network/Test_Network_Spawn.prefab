@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 8315564322511062776, guid: 1358df600de99be489c8ef41c65330bd, type: 3}
+  orb_: {fileID: 8015666394498926014, guid: fb710b17d3916354e988da00617d7dcb, type: 3}
   firePos: {fileID: 6451063993958098298}
 --- !u!114 &6451063993053857329
 MonoBehaviour:

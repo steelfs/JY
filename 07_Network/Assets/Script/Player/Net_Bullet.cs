@@ -27,5 +27,11 @@ public class Net_Bullet : NetworkBehaviour
         yield return new WaitForSeconds(lifeTime);
         this.NetworkObject.Despawn();
     }
-   
+    private void OnCollisionEnter(Collision collision)//awake 타이밍 이후 언제든 발동 가능하다
+    {
+        if (!this.NetworkObject.IsSpawned)
+            return;
+
+        this.NetworkObject.Despawn();
+    }
 }
