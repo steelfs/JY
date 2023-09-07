@@ -26,7 +26,9 @@ public class NetPlayer : NetworkBehaviour
     Transform fire_Pos;
     public GameObject bullet;
     public GameObject energy_Orb;
-   
+
+
+
     Material bodyMat;
     NetworkVariable<bool> netEffectState = new NetworkVariable<bool>();
     public bool IsEffectOn
@@ -84,8 +86,11 @@ public class NetPlayer : NetworkBehaviour
         netEffectState.OnValueChanged += OnEffectChange;
         fire_Pos = transform.GetChild(4).transform;
     }
+  
+    
 
 
+ 
     public override void OnNetworkSpawn()//나 뿐만 아니라 다른 오브젝트가 스폰됐을 때도 실행이 되는 함수 이기때문에 Owner인지 체크를 하지 않으면 다른 오브젝트가 실행됐을 때도 실행이 된다.
     {
         if (IsOwner)
@@ -130,7 +135,36 @@ public class NetPlayer : NetworkBehaviour
         RequestSpawnEnergyOrbServerRpc();
     }
 
- 
+    public void Die()
+    {
+        if (IsOwner)
+        {
+            // transform.position = GameManager.Inst.PlayerRespawnPos();
+            if (NetworkManager.Singleton.IsServer)
+            {
+                netMoveDir.Value = 0;
+            }
+            else
+            {
+                Move_RequestServerRpc(0);
+            }
+
+            SetSpawnPos();
+            transform.rotation = Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0) ;
+        }
+    }
+    private void SetSpawnPos()
+    {
+        Vector3 newPos = GameManager.Inst.PlayerRespawnPos();
+        if (NetworkManager.Singleton.IsServer)
+        {
+            position.Value = newPos;
+        }
+        else
+        {
+            submitPos_RequestServerRpc(newPos);
+        }
+    }
     public override void OnNetworkDespawn() // 네트워크 오브젝트가 디스폰 됐을 때 실행되는 함수 
     {
         if (IsOwner && action != null)
@@ -215,27 +249,21 @@ public class NetPlayer : NetworkBehaviour
         }
     }
 
+
+
     private void Update()
     {
-       controller.SimpleMove(netMoveDir.Value * transform.forward);
+        if (netMoveDir.Value != 0)
+        {
+            controller.SimpleMove(netMoveDir.Value * transform.forward);
+        }
+
        transform.Rotate(0, Time.deltaTime * netRotateDir.Value, 0, Space.World);
     }
     
 
 
-    private void SetSpawnPos()
-    {
-        Vector3 newPos = UnityEngine.Random.insideUnitSphere;
-        newPos.y = 0;
-        if (NetworkManager.Singleton.IsServer)
-        {
-            position.Value = newPos;
-        }
-        else
-        {
-            submitPos_RequestServerRpc(newPos);
-        }
-    }
+ 
     private void OnChatRecieve(FixedString512Bytes previousValue, FixedString512Bytes newValue)
     {
         GameManager.Inst.Log(newValue.ToString());

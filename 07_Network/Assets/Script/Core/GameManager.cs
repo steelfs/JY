@@ -148,4 +148,18 @@ public class GameManager : Net_SingleTon<GameManager>
     {
         UserName = name;
     }
+
+ 
+    public Vector3 PlayerRespawnPos()
+    {
+        Vector3 result = Vector3.zero;
+
+        Vector3 pos = new Vector3(UnityEngine.Random.Range(-11, 20), 0, UnityEngine.Random.Range(-1, 28));
+        pos += Vector3.up * 100.0f;
+        if (Physics.Raycast(pos, Vector3.down, out RaycastHit hit, 150.0f, LayerMask.GetMask("Wall")))
+        {
+            result = hit.point;
+        }
+        return result;
+    }
 }

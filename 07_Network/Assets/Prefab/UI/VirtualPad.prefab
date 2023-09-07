@@ -384,6 +384,7 @@ GameObject:
   - component: {fileID: 8016122461087538047}
   - component: {fileID: 8016122461087538033}
   - component: {fileID: 8016122461087538032}
+  - component: {fileID: 272458790}
   m_Layer: 5
   m_Name: Virtual_Button1 (1)
   m_TagString: Untagged
@@ -450,6 +451,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &272458790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8016122461087538046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b3872658ae37946b8d2b9e8b960629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8016122461217397684
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,6 +640,7 @@ GameObject:
   - component: {fileID: 8016122461264548617}
   - component: {fileID: 8016122461264548619}
   - component: {fileID: 8016122461264548618}
+  - component: {fileID: 223398295}
   m_Layer: 5
   m_Name: Virtual_Button1
   m_TagString: Untagged
@@ -693,6 +707,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &223398295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8016122461264548616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b3872658ae37946b8d2b9e8b960629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8016122461277892323
 GameObject:
   m_ObjectHideFlags: 0

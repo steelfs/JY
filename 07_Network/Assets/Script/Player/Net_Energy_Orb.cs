@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -35,7 +36,10 @@ public class Net_Energy_Orb : NetworkBehaviour
     IEnumerator Self_DeSpawn()
     {
         yield return new WaitForSeconds(lifeTime);
-        this.NetworkObject.Despawn();
+        if (IsServer)
+        {
+            this.NetworkObject.Despawn();
+        }
     }
     private void OnCollisionEnter(Collision collision)//awake 타이밍 이후 언제든 발동 가능하다
     {
@@ -43,7 +47,16 @@ public class Net_Energy_Orb : NetworkBehaviour
             return;
 
         vfx.SetFloat("Size", 5);
-        // StartCoroutine(Explosion());
+
+        NetPlayer player = collision.gameObject.GetComponent<NetPlayer>();
+        player.Die();
+        EffectProcessClientRpc();
+
+    }
+
+    [ClientRpc]
+    void EffectProcessClientRpc()//서버가 클라이언트에게 로컬 함수실행을 요청
+    {
         rb.drag = float.MaxValue;
         rb.angularDrag = float.MaxValue;
         StartCoroutine(Effect());

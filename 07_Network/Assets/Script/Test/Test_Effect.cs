@@ -8,6 +8,6 @@ public class Test_Effect : TestBase
     protected override void Test1(InputAction.CallbackContext context)
     {
         NetPlayer player = GameManager.Inst.Player;
-        player.IsEffectOn = !player.IsEffectOn;
+        player.Die();
     }
 }

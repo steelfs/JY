@@ -43,6 +43,9 @@ public class Net_Bullet : NetworkBehaviour
         {
             if (IsServer)
             this.NetworkObject.Despawn();
+
+            NetPlayer player = collision.gameObject.GetComponent<NetPlayer>();
+            player.Die();
         }
         else if (reflectCount > 0)
         {
