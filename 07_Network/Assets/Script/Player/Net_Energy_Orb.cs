@@ -13,7 +13,7 @@ public class Net_Energy_Orb : NetworkBehaviour
     Rigidbody rb;
     VisualEffect vfx;
 
-
+    
 
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class Net_Energy_Orb : NetworkBehaviour
         rb.velocity = speed * transform.forward;
         if (IsServer)
         {
-            StartCoroutine(Self_DeSpawn());
+           // StartCoroutine(Self_DeSpawn());
         }
     }
 
@@ -42,24 +42,54 @@ public class Net_Energy_Orb : NetworkBehaviour
         if (!this.NetworkObject.IsSpawned)
             return;
 
-        StartCoroutine(Explosion());
+        vfx.SetFloat("Size", 5);
+        // StartCoroutine(Explosion());
+        rb.drag = float.MaxValue;
+        rb.angularDrag = float.MaxValue;
+        StartCoroutine(Effect());
     }
-    IEnumerator Explosion()
+
+    IEnumerator Effect()
     {
-        float time = 0.1f;
-        while (time < 2.1f)
+        float elapsedTime = 0.1f;
+        while(elapsedTime < 0.5f)
         {
-            time += expandSpeed * Time.deltaTime;
-            vfx.SetFloat("Size", time);
+            elapsedTime += Time.deltaTime;
+            vfx.SetFloat("Size", elapsedTime * 10);
             yield return null;
         }
-        while (time > 0.0001f)
+        elapsedTime = 1.0f;
+        while(elapsedTime > 0.0f)
         {
-            time -= expandSpeed * Time.deltaTime;
-            vfx.SetFloat("Size", time);
+            elapsedTime -= Time.deltaTime;
+            vfx.SetFloat("Size",elapsedTime * 5);
+            yield return null;
+        }
+        vfx.SendEvent("EffectFinish");//파티클 생성중지 이벤트 실행
+        while(vfx.aliveParticleCount > 0)//살아있는 파티클이 없으면 Despawn
+        {
             yield return null;
         }
         if (IsServer)
-            this.NetworkObject.Despawn();
+        this.NetworkObject.Despawn();
     }
+
+    //IEnumerator Explosion()
+    //{
+    //    float time = 0.1f;
+    //    while (time < 2.1f)
+    //    {
+    //        time += expandSpeed * Time.deltaTime;
+    //        vfx.SetFloat("Size", time);
+    //        yield return null;
+    //    }
+    //    while (time > 0.0001f)
+    //    {
+    //        time -= expandSpeed * Time.deltaTime;
+    //        vfx.SetFloat("Size", time);
+    //        yield return null;
+    //    }
+    //    if (IsServer)
+    //        this.NetworkObject.Despawn();
+    //}
 }

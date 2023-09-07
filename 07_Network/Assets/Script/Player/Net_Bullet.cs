@@ -8,8 +8,8 @@ public class Net_Bullet : NetworkBehaviour
 {
     public float speed = 10.0f;
     Rigidbody rb;
-    public float lifeTime = 5.0f;
-    public int crash = 0;
+    public float lifeTime = 10.0f;
+    public int reflectCount = 2;
 
     private void Awake()
     {
@@ -42,24 +42,20 @@ public class Net_Bullet : NetworkBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             if (IsServer)
-                this.NetworkObject.Despawn();
+            this.NetworkObject.Despawn();
+        }
+        else if (reflectCount > 0)
+        {
+            transform.forward = Vector3.Reflect(transform.forward, collision.GetContact(0).normal);
+            rb.angularVelocity = Vector3.zero;
+            rb.velocity = speed * transform.forward;
+            reflectCount--;
         }
         else
         {
-            Vector3 incoming = rb.velocity.normalized;
-            Vector3 normal = collision.GetContact(0).normal;
-
-            Vector3 reflect = Vector3.Reflect(incoming, normal);
-
-            rb.velocity = reflect * speed;
-            crash++;
-        }
-        if (crash > 2)
-        {
             if (IsServer)
-                this.NetworkObject.Despawn();
+                this.NetworkObject.Despawn();//이미 2번이상 튕겼으면
         }
-        //this.NetworkObject.Despawn();
     }
 }
  

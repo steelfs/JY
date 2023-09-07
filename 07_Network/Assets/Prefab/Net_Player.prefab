@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 7108921405814637515}
   - component: {fileID: 387036295131953802}
   - component: {fileID: 2565953693077660640}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: NamePlate(Canvas)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +452,7 @@ GameObject:
   - component: {fileID: 5760719940473523556}
   - component: {fileID: 9129347207995445171}
   - component: {fileID: 3201833906449128315}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Net_Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -547,7 +547,6 @@ MonoBehaviour:
         byte0029: 0
   position:
     m_InternalValue: {x: 0, y: 0, z: 0}
-  fire_Pos: {fileID: 4371402969620845618}
   bullet: {fileID: 8315564322511062776, guid: 1358df600de99be489c8ef41c65330bd, type: 3}
   energy_Orb: {fileID: 8015666394498926014, guid: fb710b17d3916354e988da00617d7dcb,
     type: 3}
@@ -1113,7 +1112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4371402969620845618}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Fire_Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2162,7 +2161,7 @@ GameObject:
   - component: {fileID: 4515662179853750325}
   - component: {fileID: 8719388554630178798}
   - component: {fileID: 1856212390048900256}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2748,7 +2747,7 @@ GameObject:
   - component: {fileID: 6635729996226630341}
   - component: {fileID: 92752235739369285}
   - component: {fileID: 6190317539014387011}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

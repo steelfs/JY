@@ -24,9 +24,6 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614602}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614604}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614721}
       id: 0
       isStickyNote: 0
@@ -48,15 +45,6 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614637}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614639}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614659}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614769}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614757}
       id: 1
       isStickyNote: 0
@@ -66,22 +54,10 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614606}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614634}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614734}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614739}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614757}
       id: 2
       isStickyNote: 0
     - model: {fileID: 8926484042661614684}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614686}
       id: 0
       isStickyNote: 0
     - model: {fileID: 8926484042661614662}
@@ -90,28 +66,7 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614665}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614680}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614681}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614784}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614706}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614709}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614712}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614785}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614710}
       id: 0
       isStickyNote: 0
     - model: {fileID: 8926484042661614787}
@@ -123,14 +78,55 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614795}
       id: 0
       isStickyNote: 0
+  - title: "\uAD6C\uD615 \uB9C9 "
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 100
+      height: 100
+    contents:
+    - model: {fileID: 8926484042661614757}
+      id: 4
+      isStickyNote: 0
+    - model: {fileID: 8926484042661614757}
+      id: 5
+      isStickyNote: 0
+    - model: {fileID: 8926484042661614860}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661614889}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661614901}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661614922}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661614957}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661614856}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661614891}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661614963}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661614723}
+      id: 2
+      isStickyNote: 0
   stickyNoteInfos: []
   categories: []
   uiBounds:
     serializedVersion: 2
     x: -1809
-    y: -1555
+    y: -1748
     width: 3160
-    height: 3840
+    height: 3580
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -177,6 +173,9 @@ MonoBehaviour:
   - {fileID: 8926484042661614922}
   - {fileID: 8926484042661614957}
   - {fileID: 8926484042661614963}
+  - {fileID: 8926484042661614974}
+  - {fileID: 8926484042661614976}
+  - {fileID: 8926484042661614979}
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
@@ -299,10 +298,12 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots: []
   m_Label: 
-  m_Data: {fileID: 8926484042661614713}
+  m_Data: {fileID: 8926484042661614981}
   m_InputFlowSlot:
   - link: []
-  - link: []
+  - link:
+    - context: {fileID: 8926484042661614979}
+      slotIndex: 0
   m_OutputFlowSlot:
   - link:
     - context: {fileID: 8926484042661614606}
@@ -3255,27 +3256,6 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots: []
   m_Disabled: 0
---- !u!114 &8926484042661614713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f68759077adc0b143b6e1c101e82065e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UIIgnoredErrors: []
-  m_Parent: {fileID: 114350483966674976}
-  m_Children: []
-  m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
-  m_UISuperCollapsed: 0
-  title: 
-  m_Owners:
-  - {fileID: 8926484042661614602}
 --- !u!114 &8926484042661614714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3492,7 +3472,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614724}
       inputSlot: {fileID: 8926484042661614969}
-    position: {x: -1530.0502, y: 2154.6501}
+    position: {x: -1163, y: 1756}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614724
@@ -5930,10 +5910,12 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots: []
   m_Label: 
-  m_Data: {fileID: 8926484042661614825}
+  m_Data: {fileID: 8926484042661614975}
   m_InputFlowSlot:
   - link: []
-  - link: []
+  - link:
+    - context: {fileID: 8926484042661614974}
+      slotIndex: 0
   m_OutputFlowSlot:
   - link:
     - context: {fileID: 8926484042661614802}
@@ -6639,27 +6621,6 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
   m_Direction: 0
   m_LinkedSlots: []
---- !u!114 &8926484042661614825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f68759077adc0b143b6e1c101e82065e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UIIgnoredErrors: []
-  m_Parent: {fileID: 114350483966674976}
-  m_Children: []
-  m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
-  m_UISuperCollapsed: 0
-  title: 
-  m_Owners:
-  - {fileID: 8926484042661614800}
 --- !u!114 &8926484042661614826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7600,16 +7561,18 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children:
   - {fileID: 8926484042661614858}
-  m_UIPosition: {x: -1344, y: 209}
+  m_UIPosition: {x: -1344, y: 288}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots: []
   m_Label: Spawn system
-  m_Data: {fileID: 8926484042661614899}
+  m_Data: {fileID: 8926484042661614978}
   m_InputFlowSlot:
   - link: []
-  - link: []
+  - link:
+    - context: {fileID: 8926484042661614976}
+      slotIndex: 0
   m_OutputFlowSlot:
   - link:
     - context: {fileID: 8926484042661614860}
@@ -8673,7 +8636,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614897}
   - {fileID: 8926484042661614961}
   - {fileID: 8926484042661614968}
-  m_UIPosition: {x: -1344, y: 1568}
+  m_UIPosition: {x: -745, y: 759}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -8896,27 +8859,6 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   m_Direction: 0
   m_LinkedSlots: []
---- !u!114 &8926484042661614899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f68759077adc0b143b6e1c101e82065e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UIIgnoredErrors: []
-  m_Parent: {fileID: 114350483966674976}
-  m_Children: []
-  m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
-  m_UISuperCollapsed: 0
-  title: 
-  m_Owners:
-  - {fileID: 8926484042661614856}
 --- !u!114 &8926484042661614900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11024,7 +10966,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -1577, y: 1952}
+  m_UIPosition: {x: -1199, y: 1608}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -11324,3 +11266,156 @@ MonoBehaviour:
   m_Disabled: 0
   mode: 1
   axes: 4
+--- !u!114 &8926484042661614974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2461f61b3c026d54db1951a4e17ab20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UIIgnoredErrors: []
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: -1268, y: -1399}
+  m_UICollapsed: 0
+  m_UISuperCollapsed: 0
+  m_InputSlots: []
+  m_OutputSlots: []
+  m_Label: 
+  m_Data: {fileID: 8926484042661614975}
+  m_InputFlowSlot:
+  - link: []
+  m_OutputFlowSlot:
+  - link:
+    - context: {fileID: 8926484042661614800}
+      slotIndex: 1
+  eventName: EffectFinish
+--- !u!114 &8926484042661614975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68759077adc0b143b6e1c101e82065e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UIIgnoredErrors: []
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  title: 
+  m_Owners:
+  - {fileID: 8926484042661614974}
+  - {fileID: 8926484042661614800}
+--- !u!114 &8926484042661614976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2461f61b3c026d54db1951a4e17ab20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UIIgnoredErrors: []
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: -957, y: 31}
+  m_UICollapsed: 0
+  m_UISuperCollapsed: 0
+  m_InputSlots: []
+  m_OutputSlots: []
+  m_Label: 
+  m_Data: {fileID: 8926484042661614978}
+  m_InputFlowSlot:
+  - link: []
+  m_OutputFlowSlot:
+  - link:
+    - context: {fileID: 8926484042661614856}
+      slotIndex: 1
+  eventName: OnCollision
+--- !u!114 &8926484042661614978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68759077adc0b143b6e1c101e82065e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UIIgnoredErrors: []
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  title: 
+  m_Owners:
+  - {fileID: 8926484042661614976}
+  - {fileID: 8926484042661614856}
+--- !u!114 &8926484042661614979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2461f61b3c026d54db1951a4e17ab20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UIIgnoredErrors: []
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: 36, y: -1748}
+  m_UICollapsed: 0
+  m_UISuperCollapsed: 0
+  m_InputSlots: []
+  m_OutputSlots: []
+  m_Label: 
+  m_Data: {fileID: 8926484042661614981}
+  m_InputFlowSlot:
+  - link: []
+  m_OutputFlowSlot:
+  - link:
+    - context: {fileID: 8926484042661614602}
+      slotIndex: 1
+  eventName: EffectFinish
+--- !u!114 &8926484042661614981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68759077adc0b143b6e1c101e82065e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UIIgnoredErrors: []
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  title: 
+  m_Owners:
+  - {fileID: 8926484042661614979}
+  - {fileID: 8926484042661614602}
