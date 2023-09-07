@@ -23,6 +23,9 @@ public class NetPlayer : NetworkBehaviour
     float moveSpeed = 3.0f;
     float rotateSpeed = 180.0f;
 
+    Transform fire_Pos;
+    public GameObject bullet;
+    public GameObject energy_Orb;
    
     Material bodyMat;
     NetworkVariable<bool> netEffectState = new NetworkVariable<bool>();
@@ -79,6 +82,7 @@ public class NetPlayer : NetworkBehaviour
         Renderer renderer = transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>();
         bodyMat = renderer.material;
         netEffectState.OnValueChanged += OnEffectChange;
+        fire_Pos = transform.GetChild(4).transform;
     }
 
 
@@ -92,6 +96,8 @@ public class NetPlayer : NetworkBehaviour
             action.Player.MoveForward.canceled += OnMove;
             action.Player.Rotate.performed += OnRotate;
             action.Player.Rotate.canceled += OnRotate;
+            action.Player.Attack01.performed += On_Attack01;
+            action.Player.Attack02.performed += On_Attack02;
 
             SetSpawnPos();
 
@@ -99,17 +105,32 @@ public class NetPlayer : NetworkBehaviour
             GameManager.Inst.VirtualPad.onMoveInput += (inputDir) => SetMoveInput(inputDir.y);
             GameManager.Inst.VirtualPad.onMoveInput += (inputDir) => SetRotateInput(inputDir.x);
 
-          
+            GameManager.Inst.VirtualPad.onAttack01Input = Attack01;
+            GameManager.Inst.VirtualPad.onAttack02Input = Attack02;
 
-            //GameManager.Inst.VirtualPad.onMoveInput = (inputDir) =>
-            //{
-            //    SetMoveInput(inputDir.y);
-            //    SetRotateInput(inputDir.x);
-            //};
         }
     }
 
+    private void On_Attack01(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        Attack01();
+    }
 
+    private void On_Attack02(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        Attack02();
+    }
+
+    public void Attack01()
+    {
+        RequestSpawnServerRpc();
+    }
+    public void Attack02()
+    {
+        RequestSpawnEnergyOrbServerRpc();
+    }
+
+ 
     public override void OnNetworkDespawn() // 네트워크 오브젝트가 디스폰 됐을 때 실행되는 함수 
     {
         if (IsOwner && action != null)
@@ -279,6 +300,29 @@ public class NetPlayer : NetworkBehaviour
     void UpdateNameStateServerRpc(string newName)// 함수 이름의 끝은 반드시 ServerRpc 이어야 한다 아니면 오류발생
     {
         nameString.Value = newName;
+    }
+
+    [ServerRpc]
+    void RequestSpawnServerRpc()
+    {
+        GameObject bullet_ = Instantiate(bullet, fire_Pos);
+        bullet_.transform.position = fire_Pos.position;
+        //bullet_.transform.rotation = fire_Pos.rotation;
+        NetworkObject netObj = bullet_.GetComponent<NetworkObject>();
+        netObj.Spawn();
+
+    }
+
+
+    [ServerRpc]
+    void RequestSpawnEnergyOrbServerRpc()
+    {
+        GameObject orb = Instantiate(energy_Orb, fire_Pos);
+        orb.transform.position = fire_Pos.position;
+      //  orb.transform.rotation = fire_Pos.rotation;
+        NetworkObject netObj = orb.GetComponent<NetworkObject>();
+        netObj.Spawn();
+
     }
 
     private void OnPositionChange(Vector3 previousValue, Vector3 newValue) //네트워크 변수  position이 변경되었을 때 실행될 함수  previousValue = 변경되기 전 값

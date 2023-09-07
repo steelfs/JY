@@ -10,7 +10,6 @@ public class NetPlayerDeco : NetworkBehaviour
     NetworkVariable<Color> bodyColor = new NetworkVariable<Color>();
     NetworkVariable<FixedString32Bytes> userName = new NetworkVariable<FixedString32Bytes>();
     NamePlate namePlate;
-    Logger logger;
 
     Renderer playerRenderer;
     Material bodyMat;
@@ -20,7 +19,6 @@ public class NetPlayerDeco : NetworkBehaviour
         playerRenderer = GetComponentInChildren<Renderer>();
         bodyMat = playerRenderer.material;
         namePlate = GetComponentInChildren<NamePlate>();
-        logger = FindObjectOfType<Logger>();
 
         bodyColor.OnValueChanged += OnColorChange;
         userName.OnValueChanged += OnNameSet;

@@ -1,16 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Virtual_Button : MonoBehaviour
+public class Virtual_Button : MonoBehaviour, IPointerDownHandler
 {
-    void Start()
-    {
-        
-    }
+    public Action on_Press;
 
-    void Update()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        
+        on_Press?.Invoke();
     }
 }

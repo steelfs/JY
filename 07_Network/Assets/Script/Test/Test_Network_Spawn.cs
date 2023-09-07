@@ -18,6 +18,14 @@ public class Test_Network_Spawn : Net_TestBase
     }
 
 
+    protected override void Test2(InputAction.CallbackContext context)
+    {
+        if (IsOwner)
+        {
+            RequestSpawnEnergyOrbServerRpc();
+    
+        }
+    }
     [ServerRpc]
     void RequestSpawnServerRpc()
     {
@@ -29,14 +37,6 @@ public class Test_Network_Spawn : Net_TestBase
 
     }
 
-    protected override void Test2(InputAction.CallbackContext context)
-    {
-        if (IsOwner)
-        {
-            RequestSpawnEnergyOrbServerRpc();
-    
-        }
-    }
 
     [ServerRpc]
     void RequestSpawnEnergyOrbServerRpc()

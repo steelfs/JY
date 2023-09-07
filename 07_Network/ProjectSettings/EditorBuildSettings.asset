@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Test/10_Network_Spawn.unity
-    guid: 7a5a3106cdc4b944d986456b94b26062
+    path: Assets/Scenes/Test/11_Net_Player_Attack.unity
+    guid: e7b2b490c8dfaf5409499e4adca6b55b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7,
       type: 2}
