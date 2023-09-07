@@ -27,7 +27,8 @@ public class NetPlayer : NetworkBehaviour
     public GameObject bullet;
     public GameObject energy_Orb;
 
-
+    public Action Activate_CoolTime_Bullet;
+    public Action Activate_CoolTime_Orb;
 
     Material bodyMat;
     NetworkVariable<bool> netEffectState = new NetworkVariable<bool>();
@@ -113,6 +114,9 @@ public class NetPlayer : NetworkBehaviour
             GameManager.Inst.VirtualPad.onAttack01Input = Attack01;
             GameManager.Inst.VirtualPad.onAttack02Input = Attack02;
 
+            Activate_CoolTime_Bullet += GameManager.Inst.VirtualPad[VirtualPad.ButtonType.Bullet].StartCoolDown;
+            Activate_CoolTime_Orb += GameManager.Inst.VirtualPad[VirtualPad.ButtonType.Orb].StartCoolDown;
+
         }
     }
 
@@ -128,11 +132,19 @@ public class NetPlayer : NetworkBehaviour
 
     public void Attack01()
     {
-        RequestSpawnServerRpc();
+        if (!GameManager.Inst.VirtualPad[VirtualPad.ButtonType.Bullet].Duration)
+        {
+            RequestSpawnServerRpc();
+            Activate_CoolTime_Bullet?.Invoke();
+        }
     }
     public void Attack02()
     {
-        RequestSpawnEnergyOrbServerRpc();
+        if (!GameManager.Inst.VirtualPad[VirtualPad.ButtonType.Orb].Duration)
+        {
+            RequestSpawnEnergyOrbServerRpc();
+            Activate_CoolTime_Orb?.Invoke();
+        }
     }
 
     public void Die()

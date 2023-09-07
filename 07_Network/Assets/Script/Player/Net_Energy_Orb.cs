@@ -47,9 +47,11 @@ public class Net_Energy_Orb : NetworkBehaviour
             return;
 
         vfx.SetFloat("Size", 5);
-
-        NetPlayer player = collision.gameObject.GetComponent<NetPlayer>();
-        player.Die();
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            NetPlayer player = collision.gameObject.GetComponent<NetPlayer>();
+            player.Die();
+        }
         EffectProcessClientRpc();
 
     }

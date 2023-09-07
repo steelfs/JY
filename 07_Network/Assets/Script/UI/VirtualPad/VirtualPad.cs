@@ -8,6 +8,7 @@ public class VirtualPad : MonoBehaviour
     Virtual_Stick stick;
     Virtual_Button[] button;
 
+    public Virtual_Button this[ButtonType type] => button[(int) type];
     public Action<Vector2> onMoveInput
     {
         get => stick.onMoveInput;

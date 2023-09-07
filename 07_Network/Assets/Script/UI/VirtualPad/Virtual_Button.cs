@@ -11,6 +11,17 @@ public class Virtual_Button : MonoBehaviour, IPointerDownHandler
 
     Image coolTimeImage;
     float coolDown = 3.0f;
+
+    bool duration = false;
+    public bool Duration
+    {
+        get => duration; 
+        set
+        {
+            duration = value;
+        }
+
+    }
     private void Awake()
     {
         coolTimeImage = transform.GetChild(0).GetChild(1).GetComponent<Image>();
@@ -26,14 +37,17 @@ public class Virtual_Button : MonoBehaviour, IPointerDownHandler
     }
     IEnumerator coolDownProcess()
     {
+        Duration = true;
         coolTimeImage.fillAmount = 1;
         float time = 0;
         while(time < coolDown)
         {
-            time += Time.deltaTime / coolDown;
-            coolTimeImage.fillAmount -= time;
+            time += Time.deltaTime;
+            coolTimeImage.fillAmount -= Time.deltaTime / coolDown;
             yield return null;
 
         }
+        Duration = false;
+        Debug.Log("ÃÊ±âÈ­");
     }
 }
