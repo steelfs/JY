@@ -10,6 +10,8 @@ public class Net_Energy_Orb : NetworkBehaviour
     public float speed = 5.0f;
     public float lifeTime = 5.0f;
 
+    public float maxSize = 5.0f;
+
     float expandSpeed = 20.0f;
     Rigidbody rb;
     VisualEffect vfx;
@@ -29,16 +31,17 @@ public class Net_Energy_Orb : NetworkBehaviour
         rb.velocity = speed * transform.forward;
         if (IsServer)
         {
-           // StartCoroutine(Self_DeSpawn());
+            StartCoroutine(Self_DeSpawn());
         }
     }
 
     IEnumerator Self_DeSpawn()
     {
         yield return new WaitForSeconds(lifeTime);
-        if (IsServer)
+
+        if (IsOwner)
         {
-            this.NetworkObject.Despawn();
+            Request_Despawn_ServerRpc();
         }
     }
     private void OnCollisionEnter(Collision collision)//awake 타이밍 이후 언제든 발동 가능하다
@@ -46,14 +49,56 @@ public class Net_Energy_Orb : NetworkBehaviour
         if (!this.NetworkObject.IsSpawned)
             return;
 
-        vfx.SetFloat("Size", 5);
-        if (collision.gameObject.CompareTag("Player"))
+        //범위안에 들어온 적 모두 Die 실행
+
+        Collider[] result = (Physics.OverlapSphere(transform.position, maxSize, LayerMask.GetMask("Player")));
+        
+        if (result.Length > 0)
         {
-            NetPlayer player = collision.gameObject.GetComponent<NetPlayer>();
-            player.Die();
+            List<ulong> targets = new List<ulong>(result.Length);
+            foreach (Collider coll in result)
+            {
+                NetPlayer netPlayer = coll.gameObject.GetComponent<NetPlayer>();
+                targets.Add(netPlayer.OwnerClientId);
+
+                ClientRpcParams rpcParams = new ClientRpcParams
+                {
+                    Send = new ClientRpcSendParams
+                    {
+                        TargetClientIds = targets.ToArray() //어떤 클라이언트에게 rpc를 보낼 것인가?// 이 배열에 지정된 클라이언트만 rpc를 받는다.
+
+                    }
+                };
+                Request_PlayerDie_ClientRpc();
+            }
+
         }
         EffectProcessClientRpc();
 
+
+
+        //if (collision.gameObject.CompareTag("Player"))
+        //{
+
+        //    NetPlayer[] netPlayers = collision.gameObject.GetComponents<NetPlayer>();
+        //    foreach (var netPlayer in netPlayers)
+        //    {
+        //        ClientRpcParams rpcParams = new ClientRpcParams
+        //        {
+        //            Send = new ClientRpcSendParams
+        //            {
+        //                TargetClientIds = new ulong[] { netPlayer.OwnerClientId }//어떤 클라이언트에게 rpc를 보낼 것인가?// 이 배열에 지정된 클라이언트만 rpc를 받는다.
+        //            }
+        //        };
+        //        Request_PlayerDie_ClientRpc(rpcParams);
+        //    }
+        //}
+    }
+
+    [ClientRpc]
+    void Request_PlayerDie_ClientRpc(ClientRpcParams clientRpcParams = default)
+    {
+        GameManager.Inst.Player.Die();
     }
 
     [ClientRpc]
@@ -64,13 +109,19 @@ public class Net_Energy_Orb : NetworkBehaviour
         StartCoroutine(Effect());
     }
 
+    [ServerRpc]
+    void Request_Despawn_ServerRpc()
+    {
+        this.NetworkObject.Despawn();
+    }
+
     IEnumerator Effect()
     {
         float elapsedTime = 0.1f;
         while(elapsedTime < 0.5f)
         {
             elapsedTime += Time.deltaTime;
-            vfx.SetFloat("Size", elapsedTime * 10);
+            vfx.SetFloat("Size", elapsedTime * 5);
             yield return null;
         }
         elapsedTime = 1.0f;
@@ -85,8 +136,10 @@ public class Net_Energy_Orb : NetworkBehaviour
         {
             yield return null;
         }
-        if (IsServer)
-        this.NetworkObject.Despawn();
+        if (IsOwner)
+        {
+            Request_Despawn_ServerRpc();
+        }
     }
 
     //IEnumerator Explosion()
