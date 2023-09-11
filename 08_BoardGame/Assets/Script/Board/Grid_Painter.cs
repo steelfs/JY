@@ -7,31 +7,44 @@ public class Grid_Painter : MonoBehaviour
 {
     public GameObject line_Prefab;
     public GameObject letter_Prefab;
+    TextMeshPro letter;
 
+    Vector3 vertical_Origin;
+    Vector3 horizontal_Origin;
 
-    Vector3 origin;
-    byte maxLine = 10;
+    Vector3 horizontal_Letter_Origin;
+    Vector3 vertical_Letter_Origin;
+    byte maxLine;
     private void Start()
     {
+        maxLine = 10;
+        vertical_Origin = Vector3.zero;
+        horizontal_Origin = new Vector3(5, 0, 5);
+
+        horizontal_Letter_Origin = new Vector3(0.5f, 0, 5.5f);
+        vertical_Letter_Origin = new Vector3(-0.5f, 0, 4.5f);
         RenderLines();
     }
     void RenderLines()
     {
-        Vector3 newPos = Vector3.zero;
-        origin = new Vector3(0.5f, 0, 4.5f);
+        char[] chars = new char[10] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+
         for (int i = 0; i < maxLine; i++)
         {
-            newPos.x = -i;
-            Instantiate(line_Prefab, newPos, Quaternion.identity);
-            Instantiate(line_Prefab, new Vector3(-4, 0, 5 - i), Quaternion.Euler(0, -90, 0));
+            vertical_Origin.x = i;
+            horizontal_Origin.z = 5 - i;
+            Instantiate(line_Prefab, vertical_Origin, Quaternion.identity, transform);
+            Instantiate(line_Prefab, horizontal_Origin, Quaternion.Euler(0, -90, 0), transform);
 
-            origin.z -= i;
-            Instantiate(letter_Prefab, Vector2.zero, Quaternion.Euler(90,90,0));
-           // Instantiate(letter_Prefab, origin, Quaternion.Euler(90, 90, 0));
-            //Instantiate(line_Prefab, newPos,Quaternion.identity);
-            //newPos.x = 4 + i;
-            //newPos.z = 4 + i;
-            //Instantiate(line_Prefab, newPos, Quaternion.Euler(0,-90,0));
+            horizontal_Letter_Origin.x = 0.5f + i;
+            vertical_Letter_Origin.z = 4.5f - i;
+            GameObject horizontal_Letter = Instantiate(letter_Prefab, horizontal_Letter_Origin, Quaternion.Euler(90, 0, 0),transform);
+            GameObject vertical_Letter = Instantiate(letter_Prefab, vertical_Letter_Origin, Quaternion.Euler(90, 0, 0), transform);
+
+            letter = horizontal_Letter.GetComponent<TextMeshPro>();
+            letter.text = chars[i].ToString();
+            letter = vertical_Letter.GetComponent<TextMeshPro>();
+            letter.text = $"{i}";
         }
     }
 }
