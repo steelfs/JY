@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-09-08T02:57:24.948Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="NRNlZwJXRrTUgXzcKdcb" version="21.2.8" type="device">
+<mxfile host="Electron" modified="2023-09-10T02:47:54.727Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="fC6HueGnPg11DVk4Vn8A" version="21.6.5" type="device">
   <diagram name="페이지-1" id="Y0iXRkvAM-1YV0ZKi8Jv">
-    <mxGraphModel dx="903" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -12,6 +12,12 @@
         </mxCell>
         <mxCell id="s7bNv4TcrWVHtnhIlflD-3" value="Member&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;void Attack (IBattle target);&lt;br&gt;void Defence (int damage);" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="315" y="310" width="230" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="45RLXIeBVYZl5fLTn_qE-1" value="MP, 행동력 =&amp;gt; Stamina 통합 플레이어 체력바 밑 팝업 및 업데이트&lt;br&gt;&lt;br&gt;타일 1칸 이동, 포션1개 섭취 밑 장비1개&amp;nbsp; 교체 당 stamina 1 소모&lt;br&gt;&lt;br&gt;턴 종료버튼 삭제 Move 버튼 없애고&amp;nbsp; 플레이어 턴 시작시 곧바로 플레이어 선택상태로 변경&lt;br&gt;이동가능 범위 팝업 액션 취할 시 곧바로 스테미너 차감&lt;br&gt;&lt;br&gt;스테미너 모두 소진시 자동으로 턴 종료&amp;nbsp;&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="164" y="510" width="500" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="45RLXIeBVYZl5fLTn_qE-2" value="스테미너가 남은 상태에서 스킬버튼클릭시 사용가능한 스킬아이콘 팝업&lt;br&gt;&lt;br&gt;스킬선택 후 이동가능 범위에 클릭 가능하고 그곳에 적이 있을 경우에만 스킬발동 -&amp;gt; 적 HP 차감&lt;br&gt;&lt;br&gt;or 단축키 스킬, 공격 등록 후 해당 버튼 누르면 스킬선택 -&amp;gt; 사정거리 안에 적 있을시 스킬, 공격 가능" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="164" y="680" width="500" height="150" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

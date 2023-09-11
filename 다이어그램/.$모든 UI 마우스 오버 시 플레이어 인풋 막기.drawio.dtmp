@@ -1,0 +1,13 @@
+<mxfile host="Electron" modified="2023-09-08T19:52:21.279Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="QY8fmNeZV_m54WF3QZU-" version="21.6.5" type="device">
+  <diagram name="페이지-1" id="KfPam18oOY2XokfUxl9K">
+    <mxGraphModel dx="1098" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vvPMLEgvCMUMZpaGIHNO-1" value="Canvas 밑의 Monobihaviour 를 모두 찾은 다음 그 중 Ipointerenter 가 붙은 것들을 리스트에 추가한 후 리스트 순회하며 인풋 비활성화" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="330" width="276" height="190" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
