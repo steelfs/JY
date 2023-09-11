@@ -1,0 +1,22 @@
+<mxfile host="Electron" modified="2023-09-11T04:05:03.479Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="WH9H6k25jqTqo-H68snB" version="21.2.8" type="device">
+  <diagram name="페이지-1" id="hIyFP2Q0b-xrvic73k0b">
+    <mxGraphModel dx="1098" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LHs9VIVdAj3EkEz8fFQC-1" value="배틀쉽" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="294" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LHs9VIVdAj3EkEz8fFQC-2" value="씬 : 타이틀 씬, 함선 배치씬, 전투씬" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="270" width="330" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LHs9VIVdAj3EkEz8fFQC-3" value="타이틀 씬 :&lt;br&gt;1. 모든 종류의 입력 받기&amp;nbsp;&lt;br&gt;2. 함선 배치 씬 열기" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="380" width="330" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LHs9VIVdAj3EkEz8fFQC-4" value="함선 배치 씬&lt;br&gt;&lt;br&gt;1.그리드(배가 배치된 정보 ), 그리드 그리기&lt;br&gt;2. 배치&lt;br&gt;수동배치 -&amp;nbsp;&lt;br&gt;&lt;br&gt;&amp;nbsp;랜덤배치" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="125" y="450" width="520" height="210" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
