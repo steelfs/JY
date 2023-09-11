@@ -1,0 +1,25 @@
+<mxfile host="Electron" modified="2023-09-11T04:14:41.264Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="hjuQKsTa13oY1FvEaPVG" version="21.2.8" type="device">
+  <diagram name="페이지-1" id="hIyFP2Q0b-xrvic73k0b">
+    <mxGraphModel dx="1098" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LHs9VIVdAj3EkEz8fFQC-1" value="배틀쉽" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="294" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LHs9VIVdAj3EkEz8fFQC-2" value="씬 : 타이틀 씬, 함선 배치씬, 전투씬" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="270" width="330" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LHs9VIVdAj3EkEz8fFQC-3" value="타이틀 씬 :&lt;br&gt;1. 모든 종류의 입력 받기&amp;nbsp;&lt;br&gt;2. 함선 배치 씬 열기" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="380" width="330" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LHs9VIVdAj3EkEz8fFQC-4" value="함선 배치 씬&lt;br&gt;&lt;br&gt;1.그리드(보드)(배가 배치된 정보 ), 그리드 그리기&lt;br&gt;2. 배치&lt;br&gt;수동배치 - 마우스 위치 정보 (좌표 변환 기능)&lt;br&gt;마우스 입력정보&amp;nbsp; (클릭, 휠)&lt;br&gt;배치할 배의 선택 및 해제&amp;nbsp;&lt;br&gt;배치가능 여부 판단&lt;br&gt;&lt;br&gt;&amp;nbsp;랜덤배치&lt;br&gt;적절한 위치 찾기 , 길이, 외곽지역&lt;br&gt;&lt;br&gt;전투씬 넘어가기&lt;br&gt;모든 배가 배치 되었는지 확인" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="125" y="450" width="520" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="LHs9VIVdAj3EkEz8fFQC-5" value="전투 씬&lt;br&gt;&lt;br&gt;1. 턴 처리 (턴 표시, 턴당 한번씩만 공격, 턴 정보 로그창, UI에 출력)&lt;br&gt;&lt;br&gt;2. 공격한 위치 표시 (명중, 오발)&lt;br&gt;적 함선 침몰 체크&amp;nbsp;&lt;br&gt;&lt;br&gt;&lt;br&gt;적의 공격&lt;br&gt;적절한 공격지점 찾기&lt;br&gt;게임오버/ 클리어 처리&lt;br&gt;기록&lt;br&gt;명중률,&lt;br&gt;&lt;br&gt;재시작 함선배치씬&amp;nbsp;&lt;br&gt;&lt;br&gt;정보출력창&lt;br&gt;콘솔창" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="710" width="560" height="330" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
