@@ -1,0 +1,13 @@
+<mxfile host="Electron" modified="2023-09-11T13:14:59.839Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="YVxM78iRlZX53fknGzsV" version="21.6.5" type="device">
+  <diagram name="페이지-1" id="tkd3RrJcNTGJ8s4zK3Uf">
+    <mxGraphModel dx="1098" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="873r5EHgvqiH_KXPxaZl-1" value="Enum&lt;br&gt;DeSelect,&lt;br&gt;Normal_Attack,&lt;br&gt;Skill&lt;br&gt;&lt;br&gt;DeSelect 시 랜더 프리팹 파괴&lt;br&gt;&lt;br&gt;일반공격상태 = 가로, 세로 좌표 1 크기의 정사각형 라인렌더러 프리팹 생성&amp;nbsp;&lt;br&gt;&lt;br&gt;스킬상태 변경 시 SkillData를 파라미터로 받는 함수 실행&lt;br&gt;Skill의 종류에 따라 다른 크기의 라인랜더 프리팹 생성" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="140" width="310" height="250" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
