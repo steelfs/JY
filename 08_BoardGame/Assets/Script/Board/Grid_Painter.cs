@@ -17,7 +17,7 @@ public class Grid_Painter : MonoBehaviour
     byte maxLine;
     private void Start()
     {
-        maxLine = 10;
+        maxLine = 11;
         vertical_Origin = Vector3.zero;
         horizontal_Origin = new Vector3(5, 0, 5);
 
@@ -35,16 +35,21 @@ public class Grid_Painter : MonoBehaviour
             horizontal_Origin.z = 5 - i;
             Instantiate(line_Prefab, vertical_Origin, Quaternion.identity, transform);
             Instantiate(line_Prefab, horizontal_Origin, Quaternion.Euler(0, -90, 0), transform);
-
-            horizontal_Letter_Origin.x = 0.5f + i;
-            vertical_Letter_Origin.z = 4.5f - i;
-            GameObject horizontal_Letter = Instantiate(letter_Prefab, horizontal_Letter_Origin, Quaternion.Euler(90, 0, 0),transform);
+        }
+        int j = 0;
+        while(j < 10)
+        {
+            horizontal_Letter_Origin.x = 0.5f + j;
+            vertical_Letter_Origin.z = 4.5f - j;
+            GameObject horizontal_Letter = Instantiate(letter_Prefab, horizontal_Letter_Origin, Quaternion.Euler(90, 0, 0), transform);
             GameObject vertical_Letter = Instantiate(letter_Prefab, vertical_Letter_Origin, Quaternion.Euler(90, 0, 0), transform);
 
             letter = horizontal_Letter.GetComponent<TextMeshPro>();
-            letter.text = chars[i].ToString();
+            letter.text = chars[j].ToString();
             letter = vertical_Letter.GetComponent<TextMeshPro>();
-            letter.text = $"{i}";
+            letter.text = $"{j}";
+            j++;
         }
+
     }
 }
