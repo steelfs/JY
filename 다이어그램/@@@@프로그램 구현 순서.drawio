@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-09-12T23:53:07.227Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="upp3vFT8S8LZTbEg_NhS" version="21.2.8" type="device">
+<mxfile host="Electron" modified="2023-09-12T23:53:11.105Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="wm-pXQKppTkf3exo9sme" version="21.2.8" type="device">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="903" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -31,7 +31,7 @@
         <mxCell id="z50qVwQU5YurgJMq-t4P-1" value="이 액션엔 어떤 조건들이 있는가?" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="260" y="370" width="251" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="VEwuiAJ2c2zbvh4HyfRj-0" value="어디에서 어떤 신호를 받았을 때&amp;nbsp;&lt;br&gt;어디로 신호를 보낼 것인가?" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="VEwuiAJ2c2zbvh4HyfRj-0" value="어디에서@ &lt;br&gt;&lt;br&gt;어떤 신호를 받았을 때 (어떤 행동을 했을 때 )&lt;br&gt;&lt;br&gt;어디로 신호를 보낼 것인가?&lt;br&gt;&lt;br&gt;그 신호를 받아서 어떤 행동을 할 것인가?" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="520" y="100" width="251" height="220" as="geometry" />
         </mxCell>
       </root>
