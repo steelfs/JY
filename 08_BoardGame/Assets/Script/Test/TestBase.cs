@@ -26,6 +26,11 @@ public class TestBase : MonoBehaviour
         inputActions.Test.Test7.performed += Test7;
         inputActions.Test.Test8.performed += Test8;
         inputActions.Test.Test9.performed += Test9;
+        inputActions.Test.LClick.performed += LClick;
+    }
+
+    protected virtual void LClick(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
     }
 
     protected virtual void Test9(UnityEngine.InputSystem.InputAction.CallbackContext obj)
