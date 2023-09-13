@@ -9,5 +9,8 @@ public class Test_04_ShipDeploy : TestBase
     //3. 우클릭하면 그 위치에 있는 배가 배치 해제된다.
     // 4. 휠 버튼을 이용해서 배를 배치 전에 회전시킬 수 있어야 한다/
 
-    // board에서 배치
+    // board에서 배치 manager에서 생성
+
+
+    
 }
