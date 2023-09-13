@@ -119,11 +119,11 @@ public class Ship : MonoBehaviour
 
     public void Deploy(Vector2Int position)//배치될 위치
     {
-
+        //위치 저장
     }
     public void UnDeploy()
     {
-
+        // 초기화
     }
     public void Rotate(bool isCW = true)//함선을 90도씩 회전시키는 함수 true = 반시계방향 회전, false면 시계방향
     {

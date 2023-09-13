@@ -10,8 +10,40 @@ public class Board : MonoBehaviour
 
     public const int Board_Size = 10;
     public const int NOT_VALID_INDEX = -1;
+
+    ShipType[] shipInfo; // 보드에 배치된 배 정보. 겹침 방지
     //클릭한 지점 그리드좌표로 로그 
 
+    private void Awake()
+    {
+        shipInfo = new ShipType[Board_Size * Board_Size];
+    }
+
+    public bool shipDeployment(Ship ship, Vector2Int gridPos)//함선을 배치하는 함수 , 안겹쳐서 성공시 true리턴 // gridPos 함선 머리 위치
+    {
+        return false;
+    }
+
+    public bool IsShipDeployment(Ship ship, Vector2Int gridPos, out Vector2Int[] resultPos) //특정 배 가 특정 위치에 배치될 수 있는지 확인하는 함수  out = 확실하게 배치할 수 있는 위치(true일 때만)
+    {
+        resultPos = null;
+        return false;
+    }
+    public bool IsShipDeployment(Ship ship, Vector2Int gridPos) //특정 배 가 특정 위치에 배치될 수 있는지 확인하는 함수  out = 확실하게 배치할 수 있는 위치(true일 때만)
+    {
+        return false;
+    }
+    public bool IsShipDeployment(Ship ship, Vector3 world) //특정 배 가 특정 위치에 배치될 수 있는지 확인하는 함수  out = 확실하게 배치할 수 있는 위치(true일 때만)
+    {
+        return false;
+    }
+
+
+
+    public void UndoshipDeployment(Ship ship)
+    {
+
+    }
     public Vector2Int World_To_Grid(Vector3 worldPos)
     {
         worldPos.y = transform.position.y;
