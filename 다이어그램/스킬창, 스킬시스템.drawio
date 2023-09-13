@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-09-13T02:25:34.847Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="eAd6j0B3WagGZNMfDdLD" version="21.2.8" type="device">
+<mxfile host="Electron" modified="2023-09-13T12:41:17.603Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="ynDueavqyyVnDUodtLtD" version="21.6.5" type="device">
   <diagram name="페이지-1" id="j8jdjy-5pEw3k468X--j">
-    <mxGraphModel dx="903" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2245" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -26,13 +26,16 @@
           <mxGeometry x="330" y="600" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="vVRq3RwxEJTVXukWDLhj-8" value="SkillName,&lt;br&gt;SkillLevel,&lt;br&gt;SkillAnim,&lt;br&gt;Sound,&lt;br&gt;AttackRange,&lt;br&gt;레벨업 포스 요구량&lt;br&gt;사용시 필요 스테미너" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="278" y="680" width="240" height="170" as="geometry" />
+          <mxGeometry x="278" y="660" width="240" height="170" as="geometry" />
         </mxCell>
         <mxCell id="vVRq3RwxEJTVXukWDLhj-9" value="Skill_Description" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="120" y="190" width="120" height="60" as="geometry" />
+          <mxGeometry x="-70" y="420" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="vVRq3RwxEJTVXukWDLhj-10" value="Skill_Slot" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="338" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="64Uu2IGOEDXsRe1cQ7Ej-1" value="Skill_Description" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-130" y="480" width="240" height="160" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
