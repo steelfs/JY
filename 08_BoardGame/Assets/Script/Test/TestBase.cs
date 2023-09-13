@@ -27,6 +27,23 @@ public class TestBase : MonoBehaviour
         inputActions.Test.Test8.performed += Test8;
         inputActions.Test.Test9.performed += Test9;
         inputActions.Test.LClick.performed += LClick;
+        inputActions.Test.Wheel.performed += Wheel;
+        inputActions.Test.RClick.performed += RClick;
+        inputActions.Test.MouseMove.performed += MouseMove;
+    }
+
+    protected virtual void MouseMove(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+
+    }
+
+    protected virtual void RClick(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+
+    }
+
+    protected virtual void Wheel(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
     }
 
     protected virtual void LClick(UnityEngine.InputSystem.InputAction.CallbackContext obj)

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public enum ShipType : byte
 {
@@ -89,6 +91,7 @@ public class Ship : MonoBehaviour
     public bool IsDeployed => isDeployed;
     Vector2Int[] positions; // 배가 배치된 위치
 
+    Board board;
     Renderer shipRenderer;
 
     Transform model;//배 모델 메시의 트렌스폼
@@ -99,14 +102,38 @@ public class Ship : MonoBehaviour
 
     public void Initialize(ShipType type)
     {
+        board = FindObjectOfType<Board>();
         ShipType = type;
+        positions = new Vector2Int[100];
 
         model = transform.GetChild(0);
         shipRenderer = model.GetComponentInChildren<Renderer>();
+        shipRenderer.material = ShipManager.Inst.DeployModeShip_Material;
+
         ResetData();
 
         gameObject.name = $"{ShipType}_{size}";
+        StartCoroutine(movingCoroutine());
+        gameObject.SetActive(false);
     }
+    IEnumerator movingCoroutine()
+    {
+        Vector3 newPos = Vector3.zero;
+        Vector2Int gridPos = Vector2Int.zero; 
+
+        while (true)
+        {
+            gridPos = board.Get_Mouse_Grid_Pos();
+
+            newPos.x = gridPos.x + 0.5f;
+            newPos.z = -gridPos.y -(0.5f);
+            newPos.y = 0;
+            transform.position = newPos;
+            yield return null;
+        }
+
+    }
+
     void ResetData()//공통으로 데이터 초기화하는 함수 
     {
 
@@ -114,11 +141,54 @@ public class Ship : MonoBehaviour
 
     public void SetMaterial_Type(bool isNormal = true)// true면 불투명머티리얼, false = 배치모드용 반투명
     {
-
+        if (isNormal)
+        {
+            shipRenderer.material = ShipManager.Inst.NormalShip_Material;
+        }
+        else
+        {
+            shipRenderer.material = ShipManager.Inst.DeployModeShip_Material;
+        }
     }
 
     public void Deploy(Vector2Int position)//배치될 위치
     {
+        if ((int)direction % 4 == 0)
+        {
+            Debug.Log("남쪽" );
+            switch (Size)
+            {
+                case 5:
+
+                    break;
+                case 3: 
+                    break;
+                case 4:
+                    break;
+                case 2:
+                    break;
+                case 1:
+                    break;
+                default:
+                    break;
+
+            }
+        }
+        else if ((int)direction % 4 == 1)
+        {
+            Debug.Log("서쪽");
+
+        }
+        else if ((int)direction % 4 == 2)
+        {
+            Debug.Log("북쪽");
+        }
+        else if ((int)direction % 4 == 3)
+        {
+            Debug.Log("동쪽");
+        }
+        SetMaterial_Type(true);
+        StopAllCoroutines();
         //위치 저장
     }
     public void UnDeploy()
@@ -127,7 +197,18 @@ public class Ship : MonoBehaviour
     }
     public void Rotate(bool isCW = true)//함선을 90도씩 회전시키는 함수 true = 반시계방향 회전, false면 시계방향
     {
-
+        int dirCount = ShipManager.Inst.ShipDirection_Count;
+        if (isCW)
+        {
+            //Direction++;
+            Direction = (ShipDirection)(((int)(Direction) + 1) % dirCount);
+        }
+        else
+        {
+            Direction = (ShipDirection)(((int)(Direction) + 1) % dirCount);
+            //Direction--;
+        }
+        
     }
 
     public void RandomRotate()//랜덤한 방향으로 회전

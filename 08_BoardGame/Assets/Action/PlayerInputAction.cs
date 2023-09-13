@@ -116,6 +116,33 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Wheel"",
+                    ""type"": ""Value"",
+                    ""id"": ""d62ff5c1-2e1f-43a0-bcd1-f21512b929b0"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MouseMove"",
+                    ""type"": ""Value"",
+                    ""id"": ""60b17031-9ae1-46a2-ad07-dfd16747a82b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""f8513e02-1e0e-47fa-930e-615ddf586cab"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -228,6 +255,39 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""LClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a78b974-61bc-4cfa-8171-8179bca1c5e0"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Wheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ca15a92-be3a-42ab-82fe-c2e809ba2dee"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bae7b416-b0af-4c2b-a1fe-5a698f4d2aa9"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -263,6 +323,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Test_Test8 = m_Test.FindAction("Test8", throwIfNotFound: true);
         m_Test_Test9 = m_Test.FindAction("Test9", throwIfNotFound: true);
         m_Test_LClick = m_Test.FindAction("LClick", throwIfNotFound: true);
+        m_Test_Wheel = m_Test.FindAction("Wheel", throwIfNotFound: true);
+        m_Test_MouseMove = m_Test.FindAction("MouseMove", throwIfNotFound: true);
+        m_Test_RClick = m_Test.FindAction("RClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -334,6 +397,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Test_Test8;
     private readonly InputAction m_Test_Test9;
     private readonly InputAction m_Test_LClick;
+    private readonly InputAction m_Test_Wheel;
+    private readonly InputAction m_Test_MouseMove;
+    private readonly InputAction m_Test_RClick;
     public struct TestActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -348,6 +414,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @Test8 => m_Wrapper.m_Test_Test8;
         public InputAction @Test9 => m_Wrapper.m_Test_Test9;
         public InputAction @LClick => m_Wrapper.m_Test_LClick;
+        public InputAction @Wheel => m_Wrapper.m_Test_Wheel;
+        public InputAction @MouseMove => m_Wrapper.m_Test_MouseMove;
+        public InputAction @RClick => m_Wrapper.m_Test_RClick;
         public InputActionMap Get() { return m_Wrapper.m_Test; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -387,6 +456,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @LClick.started += instance.OnLClick;
             @LClick.performed += instance.OnLClick;
             @LClick.canceled += instance.OnLClick;
+            @Wheel.started += instance.OnWheel;
+            @Wheel.performed += instance.OnWheel;
+            @Wheel.canceled += instance.OnWheel;
+            @MouseMove.started += instance.OnMouseMove;
+            @MouseMove.performed += instance.OnMouseMove;
+            @MouseMove.canceled += instance.OnMouseMove;
+            @RClick.started += instance.OnRClick;
+            @RClick.performed += instance.OnRClick;
+            @RClick.canceled += instance.OnRClick;
         }
 
         private void UnregisterCallbacks(ITestActions instance)
@@ -421,6 +499,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @LClick.started -= instance.OnLClick;
             @LClick.performed -= instance.OnLClick;
             @LClick.canceled -= instance.OnLClick;
+            @Wheel.started -= instance.OnWheel;
+            @Wheel.performed -= instance.OnWheel;
+            @Wheel.canceled -= instance.OnWheel;
+            @MouseMove.started -= instance.OnMouseMove;
+            @MouseMove.performed -= instance.OnMouseMove;
+            @MouseMove.canceled -= instance.OnMouseMove;
+            @RClick.started -= instance.OnRClick;
+            @RClick.performed -= instance.OnRClick;
+            @RClick.canceled -= instance.OnRClick;
         }
 
         public void RemoveCallbacks(ITestActions instance)
@@ -459,5 +546,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnTest8(InputAction.CallbackContext context);
         void OnTest9(InputAction.CallbackContext context);
         void OnLClick(InputAction.CallbackContext context);
+        void OnWheel(InputAction.CallbackContext context);
+        void OnMouseMove(InputAction.CallbackContext context);
+        void OnRClick(InputAction.CallbackContext context);
     }
 }
