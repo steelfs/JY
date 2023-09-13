@@ -2484,6 +2484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3465957915772417218}
   - component: {fileID: 3465957915772417219}
+  - component: {fileID: 3630753870112862306}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -2564,6 +2565,18 @@ MonoBehaviour:
     type: 3}
   letter_Prefab: {fileID: 4956652313489880012, guid: 91ceba3b628a1154285a309d58141c18,
     type: 3}
+--- !u!114 &3630753870112862306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3465957915772417217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b65d5165806e042a8488dd481e3ea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3541482475886507107
 GameObject:
   m_ObjectHideFlags: 0

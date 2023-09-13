@@ -104,6 +104,8 @@ public class Ship : MonoBehaviour
         model = transform.GetChild(0);
         shipRenderer = model.GetComponentInChildren<Renderer>();
         ResetData();
+
+        gameObject.name = $"{ShipType}_{size}";
     }
     void ResetData()//공통으로 데이터 초기화하는 함수 
     {
