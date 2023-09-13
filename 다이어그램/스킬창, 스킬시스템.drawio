@@ -1,37 +1,37 @@
-<mxfile host="Electron" modified="2023-09-12T14:04:42.841Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="AvJ0vBbo4uJ08EEk7bpc" version="21.6.5" type="device">
+<mxfile host="Electron" modified="2023-09-13T02:25:34.847Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="eAd6j0B3WagGZNMfDdLD" version="21.2.8" type="device">
   <diagram name="페이지-1" id="j8jdjy-5pEw3k468X--j">
-    <mxGraphModel dx="1098" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="903" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="vVRq3RwxEJTVXukWDLhj-1" value="SkillBox" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="vVRq3RwxEJTVXukWDLhj-1" value="SkillBox" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="338" y="110" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="vVRq3RwxEJTVXukWDLhj-2" value="스킬 레벨을 올렸을 때" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="vVRq3RwxEJTVXukWDLhj-2" value="스킬 레벨을 올렸을 때" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="130" y="330" width="156" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="vVRq3RwxEJTVXukWDLhj-3" value="스킬 아이콘을 클릭했을 때" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="vVRq3RwxEJTVXukWDLhj-3" value="스킬 아이콘을 클릭했을 때" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="320" y="330" width="156" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="vVRq3RwxEJTVXukWDLhj-4" value="스킬 아이콘을 퀵슬롯에 드랍했을 때" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="vVRq3RwxEJTVXukWDLhj-4" value="스킬 아이콘을 퀵슬롯에 드랍했을 때" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="320" y="420" width="156" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="vVRq3RwxEJTVXukWDLhj-5" value="스킬 아이콘을 더블클릭했을 때(Description != null)일 때" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="vVRq3RwxEJTVXukWDLhj-5" value="스킬 아이콘을 더블클릭했을 때(Description != null)일 때" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="610" y="300" width="156" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="vVRq3RwxEJTVXukWDLhj-6" value="퀵슬롯에 등록된 스킬키를 눌렀을 때" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="vVRq3RwxEJTVXukWDLhj-6" value="퀵슬롯에 등록된 스킬키를 눌렀을 때" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="610" y="360" width="156" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="vVRq3RwxEJTVXukWDLhj-7" value="SkillData" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="vVRq3RwxEJTVXukWDLhj-7" value="SkillData" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="330" y="600" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="vVRq3RwxEJTVXukWDLhj-8" value="SkillName,&lt;br&gt;SkillLevel,&lt;br&gt;SkillAnim,&lt;br&gt;Sound,&lt;br&gt;AttackRange,&lt;br&gt;레벨업 포스 요구량&lt;br&gt;사용시 필요 스테미너" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="vVRq3RwxEJTVXukWDLhj-8" value="SkillName,&lt;br&gt;SkillLevel,&lt;br&gt;SkillAnim,&lt;br&gt;Sound,&lt;br&gt;AttackRange,&lt;br&gt;레벨업 포스 요구량&lt;br&gt;사용시 필요 스테미너" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="278" y="680" width="240" height="170" as="geometry" />
         </mxCell>
-        <mxCell id="vVRq3RwxEJTVXukWDLhj-9" value="Skill_Description" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="vVRq3RwxEJTVXukWDLhj-9" value="Skill_Description" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="120" y="190" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="vVRq3RwxEJTVXukWDLhj-10" value="Skill_Slot" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="vVRq3RwxEJTVXukWDLhj-10" value="Skill_Slot" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="338" y="190" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
