@@ -148,7 +148,7 @@ public class Board : MonoBehaviour
         int result = NOT_VALID_INDEX;
         if (Is_In_Board(x, y))
         {
-            return result = x + y * Board_Size;
+            result = x + y * Board_Size;
         }
         return result;
     }

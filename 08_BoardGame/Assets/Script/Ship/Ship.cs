@@ -91,6 +91,8 @@ public class Ship : MonoBehaviour
     public bool IsDeployed => isDeployed;
     Vector2Int[] positions; // 배가 배치된 위치
     public Vector2Int[] Positions => positions;
+    Vector2Int[] defaultSize;
+
     Board board;
     Renderer shipRenderer;
 
@@ -104,7 +106,8 @@ public class Ship : MonoBehaviour
     {
         board = FindObjectOfType<Board>();
         ShipType = type;
-        positions = new Vector2Int[100];
+        defaultSize = new Vector2Int[Size];
+        positions = defaultSize;
 
         model = transform.GetChild(0);
         shipRenderer = model.GetComponentInChildren<Renderer>();
@@ -170,7 +173,6 @@ public class Ship : MonoBehaviour
     {
         ResetData();
         on_Deploy?.Invoke(false);
-
     }
     public void Rotate(bool isCW = true)//함선을 90도씩 회전시키는 함수 true = 반시계방향 회전, false면 시계방향
     {
