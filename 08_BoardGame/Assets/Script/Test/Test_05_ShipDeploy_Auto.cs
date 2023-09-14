@@ -33,9 +33,11 @@ public class Test_05_ShipDeploy_Auto : Test_04_ShipDeploy
 
         for (int  i = 0; i < maxCapacity; i++)
         {
+            //i % Board.Board_Size == 0 // = 10,20,30 ...//  i % Board.Board_Size == Board.Board_Size - 1 // = 9, 19, 29 ..
+            // i > 0 && i < Board.Board_Size - 1  // = 1,2,3 ~ 8 //
             if (i % Board.Board_Size == 0 || i % Board.Board_Size == Board.Board_Size - 1 || i > 0 && i < Board.Board_Size - 1 || Board.Board_Size * (Board.Board_Size - 1) < i && i < (Board.Board_Size * Board.Board_Size - 1))
             {
-                low.Add(i);
+                low.Add(i);//위 조건에 해당하는 좌표는 낮은확률로 배치될 좌표
             }
             else
             {
@@ -52,15 +54,15 @@ public class Test_05_ShipDeploy_Auto : Test_04_ShipDeploy
                 {
                     shipIndice[i] = Board.Grid_To_Index(ship.Positions[i]);
                 }
-                foreach (var index in shipIndice)
+                foreach (var index in shipIndice) // 배가 배치될 인덱스를 리스트에서 지우기
                 {
                     high.Remove(index);
                     low.Remove(index);
                 }
 
-                List<int> toLow = GetShipAround_Positions(ship);
+                List<int> toLow = GetShipAround_Positions(ship);// 배를 감싸고있는 모든 좌표 구하기
 
-                foreach (int index in toLow)
+                foreach (int index in toLow)//구한 좌표도 역시 낮은확률로 배치될 좌표에 추가
                 {
                     high.Remove(index);
                     low.Add(index);
@@ -84,9 +86,9 @@ public class Test_05_ShipDeploy_Auto : Test_04_ShipDeploy
 
         if (ship.Direction == ShipDirection.North || ship.Direction == ShipDirection.South)
         {
-            foreach(var pos in ship.Positions)
+            foreach(var pos in ship.Positions)//세로로 세워져있을 때(뱃머리가 북쪽 /또는 남쪽)
             {
-                result.Add(Board.Grid_To_Index(pos + Vector2Int.right));
+                result.Add(Board.Grid_To_Index(pos + Vector2Int.right)); //배를 감싸고있는 양 옆의 좌표 모두 추가
                 result.Add(Board.Grid_To_Index(pos + Vector2Int.left));
             }
 
@@ -94,7 +96,7 @@ public class Test_05_ShipDeploy_Auto : Test_04_ShipDeploy
             Vector2Int tail;
             if (ship.Direction == ShipDirection.North)
             {
-                head = ship.Positions[0] + Vector2Int.down;
+                head = ship.Positions[0] + Vector2Int.down;//머리가 북쪽일때 -y 가 북쪽
                 tail = ship.Positions[^1] + Vector2Int.up;
             }
             else
@@ -102,18 +104,18 @@ public class Test_05_ShipDeploy_Auto : Test_04_ShipDeploy
                 head = ship.Positions[0] + Vector2Int.up;
                 tail = ship.Positions[^1] + Vector2Int.down;
             }
-            result.Add(Board.Grid_To_Index(head));
+            result.Add(Board.Grid_To_Index(head)); //머리와 머리 양 옆
             result.Add(Board.Grid_To_Index(head + Vector2Int.left));
             result.Add(Board.Grid_To_Index(head + Vector2Int.right));
-            result.Add(Board.Grid_To_Index(tail));
+            result.Add(Board.Grid_To_Index(tail));//꼬리와 꼬리 양 옆
             result.Add(Board.Grid_To_Index(tail + Vector2Int.left));
             result.Add(Board.Grid_To_Index(tail + Vector2Int.right));
         }
         else
         {
-            foreach (var pos in ship.Positions)
+            foreach (var pos in ship.Positions)//
             {
-                result.Add(Board.Grid_To_Index(pos + Vector2Int.up));
+                result.Add(Board.Grid_To_Index(pos + Vector2Int.up));//뱃머리가 왼쪽 또는 오른 쪽일 때  위, 아래로 감사고있는 좌표 모두 추가
                 result.Add(Board.Grid_To_Index(pos + Vector2Int.down));
             }
 
@@ -121,7 +123,7 @@ public class Test_05_ShipDeploy_Auto : Test_04_ShipDeploy
             Vector2Int tail;
             if (ship.Direction == ShipDirection.East)
             {
-                head = ship.Positions[0] + Vector2Int.right;
+                head = ship.Positions[0] + Vector2Int.right; //뱃머리가 오른쪽일때 x+ 방향이 머리
                 tail = ship.Positions[^1] + Vector2Int.left;
             }
             else
