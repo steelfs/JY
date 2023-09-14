@@ -74,15 +74,30 @@ public class Test_04_ShipDeploy : TestBase
             {
                 Vector2Int grid = board.Get_Mouse_Grid_Pos();
                 Target.transform.position = board.Grid_To_World(grid);
+
+                bool isSuccess = board.IsShipDeployment_Available(Target,grid);
+                ShipManager.Inst.SetDeployMode_Color(isSuccess);
             }
             else
             {
-                Target.transform.position = world;
+                Target.transform.position = world; // 움직이는 위치단위를 자유롭게하기
+                ShipManager.Inst.SetDeployMode_Color(false); //바깥이면 빨간색
             }
         }
     }
     protected override void RClick(InputAction.CallbackContext _)
     {
+        Vector2 screen = Mouse.current.position.ReadValue();
+        Vector3 world = Camera.main.ScreenToWorldPoint(screen);
+
+        ShipType shipType = board.GetShipType(world);//우클릭한 위치의 함선 정보 가져오기
+        if (shipType != ShipType.None)
+        {
+            Ship ship = ships[(int)shipType - 1];
+            board.UndoshipDeployment(ship);
+            ship.gameObject.SetActive(false);
+        }
+
 
     }
     protected override void LClick(InputAction.CallbackContext obj)
@@ -113,6 +128,9 @@ public class Test_04_ShipDeploy : TestBase
         if (Target != null)
         {
             Target.Rotate(rotateDir);
+
+            bool isSuccess = board.IsShipDeployment_Available(Target, Target.transform.position);
+            ShipManager.Inst.SetDeployMode_Color(isSuccess);
         }
     }
     protected override void Test1(InputAction.CallbackContext context)

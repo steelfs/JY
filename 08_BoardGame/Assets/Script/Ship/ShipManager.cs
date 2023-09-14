@@ -50,6 +50,14 @@ public class ShipManager : Singleton<ShipManager>
 
     public void SetDeployMode_Color(bool isSuccess)//배치모드 색상의 머티리얼 색상 변경 
     {
+        if (isSuccess)
+        {
+            DeployModeShip_Material.color = successColor;
+        }
+        else
+        {
+            DeployModeShip_Material.color = failColor;
+        }
         //deploy 의 색상 변경 
         //successColor; failColor; 둘 중 하나 
     }

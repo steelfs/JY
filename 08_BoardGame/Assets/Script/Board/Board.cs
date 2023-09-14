@@ -92,7 +92,22 @@ public class Board : MonoBehaviour
 
     public void UndoshipDeployment(Ship ship)
     {
-
+        if (ship.IsDeployed)//이미 배치되어있으면 
+        {
+            foreach (var pos in ship.Positions)
+            {
+                shipInfo[Grid_To_Index(pos)] = ShipType.None;
+            }
+            ship.UnDeploy();//배치 취소
+        }
+    }
+    public ShipType GetShipType(Vector2Int grid)// 파라미터로 받은 위치의 배 정보 받아오는 함수 
+    {
+        return shipInfo[Grid_To_Index(grid)];
+    }
+    public ShipType GetShipType(Vector3 world)
+    {
+        return GetShipType(World_To_Grid(world));
     }
     public Vector2Int World_To_Grid(Vector3 worldPos)
     {

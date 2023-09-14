@@ -90,7 +90,7 @@ public class Ship : MonoBehaviour
     bool isDeployed = false;//배치가 됐는가
     public bool IsDeployed => isDeployed;
     Vector2Int[] positions; // 배가 배치된 위치
-
+    public Vector2Int[] Positions => positions;
     Board board;
     Renderer shipRenderer;
 
@@ -136,7 +136,12 @@ public class Ship : MonoBehaviour
 
     void ResetData()//공통으로 데이터 초기화하는 함수 
     {
+        hp = size; 
+        Direction = ShipDirection.North;
 
+        isAlive = true;
+        isDeployed = false; //배치 해제
+        positions = null;
     }
 
     public void SetMaterial_Type(bool isNormal = true)// true면 불투명머티리얼, false = 배치모드용 반투명
@@ -163,7 +168,9 @@ public class Ship : MonoBehaviour
     }
     public void UnDeploy()
     {
-        // 초기화
+        ResetData();
+        on_Deploy?.Invoke(false);
+
     }
     public void Rotate(bool isCW = true)//함선을 90도씩 회전시키는 함수 true = 반시계방향 회전, false면 시계방향
     {
