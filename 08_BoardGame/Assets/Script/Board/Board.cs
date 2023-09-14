@@ -99,6 +99,7 @@ public class Board : MonoBehaviour
                 shipInfo[Grid_To_Index(pos)] = ShipType.None;
             }
             ship.UnDeploy();//배치 취소
+            ship.gameObject.SetActive(false);
         }
     }
     public ShipType GetShipType(Vector2Int grid)// 파라미터로 받은 위치의 배 정보 받아오는 함수 

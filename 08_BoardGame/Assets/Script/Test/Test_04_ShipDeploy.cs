@@ -9,7 +9,7 @@ public class Test_04_ShipDeploy : TestBase
     ShipType shipType;
     Ship[] ships;
     protected Ship[] Ships => ships;
-    Ship targetShip;
+    protected Ship targetShip;
     protected Ship Target
     {
         get => targetShip; 
@@ -96,7 +96,6 @@ public class Test_04_ShipDeploy : TestBase
         {
             Ship ship = ships[(int)shipType - 1];
             board.UndoshipDeployment(ship);
-            ship.gameObject.SetActive(false);
         }
 
 
