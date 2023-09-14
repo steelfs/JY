@@ -98,7 +98,7 @@ public class Ship : MonoBehaviour
 
     public Action<Ship> on_Hit;
     public Action<Ship> on_Sinking;
-    public Action<bool> on_Deployed;// 배치 완료, 취소시
+    public Action<bool> on_Deploy;// 배치 완료, 취소시
 
     public void Initialize(ShipType type)
     {
@@ -151,44 +151,14 @@ public class Ship : MonoBehaviour
         }
     }
 
-    public void Deploy(Vector2Int position)//배치될 위치
+    public void Deploy(Vector2Int[] position)//배치될 위치
     {
-        if ((int)direction % 4 == 0)
-        {
-            Debug.Log("남쪽" );
-            switch (Size)
-            {
-                case 5:
+        positions = position;
+        isDeployed = true;
+        on_Deploy?.Invoke(true);
 
-                    break;
-                case 3: 
-                    break;
-                case 4:
-                    break;
-                case 2:
-                    break;
-                case 1:
-                    break;
-                default:
-                    break;
-
-            }
-        }
-        else if ((int)direction % 4 == 1)
-        {
-            Debug.Log("서쪽");
-
-        }
-        else if ((int)direction % 4 == 2)
-        {
-            Debug.Log("북쪽");
-        }
-        else if ((int)direction % 4 == 3)
-        {
-            Debug.Log("동쪽");
-        }
-        SetMaterial_Type(true);
-        StopAllCoroutines();
+       // SetMaterial_Type(true);
+       // StopAllCoroutines();
         //위치 저장
     }
     public void UnDeploy()
@@ -205,7 +175,7 @@ public class Ship : MonoBehaviour
         }
         else
         {
-            Direction = (ShipDirection)(((int)(Direction) + 1) % dirCount);
+            Direction = (ShipDirection)(((int)Direction + dirCount - 1) % dirCount);
             //Direction--;
         }
         
