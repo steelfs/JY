@@ -161,6 +161,7 @@ public class Ship : MonoBehaviour
 
     public void Deploy(Vector2Int[] position)//배치될 위치
     {
+        SetMaterial_Type();//노멀 머티리얼 설정
         positions = position;
         isDeployed = true;
         on_Deploy?.Invoke(true);
@@ -192,7 +193,12 @@ public class Ship : MonoBehaviour
 
     public void RandomRotate()//랜덤한 방향으로 회전
     {
-
+        int rotateCount = UnityEngine.Random.Range(0, ShipManager.Inst.ShipDirection_Count);//함선 회전 횟수 랜덤 할당
+        bool isCW = UnityEngine.Random.Range(0, 2) == 0; // 정방향 or 역방향
+        for (int i = 0; i < rotateCount; i++)
+        {
+            Rotate(isCW);
+        }
     }
     public void OnHitted()
     {
