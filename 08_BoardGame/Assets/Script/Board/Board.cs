@@ -23,6 +23,7 @@ public class Board : MonoBehaviour
     {
         shipInfo = new ShipType[Board_Size * Board_Size];
         isAttacked = new bool[Board_Size * Board_Size];
+        bombMark = FindObjectOfType<BombMark>();
     }
 
     public bool shipDeployment(Ship ship, Vector2Int grid)//함선을 배치하는 함수 , 안겹쳐서 성공시 true리턴 // gridPos 함선 머리 위치
@@ -100,12 +101,23 @@ public class Board : MonoBehaviour
     {
         bool result = false;
         int index = Grid_To_Index(grid);
+        if (isAttacked[index] == true)
+        {
+            return false;
+        }
         if (shipInfo[index] != ShipType.None)
         {
             result = true;
-        }
-        //공격 성공, 실패에 맞는 프리팹 생성
+            bombMark.SetBombMark(Grid_To_World(grid), result);
 
+        }
+        else
+        {
+            bombMark.SetBombMark(Grid_To_World(grid), result);
+        }
+
+        isAttacked[index] = true;
+        //공격 성공, 실패에 맞는 프리팹 생성
         //공격했던 위치는 다시 공격할 수 없다.
 
         return result;
