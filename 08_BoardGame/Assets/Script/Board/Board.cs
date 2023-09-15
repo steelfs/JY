@@ -16,10 +16,13 @@ public class Board : MonoBehaviour
 
     BombMark bombMark;//보드가 공격당한 위치를 시각적으로 보여주는 클래스
     bool[] isAttacked;//공격받으면 true로 성정되는 배열
+    public bool[] IsAttacked => isAttacked;
+
 
     private void Awake()
     {
         shipInfo = new ShipType[Board_Size * Board_Size];
+        isAttacked = new bool[Board_Size * Board_Size];
     }
 
     public bool shipDeployment(Ship ship, Vector2Int grid)//함선을 배치하는 함수 , 안겹쳐서 성공시 true리턴 // gridPos 함선 머리 위치
@@ -96,14 +99,24 @@ public class Board : MonoBehaviour
     public bool OnAttacked(Vector2Int grid)
     {
         bool result = false;
-
+        int index = Grid_To_Index(grid);
+        if (shipInfo[index] != ShipType.None)
+        {
+            result = true;
+        }
         //공격 성공, 실패에 맞는 프리팹 생성
 
         //공격했던 위치는 다시 공격할 수 없다.
 
         return result;
     }
-
+    public void ResetIsAttack()
+    {
+        for (int i = 0; i < isAttacked.Length; i++)
+        {
+            isAttacked[i] = false;
+        }
+    }
     public void UndoshipDeployment(Ship ship)
     {
         if (ship.IsDeployed)//이미 배치되어있으면 

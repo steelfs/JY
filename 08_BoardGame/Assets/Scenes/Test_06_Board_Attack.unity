@@ -1362,6 +1362,7 @@ MonoBehaviour:
   reset: {fileID: 479925555}
   random: {fileID: 1255023073}
   reset_Random: {fileID: 1013556789}
+  bombMark: {fileID: 475860123}
 --- !u!4 &1882292655 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3465957915772417218, guid: f51819e4ac990e441a6e44bf9bd729de,

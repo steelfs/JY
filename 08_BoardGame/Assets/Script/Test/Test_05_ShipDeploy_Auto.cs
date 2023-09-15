@@ -31,6 +31,8 @@ public class Test_05_ShipDeploy_Auto : Test_04_ShipDeploy
                 Board.UndoshipDeployment(ship);
             }
         }
+        bombMark.ResetBombMArk();
+        Board.ResetIsAttack();
     }
     void AutoShipDeployment()
     {

@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class Test_04_ShipDeploy : TestBase
 {
+    public BombMark bombMark;
+
     ShipType shipType;
     Ship[] ships;
     protected Ship[] Ships => ships;
