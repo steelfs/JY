@@ -16,14 +16,27 @@ public class Board : MonoBehaviour
 
     BombMark bombMark;//보드가 공격당한 위치를 시각적으로 보여주는 클래스
     bool[] isAttacked;//공격받으면 true로 성정되는 배열
-    public bool[] IsAttacked => isAttacked;
-
 
     private void Awake()
     {
         shipInfo = new ShipType[Board_Size * Board_Size];
         isAttacked = new bool[Board_Size * Board_Size];
-        bombMark = FindObjectOfType<BombMark>();
+        bombMark = GetComponentInChildren<BombMark>();
+    }
+
+    public void ResetBoard(Ship[] ships)
+    {
+        foreach (var ship in ships)
+        {
+            UndoshipDeployment(ship);
+
+        }
+
+        for (int i = 0; i < isAttacked.Length; i++)
+        {
+            isAttacked[i] = false;
+        }
+        bombMark.ResetBombMArk(); 
     }
 
     public bool shipDeployment(Ship ship, Vector2Int grid)//함선을 배치하는 함수 , 안겹쳐서 성공시 true리턴 // gridPos 함선 머리 위치
@@ -100,34 +113,34 @@ public class Board : MonoBehaviour
     public bool OnAttacked(Vector2Int grid)
     {
         bool result = false;
-        int index = Grid_To_Index(grid);
-        if (isAttacked[index] == true)
+        if (Is_In_Board(grid))
         {
-            return false;
-        }
-        if (shipInfo[index] != ShipType.None)
-        {
-            result = true;
-            bombMark.SetBombMark(Grid_To_World(grid), result);
+            int index = Grid_To_Index(grid);
+            if (isAttackable(index))
+            {
+                isAttacked[index] = true;
+                if (shipInfo[index] != ShipType.None)//배가있으면 공격성공
+                {
+                    result = true;
+                }
+                
+                bombMark.SetBombMark(Grid_To_World(grid), result);
+            }
 
         }
-        else
-        {
-            bombMark.SetBombMark(Grid_To_World(grid), result);
-        }
 
-        isAttacked[index] = true;
-        //공격 성공, 실패에 맞는 프리팹 생성
-        //공격했던 위치는 다시 공격할 수 없다.
 
         return result;
     }
-    public void ResetIsAttack()
+
+    public bool isAttackable(int index)//지정된 위치가 공격가능한지 확인 하는 함수 
     {
-        for (int i = 0; i < isAttacked.Length; i++)
-        {
-            isAttacked[i] = false;
-        }
+        return !isAttacked[index];
+    }
+
+    public bool isAttackable(Vector2Int grid)//지정된 위치가 공격가능한지 확인 하는 함수 
+    {
+        return isAttackable(Grid_To_Index(grid));
     }
     public void UndoshipDeployment(Ship ship)
     {
