@@ -14,6 +14,9 @@ public class Board : MonoBehaviour
     ShipType[] shipInfo; // 보드에 배치된 배 정보. 겹침 방지
     //클릭한 지점 그리드좌표로 로그 
 
+    BombMark bombMark;//보드가 공격당한 위치를 시각적으로 보여주는 클래스
+    bool[] isAttacked;//공격받으면 true로 성정되는 배열
+
     private void Awake()
     {
         shipInfo = new ShipType[Board_Size * Board_Size];
@@ -89,6 +92,17 @@ public class Board : MonoBehaviour
         return shipInfo[Grid_To_Index(grid)] != ShipType.None;
     }
 
+    //보드가 공격받았을 때 실행될 함수 grid = 공격받은 그리드 위치// 공격이 배에 맞았으면 true아니면 false
+    public bool OnAttacked(Vector2Int grid)
+    {
+        bool result = false;
+
+        //공격 성공, 실패에 맞는 프리팹 생성
+
+        //공격했던 위치는 다시 공격할 수 없다.
+
+        return result;
+    }
 
     public void UndoshipDeployment(Ship ship)
     {
