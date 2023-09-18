@@ -58,7 +58,8 @@ public class PlayerBase : MonoBehaviour
     //공격 관련 함수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
     public void Attack(Vector2Int attackGridPos)//
     {
-
+        Debug.Log($"{gameObject.name} 가 ({attackGridPos.x}, {attackGridPos.y}) 에 공격했습니다.");
+        opponent.Board.OnAttacked(attackGridPos);
     }
     public void Attack(int index)
     {
@@ -71,7 +72,11 @@ public class PlayerBase : MonoBehaviour
     
     public void AutoAttack()//CPU, 인간 플레이어가 타임아웃 됐을 때 사용 
     {
-        //자동공격
+
+        //1. 무작위 공격(중복공격 방지)
+        //공격 성공시 다음 공격은 이전 공격 위치 상하좌우 방향 중 하나를 공격
+        //공격이 두번 성공했을 때 다음 후보지역은 양 끝 바깥 중 하나를 공격
+        //함선 침몰시 우선순위 후보지역 Clear;
     }
     //공격 관련 함수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
@@ -321,6 +326,11 @@ public class PlayerBase : MonoBehaviour
     public Ship GetShip(ShipType type)
     {
         return (type != ShipType.None) ? ships[(int)type - 1] : null; // None이 아니면 type - 1 리턴하고 None이면 null 리턴
+    }
+
+    public void Test_SetOpponent(PlayerBase player)
+    {
+        opponent = player;
     }
     //기타ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
