@@ -24,6 +24,14 @@ public class PlayerBase : MonoBehaviour
     public Action<PlayerBase> onAttackFail;//이 플레이어의 공격이 실패했으을 알리는 신호 param = 자기 자신
     public Action onActionEnd;
     public Action<PlayerBase> onDefead;// 이 플레이어가 패배했을음 알리는 신호 
+
+    List<int> attackHighindex;
+    List<int> attackindex;
+
+    Vector2Int lastAttack_SuccessPos;
+    readonly Vector2Int NOT_SUCCESS = -Vector2Int.one; // 이전 공격이 실패시 표시하는 변수 
+    readonly Vector2Int[] neighbors = { new(-1, 0), new(1, 0), new(0, 1), new(0, -1) };
+
     protected virtual void Awake()
     {
         board = GetComponentInChildren<Board>();
@@ -43,6 +51,19 @@ public class PlayerBase : MonoBehaviour
             board.on_ShipAttacked[shipType] = ships[i].OnHitted;
         }
         remainShipCount = shipTypeCount;
+
+        int poolSize = Board.Board_Size * Board.Board_Size;
+        int[] temp = new int[poolSize];
+        for (int i = 0; i < poolSize; i++)
+        {
+            temp[i] = i;
+        }
+        Util.Shuffle(temp);
+
+        attackindex = new List<int>(temp); //파라미터로 리스트 넘기면 List의 내용이 배열의 내용으로 채워진다.
+        attackHighindex = new List<int>(10);
+
+        lastAttack_SuccessPos = NOT_SUCCESS;
     }
     //턴 관리용 함수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
     public virtual void OnPlayerTurnStart(int _)
@@ -59,7 +80,25 @@ public class PlayerBase : MonoBehaviour
     public void Attack(Vector2Int attackGridPos)//
     {
         Debug.Log($"{gameObject.name} 가 ({attackGridPos.x}, {attackGridPos.y}) 에 공격했습니다.");
-        opponent.Board.OnAttacked(attackGridPos);
+        bool result = opponent.Board.OnAttacked(attackGridPos);
+        if (result)// 공격 성공
+        {
+
+            if (lastAttack_SuccessPos != NOT_SUCCESS)
+            {
+                //이전 턴 공격이 성공했을 때 
+                AddHighFromTwoPoint(attackGridPos, lastAttack_SuccessPos);
+            }
+            else//처음 성공 
+            {
+                AddHighFromNeighbor(attackGridPos);
+            }
+            lastAttack_SuccessPos = attackGridPos;
+        }
+        else//공격 실패
+        {
+            lastAttack_SuccessPos = NOT_SUCCESS;
+        }
     }
     public void Attack(int index)
     {
@@ -72,11 +111,65 @@ public class PlayerBase : MonoBehaviour
     
     public void AutoAttack()//CPU, 인간 플레이어가 타임아웃 됐을 때 사용 
     {
+        int target;
+        if (attackHighindex.Count > 0)//우선순위가 높은게 있는지 확인
+        {
+            target = attackHighindex[0];//첫번째것 사용 후 
+            RemoveHighIndex(target);//제거
+            attackindex.Remove(target);//일반 후보에서도 제거
+        }
+        else
+        {
+            target = attackindex[0];// 일반 우선순위 리스트에서 하나씩 꺼내서 사용 
+            attackindex.RemoveAt(0);//사용한것 제거
+        }
 
+        Attack(target);
         //1. 무작위 공격(중복공격 방지)
         //공격 성공시 다음 공격은 이전 공격 위치 상하좌우 방향 중 하나를 공격
         //공격이 두번 성공했을 때 다음 후보지역은 양 끝 바깥 중 하나를 공격
         //함선 침몰시 우선순위 후보지역 Clear;
+    }
+    void RemoveHighIndex(int index)
+    {
+        if (attackHighindex.Contains(index))// 있으면 제거
+        {
+            attackHighindex.Remove(index);
+        }
+    }
+
+    
+    void AddHigh(int index)//높은 우선순위 목록에 추가하는 함수 
+    {
+        if (!attackHighindex.Contains(index))//이미 들어있지 않을 때만
+        {
+            attackHighindex.Insert(0, index);//첫번째 인덱스에 추가// 새로 추가된 위치가 공격 성공확률이 더 높기 때문에 먼저 꺼내 쓸 수 있도록 하기 위함
+        }
+    }
+    void AddHighFromTwoPoint(Vector2Int now, Vector2Int last)// 연속으로 공격 성공 시 양 쪽 끝 두 포인트를 더해주는 함수 now = 최근 공격 , last = 이전 공격
+    {
+        
+    }
+
+    bool InSuccessLine(Vector2Int start, Vector2Int end, bool isHorizontal)//start에서 end 한 칸 앞 까지 공격 성공이었는지 체크하는 함수  isHorizontal = 가로, false면 다른 줄이거나 공격실패
+    {
+        bool result = true;
+
+
+
+        return result;
+    }
+    void AddHighFromNeighbor(Vector2Int grid)//그리드 주변 사방을 모두 우선순위가 높은 후보지역에 추가하는 함수 
+    {
+        Util.Shuffle(neighbors);// 불규칙적으로 행동하는 것 처럼 보이기 위해 섞어주기
+        foreach (Vector2Int neighbor in neighbors)
+        {
+            Vector2Int pos = grid + neighbor;
+            if (Board.Is_In_Board(pos) && opponent.Board.isAttackable(pos))
+            {
+                AddHigh(Board.Grid_To_Index(pos));   
+            }
+        }
     }
     //공격 관련 함수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
@@ -333,5 +426,5 @@ public class PlayerBase : MonoBehaviour
         opponent = player;
     }
     //기타ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
+ 
 }
