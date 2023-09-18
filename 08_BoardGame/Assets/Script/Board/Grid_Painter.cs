@@ -51,26 +51,26 @@ public class Grid_Painter : MonoBehaviour
 
     private void Draw_Grid_Letter()
     {
-        for (int i = 1; i < maxLine; i++)
-        {
-            GameObject letter = Instantiate(letter_Prefab, transform);
-            letter.transform.position = new Vector3(i - 0.5f, 0, 0.5f);
+        //for (int i = 1; i < maxLine; i++)
+        //{
+        //    GameObject letter = Instantiate(letter_Prefab, transform);
+        //    letter.transform.position = new Vector3(i - 0.5f, 0, 0.5f);
             
-            TextMeshPro text = letter.GetComponent<TextMeshPro>();
-            char alphabet = (char)(64 + i); // 아스키코드로 65가 'A'
-            text.text = alphabet.ToString();
-        }
-        for (int i = 1; i < maxLine; i++)
-        {
-            GameObject letter = Instantiate(letter_Prefab, transform);
-            letter.transform.position = new Vector3(-0.5f, 0, 0.5f - i);
-            TextMeshPro text = letter.GetComponent<TextMeshPro>();
-            text.text = i.ToString();
-            if (i > 9)
-            {
-                text.fontSize = 8;
-            }
-        }
+        //    TextMeshPro text = letter.GetComponent<TextMeshPro>();
+        //    char alphabet = (char)(64 + i); // 아스키코드로 65가 'A'
+        //    text.text = alphabet.ToString();
+        //}
+        //for (int i = 1; i < maxLine; i++)
+        //{
+        //    GameObject letter = Instantiate(letter_Prefab, transform);
+        //    letter.transform.position = new Vector3(-0.5f, 0, 0.5f - i);
+        //    TextMeshPro text = letter.GetComponent<TextMeshPro>();
+        //    text.text = i.ToString();
+        //    if (i > 9)
+        //    {
+        //        text.fontSize = 8;
+        //    }
+        //}
   
 
 
