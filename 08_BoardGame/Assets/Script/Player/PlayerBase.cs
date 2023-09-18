@@ -22,8 +22,8 @@ public class PlayerBase : MonoBehaviour
     protected PlayerBase opponent;//상대방 
 
     public Action<PlayerBase> onAttackFail;//이 플레이어의 공격이 실패했으을 알리는 신호 param = 자기 자신
-    public Action<PlayerBase> onDefead;// 이 플레이어가 패배했을음 알리는 신호 
     public Action onActionEnd;
+    public Action<PlayerBase> onDefead;// 이 플레이어가 패배했을음 알리는 신호 
     protected virtual void Awake()
     {
         board = GetComponentInChildren<Board>();
@@ -38,6 +38,9 @@ public class PlayerBase : MonoBehaviour
         {
             ShipType shipType = (ShipType)(i + 1);
             ships[i] = ShipManager.Inst.MakeShip(shipType, transform);
+            ships[i].on_Sinking += OnShipDestroy; //함선 침몰시 OnShipDestroy 함수 실행
+
+            board.on_ShipAttacked[shipType] = ships[i].OnHitted;
         }
         remainShipCount = shipTypeCount;
     }
@@ -59,7 +62,7 @@ public class PlayerBase : MonoBehaviour
     }
     public void Attack(int index)
     {
-
+        Attack(Board.Index_To_Grid(index));
     }
     public void Attack(Vector3 worldPos)
     {
@@ -68,7 +71,7 @@ public class PlayerBase : MonoBehaviour
     
     public void AutoAttack()//CPU, 인간 플레이어가 타임아웃 됐을 때 사용 
     {
-
+        //자동공격
     }
     //공격 관련 함수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
@@ -286,15 +289,8 @@ public class PlayerBase : MonoBehaviour
     }
     public void UndoAllShipDeployment()//모든함선의 배치를 취소하는 함수 
     {
-        //if (ship.IsDeployed)//이미 배치되어있으면 
-        //{
-        //    foreach (var pos in ship.Positions)
-        //    {
-        //        shipInfo[Board.Grid_To_Index(pos)] = ShipType.None;
-        //    }
-        //    ship.UnDeploy();//배치 취소
-        //    ship.gameObject.SetActive(false);
-        //}
+        Board.ResetBoard(ships);
+        remainShipCount = ShipManager.Inst.ShipType_Count;
     }
     //함선 배치용 함수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
@@ -302,12 +298,18 @@ public class PlayerBase : MonoBehaviour
     //함선 침몰 및 패배처리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
     void OnShipDestroy(Ship ship)//내가 가진 특정배가 침몰됐을 떄 실행될 함수 
     {
-
+        remainShipCount--;// 배가 침몰할 때마다 카운트 감소 
+        Debug.Log($"{ship.ShipType} 이 침몰 했습니다. {remainShipCount} 척의 배가 남아있습니다.");
+        if (remainShipCount < 1)
+        {
+            OnDefeat();
+        }
     }
 
     void OnDefeat()//모든 배가 침몰되었을 때 실행될 함수 
     {
-
+        Debug.Log($"[{this.gameObject.name}] 패배");
+        onDefead?.Invoke(this);
     }
 
     //기타ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ

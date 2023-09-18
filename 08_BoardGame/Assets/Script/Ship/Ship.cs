@@ -80,7 +80,11 @@ public class Ship : MonoBehaviour
         get => hp;
         set
         {
-
+            hp = value;
+            if (hp < 1 && IsAlive)//살아있는 살태에서 HP가 1 이하로 떨어지면 사망처리
+            {
+                OnSinking();
+            }
         }
     }
 
@@ -202,11 +206,19 @@ public class Ship : MonoBehaviour
     }
     public void OnHitted()
     {
+        Debug.Log($"{shipType} 이 공격받았다.");
+        HP--;
 
+        if (IsAlive)
+        {
+            on_Hit?.Invoke(this);
+        }
     }
     void OnSinking()// 함선이 침몰할 때 실행될 함수 
     {
-
+        Debug.Log($"{shipType} 이 침몰되었다.");
+        isAlive = false;
+        on_Sinking?.Invoke(this);
     }
 
 }

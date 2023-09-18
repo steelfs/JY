@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,11 +18,24 @@ public class Board : MonoBehaviour
     BombMark bombMark;//보드가 공격당한 위치를 시각적으로 보여주는 클래스
     bool[] isAttacked;//공격받으면 true로 성정되는 배열
 
+    public Dictionary<ShipType, Action> on_ShipAttacked;// 배 종류별로 공격당했을 때 실행될 델리게이트를 가지는 Dictionary
+    //이진트리방식, 시간복잡도 = 배열보다는 느리지만 List보다는 빠르다.
     private void Awake()
     {
         shipInfo = new ShipType[Board_Size * Board_Size];
         isAttacked = new bool[Board_Size * Board_Size];
         bombMark = GetComponentInChildren<BombMark>();
+
+        on_ShipAttacked = new Dictionary<ShipType, Action>(ShipManager.Inst.ShipType_Count + 1);
+        on_ShipAttacked[ShipType.None] = null;// 연결된 함수는 없으나 null이라도 할당해 놓지 않으면  on_ShipAttacked[ShipType.None] ?.Invoke(); 했을 때 터지게 된다.
+        on_ShipAttacked[ShipType.Carrier] = null;
+        on_ShipAttacked[ShipType.BattleShip] = null;
+        on_ShipAttacked[ShipType.Destroyer] = null;
+        on_ShipAttacked[ShipType.SubMarine] = null;
+        on_ShipAttacked[ShipType.PatrolBoat] = null;
+
+
+
     }
 
     public void ResetBoard(Ship[] ships)
@@ -122,9 +136,11 @@ public class Board : MonoBehaviour
                 if (shipInfo[index] != ShipType.None)//배가있으면 공격성공
                 {
                     result = true;
+                    on_ShipAttacked[shipInfo[index]]?.Invoke();// 공격당한 배의 델리게이트 실행
                 }
                 
                 bombMark.SetBombMark(Grid_To_World(grid), result);
+
             }
 
         }
