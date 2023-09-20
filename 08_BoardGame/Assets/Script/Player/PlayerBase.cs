@@ -33,8 +33,11 @@ public class PlayerBase : MonoBehaviour
     readonly Vector2Int NOT_SUCCESS = -Vector2Int.one; // 이전 공격이 실패시 표시하는 변수 
     readonly Vector2Int[] neighbors = { new(-1, 0), new(1, 0), new(0, 1), new(0, -1) };
 
-    public GameObject highMarkPrefab;
-    Dictionary<int, GameObject> highmarks;
+
+    public GameObject highMarkPrefab;//공격후보지역 표시용 프리팹
+    Dictionary<int, GameObject> highmarks;//마크를 모아놓은 딕셔너리
+    Transform highmarks_Parent;
+    bool opponentShipDestroyed = false;//이번 공격으로 상대방의 배가 침몰했는지 알려주는 변수
 
     public void ActiveMarks()
     {
@@ -52,7 +55,8 @@ public class PlayerBase : MonoBehaviour
     }
     protected virtual void Awake()
     {
-        highmarks = new Dictionary<int, GameObject>(4);
+        highmarks_Parent = transform.GetChild(1).transform;
+        highmarks = new Dictionary<int, GameObject>(10);
         board = GetComponentInChildren<Board>();
         shipInfo = new ShipType[Board.Board_Size * Board.Board_Size];
     }
@@ -102,17 +106,25 @@ public class PlayerBase : MonoBehaviour
         bool result = opponent.Board.OnAttacked(attackGridPos);
         if (result)// 공격 성공
         {
-
-            if (lastAttack_SuccessPos != NOT_SUCCESS)
+            if (opponentShipDestroyed)
             {
-                //이전 턴 공격이 성공했을 때 
-                AddHighFromTwoPoint(attackGridPos, lastAttack_SuccessPos);
+                //적 함선이 침몰했으면 
+                RemoveAllHigh();// 후보지역 전부 제거
+                opponentShipDestroyed = false;
             }
-            else//처음 성공 
+            else
             {
-                AddHighFromNeighbor(attackGridPos);
+                if (lastAttack_SuccessPos != NOT_SUCCESS)
+                {
+                    //이전 턴 공격이 성공했을 때 
+                    AddHighFromTwoPoint(attackGridPos, lastAttack_SuccessPos);
+                }
+                else//처음 성공 
+                {
+                    AddHighFromNeighbor(attackGridPos);
+                }
+                lastAttack_SuccessPos = attackGridPos;
             }
-            lastAttack_SuccessPos = attackGridPos;
         }
         else//공격 실패
         {
@@ -159,13 +171,26 @@ public class PlayerBase : MonoBehaviour
         {
             attackHighindex.Remove(index);
 
-            GameObject mark = highmarks[index];
-            highmarks.Remove(index);
-            Destroy(mark);
-
+            if (highmarks.ContainsKey(index))
+            {
+                GameObject mark = highmarks[index];
+                highmarks.Remove(index);//key를 지우면 value도 지워짐
+                Destroy(mark);
+            }
         }
     }
+    void RemoveAllHigh()
+    {
+        foreach(var index in attackHighindex)
+        {
+            Destroy(highmarks[index]);//오브젝트 삭제
+            highmarks[index] = null;
+        }
+        highmarks.Clear();// key , value를 모두 지우기
+        attackHighindex.Clear();// 리스트 내용 비우기
 
+        lastAttack_SuccessPos = NOT_SUCCESS;
+    }
     
     void AddHigh(int index)//높은 우선순위 목록에 추가하는 함수 
     {
@@ -174,11 +199,13 @@ public class PlayerBase : MonoBehaviour
             attackHighindex.Insert(0, index);//첫번째 인덱스에 추가// 새로 추가된 위치가 공격 성공확률이 더 높기 때문에 먼저 꺼내 쓸 수 있도록 하기 위함
 
 
-            GameObject mark = Instantiate(highMarkPrefab);
+            GameObject mark = Instantiate(highMarkPrefab, highmarks_Parent);
+            Vector2Int grid = Board.Index_To_Grid(index);
+            mark.name = $"Index_{index}, ({grid.x},{grid.y})";
             Vector3 position = opponent.Board.Index_To_World(index);
             position.y = 1.5f;
             mark.transform.position = position;
-            highmarks.Add(index, mark);
+            highmarks.Add(index, mark);//딕셔너리 추가
         }
     }
     void AddHighFromTwoPoint(Vector2Int now, Vector2Int last)// 연속으로 공격 성공 시 양 쪽 끝 두 포인트를 더해주는 함수 now = 최근 공격 , last = 이전 공격
@@ -598,6 +625,9 @@ public class PlayerBase : MonoBehaviour
     //함선 침몰 및 패배처리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
     void OnShipDestroy(Ship ship)//내가 가진 특정배가 침몰됐을 떄 실행될 함수 
     {
+        opponentShipDestroyed = true;//상대방에게 상대방의 상대방(나) 배가 가 파괴되었다고 표시//  instance가 달라도 같은 스크립트의 변수에는 접근 가능하다.
+        opponent.lastAttack_SuccessPos = NOT_SUCCESS;// 상대방의 마지막 공격 성공위치 초기화
+
         remainShipCount--;// 배가 침몰할 때마다 카운트 감소 
         Debug.Log($"{ship.ShipType} 이 침몰 했습니다. {remainShipCount} 척의 배가 남아있습니다.");
         if (remainShipCount < 1)
@@ -616,7 +646,12 @@ public class PlayerBase : MonoBehaviour
 
     public void Clear()//초기화 . 게임시작 직전 상태로 변경 
     {
+        remainShipCount = ShipManager.Inst.ShipType_Count;
 
+        opponentShipDestroyed = false;
+
+        Board.ResetBoard(ships);
+        RemoveAllHigh();
     }
     public Ship GetShip(ShipType type)
     {
