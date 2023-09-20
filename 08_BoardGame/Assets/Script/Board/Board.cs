@@ -212,6 +212,11 @@ public class Board : MonoBehaviour
         Vector3 diff = worldPos - transform.position;
         return diff.x >= 0.0f && diff.x < Board_Size && diff.z <= 0 && diff.z >= -Board_Size;
     }
+    public bool IsAttackSuccessPosition(Vector2Int grid)//특정 위치가 공격 성공한 위치인지 확인하는 함수 
+    {
+        int index = Grid_To_Index(grid);//확인할 위치
+        return index != NOT_VALID_INDEX && isAttacked[index] && shipInfo[index] != ShipType.None; // 유효한 인덱스 이면서 공격받았고, ShipType이 None이 아니면(배가 있으면) 공격성공 판정
+    }
     public static int Grid_To_Index(int x, int y)
     {
         int result = NOT_VALID_INDEX;

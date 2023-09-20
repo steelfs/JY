@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
@@ -148,14 +149,79 @@ public class PlayerBase : MonoBehaviour
     }
     void AddHighFromTwoPoint(Vector2Int now, Vector2Int last)// 연속으로 공격 성공 시 양 쪽 끝 두 포인트를 더해주는 함수 now = 최근 공격 , last = 이전 공격
     {
-        
+        if (InSuccessLine(last, now,true))
+        {
+
+        }
+        else if (InSuccessLine(last, now, false))
+        {
+
+        }
+        else
+        {
+
+        }
     }
 
     bool InSuccessLine(Vector2Int start, Vector2Int end, bool isHorizontal)//start에서 end 한 칸 앞 까지 공격 성공이었는지 체크하는 함수  isHorizontal = 가로, false면 다른 줄이거나 공격실패
     {
         bool result = true;
+        Vector2Int pos = start;
+        int dir = 1;// + 방향 or -방향
+        if (isHorizontal)
+        {
+            if (start.y == end.y)
+            {
+                if (start.x > end.x)//시작지점이 오른쪽이면
+                {
+                    dir = -1;
+                }
 
-
+                start.x *= dir;
+                start.y *= dir;
+                start.x++;
+                for (int i = start.x; i < end.x; i++)// -1을 더해서 왼쪽으로 이동
+                {
+                    pos.x = i * dir;
+                    if (!opponent.Board.IsAttackSuccessPosition(pos))
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                result = false;
+            }
+        }
+        else
+        {
+            if (start.x == end.x)
+            {
+                if (start.y > end.y)
+                {
+                    dir = -1;
+                }
+                start.x *= dir;
+                start.y *= dir;
+                start.y++;
+                for (int i = start.y; i < end.y; i++)// -1을 더해서 왼쪽으로 이동
+                {
+                    pos.y = i * dir;
+                    if (!opponent.Board.IsAttackSuccessPosition(pos))
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                result = false;
+            }
+        }
+        
 
         return result;
     }
@@ -426,5 +492,6 @@ public class PlayerBase : MonoBehaviour
         opponent = player;
     }
     //기타ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
- 
+    
+
 }
