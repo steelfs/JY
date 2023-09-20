@@ -510,6 +510,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: User
       objectReference: {fileID: 0}
+    - target: {fileID: 5897990778020509675, guid: b25a7fb8786e5e24eb52ed0b70503453,
+        type: 3}
+      propertyPath: highMarkPrefab
+      value: 
+      objectReference: {fileID: 4192368428212053985, guid: 9feac8ec787a4064bb814ccfa4210c8c,
+        type: 3}
     - target: {fileID: 5897990778020509676, guid: b25a7fb8786e5e24eb52ed0b70503453,
         type: 3}
       propertyPath: m_RootOrder
@@ -966,6 +972,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5897990778020509675, guid: b25a7fb8786e5e24eb52ed0b70503453,
+        type: 3}
+      propertyPath: highMarkPrefab
+      value: 
+      objectReference: {fileID: 4192368428212053985, guid: 9feac8ec787a4064bb814ccfa4210c8c,
+        type: 3}
     - target: {fileID: 5897990778020509676, guid: b25a7fb8786e5e24eb52ed0b70503453,
         type: 3}
       propertyPath: m_RootOrder
@@ -1218,16 +1230,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1212697733}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3a2095d74aa9db409bdbd183191d509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reset: {fileID: 0}
-  random: {fileID: 0}
-  reset_Random: {fileID: 0}
-  user: {fileID: 0}
-  enemy: {fileID: 0}
+  reset: {fileID: 479925555}
+  random: {fileID: 1255023073}
+  reset_Random: {fileID: 1013556789}
+  user: {fileID: 2119524209}
+  enemy: {fileID: 991821270}
+  isHorizontal: 1
 --- !u!4 &1212697735
 Transform:
   m_ObjectHideFlags: 0

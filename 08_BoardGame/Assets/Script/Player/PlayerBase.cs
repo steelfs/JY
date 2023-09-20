@@ -33,8 +33,26 @@ public class PlayerBase : MonoBehaviour
     readonly Vector2Int NOT_SUCCESS = -Vector2Int.one; // 이전 공격이 실패시 표시하는 변수 
     readonly Vector2Int[] neighbors = { new(-1, 0), new(1, 0), new(0, 1), new(0, -1) };
 
+    public GameObject highMarkPrefab;
+    Dictionary<int, GameObject> highmarks;
+
+    public void ActiveMarks()
+    {
+        foreach(var prefab in highmarks.Values)
+        {
+            prefab.SetActive(true);
+        }
+    }
+    public void DeActiveMarks()
+    {
+        foreach (var prefab in highmarks.Values)
+        {
+            prefab.SetActive(false);
+        }
+    }
     protected virtual void Awake()
     {
+        highmarks = new Dictionary<int, GameObject>(4);
         board = GetComponentInChildren<Board>();
         shipInfo = new ShipType[Board.Board_Size * Board.Board_Size];
     }
@@ -140,6 +158,11 @@ public class PlayerBase : MonoBehaviour
         if (attackHighindex.Contains(index))// 있으면 제거
         {
             attackHighindex.Remove(index);
+
+            GameObject mark = highmarks[index];
+            highmarks.Remove(index);
+            Destroy(mark);
+
         }
     }
 
@@ -149,6 +172,13 @@ public class PlayerBase : MonoBehaviour
         if (!attackHighindex.Contains(index))//이미 들어있지 않을 때만
         {
             attackHighindex.Insert(0, index);//첫번째 인덱스에 추가// 새로 추가된 위치가 공격 성공확률이 더 높기 때문에 먼저 꺼내 쓸 수 있도록 하기 위함
+
+
+            GameObject mark = Instantiate(highMarkPrefab);
+            Vector3 position = opponent.Board.Index_To_World(index);
+            position.y = 1.5f;
+            mark.transform.position = position;
+            highmarks.Add(index, mark);
         }
     }
     void AddHighFromTwoPoint(Vector2Int now, Vector2Int last)// 연속으로 공격 성공 시 양 쪽 끝 두 포인트를 더해주는 함수 now = 최근 공격 , last = 이전 공격

@@ -66,4 +66,12 @@ public class Test08_PlayerAttack : TestBase
         base.OnDisable();
         inputActions.Test.RClick.performed -= RClick;
     }
+    protected override void Test1(InputAction.CallbackContext context)
+    {
+        user.ActiveMarks();
+    }
+    protected override void Test2(InputAction.CallbackContext context)
+    {
+        user.DeActiveMarks();
+    }
 }
