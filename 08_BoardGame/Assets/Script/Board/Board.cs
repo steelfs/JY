@@ -217,6 +217,12 @@ public class Board : MonoBehaviour
         int index = Grid_To_Index(grid);//확인할 위치
         return index != NOT_VALID_INDEX && isAttacked[index] && shipInfo[index] != ShipType.None; // 유효한 인덱스 이면서 공격받았고, ShipType이 None이 아니면(배가 있으면) 공격성공 판정
     }
+    public bool IsAttackFailPosition(Vector2Int grid)//특정위치가 공격 실패한 위치인지 확인하는 함수
+    {
+        int index = Grid_To_Index(grid);
+         return index != NOT_VALID_INDEX && isAttacked[index] && shipInfo[index] == ShipType.None;
+    }
+
     public static int Grid_To_Index(int x, int y)
     {
         int result = NOT_VALID_INDEX;

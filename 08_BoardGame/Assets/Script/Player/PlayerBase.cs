@@ -100,6 +100,10 @@ public class PlayerBase : MonoBehaviour
         {
             lastAttack_SuccessPos = NOT_SUCCESS;
         }
+
+        int attackIndex = Board.Grid_To_Index(attackGridPos);
+        RemoveHighIndex(attackIndex);
+        attackindex.Remove(attackIndex);
     }
     public void Attack(int index)
     {
@@ -151,38 +155,140 @@ public class PlayerBase : MonoBehaviour
     {
         if (InSuccessLine(last, now,true))
         {
+            //가로로 붙어있는 한 줄
 
+            Vector2Int grid;
+            List<int> dels = new List<int>();
+            foreach(var index in attackHighindex)//같은 가로선상에 있지않은 후보지역 모두제거
+            {
+                grid = Board.Index_To_Grid(index);
+                if (grid.y != now.y)
+                {
+                    dels.Add(index);
+                }
+            }
+            foreach (var index in dels)
+            {
+                RemoveHighIndex(index);
+            }
+            grid = now;
+            for (int  i = now.x - 1; i > -1; i--)//i는 now의 왼쪽칸에서 보드의 끝까지
+            {
+                grid.x = i;
+                if (!Board.Is_In_Board(grid))
+                {
+                    break;
+                }
+                if (opponent.Board.IsAttackFailPosition(grid))
+                {
+                    break;
+                }
+                if (opponent.Board.isAttackable(grid))
+                {
+                    AddHigh(Board.Grid_To_Index(grid));
+                    break;
+                }
+            }
+            grid = now;
+            for (int i = now.x; i < Board.Board_Size; i++)//i는 now의 오른쪽칸에서 보드의 끝까지
+            {
+                grid.x = i;
+                if (!Board.Is_In_Board(grid))
+                {
+                    break;
+                }
+                if (opponent.Board.IsAttackFailPosition(grid))
+                {
+                    break;
+                }
+                if (opponent.Board.isAttackable(grid))
+                {
+                    AddHigh(Board.Grid_To_Index(grid));
+                    break;
+                }
+            }
+            //양 끝 지역에 now에서 왼쪽 오른쪽으로 이동하며 양 끝을 찾아 높은 후보지역에 추가
         }
         else if (InSuccessLine(last, now, false))
         {
-
+            Vector2Int grid;
+            List<int> dels = new List<int>();
+            foreach (var index in attackHighindex)//같은 새로선상에 있지않은 후보지역 모두제거
+            {
+                grid = Board.Index_To_Grid(index);
+                if (grid.x != now.x)
+                {
+                    dels.Add(index);
+                }
+            }
+            foreach (var index in dels)
+            {
+                RemoveHighIndex(index);
+            }
+            grid = now;
+            for (int i = now.y - 1; i > -1; i--)//i는 now의 윗쪽에서 보드 끝
+            {
+                grid.y = i;
+                if (!Board.Is_In_Board(grid))
+                {
+                    break;
+                }
+                if (opponent.Board.IsAttackFailPosition(grid))
+                {
+                    break;
+                }
+                if (opponent.Board.isAttackable(grid))
+                {
+                    AddHigh(Board.Grid_To_Index(grid));
+                    break;
+                }
+            }
+            grid = now;
+            for (int i = now.y; i < Board.Board_Size; i++)//i는 now의 오른쪽칸에서 보드의 끝까지
+            {
+                grid.y = i;
+                if (!Board.Is_In_Board(grid))
+                {
+                    break;
+                }
+                if (opponent.Board.IsAttackFailPosition(grid))
+                {
+                    break;
+                }
+                if (opponent.Board.isAttackable(grid))
+                {
+                    AddHigh(Board.Grid_To_Index(grid));
+                    break;
+                }
+            }
         }
         else
         {
-
+            //같은 줄이 아니다 == 다른 배다
+            AddHighFromNeighbor(now);// 다른배니까 모두 추가
         }
     }
 
     bool InSuccessLine(Vector2Int start, Vector2Int end, bool isHorizontal)//start에서 end 한 칸 앞 까지 공격 성공이었는지 체크하는 함수  isHorizontal = 가로, false면 다른 줄이거나 공격실패
     {
         bool result = true;
-        Vector2Int pos = start;
-        int dir = 1;// + 방향 or -방향
-        if (isHorizontal)
+        Vector2Int pos = start;// start부터 end까지 위치를 순차적으로 저장할 변수 
+        int dir = 1;// + 방향 or -방향, 왼쪽 오른쪽 , 윗쪽 아랫쪽 방향 지정
+        if (isHorizontal)//가로방향이면
         {
-            if (start.y == end.y)
+            if (start.y == end.y)//같은 선상에 있으면 
             {
                 if (start.x > end.x)//시작지점이 오른쪽이면
                 {
                     dir = -1;
                 }
 
-                start.x *= dir;
-                start.y *= dir;
-                start.x++;
-                for (int i = start.x; i < end.x; i++)// -1을 더해서 왼쪽으로 이동
+                start.x *= dir;//방향 적용
+                end.x *= dir;
+                end.x++;
+                for (int i = start.x; i < end.x; i++)//
                 {
-                    pos.x = i * dir;
+                    pos.x = i * dir;//임시변수도  방향적용
                     if (!opponent.Board.IsAttackSuccessPosition(pos))
                     {
                         result = false;
@@ -192,7 +298,7 @@ public class PlayerBase : MonoBehaviour
             }
             else
             {
-                result = false;
+                result = false;//가로 혹은 세로로 같은 선상에 있이 않으면 false
             }
         }
         else
@@ -201,12 +307,12 @@ public class PlayerBase : MonoBehaviour
             {
                 if (start.y > end.y)
                 {
-                    dir = -1;
+                    dir = -1;//시작지점이 아랫쪽에 있을 경우 
                 }
-                start.x *= dir;
                 start.y *= dir;
-                start.y++;
-                for (int i = start.y; i < end.y; i++)// -1을 더해서 왼쪽으로 이동
+                end.y *= dir;
+                end.y++;
+                for (int i = start.y; i < end.y; i++)//
                 {
                     pos.y = i * dir;
                     if (!opponent.Board.IsAttackSuccessPosition(pos))
