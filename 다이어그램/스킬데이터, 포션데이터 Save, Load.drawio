@@ -1,0 +1,28 @@
+<mxfile host="Electron" modified="2023-09-20T14:03:47.960Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.7.5 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" etag="xBB3-ZbuMve8BsK_K05x" version="21.7.5" type="device">
+  <diagram name="페이지-1" id="buRgiacx7ixRBh4OdfS-">
+    <mxGraphModel dx="650" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="GokfmNJjCvI4ultxdEHJ-1" value="Save_SkillData" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GokfmNJjCvI4ultxdEHJ-3" value="로드할 때 해야 할 것&lt;br&gt;퀵슬롯 매니저에서 저장했던 Save_SkillData의 배열을 받아서 순회하며 SkillData가 null이 아니면 해당 퀵슬롯에 타입에 맞는 SkillData를 셋팅한다.&lt;br&gt;&lt;br&gt;이때 데이터가 Load되기 전 이기 때문에 스킬의 레벨은 모두 1이다.(SkillBox 하위의 Init함수를 실행한 스킬데이터를 셋팅했기 때문)&lt;br&gt;&lt;br&gt;그 후 현재 레벨과 Save_SkillData에 저장된 레벨이 다르다면 레벨이 같아질 때 까지 SkillData의 LevelUp_Skill_Info 함수를 실행시켜 저장된 상태로 로드를 완료한다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="280" width="330" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="GokfmNJjCvI4ultxdEHJ-4" value="세이브할 때 해야할 것&lt;br&gt;&lt;br&gt;퀵슬롯매니저의 자식 들 중&lt;br&gt;SkillData가 null이 아닌 것들의 Data를 Save_SkillData클래스에저장해서 Save_SkillData의 배열을 리턴" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="160" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="GokfmNJjCvI4ultxdEHJ-5" value="세이브할 때 해야할 것&lt;br&gt;&lt;br&gt;인벤토리 슬롯중 ItemData == ItemDataPotion이면서 BindingSlot이 null 이 아니면&lt;br&gt;&lt;br&gt;TempData Struct에 BindingSlor에 같이 저장&lt;br&gt;ItemCode, ItemCount, SlotIndex와 함께&lt;br&gt;&lt;br&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="160" width="330" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="GokfmNJjCvI4ultxdEHJ-6" value="Save_PotionData" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="705" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GokfmNJjCvI4ultxdEHJ-7" value="세이브할 때 해야할 것&lt;br&gt;&lt;br&gt;인벤토리 슬롯중 ItemData == ItemDataPotion이면서 BindingSlot이 null 이 아니면&lt;br&gt;&lt;br&gt;TempData Struct에 BindingSlor에 같이 저장&lt;br&gt;ItemCode, ItemCount, SlotIndex와 함께&lt;br&gt;&lt;br&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="320" width="330" height="150" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
