@@ -1,32 +1,26 @@
-<mxfile host="Electron" modified="2023-09-18T14:25:06.700Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.7.5 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" etag="KQuDVroJU5mCba1iv0Xm" version="21.7.5" type="device">
+<mxfile host="Electron" modified="2023-09-21T00:03:36.496Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="_2MkacnKdCrog73dhsa_" version="21.2.8" type="device">
   <diagram name="페이지-1" id="RatrRP6nfcGQsPmVXGSf">
-    <mxGraphModel dx="1098" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="903" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="WjZnzPMZCiqWXGK3myXa-1" value="오브젝트풀" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="350" y="90" width="120" height="60" as="geometry" />
+        <mxCell id="WjZnzPMZCiqWXGK3myXa-1" value="오브젝트풀" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="40" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="WjZnzPMZCiqWXGK3myXa-2" value="게임오브젝트 배열 만들기" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="350" y="210" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="WjZnzPMZCiqWXGK3myXa-3" value="게임오브젝트 큐 만들기" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="350" y="280" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="WjZnzPMZCiqWXGK3myXa-4" value="게임오브젝트 생성하고 큐에 넣은 뒤 비활성화" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="350" y="360" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="WjZnzPMZCiqWXGK3myXa-5" value="GetObject();" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="WjZnzPMZCiqWXGK3myXa-5" value="GetObject();" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="350" y="460" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="WjZnzPMZCiqWXGK3myXa-6" value="ReturnPool" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="WjZnzPMZCiqWXGK3myXa-6" value="ReturnPool" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="350" y="540" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="WjZnzPMZCiqWXGK3myXa-7" value="Init();" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="WjZnzPMZCiqWXGK3myXa-7" value="Init();" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="500" y="440" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="WjZnzPMZCiqWXGK3myXa-8" value="Init();" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="WjZnzPMZCiqWXGK3myXa-8" value="Init();" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="500" y="520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Dn0gDTl4cm44M8X3MZ_S-2" value="초기화시 해야 할 것&lt;br&gt;&lt;br&gt;System.Serializable&lt;br&gt;Class Pools(프리팹의 카운트, 프리팹 저장)&lt;br&gt;&lt;br&gt;게임오브젝트&amp;nbsp; 큐의 배열 생성&lt;br&gt;public Pools 배열 생성&lt;br&gt;&lt;br&gt;프리팹 생성 빈 부모오브젝트 생성 밑으로 parent설정 및 이름 설정" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="10" width="340" height="170" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
