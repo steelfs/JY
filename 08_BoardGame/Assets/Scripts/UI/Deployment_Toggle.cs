@@ -89,10 +89,10 @@ public class Deployment_Toggle : MonoBehaviour
         {
             case DeployState.NotSelect:
                 State = DeployState.Select;//처음 선택 , 자신 이외의것들 선택 해제
+                player.SelectShipToDeploy(shipType);
                 break;
             case DeployState.Select:
                 State = DeployState.NotSelect;//자신에 대해 선택 해제
-                player.SelectShipToDeploy(shipType);
                 //1. 함선배치 구현
                 // 플레이어의 입력델리게이트 구현
                 //onPress?.Invoke(this);
