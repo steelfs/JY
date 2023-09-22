@@ -13,7 +13,7 @@ public class TurnManager : Singleton<TurnManager>
     /// <summary>
     /// 한턴이 타임아웃 되는데 걸리는 시간
     /// </summary>
-    const float turnDuration = 5.0f;
+    const float turnDuration = 100.0f;
     public float TurnDuration => turnDuration;
 
     /// <summary>
