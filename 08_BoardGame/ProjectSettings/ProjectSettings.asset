@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 24
-  productGUID: 68d0dfb86fd9b614995696d118e6a5e6
+  productGUID: eb5eb8f06e89c004a85370d53ddc876e
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -884,11 +884,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: edd81d12-2355-41df-9cd4-75ad4f850a26
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: 08_BoardGame (1)
+  organizationId: bratica
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
