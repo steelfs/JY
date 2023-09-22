@@ -15,31 +15,22 @@ public class ShipDeploymentPanel : MonoBehaviour
         foreach (Deployment_Toggle toggle in toggles)
         {
             //toggle.onPress += OnTogglePress;
-            toggle.onStateChange += OnToggleStateChange;
+            toggle.onStateChange += UnSelectAll_Others;
         }
     }
 
-    private void OnToggleStateChange(Deployment_Toggle changed)
+    private void UnSelectAll_Others(Deployment_Toggle self)
     {
         foreach (var toggle in toggles)
         {
-            if (toggle != changed)
+            if (toggle != self)
             {
-                toggle.SetRelease();
+                toggle.SetNotSelect();
             }
         }
     }
 
-    private void OnTogglePress(Deployment_Toggle pressed)
-    {
-        foreach(var toggle in toggles)
-        {
-            if (toggle != pressed)
-            {
-                toggle.SetRelease();
-            }
-        }
-    }
+
 }
 //토글버튼은 한번에 하나만 선택 가능
 // 함선이 배치되면 해당 배와 연결된 버튼은 알파값 -

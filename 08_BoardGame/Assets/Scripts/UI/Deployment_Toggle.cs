@@ -11,7 +11,7 @@ public class Deployment_Toggle : MonoBehaviour
     Button button;
     GameObject deployText;
 
-    readonly Color pressColor = new(1,1,1,0.2f);
+    readonly Color selectColor = new(1,1,1,0.2f);
     //bool isToggled = false;
     //bool IsToggled
     //{
@@ -55,10 +55,11 @@ public class Deployment_Toggle : MonoBehaviour
                         deployText.gameObject.SetActive(false);
                         break;
                     case DeployState.Select:
-                        image.color = pressColor;
+                        image.color = selectColor;
                         deployText.gameObject.SetActive(false);
                         break;
                     case DeployState.Deploy:
+                        image.color = selectColor;
                         deployText.gameObject.SetActive(true);
                         break;
                 }
@@ -69,7 +70,7 @@ public class Deployment_Toggle : MonoBehaviour
     UserPlayer player;
 
     public ShipType shipType;
-    public Action<Deployment_Toggle> onPress;
+   // public Action<Deployment_Toggle> onSelect;
     public Action<Deployment_Toggle> onStateChange;
     private void Awake()
     {
@@ -91,19 +92,24 @@ public class Deployment_Toggle : MonoBehaviour
                 break;
             case DeployState.Select:
                 State = DeployState.NotSelect;//자신에 대해 선택 해제
+                player.SelectShipToDeploy(shipType);
+                //1. 함선배치 구현
+                // 플레이어의 입력델리게이트 구현
+                //onPress?.Invoke(this);
                 break;
             case DeployState.Deploy:
                 State = DeployState.NotSelect;//배치 취소 후 NotSelect
+                player.UndoShipDeploy(shipType);
                 break;
         }
         onStateChange?.Invoke(this);
     }
 
-    public void SetPress()
+    public void SetSelect()//패널에서 제어하기위한 함수 
     {
        // IsToggled = true;
     }
-    public void SetRelease()
+    public void SetNotSelect()
     {
         if (State != DeployState.Deploy)
         {
