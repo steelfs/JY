@@ -1,76 +1,76 @@
-<mxfile host="Electron" modified="2023-09-21T13:55:46.219Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.7.5 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" etag="rAR4eORK5-fiii_B4Pa0" version="21.7.5" type="device">
+<mxfile host="Electron" modified="2023-09-23T14:19:32.167Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.7.5 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" etag="PMxBLW3LhCIVeDNCN5en" version="21.7.5" type="device">
   <diagram name="페이지-1" id="oYEOmsEU-r3RK-yHsZw6">
-    <mxGraphModel dx="1098" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="650" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="fDYHZz1mXMlbd0j3325K-1" value="Player_Status Class&lt;br&gt;&lt;br&gt;ID&lt;br&gt;LV&lt;br&gt;EXP&lt;br&gt;Base_HP(max),&lt;br&gt;Base_Stamina(max),&lt;br&gt;BaseATT&lt;br&gt;BaseDP&lt;br&gt;STR, = 레벨업당 HP증가량, 방어력++ ;&lt;br&gt;DEX, = 회피율&lt;br&gt;INT, = 레벨업당 스테미너 증가량++;&lt;br&gt;LUK = 크리티컬 확률&lt;br&gt;Ability Point&lt;br&gt;&lt;br&gt;&lt;br&gt;최종데미지를 구해주는 함수 Min, Max&lt;br&gt;&lt;br&gt;크리티컬데미지를 구해주는 함수 Min, Max&lt;br&gt;&lt;br&gt;레벨업 함수 =&amp;gt; 기본 HP, MP 10씩 증가&lt;br&gt;Ability Point 5제공&lt;br&gt;&lt;br&gt;크리티컬 확률 Luk1당 0.5% 증가&lt;br&gt;회피율 증가량 DEX1당 0.5%증가&lt;br&gt;HP증가량 = STR1 당 1 증가&lt;br&gt;스테미너 증가량 INT 1당 1증가" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-1" value="Player_Status Class&lt;br&gt;&lt;br&gt;ID&lt;br&gt;LV&lt;br&gt;EXP&lt;br&gt;Base_HP(max),&lt;br&gt;Base_Stamina(max),&lt;br&gt;BaseATT&lt;br&gt;BaseDP&lt;br&gt;STR, = 레벨업당 HP증가량, 방어력++ ;&lt;br&gt;DEX, = 회피율&lt;br&gt;INT, = 레벨업당 스테미너 증가량++;&lt;br&gt;LUK = 크리티컬 확률&lt;br&gt;Ability Point&lt;br&gt;&lt;br&gt;&lt;br&gt;최종데미지를 구해주는 함수 Min, Max&lt;br&gt;&lt;br&gt;크리티컬데미지를 구해주는 함수 Min, Max&lt;br&gt;&lt;br&gt;레벨업 함수 =&amp;gt; 기본 HP, MP 10씩 증가&lt;br&gt;Ability Point 5제공&lt;br&gt;&lt;br&gt;크리티컬 확률 Luk1당 0.5% 증가&lt;br&gt;회피율 증가량 DEX1당 0.5%증가&lt;br&gt;HP증가량 = STR1 당 1 증가&lt;br&gt;스테미너 증가량 INT 1당 1증가" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="19" y="60" width="311" height="480" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-2" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-2" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="360" y="60" width="280" height="480" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-3" value="ID" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-3" value="ID" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="90" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-4" value="LV" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-4" value="LV" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="110" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-5" value="EXP" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-5" value="EXP" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="130" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-6" value="HP" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-6" value="HP" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="150" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-7" value="Stamina" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-7" value="Stamina" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="170" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-8" value="공격력" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-8" value="공격력" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="190" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-9" value="방어력" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-9" value="방어력" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="210" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-10" value="STR" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-10" value="STR" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="230" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-11" value="DEX" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-11" value="DEX" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="250" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-12" value="INT" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-12" value="INT" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="270" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-13" value="LUK" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-13" value="LUK" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="290" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-14" value="Ability Point" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-14" value="Ability Point" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="310" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-15" value="ID" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-15" value="ID" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="480" y="90" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-16" value="LV" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-16" value="LV" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="480" y="110" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-17" value="EXP" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-17" value="EXP" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="480" y="130" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-18" value="HP" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-18" value="HP" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="480" y="150" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-19" value="Stamina" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-19" value="Stamina" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="480" y="170" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-20" value="데미지 Min ~ Max" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-20" value="데미지 Min ~ Max" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="490" y="190" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-21" value="회피율 %" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-21" value="회피율 %" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="490" y="250" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-22" value="크리티컬 확률" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-22" value="크리티컬 확률" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="490" y="230" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fDYHZz1mXMlbd0j3325K-23" value="크리티컬 데미지" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fDYHZz1mXMlbd0j3325K-23" value="크리티컬 데미지" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="490" y="210" width="100" height="20" as="geometry" />
         </mxCell>
       </root>
