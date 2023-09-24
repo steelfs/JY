@@ -27,4 +27,10 @@ public class Test_02_Board : TestBase
         Vector3 center = board.GridToWorld(grid);
         Debug.Log($"이 그리드의 중점 : ({center.x}, {center.y}, {center.z})");
     }
+    private void Start()
+    {
+        int d = 40;
+        int e = 50;
+        int f = 60;
+    }
 }
