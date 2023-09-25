@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-09-24T14:19:42.904Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.7.5 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" etag="GHQrBu340kgBhOuJ8uIK" version="21.7.5" type="device">
+<mxfile host="Electron" modified="2023-09-25T14:10:08.596Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.7.5 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" etag="Otx5d27Fb8bXlW0gjEE0" version="21.7.5" type="device">
   <diagram name="페이지-1" id="oYEOmsEU-r3RK-yHsZw6">
-    <mxGraphModel dx="2245" dy="835" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2245" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -112,8 +112,8 @@
         <mxCell id="E2JUhTGLTqq4bXBJUixX-30" value="STR, INT에 따른 HP, 스테미너 증가&lt;br&gt;및 AP지급" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-80" y="810" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="mLQIIpVvxXRIIKxPuPEC-1" value="장비, 버프스킬사용시 값이 변경될 능력치는 기본적용될 Base값과 최종적으로 적용될 Final값이 각각 따로 필요하다.&lt;br&gt;왜냐하면 기준이될 Base값은 변하면 안되기 때문이다.&lt;br&gt;&lt;br&gt;그리고 UI 업데이트는 Final 값을 기준으로 업데이트해서 보여준다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="-380" y="910" width="350" height="230" as="geometry" />
+        <mxCell id="mLQIIpVvxXRIIKxPuPEC-1" value="장비, 버프스킬사용시 값이 변경될 능력치는 기준이 될 수치이기 때문에&amp;nbsp; 실시간으로 변경해선 안된다.&lt;br&gt;&lt;br&gt;기준이 될 BaseStatus의 일부 변수들은 레벨업이 될 때와 스탯을 투자할 때만 변경되어야한다.&lt;br&gt;&lt;br&gt;즉 버프스킬, 장비착용시 BaseStatus를 접근하지 말고 실제적용될 Status를 수정해야 한다.&lt;br&gt;STR,INT,LUK,DEX 등은 기준이되기 때문에 실시간 변경 불가.&lt;br&gt;&lt;br&gt;&amp;nbsp;경험치, 레벨, 스텟포인트 등은 장비착용, 버프스킬 등에 영향을 받지 않기 때문에 실시간으로 변경이 가능하다.&lt;br&gt;&lt;br&gt;&lt;br&gt;DP, CriticalRate, 회피율 등 다른 스텟의 영향을 받아 변하는 능력치는 능력치가 바뀔 때마다 프로퍼티에서 직접 수정하지 말고&amp;nbsp;&lt;br&gt;Refresh 함수를 실행해 그곳에서 일괄변경하도록 한다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-380" y="910" width="440" height="300" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
