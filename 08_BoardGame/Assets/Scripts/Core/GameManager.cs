@@ -16,8 +16,10 @@ public class GameManager : Singleton<GameManager>
 {
     UserPlayer user;
     EnemyPlayer enemy;
+    FinishButton finishButton;
     public UserPlayer UserPlayer => user;
     public EnemyPlayer EnemyPlayer => enemy;
+    public FinishButton FinishButton => finishButton;
 
     GameState gameState = GameState.Title;
     public GameState GameState

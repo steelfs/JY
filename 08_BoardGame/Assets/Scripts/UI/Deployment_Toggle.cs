@@ -12,27 +12,7 @@ public class Deployment_Toggle : MonoBehaviour
     GameObject deployText;
 
     readonly Color selectColor = new(1,1,1,0.2f);
-    //bool isToggled = false;
-    //bool IsToggled
-    //{
-    //    get => isToggled;
-    //    set
-    //    {
-    //        if (isToggled != value)
-    //        {
-    //            isToggled = value;
-    //            if (isToggled)
-    //            {
-    //                image.color = pressColor;
-    //                onPress?.Invoke(this);
-    //            }
-    //            else
-    //            {
-    //                image.color = Color.white;
-    //            }
-    //        }
-    //    }
-    //}                                                                           
+                                                                          
     public enum DeployState
     {
         NotSelect,//선택되지 않은 상태 
@@ -82,6 +62,30 @@ public class Deployment_Toggle : MonoBehaviour
     private void Start()
     {
         player = GameManager.Inst.UserPlayer;
+
+        Ship ship = player.GetShip(shipType);
+        if (ship != null)
+        {
+            ship.onDeploy += (isDeploy) =>
+            {
+                if (isDeploy)
+                {
+                    State = DeployState.Deploy;
+                }
+                else
+                {
+                    State = DeployState.NotSelect;
+                }
+            };
+
+        }
+        player.on_CancelDeploy += (shipType) =>
+        {
+            if (this.shipType == shipType)
+            {
+                OnClick();
+            }
+        };
     }
     private void OnClick()
     {

@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class Test_05_ShipDeploymentAuto : Test_04_ShipDeployment
 {
+    public Button resetAndRandom;
     public Button reset;
     public Button random;
-    public Button resetAndRandom;
 
     protected override void Start()
     {

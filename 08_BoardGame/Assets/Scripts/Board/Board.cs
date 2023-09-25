@@ -20,7 +20,7 @@ public class Board : MonoBehaviour
     /// 보드에 배치되어 있는 배 정보(겹치는 것을 방지하기 위한 정보)
     /// </summary>
     ShipType[] shipInfo;
-
+    public ShipType[] ShipInfo => shipInfo;
     /// <summary>
     /// 보드가 공격당한 위치를 시각적으로 보여주는 클래스
     /// </summary>
@@ -258,6 +258,7 @@ public class Board : MonoBehaviour
     /// <returns>해당 위치의 배 정보</returns>
     public ShipType GetShipType(Vector2Int grid)
     {
+        
         return shipInfo[GridToIndex(grid)];
     }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.Device;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -47,6 +48,23 @@ public class UserPlayer : PlayerBase
         }
     }
     GameState state = GameState.Title;
+
+    public bool IsAllDeployed
+    {
+        get
+        {
+            bool result = true;
+            foreach(Ship  ship in ships)
+            {
+                if (!ship.IsDeployed)
+                {
+                    result = false; // 배가 하나라도 배치되지 않았으면 false리턴
+                    break;
+                }
+            }
+            return result;
+        }
+    }
     // 입력 관련 델리게이트 -------------------------------------------------------------------------
     // 상태별로 따로 처리(만약 null이면 그 상태에서 수행하는 일이 없다는 의미)
     Action<Vector2>[] onMouseClick;
@@ -64,7 +82,7 @@ public class UserPlayer : PlayerBase
         onMouseClick[(int)GameState.ShipDeployment] = OnClick_ShipDeployment;
         onMouseMove[(int)GameState.ShipDeployment] = OnMouseMove_ShipDeployment;
         onMouseWheel[(int)GameState.ShipDeployment] = OnMousewheel_ShipDeployment;
-        onMouseClick[(int)GameState.Battle] = OnClick;
+        onMouseClick[(int)GameState.Battle] = OnClick_Battle;
 
     }
 
@@ -75,6 +93,7 @@ public class UserPlayer : PlayerBase
         GameManager.Inst.Input.onMouseClick += OnClick;
         GameManager.Inst.Input.onMouseMove += OnMouseMove;
         GameManager.Inst.Input.onMouseWheel += OnMouseWheel;
+
     }
 
 
@@ -106,20 +125,39 @@ public class UserPlayer : PlayerBase
         // Debug.Log($"ShipDeployment : Click {screen.x}, {screen.y}");
         Vector3 world = Camera.main.ScreenToWorldPoint(screen);
 
-        if (SelectedShip != null && board.ShipDeployment(SelectedShip, world))   // 선택된 배가 있을 때 우선 배치 시도
+        if (SelectedShip != null)   // 선택된 배가 있을 때 우선 배치 시도
         {
-            Debug.Log("함선배치 성공");
-            SelectedShip = null;          // 배 선택 해제
+            if (board.ShipDeployment(SelectedShip, world))
+            {
+                Debug.Log("함선배치 성공");
+                SelectedShip = null;          // 배 선택 해제
+            }
+            else
+            {
+
+            }
         }
         else
         {
-            Debug.Log("배치할 함선이 없거나 실패했습니다.");
+            if (Board.IsInBoard(world))//선택된 배가 없을 때 보드 안쪽을 클릭했으면 
+            {
+                ShipType shipType = Board.GetShipType(world);
+
+                if (shipType != ShipType.None)
+                {
+                    UndoShipDeploy(shipType);//배가있으면 배치 해제
+                }
+                else
+                {
+                    Debug.Log("배치할 함선이 없거나 실패했습니다.");
+                }
+            }
         }
     }
-
+    public Action<ShipType> on_CancelDeploy;
     private void OnMouseMove_ShipDeployment(Vector2 screen)
     {
-        Debug.Log($"ShipDeployment : Move {screen.x}, {screen.y}");
+       // Debug.Log($"ShipDeployment : Move {screen.x}, {screen.y}");
         if (SelectedShip != null && !SelectedShip.IsDeployed)               // 선택된 배가 있고 아직 배치가 안된 상황에서만 처리
         {
             SelectedShip.gameObject.SetActive(true);
@@ -164,9 +202,12 @@ public class UserPlayer : PlayerBase
         }
     }
 
-
+    private void OnClick_Battle(Vector2 screen)
+    {
+        //Debug.Log($"Battle : Click ({screen.x},{screen.y})");
+    }
     // 함선 배치용 함수 ----------------------------------------------------------------------------
-    
+
     /// <summary>
     /// 특정 종류의 함선을 선택하는 함수
     /// </summary>
@@ -183,6 +224,6 @@ public class UserPlayer : PlayerBase
     /// <param name="shipType">배치를 취소할 함선</param>
     public void UndoShipDeploy(ShipType shipType)
     {
-
+        Board.UndoShipDeployment(ships[(int)shipType - 1]);
     }
 }
