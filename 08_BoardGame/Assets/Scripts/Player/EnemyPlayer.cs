@@ -28,6 +28,20 @@ public class EnemyPlayer : PlayerBase
         base.OnPlayerTurnEnd();
     }
 
+    public override void OnStateChange(GameState gameState)//게임 상태 변경시
+    {
+        Initialize();
+        if (gameState == GameState.Battle)
+        {
+            opponent = GameManager.Inst.UserPlayer;//적 설정
+            AutoShipDeployment(GameManager.Inst.IsTestMode);
+        }
+        else
+        {
+            UndoAllShipDeployment();
+        }
+    }
+
     /// <summary>
     /// 일정 시간 후에 자동으로 공격하는 코루틴
     /// </summary>

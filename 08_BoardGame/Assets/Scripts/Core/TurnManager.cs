@@ -13,7 +13,7 @@ public class TurnManager : Singleton<TurnManager>
     /// <summary>
     /// 한턴이 타임아웃 되는데 걸리는 시간
     /// </summary>
-    const float turnDuration = 100.0f;
+    float turnDuration = 5f;
     public float TurnDuration => turnDuration;
 
     /// <summary>
@@ -56,13 +56,19 @@ public class TurnManager : Singleton<TurnManager>
     /// </summary>
     bool isEndProcess = false;
 
+
     /// <summary>
     /// 씬이 로드되었을 때 실행될 함수
     /// </summary>
     protected override void OnInitialize()
     {
         turnNumber = 0;                     // 각종 데이터 초기화
+        if (GameManager.Inst.IsTestMode)// 테스트일때는 턴 종료안됨
+        {
+            turnDuration = float.MaxValue;
+        }
         turnRemainTime = turnDuration;
+
         state = TurnProcessState.None;
         isTurnPlay = true;
     }
@@ -78,7 +84,7 @@ public class TurnManager : Singleton<TurnManager>
 
             Debug.Log($"{turnNumber}턴 시작");
             state = TurnProcessState.None;      // 턴 진행 상황 리셋
-            turnRemainTime = turnDuration;      // 턴 진행 시간 리셋
+            turnRemainTime = TurnDuration;      // 턴 진행 시간 리셋
 
             onTurnStart?.Invoke(turnNumber);    // 턴이 시작되었음을 알림
         }

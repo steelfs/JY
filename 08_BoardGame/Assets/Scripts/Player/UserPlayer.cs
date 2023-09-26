@@ -86,10 +86,10 @@ public class UserPlayer : PlayerBase
 
     }
 
+ 
     protected override void Start()
     {
         base.Start();
-        GameManager.Inst.onStateChange += OnStateChange;//gamemanager의 OnInitialize가 실행된 후 실행되어야함.
         GameManager.Inst.Input.onMouseClick += OnClick;
         GameManager.Inst.Input.onMouseMove += OnMouseMove;
         GameManager.Inst.Input.onMouseWheel += OnMouseWheel;
@@ -114,9 +114,23 @@ public class UserPlayer : PlayerBase
     }
 
     //상태관련 함수 
-    public void OnStateChange(GameState gameState)
+    public override void OnStateChange(GameState gameState)//게임 상태 변경시
     {
-        this.state = gameState; 
+        this.state = gameState;
+
+        Initialize();
+        switch (state)
+        {
+            case GameState.ShipDeployment:
+                break;
+            case GameState.Battle: 
+                if (!GameManager.Inst.LoadShipDeployData(this))//로딩실패시 
+                {
+                    this.AutoShipDeployment(true);//자동배치
+                }
+                opponent = GameManager.Inst.EnemyPlayer;//적 설정
+                break;
+        }
     }
 
     // 함선 배치 씬용 입력 함수들 -------------------------------------------------------------------
@@ -204,6 +218,8 @@ public class UserPlayer : PlayerBase
 
     private void OnClick_Battle(Vector2 screen)
     {
+        Vector3 world = Camera.main.ScreenToWorldPoint(screen);
+        Attack(world);
         //Debug.Log($"Battle : Click ({screen.x},{screen.y})");
     }
     // 함선 배치용 함수 ----------------------------------------------------------------------------

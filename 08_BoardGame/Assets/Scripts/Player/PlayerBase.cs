@@ -29,6 +29,7 @@ public class PlayerBase : MonoBehaviour
     bool isActionDone = false;
     public bool IsActionDone => isActionDone;
 
+    bool isInitialized = false;
     /// <summary>
     /// 대전 상대
     /// </summary>
@@ -102,54 +103,66 @@ public class PlayerBase : MonoBehaviour
         highMarksParent = transform.GetChild(1);            // 공격 후보지역의 부모 찾기
         highMarks = new Dictionary<int, GameObject>(10);    // 딕셔너리 생성
     }
-
+ 
     protected virtual void Start()
     {
-        // 배 생성
-        int shipTypeCount = ShipManager.Inst.ShipTypeCount;
-        ships = new Ship[shipTypeCount];
-        for(int i = 0; i < shipTypeCount; i++)
-        {
-            ShipType shipType = (ShipType)(i + 1);
-            ships[i] = ShipManager.Inst.MakeShip(shipType, transform);  // 배 종류별로 만들기
-
-            ships[i].onSinking += OnShipDestroy;                // 함선이 침몰하면 OnShipDestroy 실행
-
-            board.onShipAttacked[shipType] = ships[i].OnHitted; // 배가 맞을 때마다 실행될 함수 등록
-        }
-        remainShipCount = shipTypeCount;                    // 배 갯수 설정
-
-        // 일반 공격 후보 지역 만들기
-        int fullSize = Board.BoardSize * Board.BoardSize;
-        int[] temp = new int[fullSize];
-        for(int i=0;i<fullSize;i++)
-        {
-            temp[i] = i;        // 순서대로 0~99까지 채우기
-        }
-        Util.Shuffle(temp);     // 채운것 섞기
-        attackIndices = new List<int>(temp);   // 섞은 것을 기준으로 리스트만들기
-
-        // 우선 순위가 높은 공격 후보지역 만들기(비어있음)
-        attackHighIndices = new List<int>(10);
-
-        // 공격 관련 변수(이전에 공격이 성공한 적 없다고 표시)
-        lastAttackSuccessPosition = NOT_SUCCESS;
-
-        if (GameManager.Inst.GameState == GameState.Battle)
-        {
-            // 행동이 완료되면 턴 진행 체크
-            onActionEnd += TurnManager.Inst.CheckTurnEnd;
-
-            // 패배하면 턴 메니저를 정지 시키기
-            onDefeat += (_) => TurnManager.Inst.TurnStop();
-
-            // 턴 시작 초기화 함수와 종로 함수 연결
-            TurnManager.Inst.onTurnStart += OnPlayerTurnStart;
-            TurnManager.Inst.onTurnEnd += OnPlayerTurnEnd;
-        }
+        Initialize();
     }
 
     // 턴 관리용 함수 ------------------------------------------------------------------------------
+
+    protected virtual void Initialize()
+    {
+        if (!isInitialized)
+        {
+            // 배 생성
+            int shipTypeCount = ShipManager.Inst.ShipTypeCount;
+            ships = new Ship[shipTypeCount];
+            for (int i = 0; i < shipTypeCount; i++)
+            {
+                ShipType shipType = (ShipType)(i + 1);
+                ships[i] = ShipManager.Inst.MakeShip(shipType, transform);  // 배 종류별로 만들기
+
+                ships[i].onSinking += OnShipDestroy;                // 함선이 침몰하면 OnShipDestroy 실행
+
+                board.onShipAttacked[shipType] = ships[i].OnHitted; // 배가 맞을 때마다 실행될 함수 등록
+            }
+            remainShipCount = shipTypeCount;                    // 배 갯수 설정
+
+            //보드초기화
+            Board.ResetBoard(ships);
+
+            // 일반 공격 후보 지역 만들기
+            int fullSize = Board.BoardSize * Board.BoardSize;
+            int[] temp = new int[fullSize];
+            for (int i = 0; i < fullSize; i++)
+            {
+                temp[i] = i;        // 순서대로 0~99까지 채우기
+            }
+            Util.Shuffle(temp);     // 채운것 섞기
+            attackIndices = new List<int>(temp);   // 섞은 것을 기준으로 리스트만들기
+
+            // 우선 순위가 높은 공격 후보지역 만들기(비어있음)
+            attackHighIndices = new List<int>(10);
+
+            // 공격 관련 변수(이전에 공격이 성공한 적 없다고 표시)
+            lastAttackSuccessPosition = NOT_SUCCESS;
+            if (GameManager.Inst.GameState == GameState.Battle)
+            {
+                // 행동이 완료되면 턴 진행 체크
+                onActionEnd += TurnManager.Inst.CheckTurnEnd;
+
+                // 패배하면 턴 메니저를 정지 시키기
+                onDefeat += (_) => TurnManager.Inst.TurnStop();
+
+                // 턴 시작 초기화 함수와 종로 함수 연결
+                TurnManager.Inst.onTurnStart += OnPlayerTurnStart;
+                TurnManager.Inst.onTurnEnd += OnPlayerTurnEnd;
+            }
+            OnPlayerTurnStart(0);
+            isInitialized = true;
+        }
+    }
 
     /// <summary>
     /// 턴이 시작될 때 플레이어가 처리해야 할 일을 수행하는 함수
@@ -812,7 +825,12 @@ public class PlayerBase : MonoBehaviour
     {
         return (shipType != ShipType.None) ? ships[(int)shipType - 1] : null;
     }
-    
+
+    public virtual void OnStateChange(GameState gameState)
+    {
+        
+    }
+
     /// <summary>
     /// 초기화 함수. 게임 시작 직전 상태로 변경
     /// </summary>

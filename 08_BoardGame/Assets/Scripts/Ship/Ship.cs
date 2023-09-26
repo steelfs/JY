@@ -104,9 +104,10 @@ public class Ship : MonoBehaviour
             {
                 OnSinking();
             }
+            on_HpChange?.Invoke(hp, this.shipType);
         }
     }
-
+    public Action<int, ShipType> on_HpChange;
     /// <summary>
     /// 배의 생존 여부(true면 살아있다. false면 침몰됐다.)
     /// </summary>
