@@ -1,0 +1,25 @@
+<mxfile host="Electron" modified="2023-09-26T12:55:17.170Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.7.5 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" etag="kVGVvrEdUmjOuZgamAGZ" version="21.7.5" type="device">
+  <diagram name="페이지-1" id="eluwbXmlI_JwDYYKQHv-">
+    <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="3BLdW9uuVo2LbbTcCxfC-1" value="PlayerStatus 저장 기능" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="350" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3BLdW9uuVo2LbbTcCxfC-2" value="DarkForce 인벤토리UI에 추가" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="350" y="500" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3BLdW9uuVo2LbbTcCxfC-3" value="스킬발동시 데미지 팝업" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="500" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3BLdW9uuVo2LbbTcCxfC-4" value="보석 스텟추가" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="510" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="o9C0t7ZPpz-vw--VLpRt-1" value="조합, 강화창 DarkForce 참조 PlayerStatus로 바꾸기" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="490" width="140" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

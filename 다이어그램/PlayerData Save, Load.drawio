@@ -1,0 +1,19 @@
+<mxfile host="Electron" modified="2023-09-26T14:14:54.323Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.7.5 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" etag="RvQvMEFbhw1409eXq3hI" version="21.7.5" type="device">
+  <diagram name="페이지-1" id="6AoS1lpXIIwriZsqpn54">
+    <mxGraphModel dx="1098" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bryRKfB2T5B8cKvrRu7s-1" value="저장할 때" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bryRKfB2T5B8cKvrRu7s-2" value="초기시작시 Load할 때" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="330" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bryRKfB2T5B8cKvrRu7s-3" value="게임 중 Load할 때" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="330" width="150" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
