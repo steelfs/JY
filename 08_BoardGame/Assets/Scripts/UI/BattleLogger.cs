@@ -50,7 +50,7 @@ public class BattleLogger : MonoBehaviour
         foreach (Ship ship in enemy.Ships)
         {
             ship.onHit += (targetShip) => Log_AttackSuccess(true, targetShip);
-            ship.onSinking = (targetShip) => { Log_ShipSinking(true, targetShip); } + ship.onSinking;// a = a + b // 와 같은 원리
+            ship.onSinking = (targetShip) => { Log_ShipSinking(true, targetShip); } + ship.onSinking;// a += b    ==    a = a + b // 와 같은 원리
         }
         user.onAttackFail += Log_AttackFail;
         enemy.onAttackFail += Log_AttackFail;
