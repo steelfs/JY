@@ -30,7 +30,8 @@ public class Board : MonoBehaviour
     /// 공격 받으면 true로 설정되는 배열
     /// </summary>
     bool[] isAttacked;
-
+    public string Opponent { get; set; }
+    public string Owner { get; set; }
     /// <summary>
     /// 배 종류별로 공격 당했을 때 실행될 델리게이트를 가지는 딕셔너리
     /// </summary>
@@ -208,6 +209,9 @@ public class Board : MonoBehaviour
     /// </summary>
     /// <param name="grid">공격 받은 그리드 위치</param>
     /// <returns>공격이 배에 명중되었으면 true, 아니면 false</returns>
+    /// 
+    public Action<ShipType, string, string> on_AttackSuccess;
+    public Action<string> on_AttackFailed;
     public bool OnAttacked(Vector2Int grid)
     {
         bool result = false;
@@ -223,8 +227,12 @@ public class Board : MonoBehaviour
                 {                    
                     result = true;                      // 공격 성공으로 체크
                     onShipAttacked[shipInfo[index]]?.Invoke();  // 공격당한 배의 델리게이트 실행
+                    on_AttackSuccess?.Invoke(shipInfo[index],Opponent, Owner);
                 }
-
+                else
+                {
+                    on_AttackFailed?.Invoke(Opponent);
+                }
                 bombMark.SetBombMark(GridToWorld(grid), result);    // BombMark 표시
             }
         }

@@ -29,6 +29,7 @@ public enum ShipDirection : byte
 
 public class Ship : MonoBehaviour
 {
+
     /// <summary>
     /// 배의 종류
     /// </summary>
@@ -43,18 +44,23 @@ public class Ship : MonoBehaviour
             {
                 case ShipType.Carrier:
                     size = 5;
+                    shipName = "항공모함";
                     break;
                 case ShipType.BattleShip:
                     size = 4;
+                    shipName = "전함";
                     break;
                 case ShipType.Destroyer:
                     size = 3;
+                    shipName = "구축함";
                     break;
                 case ShipType.Submarine:
                     size = 3;
+                    shipName = "잠수함";
                     break;
                 case ShipType.PatrolBoat:
                     size = 2;
+                    shipName = "경비정";
                     break;
                 default:
                     break;
@@ -83,6 +89,8 @@ public class Ship : MonoBehaviour
     string shipName;
 
     public string ShipName => shipName;
+    public string Opponent { get; set; }
+    public string Owner { get; set; }
 
     /// <summary>
     /// 배의 크기(=최대 HP)
@@ -260,6 +268,8 @@ public class Ship : MonoBehaviour
     /// <summary>
     /// 함선이 침몰할 때 실행되는 함수
     /// </summary>
+    /// 
+    
     void OnSinking()
     {
         Debug.Log($"[{Type}]이 침몰되었다.");

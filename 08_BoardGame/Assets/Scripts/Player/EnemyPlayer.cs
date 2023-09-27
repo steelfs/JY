@@ -10,7 +10,16 @@ public class EnemyPlayer : PlayerBase
     protected override void Start()
     {
         base.Start();
+        Board.Opponent = "나";
+        Board.Owner = "적";
         thinkingTimeMax = Mathf.Min(thinkingTimeMax, TurnManager.Inst.TurnDuration);    // 생각하는 시간은 턴이 자동으로 넘어가는 시간보다 클 수 없다.
+        int i = 0;
+        while (i < 5)
+        {
+            ships[i].Opponent = "나";
+            ships[i].Owner = "적";
+            i++;
+        }
     }
 
     protected override void OnPlayerTurnStart(int _)

@@ -93,7 +93,15 @@ public class UserPlayer : PlayerBase
         GameManager.Inst.Input.onMouseClick += OnClick;
         GameManager.Inst.Input.onMouseMove += OnMouseMove;
         GameManager.Inst.Input.onMouseWheel += OnMouseWheel;
-
+        Board.Opponent = "적";
+        Board.Owner = "나";
+        int i = 0; 
+        while(i < 5)
+        {
+            ships[i].Opponent = "적";
+            ships[i].Owner = "나";
+            i++;
+        }
     }
 
 
