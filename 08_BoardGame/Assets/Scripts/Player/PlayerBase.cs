@@ -21,6 +21,8 @@ public class PlayerBase : MonoBehaviour
     /// 아직 침몰하지 않은 함선의 수
     /// </summary>
     protected int remainShipCount;
+
+
     public bool IsDepeat => remainShipCount < 1;
 
     /// <summary>
@@ -227,6 +229,7 @@ public class PlayerBase : MonoBehaviour
                 else
                 {
                     lastAttackSuccessPosition = NOT_SUCCESS;
+                    onAttackFail?.Invoke(this);
                 }
 
                 int attackIndex = Board.GridToIndex(attackGridPos);

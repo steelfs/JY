@@ -947,8 +947,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 156443818}
   m_HandleRect: {fileID: 156443817}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.6333333
+  m_Value: 0
+  m_Size: 0.27142859
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1696,15 +1696,16 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1464736932}
   m_Father: {fileID: 1677971839}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 300}
-  m_Pivot: {x: 0, y: 1}
+  m_SizeDelta: {x: 0, y: 700}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!1001 &1263829003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2389,14 +2390,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1677971839}
-  m_RootOrder: 1
+  m_Father: {fileID: 1202197639}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1383, y: 190}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 5}
+  m_SizeDelta: {x: 1384, y: 740}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1464736933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2417,9 +2418,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'gg
-
-'
+  m_text: 11
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 20a5376e0d506d741ba36dfc7496556f, type: 2}
   m_sharedMaterial: {fileID: -5314406476486056359, guid: 20a5376e0d506d741ba36dfc7496556f,
@@ -2483,7 +2482,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 10, y: 0, z: 0, w: 5}
+  m_margin: {x: 10, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2671,6 +2670,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c049455c73e8534da615eb02c20b6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userColor: {r: 0.12771118, g: 1, b: 0, a: 0}
+  enemyColor: {r: 1, g: 0, b: 0, a: 0}
+  shipColor: {r: 0, g: 0.6006255, b: 1, a: 0}
+  turnColor: {r: 1, g: 0.6795065, b: 0, a: 0}
 --- !u!114 &1568941102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2771,7 +2774,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1202197639}
-  - {fileID: 1464736932}
   m_Father: {fileID: 1568941100}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
