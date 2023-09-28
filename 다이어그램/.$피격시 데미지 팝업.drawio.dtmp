@@ -1,0 +1,22 @@
+<mxfile host="Electron" modified="2023-09-28T02:24:00.714Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.7.5 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" etag="a5fiZyqy7_TygRPypz29" version="21.7.5" type="device">
+  <diagram name="페이지-1" id="KhQkZShH88c9cXhA2qaD">
+    <mxGraphModel dx="1098" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L9sXiXbq-2jMLk3RIDA1-1" value="피격시 Damage팝업" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="L9sXiXbq-2jMLk3RIDA1-2" value="Ibattle 인터페이스의 Defence 함수에 기능 추가" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="350" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="L9sXiXbq-2jMLk3RIDA1-3" value="ObjectPool에 GetDamage 함수 호출" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="460" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="L9sXiXbq-2jMLk3RIDA1-4" value="Damage(3D Text) 오브젝트는 enable 될 때마다 피격대상의 자식으로 설정 후&amp;nbsp; 데미지값을 받아 업데이트를 시작하고&lt;br&gt;3초후 ReturnPool" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="580" width="190" height="110" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
