@@ -70,6 +70,9 @@ public class GameManager : Singleton<GameManager>
         {
             onStateChange += enemy.OnStateChange;
         }
+
+
+
         //onStateChange = user.OnStateChange;
     }
 

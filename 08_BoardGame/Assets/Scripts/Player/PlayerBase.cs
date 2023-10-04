@@ -98,7 +98,13 @@ public class PlayerBase : MonoBehaviour
     /// </summary>
     public Action<PlayerBase> onDefeat;
 
-    
+    int totalAttackCount = 0;
+    int attackSuccessCount = 0;
+    public int TotalAttackCount => totalAttackCount;
+    public int AttackSuccessCount => attackSuccessCount;
+    public int AttackFailCount => totalAttackCount - attackSuccessCount;
+    public float AttackSuccessRate => ((float)attackSuccessCount / totalAttackCount) * 100;
+
     protected virtual void Awake()
     {
         board = GetComponentInChildren<Board>();
@@ -112,14 +118,8 @@ public class PlayerBase : MonoBehaviour
     }
 
     // 턴 관리용 함수 ------------------------------------------------------------------------------
-    Vector3[] randomDir;
     protected virtual void Initialize()
     {
-        randomDir = new Vector3[4];
-        randomDir[0] = Vector3.up;
-        randomDir[1] = Vector3.down;
-        randomDir[2] = Vector3.right;
-        randomDir[3] = -Vector3.right;
         if (!isInitialized)
         {
             // 배 생성
@@ -132,15 +132,6 @@ public class PlayerBase : MonoBehaviour
                 ships[i].onSinking += OnShipDestroy;                // 함선이 침몰하면 OnShipDestroy 실행
                 board.onShipAttacked[shipType] = ships[i].OnHitted; // 배가 맞을 때마다 실행될 함수 등록
 
-                ships[i].onHit += (_) =>
-                {
-                    GameManager.Inst.ImpulseSource.GenerateImpulseWithVelocity(randomDir[UnityEngine.Random.Range(0, 4)]);
-                };
-                ships[i].onSinking += (_) =>
-                {
-                    GameManager.Inst.ImpulseSource.GenerateImpulseWithVelocity(randomDir[UnityEngine.Random.Range(0, 4)]);
-                    GameManager.Inst.ImpulseSource.GenerateImpulseWithForce(5.0f);
-                };
             }
             remainShipCount = shipTypeCount;                    // 배 갯수 설정
 
@@ -207,6 +198,7 @@ public class PlayerBase : MonoBehaviour
     /// <param name="attackGridPos">공격하는 위치</param>
     public void Attack(Vector2Int attackGridPos)
     {
+        totalAttackCount++;
         if (!IsActionDone)  // 행동을 안했을 때만 처리
         {
             if (Board.IsInBoard(attackGridPos)) // 보드 안에 있을 때만 처리
@@ -215,6 +207,7 @@ public class PlayerBase : MonoBehaviour
                 bool result = opponent.Board.OnAttacked(attackGridPos);     // 상대방 보드에 공격
                 if (result)  // 공격 성공
                 {
+                    attackSuccessCount++;
                     if (opponentShipDestroyed)
                     {
                         // 이번 공격으로 적의 함선이 침몰했으면
