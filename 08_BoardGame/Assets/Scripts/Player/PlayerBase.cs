@@ -112,9 +112,14 @@ public class PlayerBase : MonoBehaviour
     }
 
     // 턴 관리용 함수 ------------------------------------------------------------------------------
-
+    Vector3[] randomDir;
     protected virtual void Initialize()
     {
+        randomDir = new Vector3[4];
+        randomDir[0] = Vector3.up;
+        randomDir[1] = Vector3.down;
+        randomDir[2] = Vector3.right;
+        randomDir[3] = -Vector3.right;
         if (!isInitialized)
         {
             // 배 생성
@@ -124,10 +129,18 @@ public class PlayerBase : MonoBehaviour
             {
                 ShipType shipType = (ShipType)(i + 1);
                 ships[i] = ShipManager.Inst.MakeShip(shipType, transform);  // 배 종류별로 만들기
-
                 ships[i].onSinking += OnShipDestroy;                // 함선이 침몰하면 OnShipDestroy 실행
-
                 board.onShipAttacked[shipType] = ships[i].OnHitted; // 배가 맞을 때마다 실행될 함수 등록
+
+                ships[i].onHit += (_) =>
+                {
+                    GameManager.Inst.ImpulseSource.GenerateImpulseWithVelocity(randomDir[UnityEngine.Random.Range(0, 4)]);
+                };
+                ships[i].onSinking += (_) =>
+                {
+                    GameManager.Inst.ImpulseSource.GenerateImpulseWithVelocity(randomDir[UnityEngine.Random.Range(0, 4)]);
+                    GameManager.Inst.ImpulseSource.GenerateImpulseWithForce(5.0f);
+                };
             }
             remainShipCount = shipTypeCount;                    // 배 갯수 설정
 

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,10 +18,11 @@ public class GameManager : Singleton<GameManager>
     UserPlayer user;
     EnemyPlayer enemy;
     FinishButton finishButton;
+    CinemachineImpulseSource impulseSource;
+    public CinemachineImpulseSource ImpulseSource => impulseSource;
     public UserPlayer UserPlayer => user;
     public EnemyPlayer EnemyPlayer => enemy;
     public FinishButton FinishButton => finishButton;
-
 
     //게임상태 ------------------------------------------------------------------------
     GameState gameState = GameState.Title;
@@ -52,6 +54,7 @@ public class GameManager : Singleton<GameManager>
     {
         base.OnPreInitialize();
         input = GetComponent<InputController>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
     }
     protected override void OnInitialize()
     {
