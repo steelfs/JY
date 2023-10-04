@@ -5,51 +5,66 @@ using UnityEngine.UI;
 
 public class ResultPanel : MonoBehaviour
 {
-    Button openButton;
+    Button dropDown;
+    Button restartButton;
+
     GameObject resultBoard;
     CanvasGroup canvasGroup;
-    Result_Analysis[] analysis;
+
+    UserPlayer user;
+    EnemyPlayer enemy;
+
+    ResultBoard board;
+    Result_Analysis userAnalysis;
+    Result_Analysis enemyAnalysis;
+
     private void Awake()
     {
+        dropDown = transform.GetChild(0).GetComponent<Button>();
+        board = GetComponentInChildren<ResultBoard>();
+        userAnalysis = transform.GetChild(1).GetChild(1).GetComponent<Result_Analysis>();
+        enemyAnalysis = userAnalysis = transform.GetChild(1).GetChild(2).GetComponent<Result_Analysis>();
+        restartButton = transform.GetChild(1).GetChild(3).GetComponent<Button>();
+
         canvasGroup = GetComponent<CanvasGroup>();
-        openButton = transform.GetChild(0).GetComponent<Button>();
         resultBoard = transform.GetChild(1).gameObject;
 
-        openButton.onClick.AddListener(ToggleOpenClose);
-        analysis = GetComponentsInChildren<Result_Analysis>();
+        dropDown.onClick.AddListener(board.ToggleOnOff);
+        restartButton.onClick.AddListener(ReStart);
+       // analysis = GetComponentsInChildren<Result_Analysis>();
     }
-    void ToggleOpenClose()
+
+    void ReStart()
     {
-        if (resultBoard.activeSelf)
-        {
-            resultBoard.SetActive(false);
-        }
-        else
-        {
-            resultBoard.SetActive(true);
-        }
+
     }
     void Open()
     {
-        canvasGroup.alpha = 0.9f;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
-        foreach (Result_Analysis analysis in analysis)
-        {
-            analysis.Refresh();
-        }
+        userAnalysis.AllAttackCount = user.AttackSuccessCount + user.failAttackCount;
+        userAnalysis.SuccessAttackCount = user.AttackSuccessCount;
+        userAnalysis.FailAttackCount = user.failAttackCount;
+        userAnalysis.SuccessAttackRate = (float)user.AttackSuccessCount / (float)(user.AttackSuccessCount + user.failAttackCount);
+        gameObject.SetActive(true);
     }
     void Close()
     {
-        canvasGroup.alpha = 0.0f;
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
+        gameObject.SetActive(false);
     }
 
     private void Start()
     {
-        GameManager.Inst.EnemyPlayer.onDefeat += (_) => Open();
-        GameManager.Inst.UserPlayer.onDefeat += (_) => Open();
+        user = GameManager.Inst.UserPlayer;
+        enemy = GameManager.Inst.EnemyPlayer;
+        user.onDefeat += (_) =>
+        {
+            board.SetDefeat();
+            Open();
+        };
+        enemy.onDefeat += (_) =>
+        {
+            board.SetVictory();
+            Open();
+        };
         Close();
     }
 }

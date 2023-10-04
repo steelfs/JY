@@ -99,11 +99,12 @@ public class PlayerBase : MonoBehaviour
     public Action<PlayerBase> onDefeat;
 
     int totalAttackCount = 0;
-    int attackSuccessCount = 0;
+    int successAttackCount = 0;
+    public int failAttackCount = 0;
+
     public int TotalAttackCount => totalAttackCount;
-    public int AttackSuccessCount => attackSuccessCount;
-    public int AttackFailCount => totalAttackCount - attackSuccessCount;
-    public float AttackSuccessRate => ((float)attackSuccessCount / totalAttackCount) * 100;
+    public int AttackSuccessCount => successAttackCount;
+    public float AttackSuccessRate => ((float)successAttackCount / totalAttackCount) * 100;
 
     protected virtual void Awake()
     {
@@ -165,6 +166,11 @@ public class PlayerBase : MonoBehaviour
                 TurnManager.Inst.onTurnStart += OnPlayerTurnStart;
                 TurnManager.Inst.onTurnEnd += OnPlayerTurnEnd;
             }
+
+            successAttackCount = 0;
+            failAttackCount = 0;
+
+
             OnPlayerTurnStart(0);
             isInitialized = true;
         }
@@ -198,7 +204,6 @@ public class PlayerBase : MonoBehaviour
     /// <param name="attackGridPos">공격하는 위치</param>
     public void Attack(Vector2Int attackGridPos)
     {
-        totalAttackCount++;
         if (!IsActionDone)  // 행동을 안했을 때만 처리
         {
             if (Board.IsInBoard(attackGridPos)) // 보드 안에 있을 때만 처리
@@ -207,7 +212,7 @@ public class PlayerBase : MonoBehaviour
                 bool result = opponent.Board.OnAttacked(attackGridPos);     // 상대방 보드에 공격
                 if (result)  // 공격 성공
                 {
-                    attackSuccessCount++;
+                    successAttackCount++;
                     if (opponentShipDestroyed)
                     {
                         // 이번 공격으로 적의 함선이 침몰했으면
@@ -234,6 +239,7 @@ public class PlayerBase : MonoBehaviour
                 }
                 else
                 {
+                    failAttackCount++;
                     lastAttackSuccessPosition = NOT_SUCCESS;
                     onAttackFail?.Invoke(this);
                 }
