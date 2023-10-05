@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 44cb08b35a1a02843aa0ae6e166c2fc6,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -1732,11 +1733,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4977794883443172819, guid: 4bc0453c886046a4f90449733525976d,
-        type: 3}
-      propertyPath: m_ImpulseDefinition.m_ImpulseShape
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bc0453c886046a4f90449733525976d, type: 3}
 --- !u!1 &729958274
@@ -2173,7 +2169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed182195ce6b1fc428c34bd48e146aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 1
 --- !u!1 &903190485
 GameObject:
   m_ObjectHideFlags: 0
@@ -2225,7 +2220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed182195ce6b1fc428c34bd48e146aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 0
 --- !u!1 &903553568
 GameObject:
   m_ObjectHideFlags: 0

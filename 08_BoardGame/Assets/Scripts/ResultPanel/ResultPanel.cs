@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ResultPanel : MonoBehaviour
@@ -36,7 +37,7 @@ public class ResultPanel : MonoBehaviour
 
     void ReStart()
     {
-
+        SceneManager.LoadScene("ShipdeploymentScene");
     }
     void Open()
     {

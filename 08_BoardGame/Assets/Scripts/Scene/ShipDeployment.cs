@@ -6,7 +6,7 @@ public class ShipDeployment : MonoBehaviour
 {
     void Start()
     {
-        GameManager.Inst.GameState = GameState.Title;
+        GameManager.Inst.GameState = GameState.ShipDeployment;
     }
 
     void Update()

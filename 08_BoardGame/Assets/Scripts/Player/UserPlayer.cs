@@ -1,12 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
-using UnityEngine.Device;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using static UnityEngine.Rendering.DebugUI;
 
 public class UserPlayer : PlayerBase
 {
@@ -83,16 +77,15 @@ public class UserPlayer : PlayerBase
         onMouseMove[(int)GameState.ShipDeployment] = OnMouseMove_ShipDeployment;
         onMouseWheel[(int)GameState.ShipDeployment] = OnMousewheel_ShipDeployment;
         onMouseClick[(int)GameState.Battle] = OnClick_Battle;
-
     }
 
  
     protected override void Start()
     {
         base.Start();
-        GameManager.Inst.Input.onMouseClick += OnClick;
+        GameManager.Inst.Input.onMouseClick += OnClick; // 해제는 씬이 변경됐을 때 게임매니저가 일괄 적용하도록
         GameManager.Inst.Input.onMouseMove += OnMouseMove;
-        GameManager.Inst.Input.onMouseWheel += OnMouseWheel;
+        GameManager.Inst.Input.onMouseWheel += OnMouseWheel;    
         Board.Opponent = "적";
         Board.Owner = "나";
         int i = 0; 

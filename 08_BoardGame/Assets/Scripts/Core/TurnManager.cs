@@ -71,6 +71,9 @@ public class TurnManager : Singleton<TurnManager>
 
         state = TurnProcessState.None;
         isTurnPlay = true;
+
+        onTurnStart = null;
+        onTurnEnd = null;
     }
 
     /// <summary>

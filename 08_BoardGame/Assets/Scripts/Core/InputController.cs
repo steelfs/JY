@@ -43,4 +43,10 @@ public class InputController : MonoBehaviour
     {
         onMouseWheel?.Invoke(obj.ReadValue<float>());
     }
+    public void ResetBind()
+    {
+        onMouseClick = null;
+        onMouseMove = null;
+        onMouseWheel = null;
+    }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class FinishButton : MonoBehaviour
@@ -35,6 +36,7 @@ public class FinishButton : MonoBehaviour
     {
         UserPlayer player = GameManager.Inst.UserPlayer;
 
-        Debug.Log("Finish πˆ∆∞ ≈¨∏Ø");
+        Debug.Log("Finish Î≤ÑÌäº ÌÅ¥Î¶≠");
+        SceneManager.LoadScene("Battle");
     }
 }
