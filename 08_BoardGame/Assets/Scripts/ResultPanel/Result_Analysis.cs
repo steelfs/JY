@@ -42,7 +42,6 @@ public class Result_Analysis : MonoBehaviour
     }
     TextMeshProUGUI[] texts;
 
-    public bool player;
     private void Awake()
     {
         texts = transform.GetChild(1).GetComponentsInChildren<TextMeshProUGUI>();
@@ -52,27 +51,5 @@ public class Result_Analysis : MonoBehaviour
         attackFailCount = transform.GetChild(1).GetChild(2).GetComponent<TextMeshProUGUI>();
         attackSuccessRate = transform.GetChild(1).GetChild(3).GetComponent<TextMeshProUGUI>();
     }
-    public void Refresh()
-    {
-        StartCoroutine(Refresh_());
-    }
-
-    IEnumerator Refresh_()
-    {
-        yield return null;
-        if (player)
-        {
-            totalAttackCount.text = $"{GameManager.Inst.UserPlayer.TotalAttackCount} 회";
-            attackSuccessCount.text = $"{GameManager.Inst.UserPlayer.AttackSuccessCount} 회";
-            attackFailCount.text = $"{GameManager.Inst.UserPlayer.failAttackCount} 회";
-            attackSuccessRate.text = $"{GameManager.Inst.UserPlayer.AttackSuccessRate:f1} %"; 
-        }
-        else
-        {
-            totalAttackCount.text = $"{GameManager.Inst.EnemyPlayer.TotalAttackCount} 회";
-            attackSuccessCount.text = $"{GameManager.Inst.EnemyPlayer.AttackSuccessCount} 회";
-            attackFailCount.text = $"{GameManager.Inst.EnemyPlayer.failAttackCount} 회";
-            attackSuccessRate.text = $"{GameManager.Inst.EnemyPlayer.AttackSuccessRate:f1} %";
-        }
-    }
+  
 }

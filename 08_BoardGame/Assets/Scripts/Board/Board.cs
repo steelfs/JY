@@ -216,26 +216,17 @@ public class Board : MonoBehaviour
     {
         bool result = false;
 
-        if( IsInBoard(grid))                    // 보드 안쪽만 확인
-        {
-            int index = GridToIndex(grid);
-            if( IsAttackable(index))            // 공격 가능한 위치인지 확인
-            {
-                isAttacked[index] = true;       // 공격 했다고 표시
+        int index = GridToIndex(grid);
+        isAttacked[index] = true;       // 공격 했다고 표시
 
-                if (shipInfo[index] != ShipType.None)   // 배가 있으면
-                {                    
-                    result = true;                      // 공격 성공으로 체크
-                    onShipAttacked[shipInfo[index]]?.Invoke();  // 공격당한 배의 델리게이트 실행
-                    on_AttackSuccess?.Invoke(shipInfo[index],Opponent, Owner);
-                }
-                else
-                {
-                    on_AttackFailed?.Invoke(Opponent);
-                }
-                bombMark.SetBombMark(GridToWorld(grid), result);    // BombMark 표시
-            }
+        if (shipInfo[index] != ShipType.None)   // 배가 있으면
+        {                    
+            result = true;                      // 공격 성공으로 체크
+            onShipAttacked[shipInfo[index]]?.Invoke();  // 공격당한 배의 델리게이트 실행
+           // on_AttackSuccess?.Invoke(shipInfo[index],Opponent, Owner);
         }
+          
+        bombMark.SetBombMark(GridToWorld(grid), result);    // BombMark 표시
         return result;
     }
 

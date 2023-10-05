@@ -23,7 +23,7 @@ public class ResultPanel : MonoBehaviour
         dropDown = transform.GetChild(0).GetComponent<Button>();
         board = GetComponentInChildren<ResultBoard>();
         userAnalysis = transform.GetChild(1).GetChild(1).GetComponent<Result_Analysis>();
-        enemyAnalysis = userAnalysis = transform.GetChild(1).GetChild(2).GetComponent<Result_Analysis>();
+        enemyAnalysis = transform.GetChild(1).GetChild(2).GetComponent<Result_Analysis>();
         restartButton = transform.GetChild(1).GetChild(3).GetComponent<Button>();
 
         canvasGroup = GetComponent<CanvasGroup>();
@@ -44,6 +44,11 @@ public class ResultPanel : MonoBehaviour
         userAnalysis.SuccessAttackCount = user.AttackSuccessCount;
         userAnalysis.FailAttackCount = user.failAttackCount;
         userAnalysis.SuccessAttackRate = (float)user.AttackSuccessCount / (float)(user.AttackSuccessCount + user.failAttackCount);
+
+        enemyAnalysis.AllAttackCount = enemy.AttackSuccessCount + enemy.failAttackCount;
+        enemyAnalysis.SuccessAttackCount = enemy.AttackSuccessCount;
+        enemyAnalysis.FailAttackCount = enemy.failAttackCount;
+        enemyAnalysis.SuccessAttackRate = (float)enemy.AttackSuccessCount / (float)(enemy.AttackSuccessCount + enemy.failAttackCount);
         gameObject.SetActive(true);
     }
     void Close()

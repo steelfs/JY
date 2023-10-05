@@ -7,12 +7,12 @@ using UnityEngine;
 
 public class BattleLogger : MonoBehaviour
 {
-    //ÅÏ ½ÃÀÛ½Ã ¸î¹øÂ° ÅÏÀÌ ½ÃÀÛµÇ¾ú´ÂÁö Ãâ·Â
-    //ÅÏ ¹øÈ£ ´Ù¸¥»öÀ¸·Î Ãâ·Â
-    //ÀûÀÌ °ø°İ½Ã °ø°İÀÇ ¼º°ø, ½ÇÆĞ Ãâ·Â
-    // ex/ ¼º°ø½Ã   "[ÀûÀÇ °ø°İ]ÀÌ [´ç½Å]ÀÇ [{¹è ÀÌ¸§}]¿¡ ¸íÁßÇß½À´Ï´Ù."
-    // ex/ ¼º°ø½Ã   "[³ªÀÇ °ø°İ]ÀÌ [Àû]ÀÇ [{¹è ÀÌ¸§}]¿¡ ¸íÁßÇß½À´Ï´Ù."
-    // ½ÇÆĞ½Ã       "[ÀûÀÇ °ø°İ]ÀÌ [Àû] ÀÇ Æ÷ÅºÀÌ ºø³ª°¬½À´Ï´Ù.
+    //í„´ ì‹œì‘ì‹œ ëª‡ë²ˆì§¸ í„´ì´ ì‹œì‘ë˜ì—ˆëŠ”ì§€ ì¶œë ¥
+    //í„´ ë²ˆí˜¸ ë‹¤ë¥¸ìƒ‰ìœ¼ë¡œ ì¶œë ¥
+    //ì ì´ ê³µê²©ì‹œ ê³µê²©ì˜ ì„±ê³µ, ì‹¤íŒ¨ ì¶œë ¥
+    // ex/ ì„±ê³µì‹œ   "[ì ì˜ ê³µê²©]ì´ [ë‹¹ì‹ ]ì˜ [{ë°° ì´ë¦„}]ì— ëª…ì¤‘í–ˆìŠµë‹ˆë‹¤."
+    // ex/ ì„±ê³µì‹œ   "[ë‚˜ì˜ ê³µê²©]ì´ [ì ]ì˜ [{ë°° ì´ë¦„}]ì— ëª…ì¤‘í–ˆìŠµë‹ˆë‹¤."
+    // ì‹¤íŒ¨ì‹œ       "[ì ì˜ ê³µê²©]ì´ [ì ] ì˜ í¬íƒ„ì´ ë¹—ë‚˜ê°”ìŠµë‹ˆë‹¤.
     public Color userColor;
     public Color enemyColor;
     public Color shipColor;
@@ -23,8 +23,8 @@ public class BattleLogger : MonoBehaviour
     const int maxLineCount = 15;
     StringBuilder sb;
 
-    const string YOU = "´ç½Å";
-    const string ENEMY = "Àû";
+    const string YOU = "ë‹¹ì‹ ";
+    const string ENEMY = "ì ";
 
     
 
@@ -50,7 +50,7 @@ public class BattleLogger : MonoBehaviour
         foreach (Ship ship in enemy.Ships)
         {
             ship.onHit += (targetShip) => Log_AttackSuccess(true, targetShip);
-            ship.onSinking = (targetShip) => { Log_ShipSinking(true, targetShip); } + ship.onSinking;// a += b    ==    a = a + b // ¿Í °°Àº ¿ø¸®
+            ship.onSinking = (targetShip) => { Log_ShipSinking(true, targetShip); } + ship.onSinking;// a += b    ==    a = a + b // ì™€ ê°™ì€ ì›ë¦¬
         }
         user.onAttackFail += Log_AttackFail;
         enemy.onAttackFail += Log_AttackFail;
@@ -67,12 +67,12 @@ public class BattleLogger : MonoBehaviour
     public void Log(string text)
     {
         logLines.Add(text);
-        if (logLines.Count > maxLineCount)//ÁÙ ¼ö ÃÊ°ú½Ã
+        if (logLines.Count > maxLineCount)//ì¤„ ìˆ˜ ì´ˆê³¼ì‹œ
         {
-            logLines.RemoveAt(0);//¸ÇÃ³À½ ¶óÀÎ Áö¿ì°í
+            logLines.RemoveAt(0);//ë§¨ì²˜ìŒ ë¼ì¸ ì§€ìš°ê³ 
         }
         sb.Clear();
-        foreach(string line in logLines)//´Ù½Ã sb·Î ºÙÇôÁÖ±â
+        foreach(string line in logLines)//ë‹¤ì‹œ sbë¡œ ë¶™í˜€ì£¼ê¸°
         {
             sb.AppendLine(line);
         }
@@ -87,10 +87,10 @@ public class BattleLogger : MonoBehaviour
 
 
     /// <summary>
-    /// °ø°İ ¼º°ø½Ã »óÈ²À» Ãâ·ÂÇÏ´Â ÇÔ¼ö 
+    /// ê³µê²© ì„±ê³µì‹œ ìƒí™©ì„ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜ 
     /// </summary>
-    /// <param name="isUserAttack">true = À¯Àú, false = ÀûÀÌ °ø°İÇß´Ù.</param>
-    /// <param name="ship">°ø°İÇÑ ¹è</param>
+    /// <param name="isUserAttack">true = ìœ ì €, false = ì ì´ ê³µê²©í–ˆë‹¤.</param>
+    /// <param name="ship">ê³µê²©í•œ ë°°</param>
     void Log_AttackSuccess(bool isUserAttack, Ship ship)
     {
         string attackerColor;
@@ -113,17 +113,17 @@ public class BattleLogger : MonoBehaviour
             hittedColor = ColorUtility.ToHtmlStringRGB(userColor);
             hittedName = YOU;
         }
-        string targetShipColor = ColorUtility.ToHtmlStringRGB(shipColor);//ÇÔ¼±¿ë »ö»ó
-        // ÇÇ°İÀÚ¿ë ¹®ÀÚ¿­ »ı¼º
+        string targetShipColor = ColorUtility.ToHtmlStringRGB(shipColor);//í•¨ì„ ìš© ìƒ‰ìƒ
+        // í”¼ê²©ììš© ë¬¸ìì—´ ìƒì„±
 
-        //ÃÖÁ¾ ¹®ÀÚ¿­ Á¶ÇÕ
-        Log($"<#{attackerColor}>{attackerName}ÀÇ °ø°İ</color>\t: <#{hittedColor}>{hittedName}</color>ÀÇ <#{targetShipColor}>{ship.ShipName}</color>¿¡ Æ÷ÅºÀÌ ¸íÁßÇß½À´Ï´Ù. ");
+        //ìµœì¢… ë¬¸ìì—´ ì¡°í•©
+        Log($"<#{attackerColor}>{attackerName}ì˜ ê³µê²©</color>\t: <#{hittedColor}>{hittedName}</color>ì˜ <#{targetShipColor}>{ship.ShipName}</color>ì— í¬íƒ„ì´ ëª…ì¤‘í–ˆìŠµë‹ˆë‹¤. ");
 
     }
     /// <summary>
-    /// °ø°İ½ÇÆĞ½Ã »óÈ²À» Ãâ·ÂÇÏ´Â ÇÔ¼ö
+    /// ê³µê²©ì‹¤íŒ¨ì‹œ ìƒí™©ì„ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜
     /// </summary>
-    /// <param name="isUserAttack">°ø°İÀÚ</param>
+    /// <param name="isUserAttack">ê³µê²©ì</param>
     void Log_AttackFail(PlayerBase attacker)
     {
 
@@ -140,13 +140,13 @@ public class BattleLogger : MonoBehaviour
             attackerColor = ColorUtility.ToHtmlStringRGB(enemyColor);
             attackerName = ENEMY;
         }
-        Log($"<#{attackerColor}>{attackerName}ÀÇ °ø°İ</color> : <#{attackerColor}>Àû</color>ÀÇ Æ÷ÅºÀÌ ºø³ª°¬½À´Ï´Ù.");
+        Log($"<#{attackerColor}>{attackerName}ì˜ ê³µê²©</color>\t : <#{attackerColor}>{attackerName}</color>ì˜ í¬íƒ„ì´ ë¹—ë‚˜ê°”ìŠµë‹ˆë‹¤.");
     }
     /// <summary>
-    /// ÇÔ¼± Ä§¸ô½Ã »óÈ² Ãâ·ÂÇÏ´Â ÇÔ¼ö  
+    /// í•¨ì„  ì¹¨ëª°ì‹œ ìƒí™© ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜  
     /// </summary>
-    /// <param name="isUserAttack">true = À¯Àú, false = ÀûÀÌ °ø°İÇß´Ù.</param>
-    /// <param name="ship">°ø°İÇÑ ¹è</param>
+    /// <param name="isUserAttack">true = ìœ ì €, false = ì ì´ ê³µê²©í–ˆë‹¤.</param>
+    /// <param name="ship">ê³µê²©í•œ ë°°</param>
     void Log_ShipSinking(bool isUserAttack, Ship ship)
     {
         string attackerColor;
@@ -169,29 +169,29 @@ public class BattleLogger : MonoBehaviour
             hittedColor = ColorUtility.ToHtmlStringRGB(userColor);
             hittedName = YOU;
         }
-        string targetShipColor = ColorUtility.ToHtmlStringRGB(shipColor);//ÇÔ¼±¿ë »ö»ó
-        Log($"<#{attackerColor}>{attackerName}</color>ÀÇ °ø°İ : <#{hittedColor}>{hittedName}</color>ÀÇ <#{targetShipColor}>{ship.ShipName}</color> ÀÌ Ä§¸ôÇß½À´Ï´Ù.");
+        string targetShipColor = ColorUtility.ToHtmlStringRGB(shipColor);//í•¨ì„ ìš© ìƒ‰ìƒ
+        Log($"<#{attackerColor}>{attackerName}</color>ì˜ ê³µê²©\t : <#{hittedColor}>{hittedName}</color>ì˜ <#{targetShipColor}>{ship.ShipName}</color> ì´ ì¹¨ëª°í–ˆìŠµë‹ˆë‹¤.");
     }
     /// <summary>
-    /// ÅÏÀÌ ½ÃÀÛÇÒ ¶§ »óÈ²À» Ç¥½ÃÇÏ´Â ÇÔ¼ö 
+    /// í„´ì´ ì‹œì‘í•  ë•Œ ìƒí™©ì„ í‘œì‹œí•˜ëŠ” í•¨ìˆ˜ 
     /// </summary>
-    /// <param name="number">ÅÏ Ä«¿îÆ®</param>
+    /// <param name="number">í„´ ì¹´ìš´íŠ¸</param>
     void Log_TurnStart(int number)
     {
         string colorText = ColorUtility.ToHtmlStringRGB(turnColor);
-        Log($"<#{colorText}>{number}</color> ¹øÂ° ÅÏÀÌ ½ÃÀÛµÇ¾ú½À´Ï´Ù.");
+        Log($"<#{colorText}>{number}</color> ë²ˆì§¸ í„´ì´ ì‹œì‘ë˜ì—ˆìŠµë‹ˆë‹¤.");
     }
     void Log_Defeat(PlayerBase player)
     {
 
-        if (player is UserPlayer)//³»°¡ Á³À» ¶§
+        if (player is UserPlayer)//ë‚´ê°€ ì¡Œì„ ë•Œ
         {
-            Log($"<#{ColorUtility.ToHtmlStringRGB(userColor)}>{YOU}</color>ÀÇ <#{ColorUtility.ToHtmlStringRGB(enemyColor)}>ÆĞ¹è</color>ÀÔ´Ï´Ù..");
+            Log($"<#{ColorUtility.ToHtmlStringRGB(userColor)}>{YOU}</color>ì˜ <#{ColorUtility.ToHtmlStringRGB(enemyColor)}>íŒ¨ë°°</color>ì…ë‹ˆë‹¤..");
         }
         else
         {
             string colorString = ColorUtility.ToHtmlStringRGB(userColor);
-            Log($"<#{colorString}>´ç½Å</color>ÀÇ <#{colorString}>½Â¸®</color>!");
+            Log($"<#{colorString}>ë‹¹ì‹ </color>ì˜ <#{colorString}>ìŠ¹ë¦¬</color>!");
         }
     }
 }
