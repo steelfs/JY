@@ -9,6 +9,9 @@ public class Test_01_CrossHair : TestBase
 
     public AnimationCurve curve;
     public CrossHair crossHair_;
+
+    public float expandAmount = 30.0f;
+
     [Range(0, 1)]
     public float testValue = 0;
 
@@ -18,7 +21,8 @@ public class Test_01_CrossHair : TestBase
     }
     protected override void TestClick(InputAction.CallbackContext context)
     {
-        Shoot();
+        crossHair_.Expand(expandAmount);
+        //Shoot();
     }
 
     RectTransform north;
@@ -65,12 +69,18 @@ public class Test_01_CrossHair : TestBase
         south.anchoredPosition = fixedPosSouth;
         east.anchoredPosition = fixedPosEast;
         west.anchoredPosition = fixedPosWest;
+
+
     }
     private void Update()
     {
-        north.anchoredPosition = Vector2.Lerp(north.anchoredPosition, northOrigin, testValue);
-        south.anchoredPosition = Vector2.Lerp(south.anchoredPosition, southOrigin, testValue);
-        east.anchoredPosition = Vector2.Lerp(east.anchoredPosition, eastOrigin, testValue);
-        west.anchoredPosition = Vector2.Lerp(west.anchoredPosition, westOrigin, testValue);
+        //north.anchoredPosition = Vector2.Lerp(north.anchoredPosition, northOrigin, testValue);
+        //south.anchoredPosition = Vector2.Lerp(south.anchoredPosition, southOrigin, testValue);
+        //east.anchoredPosition = Vector2.Lerp(east.anchoredPosition, eastOrigin, testValue);
+        //west.anchoredPosition = Vector2.Lerp(west.anchoredPosition, westOrigin, testValue);
+
+
     }
+   
+
 }
