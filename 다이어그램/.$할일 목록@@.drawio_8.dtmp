@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-10-09T01:31:44.342Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="aHWp9w0Aarpgu5C-Dc2f" version="22.0.2" type="device">
+<mxfile host="Electron" modified="2023-10-08T12:26:34.335Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="2FlORoy0XNnC_ShDTQxX" version="22.0.2" type="device">
   <diagram name="페이지-1" id="eluwbXmlI_JwDYYKQHv-">
     <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -12,15 +12,6 @@
         </mxCell>
         <mxCell id="M8RwkK9ijQBNjzGTENCK-1" value="티스토리 블로그 운영" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="90" y="350" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="z-OZQuVCZx3lANdoNJ5z-1" value="기능별 영상 찍기" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="490" y="190" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="z-OZQuVCZx3lANdoNJ5z-2" value="기능별 영상 찍기" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="470" y="290" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="z-OZQuVCZx3lANdoNJ5z-3" value="레벨업 이펙트 끝나기 전 맵 이동시 에러" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="460" y="430" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
