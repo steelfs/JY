@@ -376,3 +376,5 @@ VFX Sphere 안에 파티클이 머무르게 하는 기능 - Conform to sphere
 
 
 UV 좌표
+
+FlipBook  , FlipbookBlend => 섞기
