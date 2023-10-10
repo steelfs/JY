@@ -67,7 +67,7 @@
                     "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
-                    "groups": "KM",
+                    "groups": "KeyboardMouse",
                     "action": "Test1",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -78,7 +78,7 @@
                     "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
-                    "groups": "KM",
+                    "groups": "KeyboardMouse",
                     "action": "Test2",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -89,7 +89,7 @@
                     "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
-                    "groups": "KM",
+                    "groups": "KeyboardMouse",
                     "action": "Test3",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -100,7 +100,7 @@
                     "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
-                    "groups": "KM",
+                    "groups": "KeyboardMouse",
                     "action": "Test4",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -111,7 +111,7 @@
                     "path": "<Keyboard>/5",
                     "interactions": "",
                     "processors": "",
-                    "groups": "KM",
+                    "groups": "KeyboardMouse",
                     "action": "Test5",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -122,7 +122,7 @@
                     "path": "<Mouse>/press",
                     "interactions": "",
                     "processors": "",
-                    "groups": "KM",
+                    "groups": "KeyboardMouse",
                     "action": "TestClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -206,7 +206,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -217,7 +217,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -228,7 +228,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -239,7 +239,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -250,7 +250,7 @@
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -261,7 +261,7 @@
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -272,7 +272,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -283,7 +283,7 @@
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -294,7 +294,7 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "StickDeadzone",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -305,7 +305,7 @@
                     "path": "<Pointer>/delta",
                     "interactions": "",
                     "processors": "InvertVector2(invertX=false),ScaleVector2(x=0.05,y=0.05)",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -316,7 +316,7 @@
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "InvertVector2(invertX=false),StickDeadzone,ScaleVector2(x=300,y=300)",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -327,7 +327,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -338,7 +338,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -349,7 +349,7 @@
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -360,7 +360,7 @@
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -371,7 +371,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -382,7 +382,7 @@
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -392,8 +392,8 @@
     ],
     "controlSchemes": [
         {
-            "name": "KM",
-            "bindingGroup": "KM",
+            "name": "KeyboardMouse",
+            "bindingGroup": "KeyboardMouse",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",

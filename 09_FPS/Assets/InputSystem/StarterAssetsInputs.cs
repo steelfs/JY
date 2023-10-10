@@ -32,6 +32,7 @@ namespace StarterAssets
             if (cursorInputForLook)
             {
                 LookInput(context.ReadValue<Vector2>());
+				//Debug.Log(context.ReadValue<Vector2>());
             }
         }
 
