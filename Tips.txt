@@ -378,3 +378,20 @@ VFX Sphere 안에 파티클이 머무르게 하는 기능 - Conform to sphere
 UV 좌표
 
 FlipBook  , FlipbookBlend => 섞기
+
+231011
+비트마스킹 하는 법
+    bool IsOwner(int data)
+    {
+        bool result = false;
+        int key = 8;
+        if ((data & key) == key)  key에   and 를 했을 때 key번째 비트를 제외한 나머지 비트들은 모두 0이 되기 때문에 만약 key번째 비트에 1이 셋팅되어 있다면 key와 값이 같아지게 된다.
+        {
+            result = true;
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
+    }

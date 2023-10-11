@@ -12,5 +12,8 @@ public class GunsDisplay : MonoBehaviour
             Transform child = transform.GetChild(i);
             child.position = Vector3.right * (0.8f * i);
         }
+
+        
     }
+
 }
