@@ -14,6 +14,7 @@ public class BitMasking : TestBase
 
     bool IsOwner(int data)
     {
+        transform.SetParent(transform);
         bool result = false;
         int key = 8;
         if ((data & key) == key)
