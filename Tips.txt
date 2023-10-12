@@ -395,3 +395,7 @@ FlipBook  , FlipbookBlend => 섞기
         }
         return result;
     }
+
+
+카메라 스택킹
+카메라에 스택을 추가하고 다른 카메라를 추가한 후  mask를 설정 후 기존 카메라의 스택에 추가해준다.

@@ -202,7 +202,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Zoom"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""d672c16d-1177-4b88-b302-882ff8eb0932"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

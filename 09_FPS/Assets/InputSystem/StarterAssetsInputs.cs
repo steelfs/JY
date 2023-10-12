@@ -1,3 +1,5 @@
+using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
@@ -21,6 +23,22 @@ namespace StarterAssets
 		public bool cursorLocked = true;		//커서락 기능을 사용할 것인지 여부(락이 되면 커서가 안보인다.)
 		public bool cursorInputForLook = true;
 
+        public CinemachineVirtualCamera vcam;
+		PlayerInputAction inputActions;
+        private void Awake()
+        {
+			inputActions = new();
+        }
+        private void OnEnable()
+        {
+            inputActions.Enable();
+            inputActions.Player.Zoom.performed += OnZoom;
+            inputActions.Player.Zoom.canceled += OnZoom; ;
+        }
+
+        private void OnZoomOut(InputAction.CallbackContext obj)
+        {
+        }
 
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -50,12 +68,30 @@ namespace StarterAssets
 		public void OnFire(InputAction.CallbackContext context)
 		{
 			Debug.Log("Fire");
-			RomanToInt("III");
 		}
+
 		public void OnZoom(InputAction.CallbackContext context)
 		{
-            Debug.Log("Zoom");
+			//기본일떄 FOV  = 40
+			//Zoom 땡겼을 때  = 20, 총이 안보인다.
+			if (context.performed)
+			{
+				GameManager.Inst.On_ZoomIn();
+			}
+			else
+			{
+				GameManager.Inst.On_ZoomOut();
+            }
         }
+		
+		IEnumerator ZoomIn()
+		{
+			yield return null;
+		}
+		IEnumerator ZoomOut()
+		{
+			yield return null;
+		}
 
         public int RomanToInt(string s)
         {
