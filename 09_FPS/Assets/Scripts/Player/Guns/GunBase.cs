@@ -13,6 +13,8 @@ public class GunBase : MonoBehaviour
     public float spread; //Åº ÆÛÁö´Â °¢µµ
     public float recoil;// ÃÑ ¹Ýµ¿
 
+    protected Transform fireTransform;
+
     VisualEffect muzzleEffect;
     int onFireID;
 
@@ -40,7 +42,6 @@ public class GunBase : MonoBehaviour
     }
 
 
-    protected Transform fireTransform;
     public void Equip()
     {
         fireTransform = GameManager.Inst.Player.transform.GetChild(0);

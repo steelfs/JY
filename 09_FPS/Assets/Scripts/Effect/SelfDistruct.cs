@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class SelfDistruct : MonoBehaviour
+public class SelfDistruct : PooledObject
 {
     VisualEffect effect;
 
