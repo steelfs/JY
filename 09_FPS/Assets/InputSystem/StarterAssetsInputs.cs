@@ -57,7 +57,10 @@ namespace StarterAssets
 
 		public void OnFire(InputAction.CallbackContext context)
 		{
-			Debug.Log("Fire");
+			if (context.performed)
+			{
+				player.GunFire();
+			}
 		}
 
 		public void OnZoom(InputAction.CallbackContext context)

@@ -14,17 +14,20 @@ public class GunBase : MonoBehaviour
     public float recoil;// ÃÑ ¹Ýµ¿
 
     VisualEffect muzzleEffect;
+    int onFireID;
 
     private void Awake()
     {
         muzzleEffect = GetComponentInChildren<VisualEffect>();
+        onFireID = Shader.PropertyToID("OnFire");
     }
+
 
     public void Fire()
     {
         if (bulletRemain > 0)
         {
-            muzzleEffect.Play();
+            muzzleEffect.SendEvent(onFireID);
             bulletRemain--;
 
             FireProcess();
@@ -41,7 +44,6 @@ public class GunBase : MonoBehaviour
     public void Equip()
     {
         fireTransform = GameManager.Inst.Player.transform.GetChild(0);
-
     }
 
 

@@ -6,11 +6,15 @@ public class Player : MonoBehaviour
 {
     GameObject gunCamera;
     
-    GunBase gunBase;
+    GunBase gun;
     private void Awake()
     {
         gunCamera = transform.GetChild(2).gameObject;
-        gunBase = gunCamera.GetComponentInChildren<GunBase>();
+        gun = gunCamera.GetComponentInChildren<GunBase>();
+    }
+    private void Start()
+    {
+        gun.Equip();
     }
 
     public void ShowGunCamera(bool show = true)
@@ -19,6 +23,6 @@ public class Player : MonoBehaviour
     }
     public void GunFire()
     {
-        gunBase.Fire();
+        gun.Fire();
     }
 }
