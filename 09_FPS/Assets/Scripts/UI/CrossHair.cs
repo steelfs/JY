@@ -2,79 +2,92 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrossHair : MonoBehaviour
+public class Crosshair : MonoBehaviour
 {
-    public AnimationCurve recovryCurve;
     /// <summary>
-    /// ÃÖ´ëÈ®ÀåÅ©±â
+    /// íšŒë³µ ì†ë„ ì¡°ì ˆì„ ìœ„í•œ ì»¤ë¸Œ
     /// </summary>
-    public float maxExpand = 100.0f;
+    public AnimationCurve recoveryCurve;
 
     /// <summary>
-    /// ±âº», ÃÖ¼ÒÈ®ÀåÅ©±â
+    /// ìµœëŒ€ í™•ì¥ í¬ê¸°
     /// </summary>
-    const float defaultExpand = 30.0f;
-    float current = 0;
+    public float maxExpend = 100.0f;
 
     /// <summary>
-    /// Á¶ÁØ¼±µéÀÇ RectTransform
+    /// ê¸°ë³¸ í™•ì¥ í¬ê¸°(ìµœì†Œ)
+    /// </summary>
+    const float defaultExpend = 10.0f;
+
+    /// <summary>
+    /// í˜„ì¬ í™•ì¥ í¬ê¸°
+    /// </summary>
+    float current = 0.0f;
+
+    /// <summary>
+    /// ì¡°ì¤€ì„ ë“¤ì˜ RectTransform
     /// </summary>
     RectTransform[] crossRects;
-    readonly Vector2[] direction = { Vector2.up, Vector2.right, Vector2.down, Vector2.left };
+
+    /// <summary>
+    /// ì¡°ì¤€ì„ ë“¤ ì´ë™ ë°©í–¥ ê³„ì‚°ìš©
+    /// </summary>
+    readonly Vector2[] direction = {Vector2.up, Vector2.right, Vector2.down, Vector2.left};
+
     private void Awake()
     {
-        crossRects = new RectTransform[transform.childCount];
-        for (int i = 0; i < crossRects.Length; i++)
-        {
-            crossRects[i] = transform.GetChild(i) as RectTransform; 
-        }
-    }
-
-    /// <summary>
-    /// Á¶ÁØ¼± È®Àå ÇÔ¼ö
-    /// </summary>
-    /// <param name="amount">È®ÀåµÇ´Â Á¤µµ</param>
-    public void Expand(float amount)
-    {
-        current = Mathf.Min(current + amount, maxExpand);//È®ÀåÀº ÃÖ´ëÄ¡ ±îÁö¸¸
+        crossRects = new RectTransform[transform.childCount];   // ì¡°ì¤€ì„ ë“¤ì˜ RectTransform ì „ë¶€ ì°¾ê¸°
         for(int i = 0; i < crossRects.Length; i++)
         {
-            crossRects[i].anchoredPosition = (current * direction[i]);
+            crossRects[i] = transform.GetChild(i) as RectTransform;
         }
-        // StopCoroutine(recoveryCoroutine);
-        StopAllCoroutines();
-        StartCoroutine(DelayRecovery(0.1f));
     }
 
     /// <summary>
-    /// µğÆúÆ® À§Ä¡·Î µÇµ¹¸®´Â ÄÚ·çÆ¾
+    /// ì¡°ì¤€ì„ ì„ ì‚¬ë°©ìœ¼ë¡œ í¼ì³ì§€ê²Œ ë§Œë“œëŠ” í•¨ìˆ˜
     /// </summary>
-    /// <param name="wait">Ã³À½ ±â´Ù¸®´Â ½Ã°£</param>
+    /// <param name="amount">í¼ì³ì§€ëŠ” ì •ë„</param>
+    public void Expend(float amount)
+    {
+        current = Mathf.Min(current + amount, maxExpend);               // í™•ì¥ì€ ìµœëŒ€ì¹˜ê¹Œì§€ë§Œ
+        for(int i = 0;i < crossRects.Length;i++)
+        {
+            crossRects[i].anchoredPosition = current * direction[i];    // current ë§Œí¼ í™•ì¥
+        }
+        StopAllCoroutines();                    // ì´ì „ ì½”ë£¨í‹´ì€ ì •ì§€
+        StartCoroutine(DelayRecovery(0.1f));    // ë””í´íŠ¸ ìƒíƒœë¡œ ë˜ëŒë¦¬ëŠ” ì½”ë£¨í‹´
+    }
+
+    /// <summary>
+    /// ì¡°ì¤€ì„ ì„ ë””í´íŠ¸ ìƒíƒœë¡œ ë˜ëŒë¦¬ëŠ” ì½”ë£¨í‹´
+    /// </summary>
+    /// <param name="wait">ì²˜ìŒ ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„</param>
     /// <returns></returns>
     IEnumerator DelayRecovery(float wait)
     {
-        yield return new WaitForSeconds(wait);
+        yield return new WaitForSeconds(wait);  // waitì´ˆ ë§Œí¼ ëŒ€ê¸°
 
-        float startExpand = current;//È®ÀåµÈ »óÅÂ¸¦ ÃÖ´ëÄ¡·Î ÀúÀå
-        float curveProcess = 0.0f;//Ä¿ºê ÁøÇà»óÈ². 1¿¡¼­ ½ÃÀÛÇØ¼­ 0À¸·Î ÀÌµ¿
-        float duration = 0.5f; //Á¶ÁØ¼±ÀÌ µğÆúÆ®°ª±îÁö ÀÌµ¿ÇÏ´Âµ¥ °É¸®´Â ½Ã°£
-        float div = 1 / duration;//?  1 / 0.5 = 2;
+        float startExpend = current;    // í˜„ì¬ í™•ì¥ ì •ë„ë¥¼ ìµœëŒ€ì¹˜ë¡œ ì €ì¥
+        float curveProcess = 0.0f;      // ì»¤ë¸Œ ì§„í–‰ ìƒí™©(0~1)
+        float duration = 0.5f;          // ì¡°ì¤€ì„ ì´ ë””í´íŠ¸ ìƒíƒœë¡œ ê°€ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„
+        float div = 1 / duration;       // ë‚˜ëˆ„ê¸° ê²°ê³¼ë¥¼ ë¯¸ë¦¬ ì €ì¥í•´ ë†“ê¸°(ë‚˜ëˆ„ê¸° íšŒìˆ˜ë¥¼ ìµœì†Œí™”ì‹œí‚¤ê¸° ìœ„í•œ ìš©ë„)
 
-        while (curveProcess < 1)//durationÃÊ µ¿¾È ¹İº¹
+        while(curveProcess < 1)         // durationì´ˆ ë™ì•ˆ ë°˜ë³µë˜ê²Œ í•˜ê¸°
         {
             curveProcess += Time.deltaTime * div;
-            current = recovryCurve.Evaluate(curveProcess) * startExpand;//curve¸¦ ÀÌ¿ëÇØ current°è»ê
-
-            for (int i = 0; i < crossRects.Length; i++)
+            current = recoveryCurve.Evaluate(curveProcess) * startExpend;   // ì»¤ë¸Œë¥¼ ì´ìš©í•´ current ê³„ì‚°
+            for(int i=0;i < crossRects.Length;i++)
             {
-                crossRects[i].anchoredPosition = (current + defaultExpand) * direction[i];//°è»ê °á°ú´ë·Î Á¡Á¡ Ãà¼Ò½ÃÅ°±â
+                crossRects[i].anchoredPosition = (current + defaultExpend) * direction[i];  // ê³„ì‚° ê²°ê³¼ëŒ€ë¡œ ì ì  ì¶•ì†Œ ì‹œí‚¤ê¸°
             }
-            yield return null;
+            yield return null;          // 1í”„ë ˆì„ ë™ì•ˆ ëŒ€ê¸°
         }
-        for (int i = 0; i < crossRects.Length; i++)
+
+        // ë§ˆì§€ë§‰ìœ¼ë¡œ ìœ„ì¹˜ë¥¼ ê¹”ë”í•˜ê²Œ ì§€ì •
+        for(int i=0;i< crossRects.Length;i++)
         {
-            crossRects[i].anchoredPosition = defaultExpand * direction[i];
+            crossRects[i].anchoredPosition = defaultExpend * direction[i];
         }
-        current = 0;
+        current = 0.0f;                 // current í´ë¦¬ì–´
     }
 }

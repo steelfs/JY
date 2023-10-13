@@ -4,109 +4,130 @@ using UnityEngine;
 
 public class ObjectPool<T> : MonoBehaviour where T : PooledObject
 {
-    public GameObject originalPrefab;
+    /// <summary>
+    /// í’€ì— ë‹´ì•„ ë†“ì„ ì˜¤ë¸Œì íŠ¸ì˜ í”„ë¦¬íŒ¹
+    /// </summary>
+    public GameObject origianlPrefab;
 
+    /// <summary>
+    /// í’€ì˜ í¬ê¸°. ì²˜ìŒì— ìƒì„±í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ì˜ ê°¯ìˆ˜. ê°¯ìˆ˜ëŠ” 2^nìœ¼ë¡œ ì¡ëŠ” ê²ƒì´ ì¢‹ë‹¤.
+    /// </summary>
     public int poolSize = 64;
+
+    /// <summary>
+    /// í’€ì´ ìƒì„±í•œ ëª¨ë“  ì˜¤ë¸Œì íŠ¸ê°€ ë“¤ì–´ìˆëŠ” ë°°ì—´
+    /// </summary>
     T[] pool;
-    Queue<T> readyQueue; 
+
+    /// <summary>
+    /// ì‚¬ìš©ê°€ëŠ¥í•œ(ë¹„í™œì„±í™”ë˜ì–´ìˆëŠ”) ì˜¤ë¸Œì íŠ¸ë“¤ì´ ë“¤ì–´ìˆëŠ” í
+    /// </summary>
+    Queue<T> readyQueue;
 
     public void Initialize()
     {
-        if (pool == null)
-        {
-            pool = new T[poolSize];
-            readyQueue = new Queue<T>(poolSize);
+        if(pool == null)
+        { 
+            pool = new T[poolSize];                 // í’€ ì „ì²´ í¬ê¸°ë¡œ ë°°ì—´ í• ë‹¹
+            readyQueue = new Queue<T>(poolSize);    // ë ˆë””í ìƒì„±(capacityëŠ” poolSizeë¡œ ì§€ì •)
 
-            //readyQueue.Count; //½ÇÁ¦·Î µé¾îÀÖ´Â °¹¼ö 
-            //readyQueue.Capacity // ÇöÀç ¹Ì¸® ÁØºñÇØµĞ °¹¼ö 
+            //readyQueue.Count;       // ì‹¤ì œë¡œ ë“¤ì–´ìˆëŠ” ê°¯ìˆ˜
+            //readyQueue.Capatity;    // í˜„ì¬ ë¯¸ë¦¬ ì¤€ë¹„í•´ ë†“ì€ ê°¯ìˆ˜
 
             GenerateObjects(0, poolSize, pool);
         }
         else
         {
-            foreach (T obj in pool) //¸¸¾à µÎ¹øÂ° ¾ÀÀÌ ºÒ·¯Á®¼­ Ç®ÀÌ Á¸ÀçÇÏ´Â »óÈ²ÀÌ¶ó¸é 
+            // ë‘ë²ˆì§¸ ì”¬ì´ ë¶ˆë ¤ì ¸ì„œ ì´ë¯¸ í’€ì€ ë§Œë“¤ì–´ì ¸ ìˆëŠ” ìƒí™©
+            foreach(T obj in pool)
             {
-                obj.gameObject.SetActive(false); 
+                obj.gameObject.SetActive(false);    // ì „ë¶€ ë¹„í™œì„±í™”
             }
         }
     }
-    /// <summary>
-    /// Ç®¿¡¼­ ¿ÀºêÁ§Æ®¸¦ ÇÏ³ª ²¨³½ ÈÄ µ¹·ÁÁÖ´Â ÇÔ¼ö
-    /// </summary>
-    /// <returns>Å¥¿¡¼­ ²¨³»°í È°¼ºÈ­½ÃÅ² ¿ÀºêÁ§Æ®</returns>
 
-    public T GetObject(Transform spawnTransform = null) // ¿ÀºêÁ§Æ® ²¨³¾ ¶§ À§Ä¡ È¸Àü ½ºÄÉÀÏ ¼³Á¤
+    /// <summary>
+    /// í’€ì—ì„œ ì˜¤ë¸Œì íŠ¸ë¥¼ í•˜ë‚˜ êº¼ë‚¸ í›„ ëŒë ¤ì£¼ëŠ” í•¨ìˆ˜
+    /// </summary>
+    /// <param name="spawnTransform">ì˜¤ë¸Œì íŠ¸ êº¼ë‚¼ ë•Œ ì„¤ì •í•  ìœ„ì¹˜ì™€ íšŒì „ê³¼ ìŠ¤ì¼€ì¼</param>
+    /// <returns>ë ˆë””íì—ì„œ êº¼ë‚´ê³  í™œì„±í™”ì‹œí‚¨ ì˜¤ë¸Œì íŠ¸</returns>
+    public T GetObject(Transform spawnTransform = null)
     {
-        if (readyQueue.Count > 0) // Å¥¿¡ ³²¾ÆÀÖ´Â ¿ÀºêÁ§Æ®°¡ ÀÖ´ÂÁö È®ÀÎ
+        if (readyQueue.Count > 0)    // ë ˆë””íì— ë‚¨ì•„ìˆëŠ” ì˜¤ë¸Œì íŠ¸ê°€ ìˆëŠ”ì§€ í™•ì¸
         {
-            //³²¾ÆÀÖÀ¸¸é 
-            T comp = readyQueue.Dequeue(); // ÇÏ³ª²¨³»°í
-            if (spawnTransform != null)// ¹Ì¸® ¼³Á¤ÇÒ Æ®·»½ºÆûÀÌ ÀÖ´Ù¸é Àû¿ë
+            // ë‚¨ì•„ìˆìœ¼ë©´
+            T comp = readyQueue.Dequeue();      // í•˜ë‚˜ êº¼ë‚´ê³ 
+            if(spawnTransform != null)          // ë¯¸ë¦¬ ì„¤ì •í•  íŠ¸ëœìŠ¤í¼ì´ ìˆìœ¼ë©´ ì ìš©
             {
-                comp.transform.SetPositionAndRotation(spawnTransform.position, spawnTransform.rotation);
-             
+                comp.transform.SetPositionAndRotation(
+                    spawnTransform.position, spawnTransform.rotation);                
                 comp.transform.localScale = spawnTransform.localScale;
             }
-            else//¾ø´Ù¸é 
+            else
             {
+                // ì—†ìœ¼ë©´ ê¸°ë³¸ê°’ìœ¼ë¡œ ì„¤ì •                
                 comp.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
                 comp.transform.localScale = Vector3.one;
             }
-            comp.gameObject.SetActive(true);// È°¼ºÈ­½ÃÅ²´ÙÀ½
-            return comp; // ²¨³½°Í ¸®ÅÏ
+            comp.gameObject.SetActive(true);    // í™œì„±í™”ì‹œí‚¨ ë‹¤ìŒì— 
+            return comp;                        // êº¼ë‚¸ ê²ƒ ë¦¬í„´
         }
         else
         {
-            //¾È³²¾ÆÀÖÀ¸¸é 
-            ExpendPool(); //È®Àå½ÃÅ°°í
-            return GetObject(spawnTransform);// ´Ù½Ã ¿äÃ»
+            // ë‚¨ì€ ì˜¤ë¸Œì íŠ¸ê°€ ì—†ìœ¼ë©´
+            ExpandPool();                       // í’€ í™•ì¥ì‹œí‚¤ê³ 
+            return GetObject(spawnTransform);   // ë‹¤ì‹œ ìš”ì²­
         }
-    }
-    private void ExpendPool()//Ç®ÀÇ Å©±â¸¦ µÎ¹è·Î È®Àå½ÃÅ°´Â ÇÔ¼ö
-    {
-        Debug.LogWarning($"{gameObject.name} Ç®»çÀÌÁî Áõ°¡ {poolSize} -> {poolSize * 2}");
-
-        int newSize = poolSize * 2;    //»õ·Î¿î Å©±â ±¸ÇÏ±â
-        T[] newPool = new T[newSize];  // »õ·Î¿î Å©±â¸¸Å­ »õ ¹è¿­¸¸µé±â
-        for (int i = 0; i < poolSize; i++) // ÀÌÀü ¹è¿­¿¡ ÀÖ´ø°ÍÀ» »õ ¹è¿­¿¡ º¹»ç
-        {
-            newPool[i] = pool[i]; 
-        }
-        GenerateObjects(poolSize, newSize, newPool); // »õ ¹è¿­¿¡ ³²Àº ºÎºĞ¿¡ ¿ÀºêÁ§Æ® »ı¼ºÇØ¼­ ¼³Á¤
-        pool = newPool; // »õ ¹è¿­À» Ç®·Î ¼³Á¤
-        poolSize = newSize; // »õ Å©±â¸¦ Å©±â·Î ¼³Á¤
     }
 
     /// <summary>
-    /// // ¿ÀºêÁ§Æ® »ı¼ºÇØ¼­ ¹è¿­¿¡ Ãß°¡ÇØÁÖ´Â ÇÔ¼ö
+    /// í’€ì„ ë‘ë°°ë¡œ í™•ì¥ì‹œí‚¤ëŠ” í•¨ìˆ˜
     /// </summary>
-    /// <param name="start">¹è¿­ÀÇ ½ÃÀÛÀÎµ¦½º</param>
-    /// <param name="end">¹è¿­ÀÇ ¸¶Áö¸·ÀÎµ¦½º -1</param>
-    /// <param name="newArray">»ı¼ºµÈ ¿ÀºêÁ§Æ®°¡ µé¾î°¥ ¹è¿­</param>
-    void GenerateObjects(int start, int end, T[] newArray) 
+    private void ExpandPool()
     {
-        for (int i = start; i < end; i++) //»õ·Î ¸¸µé¾îÁø ¹İº¹
-        {
-            GameObject obj = Instantiate(originalPrefab, transform);// »ı¼º ÈÄ Ç®À» ºÎ¸ğ ¿ÀºêÁ§Æ®·Î ¼³Á¤ 
-            obj.name = $"{originalPrefab.name}_{i}"; //ÀÌ¸§ ±¸ºĞÇÏ±âÀ§ÇØ ¼³Á¤
+        Debug.LogWarning($"{gameObject.name} í’€ ì‚¬ì´ì¦ˆ ì¦ê°€. {poolSize} -> {poolSize * 2}");
 
-            T comp = obj.GetComponent<T>();  // pooledObject ÄÄÆ÷³ÍÆ®°¡Á®¿Í¼­ 
-            comp.onDisable += () => readyQueue.Enqueue(comp); // disableµÉ¶§ Å¥·Î µÇµ¹¸®±â 
+        int newSize = poolSize * 2;     // ìƒˆë¡œìš´ í¬ê¸° êµ¬í•˜ê¸°
+        T[] newPool = new T[newSize];   // ìƒˆë¡œìš´ í¬ê¸°ë§Œí¼ ìƒˆ ë°°ì—´ ë§Œë“¤ê¸°
+        for(int i=0;i<poolSize;i++)     // ì´ì „ ë°°ì—´ì— ìˆë˜ ê²ƒì„ ìƒˆ ë°°ì—´ì— ë³µì‚¬
+        {
+            newPool[i] = pool[i];
+        }
+
+        GenerateObjects(poolSize, newSize, newPool);    // ìƒˆ ë°°ì—´ì— ë‚¨ì€ ë¶€ë¶„ì— ì˜¤ë¸Œì íŠ¸ ìƒˆì—‰í•´ì„œ ì„¤ì •
+        pool = newPool;     // ìƒˆ ë°°ì—´ì„ poolë¡œ ì„¤ì •
+        poolSize = newSize; // ìƒˆ í¬ê¸°ë¥¼ í¬ê¸°ë¡œ ì„¤ì •
+    }
+
+    /// <summary>
+    /// ì˜¤ë¸Œì íŠ¸ ìƒì„±í•´ì„œ ë°°ì—´ì— ì¶”ê°€í•´ì£¼ëŠ” í•¨ìˆ˜
+    /// </summary>
+    /// <param name="start">ë°°ì—´ì˜ ì‹œì‘ ì¸ë±ìŠ¤</param>
+    /// <param name="end">ë°°ì—´ì˜ ë§ˆì§€ë§‰ ì¸ë±ìŠ¤-1</param>
+    /// <param name="newArray">ìƒì„±ëœ ì˜¤ë¸Œì íŠ¸ê°€ ë“¤ì–´ê°ˆ ë°°ì—´</param>
+    private void GenerateObjects(int start, int end, T[] newArray)
+    {
+        for (int i = start; i < end; i++)    // ìƒˆë¡œ ë§Œë“¤ì–´ì§„ í¬ê¸°ë§Œí¼ ë°˜ë³µ
+        {
+            // ìƒì„±í•˜ê³  í’€ì„ ë¶€ëª¨ ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¡œ ë§Œë“¤ê¸°
+            GameObject obj = Instantiate(origianlPrefab, transform);
+            obj.name = $"{origianlPrefab.name}_{i}";            // ì´ë¦„ êµ¬ë¶„ë˜ë„ë¡ ì„¤ì •
+
+            T comp = obj.GetComponent<T>();                     // PooledObject ì»´í¬ë„ŒíŠ¸ ë°›ì•„ì™€ì„œ
+            comp.onDisable += () => readyQueue.Enqueue(comp);   // PooledObjectê°€ disableë  ë•Œ ë˜ë””íë¡œ ë˜ëŒë¦¬ê¸°
 
             OnGenerateObjects(comp);
 
-            newArray[i] = comp; // ¹è¿­¿¡ ÀúÀåÇÏ°í 
-            obj.SetActive(false);//ºñÈ°¼ºÈ­ ½ÃÅ°±â ºñÈ°¼ºÈ­µÉ¶§ À§¿¡¼­ Ãß°¡ÇÑ ¶÷´Ù½ÄÀÌ ½ÇÇàµÇ¸é¼­ Å¥·Î ´Ù½Ã µ¹¾Æ°¡°ÔµÈ´Ù.
-            
+            newArray[i] = comp;     // ë°°ì—´ì— ì €ì¥
+            obj.SetActive(false);   // ìƒì„±í•œ ê²Œì„ ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™”(=>ë¹„í™œì„±í™” ë˜ë©´ì„œ ë ˆë””íì—ë„ ì¶”ê°€ëœë‹¤)
         }
     }
 
     /// <summary>
-    /// °¢ TÅ¸ÀÔ º°·Î ÇÊ¿äÇÑ Ãß°¡ ÀÛ¾÷À» Ã³¸®ÇÏ´Â ÇÔ¼ö 
+    /// ê° T íƒ€ì…ë³„ë¡œ í•„ìš”í•œ ì¶”ê°€ ì‘ì—…ì„ ì²˜ë¦¬í•˜ëŠ” í•¨ìˆ˜
     /// </summary>
-    /// <param name="comp">ÀÛ¾÷ÇÒ ÄÄÆ÷³ÍÆ®</param>
+    /// <param name="comp">Tíƒ€ì… ì»´í¬ë„ŒíŠ¸</param>
     protected virtual void OnGenerateObjects(T comp)
     {
-
     }
 }
