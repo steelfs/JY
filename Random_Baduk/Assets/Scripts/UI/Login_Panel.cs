@@ -9,14 +9,19 @@ public class Login_Panel : MonoBehaviour
     TMP_InputField id_InputField;
     TMP_InputField password_InputField;
 
-    Button login_Button;
-    Button signIn_Button;
+    public Button login_Button;
+    public Button signIn_Button;
+    public SignIn_Panel signIn_Panel;
 
     PlayerInputAction inputActions;
+    CanvasGroup canvasGroup;
 
     private void Awake()
     {
+        canvasGroup = GetComponent<CanvasGroup>();
         inputActions = new();
+        login_Button.onClick.AddListener(LogIn);
+        signIn_Button.onClick.AddListener(SignIn);
     }
     private void OnEnable()
     {
@@ -29,12 +34,25 @@ public class Login_Panel : MonoBehaviour
         LogIn();
     }
 
+    void SignIn()
+    {
+        signIn_Panel.Open();
+        Hide();
+    }
     void LogIn()
     {
 
     }
-    void SignIn()
+    public void Show()
     {
-
+        canvasGroup.alpha = 1;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
+    }
+    public void Hide()
+    {
+        canvasGroup.alpha = 0;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
     }
 }

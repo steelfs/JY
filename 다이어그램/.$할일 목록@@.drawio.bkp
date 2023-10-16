@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-10-11T15:28:20.816Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="klMWZI1oK17cEeWosnS7" version="22.0.2" type="device">
+<mxfile host="Electron" modified="2023-10-12T23:50:26.210Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="6CtqEpMi3y6b0Xdfh0li" version="21.2.8" type="device">
   <diagram name="페이지-1" id="eluwbXmlI_JwDYYKQHv-">
-    <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="903" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -8,7 +8,7 @@
           <mxGeometry x="90" y="280" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="A--QiqLmVu2UwWb3yjKr-6" value="공격시 총알사용" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="220" y="500" width="120" height="60" as="geometry" />
+          <mxGeometry x="300" y="260" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="M8RwkK9ijQBNjzGTENCK-1" value="티스토리 블로그 운영" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="90" y="350" width="120" height="60" as="geometry" />
@@ -16,11 +16,14 @@
         <mxCell id="z-OZQuVCZx3lANdoNJ5z-1" value="기능별 영상 찍기" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="490" y="190" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="z-OZQuVCZx3lANdoNJ5z-2" value="기능별 영상 찍기" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="z-OZQuVCZx3lANdoNJ5z-2" value="아이템 드롭 Rotater 활성화" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="470" y="290" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="PIaetsN26CSG9PjYFhZQ-1" value="인벤토리 - 이동, 스왑 버리기&lt;br&gt;&lt;br&gt;강화,&lt;br&gt;&amp;nbsp;조합&lt;br&gt;퀵슬롯 포션, 스킬 등록 연결&lt;br&gt;장비창 아이템 장착, 해제, 상태 저장&lt;br&gt;플레이어 스킬 데이터 저장&lt;br&gt;플레이어 stat창 능력치 저장&lt;br&gt;이펙트 풀, 공격이펙트, 데미지, 회피, 크리티컬 팝업&lt;br&gt;플레이어 사망시 dollycam" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="PIaetsN26CSG9PjYFhZQ-1" value="인벤토리 - 이동, 스왑 버리기&lt;br&gt;&lt;br&gt;강화,&lt;br&gt;&amp;nbsp;조합&lt;br&gt;퀵슬롯 포션, 스킬 등록 연결&lt;br&gt;장비창 아이템 장착, 해제, 상태 저장&lt;br&gt;플레이어 스킬 데이터 저장&lt;br&gt;플레이어 stat창 능력치 저장&lt;br&gt;이펙트 풀, 공격이펙트, 데미지, 회피, 크리티컬 팝업&lt;br&gt;플레이어 사망시 dollycam" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="470" y="470" width="300" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="ylhdjApgGJFK7G2SVpBV-1" value="OnParticleSystemStop" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="360" width="150" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
