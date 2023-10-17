@@ -14,5 +14,7 @@ public class Revolver : GunBase
             //bulletHole.transform.position = hitInfo.point;
             //bulletHole.transform.forward = -hitInfo.normal;
         }
+        FireRecoil();
+
     }
 }

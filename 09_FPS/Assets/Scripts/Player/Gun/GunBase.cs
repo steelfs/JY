@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,6 +41,10 @@ public class GunBase : MonoBehaviour
     /// </summary>
     public int bulletRemain;
 
+    protected Transform fireTransform;
+
+    public AnimationCurve fireUp;
+    public AnimationCurve fireDown;
     VisualEffect muzzleEffect;
     int onFireID;
 
@@ -76,6 +81,8 @@ public class GunBase : MonoBehaviour
         float time = 0;
         while (time < 1)
         {
+            //yield return new WaitForSeconds(1 / fireRate);
+            //canFire = true;
             if (firecount >= fireRate)
             {
                 canFire = false;
@@ -90,9 +97,30 @@ public class GunBase : MonoBehaviour
 
     protected virtual void FireProcess()
     {
-    }
 
-    protected Transform fireTransform;
+    }
+    protected void FireRecoil()
+    {
+        if (!isRotating)
+        {
+            StartCoroutine(FireRecoilCoroutine());
+
+        }
+        fireTransform.Rotate(Vector3.right, -1);
+    }
+    bool isRotating = false;
+    IEnumerator FireRecoilCoroutine()
+    {
+        isRotating = true;
+        //fireTransform.Rotate(Vector3.right, -1);
+        float upTime = 0;
+        while(upTime < 0.05f)
+        {
+            upTime += Time.deltaTime;
+        }
+        yield return null;
+        isRotating = false;
+    }
     public void Equip()
     {
         fireTransform = GameManager.Inst.Player.transform.GetChild(0);
