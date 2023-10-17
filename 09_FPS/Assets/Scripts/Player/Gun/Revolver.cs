@@ -6,7 +6,8 @@ public class Revolver : GunBase
 {
     protected override void FireProcess()
     {
-        Ray ray = new(fireTransform.position, fireTransform.forward);
+    
+        Ray ray = new(fireTransform.position, fireTransform.forward + GetFireDir());
         if( Physics.Raycast(ray, out RaycastHit hitInfo, range) )
         {
             Factory.Inst.GetBulletHole(hitInfo.point, hitInfo.normal);

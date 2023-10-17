@@ -69,4 +69,29 @@ public class GunBase : MonoBehaviour
     {
         fireTransform = GameManager.Inst.Player.transform.GetChild(0);
     }
+
+    Vector3 randomPos;
+    protected Vector3 GetFireDir()
+    {
+        Vector3 result = fireTransform.forward;
+
+        randomPos = new Vector3(Random.Range(-spread * 0.01f, spread * 0.01f), Random.Range(-spread * 0.01f, spread * 0.01f), 0);//랜덤한 총알 탄착군 형성
+        result = randomPos;
+        fireDir = result;
+        return result;
+    }
+
+    Vector3 fireDir = Vector3.forward;
+    private void OnDrawGizmos()
+    {
+        if (fireDir != null && fireTransform != null)
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawLine(fireTransform.position, fireTransform.position + fireTransform.forward * range);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(fireTransform.position, fireTransform.position + fireDir * range);
+        }
+       
+    }
 }
