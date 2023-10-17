@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-10-17T12:58:20.829Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="15aCqriB_KNULNbDg3XZ" version="22.0.2" type="device">
+<mxfile host="Electron" modified="2023-10-17T14:11:54.729Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="uRGCwIOjffnc2AexSA8t" version="22.0.2" type="device">
   <diagram name="페이지-1" id="TgMZFc2MMWK9QDoQCgpH">
     <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -24,6 +24,9 @@
         </mxCell>
         <mxCell id="-smx7xylcm403nPyeF7F-8" value="생성자에서 Board, x, y를 받고&amp;nbsp; BlockType 설정&lt;br&gt;y가 0보다 작아질 때 까지 while루프 실행&lt;br&gt;&lt;br&gt;Console.ReadLine()으로 읽은 후 switch문으로 x, y를 조정 후 Board.SetBlock(), Board.Render호출" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="110" y="645" width="250" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="-smx7xylcm403nPyeF7F-9" value="RotateBlock" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="610" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
