@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crosshair : MonoBehaviour
+public class CrossHair : MonoBehaviour
 {
     /// <summary>
     /// 회복 속도 조절을 위한 커브

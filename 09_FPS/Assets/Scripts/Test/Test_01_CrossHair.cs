@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class Test_01_CrossHair : TestBase
 {
     public AnimationCurve curve;
-    public Crosshair crosshair;
+    public CrossHair crosshair;
     public float expendAmount = 30.0f;
 
     [Range(0f, 1f)]
