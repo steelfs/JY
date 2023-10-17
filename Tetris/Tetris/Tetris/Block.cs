@@ -8,6 +8,16 @@ using Testris;
 
 namespace Tetris
 {
+    public enum BlockType
+    {
+        I,
+        L,
+        RL,
+        S,
+        RS,
+        O,
+        RT
+    }
     internal class Block
     {
         public BlockType blockType;

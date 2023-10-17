@@ -85,9 +85,53 @@ namespace Tetris
                 Console.WriteLine();
             }
         }
+        //bool IsWall(int x, int y)
+        //{
+
+        //}
         public void SetBlock(int x, int y, BlockType blockType)
         {
+            //왼쪽 위 기준 빈칸부터 1, 1
             cells[y][x] = CellType.Block;
+            switch (blockType)
+            {
+                case BlockType.I:
+                    if (y > 3)
+                    {
+                        cells[y][x] = CellType.Block;
+                        cells[y - 1][x] = CellType.Block;
+                        cells[y - 2][x] = CellType.Block;
+                        cells[y - 3][x] = CellType.Block;
+                    }
+                    else if (y > 2)
+                    {
+                        cells[y][x] = CellType.Block;
+                        cells[y - 1][x] = CellType.Block;
+                        cells[y - 2][x] = CellType.Block;
+                    }
+                    else if (y > 1)
+                    {
+                        cells[y][x] = CellType.Block;
+                        cells[y - 1][x] = CellType.Block;
+                    }
+                    else if (y == 1)
+                    {
+                        cells[y][x] = CellType.Block;
+                    }
+                    break;
+                case BlockType.L: 
+                    break;
+                case BlockType.RL:
+                    break;
+                case BlockType.S:
+                    break;
+                case BlockType.RS:
+                    break;
+                case BlockType.RT:
+                    break;
+                case BlockType.O:
+                    break;
+            }
         }
     }
 }

@@ -10,16 +10,7 @@ namespace Testris
         Wall,
         Block
     }
-    public enum BlockType
-    {
-        I,
-        L,
-        RL,
-        S,
-        RS,
-        O,
-        RT
-    }
+
     public class Program
     {
         static Random random = new Random();
@@ -63,7 +54,7 @@ namespace Testris
         {
             int posX = random.Next(0,board.Width);
             
-            Block block = new Block(posX, 0,BlockType.I, board);
+            Block block = new Block(board.Width / 2, 0,BlockType.I, board);
         }
     }
 }
