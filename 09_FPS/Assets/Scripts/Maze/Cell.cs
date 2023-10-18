@@ -1,18 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cell : MonoBehaviour
+[Flags]
+public enum Direction : byte
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    North = 1,
+    East = 2,
+    South = 4,
+    West = 8,
+}
+public class Cell 
+{
+    byte path = 0;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
