@@ -31,7 +31,21 @@ public class BackTracking : MazeGenerator
         }
         BackTrackingCell cell = cells[50] as BackTrackingCell;
         
-        cell.FindPath();
+        for (int y = -1; y < 2; y++)
+        {
+            for(int x = -1; x < 2; x++)
+            {
+                int grid = GridToIndex(cell.X + x, cell.Y + y);
+                BackTrackingCell neighbor = cells[grid] as BackTrackingCell;
+                if (!neighbor.visited)
+                {
+                    neighbor.FindPath();
+
+                }
+            }
+
+        }
+        
         //Recursive BackTracking
         //시작지점 고르기, 랜덤
         //해당 셀에  방문 표시
