@@ -70,5 +70,9 @@ public class MazeGenerator
     {
         return x + y * width;
     }
+    protected int GridToIndex(Vector2Int grid)
+    {
+        return grid.x + grid.y * width;
+    }
     //protected vect
 }
