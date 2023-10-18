@@ -6,6 +6,11 @@ using UnityEngine;
 public class CellDisplayer : MonoBehaviour
 {
     GameObject[] walls;
+    /// <summary>
+    /// 바닥 한 변의 사이즈
+    /// </summary>
+    public const int CellSize = 5;
+
     private void Awake()
     {
         Transform child = transform.GetChild(1);
@@ -20,7 +25,8 @@ public class CellDisplayer : MonoBehaviour
         //data 에 자릿수 별로 비트가1 이면 경로가 있다(열려있다.) 0이면 막혀있다. 
         for (int i = 0; i < walls.Length; i++)
         {
-            walls[i].gameObject.SetActive((data & 1<<i) == 0);
+            int mask = 1 << i;
+            walls[i].gameObject.SetActive((data & mask) == 0);
         }
         //if ((data & 1) != 0)
         //    walls[0].gameObject.SetActive(false);555
