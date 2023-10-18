@@ -5,18 +5,12 @@ using UnityEngine;
 public class BackTrackingCell : Cell
 {
     public bool visited;
+
     public BackTrackingCell(int x, int y) : base(x, y) // base먼저 실행 후  실행 
     {
         visited = false;
     }
-    public void FindPath()
-    {
-        visited = true;
-        for (int i = 1; i < 4; i++)
-        {
-            
-        }
-    }
+  
 }
 public class BackTracking : MazeGenerator
 {
@@ -26,26 +20,34 @@ public class BackTracking : MazeGenerator
         {
             for (int x = 0; x < width; x++)
             {
-                cells[(y * width) + x] = new Cell(x, y);
+                cells[GridToIndex(x, y)] = new BackTrackingCell (x, y);
             }
         }
-        BackTrackingCell cell = cells[50] as BackTrackingCell;
-        
-        for (int y = -1; y < 2; y++)
+        BackTrackingCell startCell = cells[0] as BackTrackingCell;
+        startCell.visited = true;
+        int visitCount = 1;
+
+        Stack<BackTrackingCell> stack = new Stack<BackTrackingCell>();
+        stack.Push(startCell);
+        while(stack.Count > 0 && visitCount < cells.Length)
         {
-            for(int x = -1; x < 2; x++)
+            BackTrackingCell current = stack.Peek();
+            List<BackTrackingCell> unvisitedList = GetUnvisitedList(current);
+            if (unvisitedList.Count > 0)
             {
-                int grid = GridToIndex(cell.X + x, cell.Y + y);
-                BackTrackingCell neighbor = cells[grid] as BackTrackingCell;
-                if (!neighbor.visited)
-                {
-                    neighbor.FindPath();
-
-                }
+                BackTrackingCell chosen = unvisitedList[Random.Range(0, unvisitedList.Count)];
+                chosen.visited = true;
+                ConnectPath(current, chosen);
+                stack.Push(chosen);
+            }
+            else
+            {
+                stack.Pop();
             }
 
         }
-        
+      
+
         //Recursive BackTracking
         //시작지점 고르기, 랜덤
         //해당 셀에  방문 표시
@@ -53,5 +55,25 @@ public class BackTracking : MazeGenerator
         // 네 방향 모두 방문했다면 이전 셀로 돌아간다.
         // 최종적으로 시작지점까지 돌아가면 알고리즘 종료
         //
+    }
+
+    List<BackTrackingCell> GetUnvisitedList(BackTrackingCell current)
+    {
+        List<BackTrackingCell> unvisitedList = new List<BackTrackingCell>();
+        
+        int[,] dir = { {-1, 0 }, {1, 0 }, {0, -1 }, {0, 1 } };
+        for (int i = 0; i < 4; i++)
+        {
+            int index = GridToIndex(current.X + dir[i, 0], current.Y + dir[i, 1]);
+            if (IsInGrid(index))
+            {
+                BackTrackingCell neighbor = cells[index] as BackTrackingCell;
+                if (!neighbor.visited)
+                {
+                    unvisitedList.Add(neighbor);
+                }
+            }
+        }
+        return unvisitedList;
     }
 }

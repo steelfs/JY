@@ -40,10 +40,10 @@ public class Cell
 
     public bool IsPath(Direction direction)
     {
-        return (path & (byte)direction) == 1;
+        return (path & (byte)direction) != 0;
     }
     public bool IsWall(Direction direction)
     {
-        return (path & (byte)direction) != 1;
+        return (path & (byte)direction) == 0;
     }
 }

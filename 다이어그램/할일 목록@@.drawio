@@ -1,16 +1,16 @@
-<mxfile host="Electron" modified="2023-10-16T10:46:20.883Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="fWDHKFHe3208Eo8cj5tN" version="22.0.2" type="device">
+<mxfile host="Electron" modified="2023-10-18T11:25:34.451Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="SC9P7x-8cnSn_8FHFNLw" version="22.0.2" type="device">
   <diagram name="페이지-1" id="eluwbXmlI_JwDYYKQHv-">
     <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="IhbVy8o3l2QG_6YdN8ct-1" value="알고리즘 스터디" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="90" y="280" width="120" height="60" as="geometry" />
+        <mxCell id="IhbVy8o3l2QG_6YdN8ct-1" value="알고리즘 공부에 적합한 유니티&amp;nbsp; 미니 프로젝트 GPT 에게 추천받아서 만들기" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="60" y="220" width="150" height="120" as="geometry" />
         </mxCell>
         <mxCell id="M8RwkK9ijQBNjzGTENCK-1" value="티스토리 블로그 운영" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="90" y="350" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="CeFDXL-8TSMLFbMKiaBz-1" value="시간표 짜기" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="CeFDXL-8TSMLFbMKiaBz-1" value="시간표 짜기" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="290" width="120" height="60" as="geometry" />
         </mxCell>
       </root>

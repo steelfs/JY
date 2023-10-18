@@ -8,7 +8,7 @@ public class MazeGenerator
     protected int width;
     protected int height;
 
-    protected Cell[] cells; 
+    public Cell[] cells; 
 
     public Cell[] MakeMaze(int width, int height, int seed = -1)
     {
@@ -21,15 +21,18 @@ public class MazeGenerator
 
         cells = new Cell[width * height];
         OnSpecificAlgorithmExcute();
+
         return cells;
 
     }
- 
+
+
+
     protected virtual void OnSpecificAlgorithmExcute()
     {
 
     }
-    protected void ConnectPath(Cell from, Cell to)
+    public void ConnectPath(Cell from, Cell to)
     {
         Vector2Int diff = new(to.X - from.X, to.Y - from.Y);
         if (diff.x > 0)
@@ -58,19 +61,24 @@ public class MazeGenerator
         }
     }
 
-    protected bool IsInGrid(int x, int y)
+    public bool IsInGrid(int x, int y)
     {
         return x >= 0 && y >= 0 && x < width && y < height;
     }
-    protected Vector2Int IndexToGrid(int index)
+    public bool IsInGrid(int index)
+    {
+        Vector2Int grid = IndexToGrid(index);
+        return IsInGrid(grid.x, grid.y);
+    }
+    public Vector2Int IndexToGrid(int index)
     {
         return new(index % width, index / width);
     }
-    protected int GridToIndex(int x, int y)
+    public int GridToIndex(int x, int y)
     {
         return x + y * width;
     }
-    protected int GridToIndex(Vector2Int grid)
+    public int GridToIndex(Vector2Int grid)
     {
         return grid.x + grid.y * width;
     }

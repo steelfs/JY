@@ -9,6 +9,6 @@ public class Test_09_Maze : TestBase
     public CellDisplayer cellDisplayer;
     protected override void Test1(InputAction.CallbackContext context)
     {
-        cellDisplayer.RefreshWall((int)testDirection);
+       // cellDisplayer.RefreshWall((int)testDirection);
     }
 }
