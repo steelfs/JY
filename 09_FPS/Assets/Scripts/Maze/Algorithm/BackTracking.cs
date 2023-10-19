@@ -27,9 +27,27 @@ public class BackTracking : MazeGenerator
         BackTrackingCell start = cells[GridToIndex(0, 0)] as BackTrackingCell;
         start.visited = true;
 
+        Stack<BackTrackingCell> stack = new Stack<BackTrackingCell>();
+        stack.Push(start);
 
-        //재귀문 호출
-        MakeRecursive(start.X, start.Y);
+        while(stack.Count > 0)
+        {
+            BackTrackingCell current = stack.Peek();
+            List<BackTrackingCell> neighbors = GetUnvisitedNeighbors(current);
+
+            if (neighbors.Count > 0)
+            {
+                BackTrackingCell neighbor = neighbors[Random.Range(0, neighbors.Count)];
+                ConnectPath(current, neighbor);
+                neighbor.visited = true;
+
+                stack.Push(neighbor);
+            }
+            else
+            {
+                stack.Pop();
+            }
+        }
 
         //Recursive BackTracking
         //시작지점 고르기, 랜덤
@@ -40,29 +58,25 @@ public class BackTracking : MazeGenerator
         //
     }
 
-    void MakeRecursive(int x, int y)
+    List<BackTrackingCell> GetUnvisitedNeighbors(BackTrackingCell current)
     {
-        BackTrackingCell current = cells[GridToIndex(x, y)] as BackTrackingCell;
-        Vector2Int[] dirs = { new(0, 1), new(0, -1), new(1, 0), new(-1, 0) };
-        Util.Shuffle(dirs);
-        //shuffle
-        foreach (Vector2Int dir in dirs)
+        List<BackTrackingCell> neighbors = new List<BackTrackingCell>(4);
+
+        int[,] dir = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+
+        for(int i = 0; i < 4; i++)
         {
-            Vector2Int pos = new Vector2Int(x + dir.x, y + dir.y);
-            if (IsInGrid(pos.x, pos.y))
+            int x = current.X + dir[i, 0];
+            int y = current.Y + dir[i, 1];
+            if (IsInGrid(x, y))
             {
-                BackTrackingCell neighbor = cells[GridToIndex(pos.x, pos.y)] as BackTrackingCell;
+                BackTrackingCell neighbor = cells[GridToIndex(x, y)] as BackTrackingCell;
                 if (!neighbor.visited)
                 {
-                    neighbor.visited = true;
-                    ConnectPath(current, neighbor);
-
-                    MakeRecursive(neighbor.X, neighbor.Y);
-
-                    //재귀호출은 뒤로 돌아가는 코드가 없어도  자연스럽게 뒤로 돌아가게 된다.
-                    // 예 >  (1, 6) => (1, 7) 에서 오는 neighbor.visited == true 가 되면 뒤로 돌아가는 코드가 없어도 다시 1, 6으로 돌아가게 된다. 
+                    neighbors.Add(neighbor);
                 }
             }
         }
+        return neighbors;
     }
 }
