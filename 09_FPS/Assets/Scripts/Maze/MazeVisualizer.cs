@@ -9,10 +9,11 @@ public class MazeVisualizer : TestBase
 {
     public GameObject cellPrefab;
     BackTracking backTracking;
+    Eller eller;
 
     public int width;
     public int height;
-    public int seed = 0;
+    public int randomSeed = 0;
     protected override void Awake()
     {
         base.Awake();
@@ -20,17 +21,18 @@ public class MazeVisualizer : TestBase
     }
     protected override void Test1(InputAction.CallbackContext context)
     {
-        //Cell[] cells;
+        Clear();
 
-        //cells = backTracking.MakeMaze(10, 10, (int)DateTime.Now.Ticks);
-        //Draw(cells);
+        backTracking = new BackTracking();
+        Cell[] cells = backTracking.MakeMaze(width, height, randomSeed);
+        Draw(cells);
     }
     protected override void Test2(InputAction.CallbackContext context)
     {
         Clear();
-        
-        backTracking = new BackTracking();
-        Cell[] cells = backTracking.MakeMaze(width, height, seed);
+
+        eller = new Eller();
+        Cell[] cells = eller.MakeMaze(width, height, randomSeed);
         Draw(cells);
     }
     protected override void Test3(InputAction.CallbackContext context)
@@ -51,7 +53,6 @@ public class MazeVisualizer : TestBase
     }
     public void Draw(Cell[] data)
     {
-        BackTrackingCell backTrackingCell;
         foreach (Cell cell in data)
         {
             GameObject obj = Instantiate(cellPrefab, transform);
@@ -60,11 +61,7 @@ public class MazeVisualizer : TestBase
 
             CellVisualizer displayer = obj.GetComponent<CellVisualizer>();
             displayer.RefreshWall(cell.Path);
-            backTrackingCell = cell as BackTrackingCell;
-            if (!backTrackingCell.visited)
-            {
-                Debug.Log($"{backTrackingCell}_{backTrackingCell.X}_{backTrackingCell.Y}");
-            }
+       
         }
     }
     public void Clear()

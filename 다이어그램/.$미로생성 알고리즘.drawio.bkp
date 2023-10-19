@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-10-19T00:53:18.728Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="bL4R7GyJq0pTrBfP58WC" version="21.2.8" type="device">
+<mxfile host="Electron" modified="2023-10-19T02:38:14.355Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="XAg10fwAhJlTD5d_OK8V" version="21.2.8" type="device">
   <diagram name="페이지-1" id="vG920ayvRO1No3iPuSZf">
-    <mxGraphModel dx="903" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1730" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -34,8 +34,11 @@
         <mxCell id="PEx7do8Qcd85nzU76y9i-9" value="Cell&lt;br&gt;알고리즘별 상속" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="620" y="290" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="7B2MhMiIphw-nBKm2NCX-2" value="IsInGrid 함수를 사용하기 전 그리드를 인덱스로 바꿔서 실행했는데 이 경우 어떠한 경우에도 인덱스는 그리드를 벗어나지 않는 논리적 오류가 있었다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="170" y="600" width="280" height="150" as="geometry" />
+        <mxCell id="7B2MhMiIphw-nBKm2NCX-2" value="IsInGrid 함수를 사용하기 전 그리드를 인덱스로 바꿔서 실행했는데 이 경우 어떠한 경우에도 인덱스는 그리드를 벗어나지 않는 논리적 오류가 있었다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-90" y="350" width="280" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="zY58tc2Guws112VwMDKx-1" value="Eller&#39;s Algorithm" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="620" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
