@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-10-19T10:16:45.390Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="wDJFyjfjQfIm4J0hJU7Z" version="22.0.2" type="device">
+<mxfile host="Electron" modified="2023-10-19T14:11:11.577Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="q0dD0rzq48VYZkmi5hEp" version="22.0.2" type="device">
   <diagram name="페이지-1" id="aOsELoSLb_OyB8kR_ud3">
     <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -18,6 +18,9 @@
         </mxCell>
         <mxCell id="jq-CzXUcHKbm-_jxgnKp-5" value="3. 세로처리 아랫쪽 뚫기&lt;br&gt;&lt;br&gt;병합되고 남은 리스트들을 순회하면서 최소 한개이상 아랫쪽을 뚫어준다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="120" y="580" width="270" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="jq-CzXUcHKbm-_jxgnKp-6" value="한줄 찍고&lt;br&gt;가로뚫고&lt;br&gt;한줄찍고&lt;br&gt;위로연결&lt;br&gt;가로뚫고&lt;br&gt;한줄찍고&lt;br&gt;위로연결" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="600" width="306" height="170" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
