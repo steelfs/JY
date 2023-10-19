@@ -52,7 +52,7 @@ public class BackTracking : MazeGenerator
         }
         foreach ((int x, int y) in marker)
         {
-            Debug.Log($" {GridToIndex(x, y)}");
+            Debug.Log($"x_{x}  y_{y}");
         }
         //x_{x}  y_{y}//
         //Recursive BackTracking
