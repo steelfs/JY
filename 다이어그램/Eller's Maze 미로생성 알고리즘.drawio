@@ -1,0 +1,25 @@
+<mxfile host="Electron" modified="2023-10-19T10:16:45.390Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="wDJFyjfjQfIm4J0hJU7Z" version="22.0.2" type="device">
+  <diagram name="페이지-1" id="aOsELoSLb_OyB8kR_ud3">
+    <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="jq-CzXUcHKbm-_jxgnKp-1" value="Eller&#39;s Maze 미로생성 알고리즘" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jq-CzXUcHKbm-_jxgnKp-2" value="&lt;br&gt;&lt;br&gt;2. (가로 처리)다음줄로 넘어가기 전 해당 줄의 그룹이 다른 것들 끼리 확률적으로 뚫어준 후 같은 그룹으로 그룹화 시킨다.&lt;br&gt;&lt;br&gt;3. (아랫쪽 뚫기)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="380" width="270" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="jq-CzXUcHKbm-_jxgnKp-3" value="사용 자료구조 Dictionary&amp;lt;int, List&amp;lt;EllerCell&amp;gt;&amp;gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="281" y="200" width="265" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jq-CzXUcHKbm-_jxgnKp-4" value="1. 한 줄을 생성하고 그 줄에 그룹(int)을 정해준후&lt;br&gt;딕셔너리의 리스트 하나당 Cell 을 하나씩 추가해준다.(몇개의 리스트가 될지 알 수 없기 때문에 일단 하나당 하나씩 담아두고 병합될때 지워준다.)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="260" width="310" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="jq-CzXUcHKbm-_jxgnKp-5" value="3. 세로처리 아랫쪽 뚫기&lt;br&gt;&lt;br&gt;병합되고 남은 리스트들을 순회하면서 최소 한개이상 아랫쪽을 뚫어준다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="580" width="270" height="180" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

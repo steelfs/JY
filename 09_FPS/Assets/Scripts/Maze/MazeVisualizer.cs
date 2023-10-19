@@ -23,16 +23,18 @@ public class MazeVisualizer : TestBase
     {
         Clear();
 
-        backTracking = new BackTracking();
-        Cell[] cells = backTracking.MakeMaze(width, height, randomSeed);
+        eller = new Eller();
+        Cell[] cells = eller.MakeMaze(width, height, randomSeed);
         Draw(cells);
+
     }
     protected override void Test2(InputAction.CallbackContext context)
     {
+
         Clear();
 
-        eller = new Eller();
-        Cell[] cells = eller.MakeMaze(width, height, randomSeed);
+        backTracking = new BackTracking();
+        Cell[] cells = backTracking.MakeMaze(width, height, randomSeed);
         Draw(cells);
     }
     protected override void Test3(InputAction.CallbackContext context)

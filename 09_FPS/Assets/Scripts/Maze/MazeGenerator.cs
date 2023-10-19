@@ -82,5 +82,4 @@ public class MazeGenerator
     {
         return grid.x + grid.y * width;
     }
-    //protected vect
 }

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.Mathematics;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class EllerCell : Cell
 {
     public int group;
-    public int value;
  
     public EllerCell(int x, int y) : base(x, y)
     {
@@ -19,36 +20,73 @@ public class Eller : MazeGenerator
 {
     protected override void OnSpecificAlgorithmExcute()
     {
-        for (int y = 0; y < width; y++)
-        {
-            for(int x = 0; x < height; x++)
-            {
-                int index = GridToIndex(x, y);
-                cells[index] = new EllerCell(x, y);
-                EllerCell cell = cells[GridToIndex(x, y)] as EllerCell;
-                cell.value = index;
-            }
-        }
-
+        Dictionary<int, List<EllerCell>> dic = new Dictionary<int, List<EllerCell>>();
+        int key = 0;
         for (int y = 0; y < height; y++)
         {
-            List<List<EllerCell>> ellerList = new List<List<EllerCell>>();
-            for(int x = 0; x < width - 1; x++)
+            for(int x = 0; x < width; x++)//가로 한줄 찍기
             {
-                EllerCell current = cells[GridToIndex(x, y)] as EllerCell;
-                EllerCell next = GetNextCell(current);
+                EllerCell cell = new EllerCell(x, y);
+                cell.group = key++;
+                int index = GridToIndex(x, y);
+                cells[index] = cell;
 
-                float randomChance = 0.5f;
-                if (current.value != next.value && UnityEngine.Random.value > randomChance)
+                dic[cell.group] = new List<EllerCell> { cell };
+                if (IsInGrid(x, y - 1))
                 {
-                    ConnectPath(current, next);
-                    next.value = current.value;
+                    EllerCell aboveCell = cells[GridToIndex(x, y - 1)] as EllerCell;
+                    if (aboveCell != null)
+                    {
+                        if (aboveCell.IsPath(Direction.South))
+                        {
+                            ConnectPath(cell, aboveCell);
+                            cell.group = aboveCell.group;
+                            dic[aboveCell.group].Add(cell);
+                        }
+                    }
+                }
+         
+            }
+
+            for (int x  = 0; x < width - 1; x++)//가로 뚫기
+            {
+                EllerCell currentCell = cells[GridToIndex(x, y)] as EllerCell;
+                EllerCell nextCell = cells[GridToIndex(x + 1, y)] as EllerCell;
+
+                if (currentCell.group != nextCell.group)
+                {
+                    float random = 0.5f;
+                    if (UnityEngine.Random.value > random)
+                    {
+                        ConnectPath(currentCell, nextCell);
+
+                        List<EllerCell> nextGroup = dic[nextCell.group];
+                        dic.Remove(nextCell.group);
+
+                        foreach (var nextSet in nextGroup)
+                        {
+                            nextSet.group = currentCell.group;
+                            dic[currentCell.group].Add(nextSet);
+                            x++;
+                        }
+
+
+                    }
                 }
             }
-            
-
-
+            if (y < height - 1)
+            {
+                foreach (var set in dic.Values)
+                {
+                    EllerCell cell = set[UnityEngine.Random.Range(0, set.Count)];
+                    cell.MakePath(Direction.South);
+                    //ConnectPath를 해야하나 아랫쪽셀이 아직 만들어지지 않았다.
+                }
+            }
+        
         }
+
+      
 
 
 
