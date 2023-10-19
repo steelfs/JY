@@ -36,7 +36,7 @@ public class MazeDisplayer : TestBase
     {
         GameObject obj = Instantiate(cellPrefab, transform);
         obj.transform.Translate(cell.X * CellDisplayer.CellSize, 0, -cell.Y * CellDisplayer.CellSize);
-        obj.gameObject.name = $"Cell_{cell.X}_{cell.Y}";
+        obj.gameObject.name = $"Cell_{cell.X}_{cell.Y}_ {backTracking.GridToIndex(cell.X, cell.Y)}";
 
         CellDisplayer displayer = obj.GetComponent<CellDisplayer>();
         displayer.RefreshWall(cell.Path);

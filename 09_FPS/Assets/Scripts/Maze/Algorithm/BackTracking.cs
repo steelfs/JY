@@ -25,17 +25,21 @@ public class BackTracking : MazeGenerator
         }
         BackTrackingCell startCell = cells[0] as BackTrackingCell;
         startCell.visited = true;
-        int visitCount = 1;
+
+        List<(int, int)> marker = new List<(int, int)> ();//경로 디버그용 
 
         Stack<BackTrackingCell> stack = new Stack<BackTrackingCell>();
         stack.Push(startCell);
-        while(stack.Count > 0 && visitCount < cells.Length)
+        while(stack.Count > 0)
         {
             BackTrackingCell current = stack.Peek();
             List<BackTrackingCell> unvisitedList = GetUnvisitedList(current);
             if (unvisitedList.Count > 0)
             {
                 BackTrackingCell chosen = unvisitedList[Random.Range(0, unvisitedList.Count)];
+
+                marker.Add((chosen.X, chosen.Y));
+
                 chosen.visited = true;
                 ConnectPath(current, chosen);
                 stack.Push(chosen);
@@ -46,8 +50,11 @@ public class BackTracking : MazeGenerator
             }
 
         }
-      
-
+        foreach ((int x, int y) in marker)
+        {
+            Debug.Log($" {GridToIndex(x, y)}");
+        }
+        //x_{x}  y_{y}//
         //Recursive BackTracking
         //시작지점 고르기, 랜덤
         //해당 셀에  방문 표시
@@ -64,10 +71,11 @@ public class BackTracking : MazeGenerator
         int[,] dir = { {-1, 0 }, {1, 0 }, {0, -1 }, {0, 1 } };
         for (int i = 0; i < 4; i++)
         {
-            int index = GridToIndex(current.X + dir[i, 0], current.Y + dir[i, 1]);
-            if (IsInGrid(index))
+            int x = current.X + dir[i, 0];
+            int y = current.Y + dir[i, 1];
+            if (IsInGrid(x, y))
             {
-                BackTrackingCell neighbor = cells[index] as BackTrackingCell;
+                BackTrackingCell neighbor = cells[GridToIndex(x, y)] as BackTrackingCell;
                 if (!neighbor.visited)
                 {
                     unvisitedList.Add(neighbor);
