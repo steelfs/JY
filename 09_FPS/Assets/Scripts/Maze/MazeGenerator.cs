@@ -65,7 +65,11 @@ public class MazeGenerator
     {
         return x >= 0 && y >= 0 && x < width && y < height;
     }
- 
+
+    public bool IsInGrid(Vector2Int grid)
+    {
+        return grid.x >= 0 && grid.y >= 0 && grid.x < width && grid.y < height;
+    }
     public Vector2Int IndexToGrid(int index)
     {
         return new(index % width, index / width);

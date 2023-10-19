@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class CellDisplayer : MonoBehaviour
+public class CellVisualizer : MonoBehaviour
 {
     GameObject[] walls;
     /// <summary>
