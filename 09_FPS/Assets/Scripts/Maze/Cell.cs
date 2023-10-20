@@ -2,27 +2,34 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Flags]
 public enum Direction : byte
 {
-    North = 1,
-    East = 2,
+    North = 1, 
+    East = 2, 
     South = 4,
     West = 8,
 }
-public class Cell 
+
+public class Cell
 {
     /// <summary>
-    /// ÀÌ ¼¿¿¡ ¿¬°áµÈ ±æÀ» ±â·ÏÇÏ´Â º¯¼ö (ºÏ µ¿ ³² ¼­ ) ¼ø¼­´ë·Î ºñÆ®¿¡ 1ÀÌ ¼¼ÆÃµÇ¾î ÀÖÀ¸¸é ±æÀÌ ÀÖ´Ù. 0ÀÌ ¼¼ÆÃµÇ¾î ÀÖÀ¸¸é ±æÀÌ ¾ø´Ù.
+    /// ì´ ì…€ì— ì—°ê²°ëœ ê¸¸ì„ ê¸°ë¡í•˜ëŠ” ë³€ìˆ˜(ë¶ë™ë‚¨ì„œ ìˆœì„œëŒ€ë¡œ ë¹„íŠ¸ì— 1ì´ ì„¸íŒ…ë˜ì–´ìˆìœ¼ë©´ ê¸¸ì´ ìˆë‹¤. 0ì´ ì„¸íŒ…ë˜ì–´ ìˆìœ¼ë©´ ê¸¸ì´ ì—†ë‹¤(ë²½))
     /// </summary>
-    byte path = 0;
+    byte path;
     public byte Path => path;
+
     /// <summary>
-    /// ±×¸®µå»ó¿¡¼­ x ÁÂÇ¥ ¿ŞÂÊ => ¿À¸¥ÂÊ
+    /// ê·¸ë¦¬ë“œ ìƒì—ì„œ X ì¢Œí‘œ.(ì™¼ìª½->ì˜¤ë¥¸ìª½)
     /// </summary>
     protected int x;
     public int X => x;
+
+    /// <summary>
+    /// ê·¸ë¦¬ë“œ ìƒì—ì„œ Yì¢Œí‘œ.(ì•->ë’¤)
+    /// </summary>
     protected int y;
     public int Y => y;
 
@@ -32,18 +39,33 @@ public class Cell
         this.x = x;
         this.y = y;
     }
-    public void MakePath(Direction direction)//or & |
-    {
-        path |= (byte)direction; // | ¿¬»êÀÚ ÀÌ¿ëÇØ¼­ ºñÆ®¸¦ Ãß°¡ÇÏ´Â ÇÔ¼ö 
 
+    /// <summary>
+    /// ì´ ì…€ì— ê¸¸ì„ ì¶”ê°€í•˜ëŠ” í•¨ìˆ˜
+    /// </summary>
+    /// <param name="direction">ê¸¸ì´ ìƒê¸¸ ë°©í–¥</param>
+    public void MakePath(Direction direction)
+    {
+        path |= (byte)direction;    // or ì—°ì‚°ìë¥¼ ì´ìš©í•´ì„œ ë¹„íŠ¸ ì„¸íŒ…
     }
 
+    /// <summary>
+    /// direction ë°©í–¥ì— ê¸¸ì´ ìˆëŠ”ì§€ ì²´í¬í•˜ëŠ” í•¨ìˆ˜
+    /// </summary>
+    /// <param name="direction">ì²´í¬í•  ë°©í–¥</param>
+    /// <returns>ê¸¸ì´ ìˆìœ¼ë©´ true, ë²½ì´ë©´ false</returns>
     public bool IsPath(Direction direction)
     {
         return (path & (byte)direction) != 0;
     }
+
+    /// <summary>
+    /// direction ë°©í–¥ì— ë²½ì´ ìˆëŠ”ì§€ ì²´í¬í•˜ëŠ” í•¨ìˆ˜
+    /// </summary>
+    /// <param name="direction">ì²´í¬í•  ë°©í–¥</param>
+    /// <returns>ë²½ì´ ìˆìœ¼ë©´ true, ê¸¸ì´ë©´ false</returns>
     public bool IsWall(Direction direction)
     {
-        return (path & (byte)direction) == 0;
+        return !((path & (byte)direction) != 0);
     }
 }

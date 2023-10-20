@@ -1,85 +1,92 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class MazeGenerator
 {
     protected int width;
     protected int height;
 
-    public Cell[] cells; 
+    protected Cell[] cells;
 
     public Cell[] MakeMaze(int width, int height, int seed = -1)
     {
         this.width = width;
         this.height = height;
-        if (seed != -1)
-        {
+        if(seed != -1)
+        {            
             Random.InitState(seed);
         }
-
+        
         cells = new Cell[width * height];
+
         OnSpecificAlgorithmExcute();
 
         return cells;
-
     }
-
-
 
     protected virtual void OnSpecificAlgorithmExcute()
     {
-
     }
-    public void ConnectPath(Cell from, Cell to)
+
+    /// <summary>
+    /// ë‘ ì…€ ì‚¬ì´ì— ë²½ì„ ì œê±°í•˜ëŠ” í•¨ìˆ˜
+    /// </summary>
+    /// <param name="from">ì‹œì‘ì…€</param>
+    /// <param name="to">ë„ì°©ì…€</param>
+    protected void ConnectPath(Cell from, Cell to)
     {
         Vector2Int diff = new(to.X - from.X, to.Y - from.Y);
-        if (diff.x > 0)
+
+        if(diff.x > 0)
         {
-            //µ¿ÂÊ
+            // ë™ìª½
             from.MakePath(Direction.East);
             to.MakePath(Direction.West);
         }
-        else if (diff.x < 0)
+        else if(diff.x < 0)
         {
+            // ì„œìª½
             from.MakePath(Direction.West);
             to.MakePath(Direction.East);
-            //¼­ÂÊ 
         }
         else if (diff.y > 0)
         {
+            // ë‚¨ìª½
             from.MakePath(Direction.South);
             to.MakePath(Direction.North);
-            //³²ÂÊ 
         }
-        else if(diff.y < 0)
+        else if (diff.y < 0)
         {
+            // ë¶ìª½
             from.MakePath(Direction.North);
             to.MakePath(Direction.South);
-            //ºÏÂÊ 
         }
     }
 
-    public bool IsInGrid(int x, int y)
+    protected bool IsInGrid(int x, int y)
     {
         return x >= 0 && y >= 0 && x < width && y < height;
     }
 
-    public bool IsInGrid(Vector2Int grid)
+    protected bool IsInGrid(Vector2Int grid)
     {
         return grid.x >= 0 && grid.y >= 0 && grid.x < width && grid.y < height;
     }
-    public Vector2Int IndexToGrid(int index)
+
+    protected Vector2Int IndexToGrid(int index)
     {
         return new(index % width, index / width);
     }
-    public int GridToIndex(int x, int y)
+
+    protected int GridToIndex(int x, int y)
     {
         return x + y * width;
     }
-    public int GridToIndex(Vector2Int grid)
+
+    protected int GridToIndex(Vector2Int grid)
     {
         return grid.x + grid.y * width;
     }
+
 }

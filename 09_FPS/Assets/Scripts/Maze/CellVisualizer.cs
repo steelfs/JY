@@ -1,49 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CellVisualizer : MonoBehaviour
 {
-    GameObject[] walls;
     /// <summary>
-    /// ¹Ù´Ú ÇÑ º¯ÀÇ »çÀÌÁî
+    /// ë°”ë‹¥ í•œë³€ì˜ í¬ê¸°
     /// </summary>
-    public const int CellSize = 5;
+    public const int CellSize = 5;  
+ 
+    GameObject[] walls;
 
     private void Awake()
     {
         Transform child = transform.GetChild(1);
         walls = new GameObject[child.childCount];
-        for (int i = 0; i < child.childCount; i++)
+        for(int i=0;i<walls.Length;i++)
         {
             walls[i] = child.GetChild(i).gameObject;
         }
     }
+
     public void RefreshWall(int data)
     {
-        //data ¿¡ ÀÚ¸´¼ö º°·Î ºñÆ®°¡1 ÀÌ¸é °æ·Î°¡ ÀÖ´Ù(¿­·ÁÀÖ´Ù.) 0ÀÌ¸é ¸·ÇôÀÖ´Ù. 
-        for (int i = 0; i < walls.Length; i++)
+        // dataì— ìë¦¬ìˆ˜ë³„ë¡œ ë¹„íŠ¸ê°€ 1ì´ë©´ ê²½ë¡œê°€ ìˆë‹¤(=ë²½ì´ ì—†ë‹¤). 0ì´ë©´ ê²½ë¡œê°€ ì—†ë‹¤(=ë²½ì´ ìˆë‹¤).
+        for(int i=0;i<walls.Length;i++)                     // ëª¨ë“  ë²½ì„ ì²´í¬
         {
-            int mask = 1 << i;
-            walls[i].gameObject.SetActive((data & mask) == 0);
+            int mask = 1 << i;                              // ë§ˆìŠ¤í¬ ë§Œë“¤ê¸°(1,2,4,8 ìˆœì„œ)
+            walls[i].SetActive( !((data & mask) != 0) );    // &ì‹œì¼œì„œ ë¹„íŠ¸ê°€ ì„¸íŒ…ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸í•˜ê³  ì„¸íŒ…ë˜ì–´ ìˆìœ¼ë©´ ë²½ì„ ì œê±°
         }
-        //if ((data & 1) != 0)
-        //    walls[0].gameObject.SetActive(false);555
-        //else
-        //    walls[0].gameObject.SetActive(true);
-        //if ((data & 2) != 0)
-        //    walls[1].gameObject.SetActive(false);
-        //else
-        //    walls[1].gameObject.SetActive(true);
-        //if ((data & 4) != 0)
-        //    walls[2].gameObject.SetActive(false);
-        //else
-        //    walls[2].gameObject.SetActive(true);
-        //if ((data & 8) != 0)
-        //    walls[3].gameObject.SetActive(false);
-        //else
-        //    walls[3].gameObject.SetActive(true);
     }
-
 }
