@@ -1,66 +1,66 @@
-<mxfile host="Electron" modified="2023-10-20T13:32:49.377Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="TZnUXeytqvuxhtVx11R1" version="22.0.2" type="device">
+<mxfile host="Electron" modified="2023-10-20T17:24:49.473Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="6PaCKwQ915WPSR481kDq" version="22.0.2" type="device">
   <diagram name="페이지-1" id="vjY3wWBzftv6QQo1fk88">
-    <mxGraphModel dx="1098" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="r3W-KLayYOHBt84ik7fy-1" value="1. 전체 셀을 만든다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-1" value="1. 전체 셀을 만든다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="300" y="290" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-2" value="2. 랜덤하게 하나의 셀을 선택해 확정 그룹에 추가하고 도착지로 설정한다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-2" value="2. 랜덤하게 하나의 셀을 선택해 확정 그룹에 추가하고 도착지로 설정한다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="250" y="370" width="220" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-3" value="3. 확정그룹에 속하지 않은 셀 중 하나를 랜덤하게 뽑아 출발지로 설정한다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-3" value="3. 확정그룹에 속하지 않은 셀 중 하나를 랜덤하게 뽑아 출발지로 설정한다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="250" y="490" width="220" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="r3W-KLayYOHBt84ik7fy-4" target="r3W-KLayYOHBt84ik7fy-9">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="r3W-KLayYOHBt84ik7fy-4" target="r3W-KLayYOHBt84ik7fy-9" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-4" value="4. 주위 네 방향중 방금 지나온 셀 하나를 제외한 세방향 셀 중 랜덤한 한 방향으로 움직이며 경로를 저장한다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-4" value="4. 주위 네 방향중 방금 지나온 셀 하나를 제외한 세방향 셀 중 랜덤한 한 방향으로 움직이며 경로를 저장한다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="250" y="610" width="220" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-5" value="4 - 1&lt;br&gt;움직인 방향이 확정그룹이 아니면서&lt;br&gt;이미 지나온 길이라면&lt;br&gt;현재 위치에서 이전까지 진행했던 경로를 모두 지우고 다시 루프를 시작한다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-5" value="4 - 1&lt;br&gt;움직인 방향이 확정그룹이 아니면서&lt;br&gt;이미 지나온 길이라면&lt;br&gt;현재 위치에서 이전까지 진행했던 경로를 모두 지우고 다시 루프를 시작한다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="510" y="610" width="220" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="r3W-KLayYOHBt84ik7fy-6" target="r3W-KLayYOHBt84ik7fy-17">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="r3W-KLayYOHBt84ik7fy-6" target="r3W-KLayYOHBt84ik7fy-17" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-6" value="4 - 2&lt;br&gt;움직인 곳이 만약 확정그룹에 속한 지역이라면&lt;br&gt;현재까지의 경로를 확정 그룹에 추가시켜주고 경로를 초기화한다.&lt;br&gt;&lt;br&gt;3번으로 되돌아가 확정그룹의 카운트가 전체 셀의 수와 같아질 떄 까지 반복한다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-6" value="4 - 2&lt;br&gt;움직인 곳이 만약 확정그룹에 속한 지역이라면&lt;br&gt;현재까지의 경로를 확정 그룹에 추가시켜주고 경로를 초기화한다.&lt;br&gt;&lt;br&gt;3번으로 되돌아가 확정그룹의 카운트가 전체 셀의 수와 같아질 떄 까지 반복한다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="500" y="440" width="260" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="r3W-KLayYOHBt84ik7fy-7" target="r3W-KLayYOHBt84ik7fy-3">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="r3W-KLayYOHBt84ik7fy-7" target="r3W-KLayYOHBt84ik7fy-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-7" value="WilsonCell&lt;br&gt;GetNewStartPoint" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-7" value="WilsonCell&lt;br&gt;GetNewStartPoint" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="60" y="510" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-9" value="WilsonCell&lt;br&gt;GetNextCell" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-9" value="WilsonCell&lt;br&gt;GetNextCell" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="80" y="640" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="r3W-KLayYOHBt84ik7fy-12" target="r3W-KLayYOHBt84ik7fy-4">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="r3W-KLayYOHBt84ik7fy-12" target="r3W-KLayYOHBt84ik7fy-4" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-12" value="void MoveToNext" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-12" value="void MoveToNext" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="80" y="690" width="90" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="r3W-KLayYOHBt84ik7fy-14">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" parent="1" source="r3W-KLayYOHBt84ik7fy-14" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="210" y="700" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-14" value="void&amp;nbsp;&lt;br&gt;SavePath" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="60" y="740" width="90" height="40" as="geometry" />
+        <mxCell id="r3W-KLayYOHBt84ik7fy-14" value="void&amp;nbsp;&lt;br&gt;SavePath" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="80" y="740" width="90" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-16" value="bool&lt;br&gt;IsConfirmed" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-16" value="bool&lt;br&gt;IsConfirmed" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="560" y="290" width="140" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="r3W-KLayYOHBt84ik7fy-17" target="r3W-KLayYOHBt84ik7fy-16">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="r3W-KLayYOHBt84ik7fy-17" target="r3W-KLayYOHBt84ik7fy-16" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-17" value="void&amp;nbsp;&lt;br&gt;AddToConfirmed" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-17" value="void&amp;nbsp;&lt;br&gt;AddToConfirmed" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="560" y="360" width="140" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="r3W-KLayYOHBt84ik7fy-20" value="bool&lt;br&gt;HadBeenThrough" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="r3W-KLayYOHBt84ik7fy-20" value="bool&lt;br&gt;HadBeenThrough" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="555" y="730" width="130" height="50" as="geometry" />
         </mxCell>
       </root>

@@ -12,6 +12,7 @@ public class WilsonCell : Cell
     public int serial = 0;
     const int NotSet = -1;
     public WilsonCell next = null;
+    public WilsonCell prev = null;
     public WilsonCell(int x, int y) : base(x, y)
     {
         serial = NotSet;
@@ -22,7 +23,7 @@ public class Wilson : MazeGenerator
     protected override void OnSpecificAlgorithmExcute()
     {
         //생성 후 시리얼 부여 
-        Dictionary<int, WilsonCell> confirmed = new Dictionary<int, WilsonCell>();
+        Dictionary<int, WilsonCell> confirmedList = new Dictionary<int, WilsonCell>();
         int serial = 0;
 
         for (int y = 0; y < height; y++)
@@ -35,59 +36,81 @@ public class Wilson : MazeGenerator
             }
         }
         WilsonCell arrived = cells[UnityEngine.Random.Range(0, cells.Length)] as WilsonCell;
-        confirmed[arrived.serial] = arrived;// 추가된 리스트에 추가
+        confirmedList[arrived.serial] = arrived;// 추가된 리스트에 추가
            
         //MoveToAdded 제작 필요
-        WilsonCell start = GetNewStartPoint(confirmed);
-
-
-        Dictionary<int, WilsonCell> path = new Dictionary<int, WilsonCell>();
-
-        Move(start, path, confirmed);
-
-     
-    }
-
-   
-
-    void Move(WilsonCell current, Dictionary<int, WilsonCell> path, Dictionary<int, WilsonCell> added )
-    {
-        WilsonCell next = null;
-        path[current.serial] = current; //처음은 그냥 추가
-        while (!added.ContainsKey(current.serial))//도착지점이면 종료
+        while(confirmedList.Count < cells.Length)
         {
-            next = GetNeighbor(current);//랜덤으로 하나 뽑아와서
-            if (path.ContainsKey(next.serial))// 이미 거쳐온 곳이면 스킵
-            {
-                continue;
-            }
-            path[next.serial] = next;//경로에 추가
-
-            current.next = next;
-            current = next;
-             
-            //current를 저장후 다음 셀을 next기준으로 정하면 한번에 두칸을 움직이는 형상이 나타난다.
-            //path에 포함되어있지 않아야하고, 
+            WilsonCell startCell = GetNewStartPoint(confirmedList);
+            MoveToNext(startCell, confirmedList);
         }
 
-
+        foreach(WilsonCell cell in confirmedList.Values)
+        {
+            if (cell.next != null)
+            {
+                ConnectPath(cell, cell.next);
+            }
+        }
     }
+  
     private WilsonCell GetNewStartPoint(Dictionary<int, WilsonCell> Added)//미로에 추가되지 않은 곳 중 랜덤한 셀을 출발지로 리턴
     {
         List<WilsonCell> unVisited = new List<WilsonCell>();
         for (int i = 0; i < cells.Length; i++)
         {
             WilsonCell cell = cells[i] as WilsonCell;
-            if (!Added.ContainsValue(cell))
+            if (!Added.ContainsKey(cell.serial))//ContainsValue or key 함수는 O(n) 시간복잡도
             {
                 unVisited.Add(cell);
             }
         }
         return unVisited[UnityEngine.Random.Range(0, unVisited.Count)];
     }
-
-
-    WilsonCell GetNeighbor(WilsonCell current)
+    void MoveToNext(WilsonCell current, Dictionary<int, WilsonCell> confirmedList)
+    {
+        Stack<WilsonCell> path = new Stack<WilsonCell>();
+        WilsonCell nextCell = null;
+        path.Push(current);//처음건 무조건 추가
+        while (true)
+        {
+            nextCell = GetNextCell(current);
+            if (!IsAddedAtConfirmedList(nextCell, confirmedList))//컨펌리스트에 추가되어있지 않으면(도착지가 아니면)
+            {
+                if (!path.Contains(nextCell))//이미 지나온 길이 아니면
+                {
+                    current.next = nextCell;
+                    nextCell.prev = current;
+                    path.Push(nextCell);
+                    current = nextCell;
+                }
+                else//이미 지나온 길이면
+                {
+                    WilsonCell prevCell = current;
+                    while(nextCell != prevCell)
+                    {
+                        prevCell = path.Pop();//peek으로 빼고 Pop하는것도 고려해볼만 한것같다/
+                        current = prevCell;
+                    }
+                    path.Push(prevCell);// while 루프를 빠져나왔을 때 다시 넣어줘야한다.
+                }
+            }
+            else
+            {
+                current.next = nextCell;
+                nextCell.prev = current;
+                foreach(WilsonCell cell in path)
+                {
+                    confirmedList.Add(cell.serial, cell);
+                    //기존의 리스트에 추가되어있던것들 중 마지막것의 prev, next가 설정되지 않는 문제가 있다.
+                }
+                break; //while 푸르 종료
+                //컨펌에 추가하고 종료
+            }
+        }
+       
+    }
+    WilsonCell GetNextCell(WilsonCell current)
     {
         List<WilsonCell> neighbors = new List<WilsonCell>();
         int[,] dir = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
@@ -102,8 +125,26 @@ public class Wilson : MazeGenerator
                 neighbors.Add(cell);
             }
         }
-
+        if (current.prev != null)
+        {
+            for (int i = 0; i < neighbors.Count; i++)
+            {
+                if(neighbors[i] == current.prev)
+                {
+                    neighbors.RemoveAt(i);
+                }
+            }
+        }
         return neighbors[UnityEngine.Random.Range(0, neighbors.Count)];
+    }
+    bool IsAddedAtConfirmedList(WilsonCell cell, Dictionary<int, WilsonCell> confirmedList)
+    {
+        bool result = false;
+        if (confirmedList.ContainsKey(cell.serial))
+        {
+            result = true;
+        }
+        return result;
     }
 }
 
