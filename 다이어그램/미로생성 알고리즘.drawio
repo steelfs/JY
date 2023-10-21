@@ -1,44 +1,44 @@
-<mxfile host="Electron" modified="2023-10-19T02:50:20.267Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="vB8ncxZEYvhsgdoU3mns" version="21.2.8" type="device">
+<mxfile host="Electron" modified="2023-10-21T14:22:47.133Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="umKr2_yDc6yXlExUIJ8o" version="22.0.2" type="device">
   <diagram name="페이지-1" id="vG920ayvRO1No3iPuSZf">
-    <mxGraphModel dx="1730" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="PEx7do8Qcd85nzU76y9i-1" value="미로 생성 알고리즘" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="294" y="150" width="120" height="60" as="geometry" />
+          <mxGeometry x="355" y="100" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="PEx7do8Qcd85nzU76y9i-2" value="MazeGenerator" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="250" y="290" width="120" height="60" as="geometry" />
+          <mxGeometry x="220" y="210" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="PEx7do8Qcd85nzU76y9i-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="PEx7do8Qcd85nzU76y9i-3" target="PEx7do8Qcd85nzU76y9i-9" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="PEx7do8Qcd85nzU76y9i-3" value="Cell" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="420" y="290" width="120" height="60" as="geometry" />
+        <mxCell id="PEx7do8Qcd85nzU76y9i-3" value="Cell&lt;br&gt;&lt;br&gt;Member :&lt;br&gt;byte path&lt;br&gt;Direction(bitFlag)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="390" y="260" width="150" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="PEx7do8Qcd85nzU76y9i-4" value="MazeDisplayer" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="PEx7do8Qcd85nzU76y9i-4" value="MazeVisualizer" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="250" y="420" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="PEx7do8Qcd85nzU76y9i-5" value="CellDisplayer" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="PEx7do8Qcd85nzU76y9i-5" value="CellVisualizer&lt;br&gt;&lt;br&gt;Member : cell" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="420" y="420" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="PEx7do8Qcd85nzU76y9i-6" value="결국 CellDisplayer의&amp;nbsp;&lt;br&gt;RefreshWall 함수를 통해 랜더 한다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="410" y="510" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="PEx7do8Qcd85nzU76y9i-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="PEx7do8Qcd85nzU76y9i-7" target="PEx7do8Qcd85nzU76y9i-2" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="PEx7do8Qcd85nzU76y9i-7" value="알고리즘 별 상속&lt;br&gt;BackTracking&lt;br&gt;BackTrackingCell" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="80" y="290" width="120" height="60" as="geometry" />
+        <mxCell id="PEx7do8Qcd85nzU76y9i-6" value="void OpenWall&lt;br&gt;void CloseWall" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="630" y="350" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="PEx7do8Qcd85nzU76y9i-9" value="Cell&lt;br&gt;알고리즘별 상속" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="620" y="290" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="7B2MhMiIphw-nBKm2NCX-2" value="IsInGrid 함수를 사용하기 전 그리드를 인덱스로 바꿔서 실행했는데 이 경우 어떠한 경우에도 인덱스는 그리드를 벗어나지 않는 논리적 오류가 있었다." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-90" y="350" width="280" height="150" as="geometry" />
+        <mxCell id="sSuJ3yBCmhwUOJznemYb-1" value="void OpenCell(Direction)&lt;br&gt;void CloseCell(Direction)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=13;" vertex="1" parent="1">
+          <mxGeometry x="440" y="500" width="170" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="zY58tc2Guws112VwMDKx-1" value="Eller&#39;s Algorithm&lt;br&gt;&lt;br&gt;옆칸과 같은 세트면 막고 &lt;br&gt;다른세트면 랜덤하게 합침 합친 후 같은세트로 변경&lt;br&gt;&lt;br&gt;밑줄로 이동하면 세트당 한개 이상 구멍을 뚫어야한다.&lt;br&gt;&lt;br&gt;새 줄에서 구멍이 뚫린 부분은 그대로 내려온다&lt;br&gt;&lt;br&gt;뚫리지 않은 부분은 유니크한 숫자를 할당한다.&lt;br&gt;&lt;br&gt;마지막 줄은 다르면 100% 확률로 뚫어야 한다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="210" y="620" width="410" height="180" as="geometry" />
+        <mxCell id="sSuJ3yBCmhwUOJznemYb-2" value="Runner" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sSuJ3yBCmhwUOJznemYb-3" value="void InitBoard&lt;br&gt;void ConnectPath&lt;br&gt;void DisconnectPath&lt;br&gt;IEnumurator StartDraw&lt;br&gt;void StopDraw" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="480" width="140" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="sSuJ3yBCmhwUOJznemYb-4" value="MazeGenerator" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="270" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
