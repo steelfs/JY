@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-10-21T14:22:47.133Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="umKr2_yDc6yXlExUIJ8o" version="22.0.2" type="device">
+<mxfile host="Electron" modified="2023-10-22T13:50:21.596Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="BmGjML6jn931NHrV7Jry" version="22.0.2" type="device">
   <diagram name="페이지-1" id="vG920ayvRO1No3iPuSZf">
     <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -28,17 +28,20 @@
         <mxCell id="PEx7do8Qcd85nzU76y9i-9" value="Cell&lt;br&gt;알고리즘별 상속" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="620" y="290" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="sSuJ3yBCmhwUOJznemYb-1" value="void OpenCell(Direction)&lt;br&gt;void CloseCell(Direction)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=13;" vertex="1" parent="1">
+        <mxCell id="sSuJ3yBCmhwUOJznemYb-1" value="void OpenCell(Direction)&lt;br&gt;void CloseCell(Direction)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=13;" parent="1" vertex="1">
           <mxGeometry x="440" y="500" width="170" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="sSuJ3yBCmhwUOJznemYb-2" value="Runner" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="sSuJ3yBCmhwUOJznemYb-2" value="Runner" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="80" y="420" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="sSuJ3yBCmhwUOJznemYb-3" value="void InitBoard&lt;br&gt;void ConnectPath&lt;br&gt;void DisconnectPath&lt;br&gt;IEnumurator StartDraw&lt;br&gt;void StopDraw" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="sSuJ3yBCmhwUOJznemYb-3" value="void InitBoard&lt;br&gt;void ConnectPath&lt;br&gt;void DisconnectPath&lt;br&gt;IEnumurator StartDraw&lt;br&gt;void StopDraw" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="240" y="480" width="140" height="170" as="geometry" />
         </mxCell>
-        <mxCell id="sSuJ3yBCmhwUOJznemYb-4" value="MazeGenerator" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="sSuJ3yBCmhwUOJznemYb-4" value="MazeGenerator" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="220" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5LMdZRGSF-kQaQBG601r-1" value="&amp;lt;, &amp;lt;&amp;lt;, Play, Pause, &amp;gt;, &amp;gt;&amp;gt;&lt;br&gt;다섯개 버튼 만들기" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="610" width="190" height="100" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

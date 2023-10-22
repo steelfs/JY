@@ -19,7 +19,7 @@ public class Cell
     public int X => x;
     int y;
     public int Y => y;
-
+    public Action<byte> on_RefreshWall;
     public Cell(int x, int y)
     {
         this.x = x; 
@@ -28,10 +28,13 @@ public class Cell
     public void OpenWall(Direction direction)
     {
         path |= (byte)direction;
+        on_RefreshWall?.Invoke(path);
     }
     public void CloseWall(Direction direction)
     {
         path &= (byte)~direction;
+        on_RefreshWall?.Invoke(path);
         //~ 는 반전시키는 NOT연산자.  반전 시킨 후 And를 해서 0으로 셋팅
     }
+    public void ResetPath() {path = 0; on_RefreshWall?.Invoke(path); }
 }

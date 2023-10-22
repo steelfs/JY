@@ -13,12 +13,12 @@ public class CellVisualizer : MonoBehaviour
             walls[i - 1] = transform.GetChild(i).gameObject;    
         }
     }
-    public void RefreshWalls(int data)
+    public void RefreshWalls(byte data)
     {
         for (int i = 0; i < walls.Length; i++)
         {
             int mask = 1 << i;
-            walls[i].gameObject.SetActive(!((data & mask) != 0));
+            walls[i].gameObject.SetActive(!((data & mask) != 0));//셋팅이 되어있을경우 SetActive(false);
         }
         //ex 2와 2를 and를 하면 1이 아니라 2가 나오기 때문에 0이 아닌 조건으로 체크를 해야한다. != 1 로 체크를 하면 비트가 세팅이 되어있어도 false를 반환한다.
     }

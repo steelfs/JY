@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-10-20T13:33:17.985Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="MB3Rl0PNthL-KEAfQWmc" version="22.0.2" type="device">
+<mxfile host="Electron" modified="2023-10-22T01:34:39.404Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="uhrOvobNyBra8RsCiDrx" version="22.0.2" type="device">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -33,6 +33,9 @@
         </mxCell>
         <mxCell id="NWhrZuVlRmnTCL2lv8xB-0" value="세분화 후 하나씩 구현후 각 모듈마다 테스트과정을 거쳐야 한다.&lt;br&gt;그렇지 않고 한번에 모두 만들고 한번에 테스트를 하는것은 일을 세번, 네번 하게 된다.&lt;br&gt;&lt;br&gt;주의할 점은 세분화 했을 때 부터 설계에 논리적 오류가 없어야 한다.&lt;br&gt;&lt;br&gt;세분화 후 동사 하나당 함수 하나씩 할당" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="590" y="110" width="520" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="EfQraL_fNm_MlQabk7uy-0" value="작업중 자리에일어나 Break를할 때는 항상 지금 내가 뭘 하고 있고, 다음엔 뭘 해야하는지 알고 일어나야한다.&lt;br&gt;그것은 다시 컴퓨터 앞에 앉았을 때 빠르게 작업을 시작할 수 있게 해 준다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="650" y="400" width="510" height="160" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

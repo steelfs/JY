@@ -4,12 +4,29 @@ using UnityEngine;
 
 public class BackTrackingVisualizer : MazeVisualizer
 {
-    Cell[] cells;
-    public override void InitBoard(int x, int y)
+
+    public override void MakeBoard(int x, int y)
     {
         // 알고리즘별 보드를 만들고 초기상태로 랜더
         RecursiveBackTracking backTracking = new RecursiveBackTracking();
 
-        cells = backTracking.MakeCells(x, y);
+        Cells = backTracking.MakeCells(x, y);
+        RenderBoard(x, y, Cells);
+    }
+    public override void InitBoard()
+    {
+        base.InitBoard();
+    }
+    public override void StartConnect()
+    {
+        base.StartConnect();
+    }
+    public override void StopConnect()
+    {
+        base.StopConnect();
+    }
+    public override void RenderBoard(int width, int height, Cell[] cells)
+    {
+        base.RenderBoard(width, height, cells);
     }
 }
