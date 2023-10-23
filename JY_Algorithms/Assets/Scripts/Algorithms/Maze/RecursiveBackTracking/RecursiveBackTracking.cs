@@ -27,4 +27,11 @@ public class RecursiveBackTracking : MazeGenerator
         return cells;
     }
 
+    public override void MakeMaze()
+    {
+        BackTrackingCell start = cells[Random.Range(0, cells.Length)] as BackTrackingCell;
+
+        Stack<Cell> stack = new Stack<Cell>();
+    }
+
 }

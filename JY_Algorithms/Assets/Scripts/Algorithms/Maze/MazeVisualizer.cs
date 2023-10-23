@@ -8,7 +8,7 @@ public class MazeVisualizer : MonoBehaviour
     public GameObject cellPrefab;
     public const int CellSize = 5;
     Cell[] cells;
-    public List<Cell> connectOrder = new List<Cell>();
+    public List<(Cell, Cell)> connectOrder = new List<(Cell, Cell)>();
     public Cell[] Cells
     {
         get => cells;
@@ -100,9 +100,9 @@ public class MazeVisualizer : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(false);
         }
     }
-    public void AddToConnectOrder(Cell cell)
+    public void AddToConnectOrder(Cell from, Cell to)
     {
-        connectOrder.Add(cell);
+        connectOrder.Add((from, to));
     }
     public virtual void StartConnect()
     {

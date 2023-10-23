@@ -15,7 +15,10 @@ public class MazeGenerator
     
         return null;
     }
+    public virtual void MakeMaze()
+    {
 
+    }
     public int GridToIndex(int x, int y)
     {
         return (y * width) + x;

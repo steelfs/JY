@@ -1,0 +1,19 @@
+<mxfile host="Electron" modified="2023-10-23T06:21:22.489Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="Rrk0djXmECWRpINBClT0" version="21.2.8" type="device">
+  <diagram name="페이지-1" id="24M9JvR9n2-xbMdZz0-m">
+    <mxGraphModel dx="1098" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="m4VNCoHtWlX3OfS0jrN1-1" value="BackTracking" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="311" y="170" width="206" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="m4VNCoHtWlX3OfS0jrN1-2" value="시작위치 찾기&lt;br&gt;스텍에 추가&lt;br&gt;네 방향 중 방문 가능한 셀 찾기&lt;br&gt;&lt;br&gt;방문 가능한 셀이 있으면 스텍과 튜플리스트(결과보기용)에 추가&lt;br&gt;current = Stack.Peek()&lt;br&gt;&lt;br&gt;&lt;br&gt;방문 가능한 셀이 없으면 Stack.Pop()&lt;br&gt;&lt;br&gt;Stack의 Count가 0이 될 때까지 반복" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="260" width="310" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="m4VNCoHtWlX3OfS0jrN1-3" value="Cell FindUnvisited" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
