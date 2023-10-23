@@ -23,9 +23,9 @@ public class MazeVisualizer : MonoBehaviour
         {
             cell.ResetPath();
         }
-
     }
-    public virtual void ConnectPath(Cell from, Cell to)
+
+    public void ConnectPath(Cell from, Cell to)
     {
         int diffX = from.X - to.X;
         int diffY = from.Y - to.Y;
@@ -50,7 +50,7 @@ public class MazeVisualizer : MonoBehaviour
             to.OpenWall(Direction.South);
         }
     }
-    public virtual void DisconnectPath(Cell from, Cell to)
+    public void DisconnectPath(Cell from, Cell to)
     {
         int diffX = from.X - to.X;
         int diffY = from.Y - to.Y;
@@ -75,21 +75,29 @@ public class MazeVisualizer : MonoBehaviour
             to.CloseWall(Direction.South);
         }
     }
-    public virtual void RenderBoard(int width, int height, Cell[] cells)// delegate를 연결하기 위해 cell의 배열도 받는다.
+    public void RenderBoard(int width, int height, Cell[] cells)// delegate를 연결하기 위해 cell의 배열도 받는다.
     {
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
             {
-                GameObject cell = Instantiate(cellPrefab, transform);
+                GameObject cell = GameManager.Pools.GetObject(PoolObjectType.Cell, transform);
                 cell.name = $"Cell_{x}_{y}";
+                cell.transform.localPosition = Vector3.zero;
                 cell.transform.Translate(x * CellSize, 0, -y * CellSize);
 
                 int index = (y * width) + x;
                 CellVisualizer cellVisualizer = cell.GetComponent<CellVisualizer>();
                 Cell currentCell = cells[index];
-                currentCell.on_RefreshWall += cellVisualizer.RefreshWalls;
+                currentCell.on_RefreshWall = cellVisualizer.RefreshWalls;
             }
+        }
+    }
+    public void DestroyBoard()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
         }
     }
     public void AddToConnectOrder(Cell cell)
