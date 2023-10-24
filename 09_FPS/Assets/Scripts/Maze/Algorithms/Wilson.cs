@@ -40,7 +40,6 @@ public class Wilson : MazeGenerator
         WilsonCell arrived = cells[UnityEngine.Random.Range(0, cells.Length)] as WilsonCell;
         confirmedList[arrived.serial] = arrived;// 확정된 리스트에 추가
            
-        //MoveToAdded 제작 필요
         while(confirmedList.Count < cells.Length)
         {
             WilsonCell startCell = GetNewStartPoint(confirmedList);
@@ -106,11 +105,11 @@ public class Wilson : MazeGenerator
                     confirmedList.Add(cell.serial, cell);
                     //기존의 리스트에 추가되어있던것들 중 마지막것의 prev, next가 설정되지 않는 문제가 있다.
                 }
-                break; //while 푸르 종료
+                break; //while 루프 종료
                 //컨펌에 추가하고 종료
             }
         }
-       
+        
     }
     WilsonCell GetNextCell(WilsonCell current)
     {

@@ -1954,3 +1954,17 @@ agent.Warp(vector3)
 Batches - DrawCall를 줄여야한다
 Saved by batching 이 클수록 좋다
 머티리얼 하나당 batches  하나
+
+
+최적화
+
+프러스텀컬링 - 카메라의 각 안에들어온 것들만 활성화
+
+오클루젼 컬링 - 
+
+LOD  - Level of Detail
+거리에 따라 다르게 처리
+
+LODGroup 컴포넌트 
+숫자가 작을수록 가까이 있는것
+culled는 안보이는 것

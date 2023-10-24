@@ -26,10 +26,11 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;  // 커서 입력을 카메라 회전용으로 사용
 
 		Player player;
-
+		Revolver revolver;
         private void Awake()
         {
             player = GetComponent<Player>();
+			revolver = player.Gun as Revolver;
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -58,7 +59,7 @@ namespace StarterAssets
 
 		public void OnFire(InputAction.CallbackContext context)
 		{
-			if(context.performed)
+			if(context.performed && !revolver.isReLoading)
 			{
 				player.GunFire();
 			}
@@ -81,7 +82,13 @@ namespace StarterAssets
                 player.ShowGunCamera(false);	// 총 안 보이게 하기
             }
         }
-
+		public void OnReLoad(InputAction.CallbackContext context)
+		{
+			if (context.performed)
+			{
+				player.RevolverReLoad();
+			}
+		}
 		IEnumerator ZoomIn()
 		{
 			// 확대

@@ -206,6 +206,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ReLoad",
+                    "type": "Button",
+                    "id": "1e1d23ac-dd02-4bf6-b58f-f70c56e93d1c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -404,6 +413,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae4d66bc-210c-47ae-ac11-7b6fc0301cda",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "ReLoad",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

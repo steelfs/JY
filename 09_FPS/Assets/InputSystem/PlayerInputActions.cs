@@ -228,6 +228,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ReLoad"",
+                    ""type"": ""Button"",
+                    ""id"": ""1e1d23ac-dd02-4bf6-b58f-f70c56e93d1c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -428,6 +437,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ae4d66bc-210c-47ae-ac11-7b6fc0301cda"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""ReLoad"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -468,6 +488,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
+        m_Player_ReLoad = m_Player.FindAction("ReLoad", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -629,6 +650,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Zoom;
+    private readonly InputAction m_Player_ReLoad;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -639,6 +661,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
+        public InputAction @ReLoad => m_Wrapper.m_Player_ReLoad;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -666,6 +689,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Zoom.started += instance.OnZoom;
             @Zoom.performed += instance.OnZoom;
             @Zoom.canceled += instance.OnZoom;
+            @ReLoad.started += instance.OnReLoad;
+            @ReLoad.performed += instance.OnReLoad;
+            @ReLoad.canceled += instance.OnReLoad;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -688,6 +714,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Zoom.started -= instance.OnZoom;
             @Zoom.performed -= instance.OnZoom;
             @Zoom.canceled -= instance.OnZoom;
+            @ReLoad.started -= instance.OnReLoad;
+            @ReLoad.performed -= instance.OnReLoad;
+            @ReLoad.canceled -= instance.OnReLoad;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -732,5 +761,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
+        void OnReLoad(InputAction.CallbackContext context);
     }
 }
