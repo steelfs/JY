@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MazeGenerator 
+public class MazeGenerator
 {
     public int width;
     public int height;
@@ -12,12 +12,16 @@ public class MazeGenerator
     {
         this.width = width;
         this.height = height;
-    
+
         return null;
     }
     public virtual void MakeMaze()
     {
 
+    }
+    protected bool IsInGrid(int x, int y)
+    {
+        return x >= 0 && y >= 0 && x < width && y < height;
     }
     public int GridToIndex(int x, int y)
     {

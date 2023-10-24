@@ -17,10 +17,12 @@ public class InputBox : MonoBehaviour
     TMP_Dropdown Select_DropDown;
     Button generateButton;
     Button destroyButton;
+    Button makeMaze_Button;
     const string placeHolderText = "0~100";
 
-    Action on_ActiveGenerate;
+    Action on_MakeBoard;
     Action on_ClearBoard;
+    Action on_MakeMaze;
     private void Awake()
     {
         input_X = transform.GetChild(2).GetComponent<TMP_InputField>();
@@ -37,7 +39,10 @@ public class InputBox : MonoBehaviour
         destroyButton.onClick.AddListener(() => on_ClearBoard());
 
         generateButton = transform.GetChild(4).GetComponent<Button>();
-        generateButton.onClick.AddListener(() => on_ActiveGenerate());
+        generateButton.onClick.AddListener(() => on_MakeBoard());
+
+        makeMaze_Button = transform.GetChild(7).GetComponent<Button>();
+        makeMaze_Button.onClick.AddListener(() => on_MakeMaze());
     }
     private void Start()
     {
@@ -45,9 +50,13 @@ public class InputBox : MonoBehaviour
         DropDownValueChange(0);
     }
    
-    void MakeRecursive_BackTracking()
+    void Make_BackTracking_Board()
     {
         backTrackingVisualizer.MakeBoard(GetInput_X(), GetInput_Y());
+    }
+    void MakeMaze_BackTracking()
+    {
+        backTrackingVisualizer.backTracking.MakeMaze();
     }
     void ClearBoard_Recursive_BackTracking()
     {
@@ -58,16 +67,19 @@ public class InputBox : MonoBehaviour
         switch (value)
         {
             case 0:
-                on_ActiveGenerate = MakeRecursive_BackTracking;
+                on_MakeBoard = Make_BackTracking_Board;
                 on_ClearBoard = ClearBoard_Recursive_BackTracking;
+                on_MakeMaze = MakeMaze_BackTracking;
                 break;
             case 1:
-                on_ActiveGenerate = null;
-                on_ClearBoard = null; 
+                on_MakeBoard = null;
+                on_ClearBoard = null;
+                on_MakeMaze = null;
                 break;
             case 2:
-                on_ActiveGenerate = null;
+                on_MakeBoard = null;
                 on_ClearBoard = null;
+                on_MakeMaze = null;
                 break;
         }
     }

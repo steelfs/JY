@@ -66,14 +66,13 @@ public class Pools : MonoBehaviour
     {
         Queue<GameObject> queue = pools[obj.poolIndex];
         queue.Enqueue(obj.gameObject);
-        obj.transform.SetParent(parents[obj.poolIndex].transform);
-       // StartCoroutine(SetParent(obj));
+        StartCoroutine(SetParent(obj));
      
     }
     IEnumerator SetParent(Pooled_Obj obj)
     {
-        obj.transform.SetParent(parents[obj.poolIndex].transform);
         yield return null;
+        obj.transform.SetParent(parents[obj.poolIndex].transform);
     }
     void GenerateObject()
     {

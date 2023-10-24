@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BackTrackingVisualizer : MazeVisualizer
 {
-    RecursiveBackTracking backTracking;
+    public RecursiveBackTracking backTracking;
 
     public override void MakeBoard(int x, int y)
     {
