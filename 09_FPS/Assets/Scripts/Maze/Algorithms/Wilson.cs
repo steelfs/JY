@@ -20,6 +20,8 @@ public class WilsonCell : Cell
 }
 public class Wilson : MazeGenerator
 {
+    readonly int[,] dir = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };// 전역변수로 빼둬도 괜찮을 것같다.
+
     protected override void OnSpecificAlgorithmExcute()
     {
         //생성 후 시리얼 부여 
@@ -36,7 +38,7 @@ public class Wilson : MazeGenerator
             }
         }
         WilsonCell arrived = cells[UnityEngine.Random.Range(0, cells.Length)] as WilsonCell;
-        confirmedList[arrived.serial] = arrived;// 추가된 리스트에 추가
+        confirmedList[arrived.serial] = arrived;// 확정된 리스트에 추가
            
         //MoveToAdded 제작 필요
         while(confirmedList.Count < cells.Length)
@@ -74,8 +76,8 @@ public class Wilson : MazeGenerator
         path.Push(current);//처음건 무조건 추가
         while (true)
         {
-            nextCell = GetNextCell(current);
-            if (!IsAddedAtConfirmedList(nextCell, confirmedList))//컨펌리스트에 추가되어있지 않으면(도착지가 아니면)
+            nextCell = GetNextCell(current);//current를 기준으로 네 방향중 하나를 가져옴
+            if (!IsAddedAtConfirmedList(nextCell, confirmedList))//가져온 셀이  컨펌리스트에 추가되어있지 않으면(도착지가 아니면)
             {
                 if (!path.Contains(nextCell))//이미 지나온 길이 아니면
                 {
@@ -87,7 +89,7 @@ public class Wilson : MazeGenerator
                 else//이미 지나온 길이면
                 {
                     WilsonCell prevCell = current;
-                    while(nextCell != prevCell)
+                    while(nextCell != prevCell)// 다음칸으로 이동하려던 셀이 스텍의 이전 셀과 같아질 떄까지 계속 Pop
                     {
                         prevCell = path.Pop();//peek으로 빼고 Pop하는것도 고려해볼만 한것같다/
                         current = prevCell;
@@ -95,7 +97,7 @@ public class Wilson : MazeGenerator
                     path.Push(prevCell);// while 루프를 빠져나왔을 때 다시 넣어줘야한다.
                 }
             }
-            else
+            else// 가져온 셀이 확정리스트에 추가되어있을 경우 path를 확정 리스트에 추가하고 루프를 종료한다.
             {
                 current.next = nextCell;
                 nextCell.prev = current;
@@ -113,7 +115,6 @@ public class Wilson : MazeGenerator
     WilsonCell GetNextCell(WilsonCell current)
     {
         List<WilsonCell> neighbors = new List<WilsonCell>();
-        int[,] dir = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
 
         for (int i = 0; i < 4; i++)
         {
