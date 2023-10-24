@@ -25,8 +25,8 @@ public class InputBox : MonoBehaviour
     {
         input_X = transform.GetChild(2).GetComponent<TMP_InputField>();
         input_Y = transform.GetChild(3).GetComponent<TMP_InputField>();
-        placeHolder_X = input_X.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        placeHolder_Y = input_Y.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        placeHolder_X = input_X.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
+        placeHolder_Y = input_Y.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
         input_X.onValueChanged.AddListener(InputX_ValueChanged);
         input_Y.onValueChanged.AddListener(InputY_ValueChanged);
 
@@ -49,7 +49,7 @@ public class InputBox : MonoBehaviour
     {
         backTrackingVisualizer.MakeBoard(GetInput_X(), GetInput_Y());
     }
-    void ClearBoard_MakeRecursive_BackTracking()
+    void ClearBoard_Recursive_BackTracking()
     {
         backTrackingVisualizer.DestroyBoard();
     }
@@ -59,7 +59,7 @@ public class InputBox : MonoBehaviour
         {
             case 0:
                 on_ActiveGenerate = MakeRecursive_BackTracking;
-                on_ClearBoard = ClearBoard_MakeRecursive_BackTracking;
+                on_ClearBoard = ClearBoard_Recursive_BackTracking;
                 break;
             case 1:
                 on_ActiveGenerate = null;

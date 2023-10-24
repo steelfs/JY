@@ -52,7 +52,7 @@ public class Pools : MonoBehaviour
                 pools[i].Enqueue(obj);
             }
         }
-
+        int z = 0;
     }
     public GameObject GetObject(PoolObjectType type, Transform parent)
     {
@@ -66,13 +66,14 @@ public class Pools : MonoBehaviour
     {
         Queue<GameObject> queue = pools[obj.poolIndex];
         queue.Enqueue(obj.gameObject);
-        StartCoroutine(SetParent(obj));
+        obj.transform.SetParent(parents[obj.poolIndex].transform);
+       // StartCoroutine(SetParent(obj));
      
     }
     IEnumerator SetParent(Pooled_Obj obj)
     {
-        yield return null;
         obj.transform.SetParent(parents[obj.poolIndex].transform);
+        yield return null;
     }
     void GenerateObject()
     {
