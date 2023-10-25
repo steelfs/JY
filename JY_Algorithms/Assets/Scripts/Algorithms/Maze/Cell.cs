@@ -14,7 +14,12 @@ public enum Direction : byte
 public class Cell
 {
     byte path;
-    public byte Path => path;
+    public byte Path
+    {
+        get { return path; }
+        set { path = value; }
+    }
+
     int x;
     public int X => x;
     int y;

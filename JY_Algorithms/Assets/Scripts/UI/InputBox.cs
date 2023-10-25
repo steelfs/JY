@@ -5,8 +5,35 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+public enum InputBox_State
+{
+    Standby,
+    Loading,
+    LoadComplete
+}
 public class InputBox : MonoBehaviour
 {
+    InputBox_State state;
+    public InputBox_State State
+    {
+        get { return state; }
+        set
+        {
+            state = value;
+            switch (state)
+            {
+                case InputBox_State.Standby:
+                    break;
+                case InputBox_State.Loading:
+                    break;
+                case InputBox_State.LoadComplete:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     BackTrackingVisualizer backTrackingVisualizer;
 
     TMP_InputField input_X;
@@ -15,9 +42,14 @@ public class InputBox : MonoBehaviour
     TextMeshProUGUI placeHolder_Y;
 
     TMP_Dropdown Select_DropDown;
-    Button generateButton;
-    Button destroyButton;
+    Button generate_Button;
+    Button destroy_Button;
     Button makeMaze_Button;
+    Button startPoint_Button;
+    Button endPoint_Button;
+    Button prev_Button;
+    Button next_Button;
+    Button play_Button;
     const string placeHolderText = "0~100";
 
     Action on_MakeBoard;
@@ -31,18 +63,16 @@ public class InputBox : MonoBehaviour
         placeHolder_Y = input_Y.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
         input_X.onValueChanged.AddListener(InputX_ValueChanged);
         input_Y.onValueChanged.AddListener(InputY_ValueChanged);
-
         Select_DropDown = transform.GetChild(6).GetComponent<TMP_Dropdown>();
         Select_DropDown.onValueChanged.AddListener(DropDownValueChange);
-
-        destroyButton = transform.GetChild(5).GetComponent<Button>();
-        destroyButton.onClick.AddListener(() => on_ClearBoard());
-
-        generateButton = transform.GetChild(4).GetComponent<Button>();
-        generateButton.onClick.AddListener(() => on_MakeBoard());
-
+        destroy_Button = transform.GetChild(5).GetComponent<Button>();
+        destroy_Button.onClick.AddListener(() => on_ClearBoard());
+        generate_Button = transform.GetChild(4).GetComponent<Button>();
+        generate_Button.onClick.AddListener(() => on_MakeBoard());
         makeMaze_Button = transform.GetChild(7).GetComponent<Button>();
         makeMaze_Button.onClick.AddListener(() => on_MakeMaze());
+
+
     }
     private void Start()
     {
@@ -52,7 +82,10 @@ public class InputBox : MonoBehaviour
    
     void Make_BackTracking_Board()
     {
-        backTrackingVisualizer.MakeBoard(GetInput_X(), GetInput_Y());
+        if (!backTrackingVisualizer.IsExistCells)
+        {
+            backTrackingVisualizer.MakeBoard(GetInput_X(), GetInput_Y());
+        }
     }
     void MakeMaze_BackTracking()
     {

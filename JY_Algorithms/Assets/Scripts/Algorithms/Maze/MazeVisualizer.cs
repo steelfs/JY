@@ -7,7 +7,9 @@ public class MazeVisualizer : MonoBehaviour
 {
     public GameObject cellPrefab;
     public const int CellSize = 5;
-    Cell[] cells;
+    Cell[] cells = null;
+    public bool IsExistCells => cells != null;
+
     public List<(Cell, Cell)> connectOrder = new List<(Cell, Cell)>();
     public Cell[] Cells
     {
@@ -89,7 +91,7 @@ public class MazeVisualizer : MonoBehaviour
                 int index = (y * width) + x;
                 CellVisualizer cellVisualizer = cell.GetComponent<CellVisualizer>();
                 Cell currentCell = cells[index];
-                currentCell.on_RefreshWall = cellVisualizer.RefreshWalls;
+                currentCell.on_RefreshWall = cellVisualizer.RefreshWalls;//UI 업데이트 연결
             }
         }
     }
@@ -97,8 +99,14 @@ public class MazeVisualizer : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
+            Cell cell = cells[i];
+            cell.on_RefreshWall = null;
+            cell.Path = 0;
+            //x, y 는 생성시 초기화되기 때문에 생략
+            cell = null;
             transform.GetChild(i).gameObject.SetActive(false);
         }
+        Cells = null;//셀의 배열을 null 로 만들기
     }
     public void AddToConnectOrder(Cell from, Cell to)
     {
