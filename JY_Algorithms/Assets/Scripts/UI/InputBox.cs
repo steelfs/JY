@@ -80,8 +80,8 @@ public class InputBox : MonoBehaviour
                     break;
                 case MazeType.BackTracking:
                     on_MakeBoard = Make_BackTracking_Board;
-                    on_ClearBoard = ClearBoard_Recursive_BackTracking;
-                    on_MakeMaze = MakeMaze_BackTracking;
+                    on_ClearBoard = ClearBoard;
+                    on_MakeMaze = MakeMaze;
                     break;
                 default:
                     break;
@@ -89,8 +89,8 @@ public class InputBox : MonoBehaviour
 
         }
     }
-    BackTrackingVisualizer backTrackingVisualizer;
-
+    //BackTrackingVisualizer backTrackingVisualizer;
+    MazeVisualizer mazeVisualizer;
     TMP_InputField input_X;
     TextMeshProUGUI placeHolder_X;
     TMP_InputField input_Y;
@@ -134,43 +134,47 @@ public class InputBox : MonoBehaviour
         next_Button = buttons.GetChild(3).GetComponent<Button>();
         endPoint_Button = buttons.GetChild(4).GetComponent<Button>();
 
+        next_Button.onClick.AddListener(MoveToNext);
+
     }
     private void Start()
     {
-        backTrackingVisualizer = GameManager.BackTrackingVisualizer;
-        DropDownValueChange(0);
         State = InputBox_State.Standby;
-        MazeType = MazeType.BackTracking;
-    }
+        DropDownValueChange(0);// 초기상태 BackTracking으로 설정
+    }   
    
     void Make_BackTracking_Board()
     {
-        if (!backTrackingVisualizer.IsExistCells)
+        if (!mazeVisualizer.IsExistCells)
         {
-            backTrackingVisualizer.MakeBoard(GetInput_X(), GetInput_Y());
+            mazeVisualizer.MakeBoard(GetInput_X(), GetInput_Y());
         }
         State = InputBox_State.LoadComplete;
     }
-    void MakeMaze_BackTracking()
+    void MakeMaze()
     {
+        BackTrackingVisualizer backTrackingVisualizer = mazeVisualizer as BackTrackingVisualizer;
         backTrackingVisualizer.backTracking.MakeMaze();
-        //버튼 비활성화 후 
-        // 클리어보드에서 활성화
 
+        makeMaze_Button.interactable = false;
     }
-    void ClearBoard_Recursive_BackTracking()
+    void MoveToNext()
     {
-        backTrackingVisualizer.DestroyBoard();
+        mazeVisualizer.MoveToNext();
+    }
+    void ClearBoard()
+    {
+        mazeVisualizer.DestroyBoard();
         State = InputBox_State.Standby;
+        makeMaze_Button.interactable = true;
     }
     void DropDownValueChange(int value)
     {
         switch (value)
         {
             case 0:
-                on_MakeBoard = Make_BackTracking_Board;
-                on_ClearBoard = ClearBoard_Recursive_BackTracking;
-                on_MakeMaze = MakeMaze_BackTracking;
+                MazeType = MazeType.BackTracking;
+                mazeVisualizer = GameManager.BackTrackingVisualizer;
                 break;
             case 1:
                 on_MakeBoard = null;

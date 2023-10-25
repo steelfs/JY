@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class BackTrackingCell : Cell
 {
@@ -32,21 +33,24 @@ public class RecursiveBackTracking : MazeGenerator
         BackTrackingCell start = cells[Random.Range(0, cells.Length)] as BackTrackingCell;
 
         Stack<BackTrackingCell> stack = new Stack<BackTrackingCell>();
+        List<BackTrackingCell> confirmedList = new List<BackTrackingCell>();
         stack.Push(start);
+        confirmedList.Add(start);
         while(stack.Count > 0)
         {
             BackTrackingCell current = stack.Peek();
             List<BackTrackingCell> neighbors = GetNeighbors(current);
             BackTrackingCell next = null;
-            foreach (var cell in neighbors)
+            while(neighbors.Count > 0)
             {
-                if (stack.Contains(cell))
+                BackTrackingCell chosen = neighbors[Random.Range(0, neighbors.Count - 1)];//next가 null 이 아닌데도 실행되는 경우가 있다.
+                if (confirmedList.Contains(chosen))
                 {
-                    continue;
+                    neighbors.Remove(chosen);
                 }
                 else
                 {
-                    next = cell;
+                    next = chosen;
                     break;
                 }
             }
@@ -57,6 +61,7 @@ public class RecursiveBackTracking : MazeGenerator
             else
             {
                 stack.Push(next);
+                confirmedList.Add(next);
                 GameManager.BackTrackingVisualizer.AddToConnectOrder(current, next);
                 //튜플리스트에 추가
             }

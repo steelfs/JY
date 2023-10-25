@@ -9,7 +9,7 @@ public class MazeVisualizer : MonoBehaviour
     public const int CellSize = 5;
     Cell[] cells = null;
     public bool IsExistCells => cells != null;
-
+    int progress = 0;
     public List<(Cell, Cell)> connectOrder = new List<(Cell, Cell)>();
     public Cell[] Cells
     {
@@ -27,7 +27,15 @@ public class MazeVisualizer : MonoBehaviour
             cell.ResetPath();
         }
     }
+    public void MoveToNext()
+    {
+        ConnectPath(connectOrder[progress].Item1, connectOrder[progress].Item2);
+        progress = Mathf.Min(progress + 1, cells.Length);
+    }
+    public void MoveToPrev()
+    {
 
+    }
     public void ConnectPath(Cell from, Cell to)
     {
         int diffX = from.X - to.X;
@@ -42,15 +50,15 @@ public class MazeVisualizer : MonoBehaviour
             from.OpenWall(Direction.West);
             to.OpenWall(Direction.East);
         }
-        else if (diffY > 0)// from = 윗쪽, to = 아랫쪽
-        {
-            from.OpenWall(Direction.South);
-            to.OpenWall(Direction.North);
-        }
-        else if (diffY < 0)// from = 아랫쪽, to = 윗쪽
+        else if (diffY > 0)// from = 아랫쪽, to = 윗쪽
         {
             from.OpenWall(Direction.North);
             to.OpenWall(Direction.South);
+        }
+        else if (diffY < 0)// from = 윗쪽, to = 아랫쪽
+        {
+            from.OpenWall(Direction.South);
+            to.OpenWall(Direction.North);
         }
     }
     public void DisconnectPath(Cell from, Cell to)
@@ -86,8 +94,9 @@ public class MazeVisualizer : MonoBehaviour
             {
                 GameObject cell = GameManager.Pools.GetObject(PoolObjectType.Cell, transform);
                 cell.name = $"Cell_{x}_{y}";
+                cell.transform.localRotation = Quaternion.Euler(0, 180, 0);
                 cell.transform.localPosition = Vector3.zero;
-                cell.transform.Translate(x * CellSize, 0, -y * CellSize);
+                cell.transform.Translate(x * CellSize, 0, -y * CellSize, Space.Self);// 위에서 로컬로테이션을 180도 돌렸기 때문에 역방향으로 계산
 
                 int index = (y * width) + x;
                 CellVisualizer cellVisualizer = cell.GetComponent<CellVisualizer>();
@@ -101,6 +110,7 @@ public class MazeVisualizer : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             Cell cell = cells[i];
+            cell.ResetPath();
             cell.on_RefreshWall = null;
             cell.Path = 0;
             //x, y 는 생성시 초기화되기 때문에 생략
@@ -108,6 +118,8 @@ public class MazeVisualizer : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(false);
         }
         Cells = null;//셀의 배열을 null 로 만들기
+        connectOrder.Clear();
+        progress = 0;
     }
     public void AddToConnectOrder(Cell from, Cell to)
     {
