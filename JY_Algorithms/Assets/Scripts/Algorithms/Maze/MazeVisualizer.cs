@@ -18,6 +18,7 @@ public class MazeVisualizer : MonoBehaviour
     }
     public virtual void MakeBoard(int x, int y)
     {
+   
     }
     public virtual void InitBoard()
     {

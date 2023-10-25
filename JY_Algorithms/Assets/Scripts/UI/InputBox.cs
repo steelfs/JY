@@ -12,6 +12,11 @@ public enum InputBox_State
     Loading,
     LoadComplete
 }
+public enum MazeType
+{
+    None,
+    BackTracking,
+}
 public class InputBox : MonoBehaviour
 {
     InputBox_State state;
@@ -24,14 +29,64 @@ public class InputBox : MonoBehaviour
             switch (state)
             {
                 case InputBox_State.Standby:
+                    makeBoard_Button.interactable = true;
+                    makeMaze_Button.interactable = false;
+                    destroy_Button.interactable = false;
+                    startPoint_Button.interactable = false;
+                    prev_Button.interactable = false;
+                    play_Button.interactable = false;
+                    next_Button.interactable = false;
+                    endPoint_Button.interactable = false;
                     break;
                 case InputBox_State.Loading:
+                    makeBoard_Button.interactable = true;
+                    makeMaze_Button.interactable = false;
+                    destroy_Button.interactable = false;
+                    startPoint_Button.interactable = false;
+                    prev_Button.interactable = false;
+                    play_Button.interactable = false;
+                    next_Button.interactable = false;
+                    endPoint_Button.interactable = false;
                     break;
                 case InputBox_State.LoadComplete:
+                    makeBoard_Button.interactable = false;
+                    makeMaze_Button.interactable = true;
+                    destroy_Button.interactable = true;
+                    startPoint_Button.interactable = true;
+                    prev_Button.interactable = true;
+                    play_Button.interactable = true;
+                    next_Button.interactable = true;
+                    endPoint_Button.interactable = true;
                     break;
                 default:
                     break;
             }
+        }
+    }
+
+    MazeType mazeType;
+    public MazeType MazeType
+    {
+        get { return mazeType; }
+        set 
+        {
+            mazeType = value;
+            switch (mazeType)
+            {
+                case MazeType.None:
+                    on_MakeBoard = null;
+                    on_ClearBoard = null;
+                    on_MakeMaze = null;
+                    break;
+                case MazeType.BackTracking:
+                    on_MakeBoard = Make_BackTracking_Board;
+                    on_ClearBoard = ClearBoard_Recursive_BackTracking;
+                    on_MakeMaze = MakeMaze_BackTracking;
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
     BackTrackingVisualizer backTrackingVisualizer;
@@ -42,7 +97,7 @@ public class InputBox : MonoBehaviour
     TextMeshProUGUI placeHolder_Y;
 
     TMP_Dropdown Select_DropDown;
-    Button generate_Button;
+    Button makeBoard_Button;
     Button destroy_Button;
     Button makeMaze_Button;
     Button startPoint_Button;
@@ -67,17 +122,25 @@ public class InputBox : MonoBehaviour
         Select_DropDown.onValueChanged.AddListener(DropDownValueChange);
         destroy_Button = transform.GetChild(5).GetComponent<Button>();
         destroy_Button.onClick.AddListener(() => on_ClearBoard());
-        generate_Button = transform.GetChild(4).GetComponent<Button>();
-        generate_Button.onClick.AddListener(() => on_MakeBoard());
+        makeBoard_Button = transform.GetChild(4).GetComponent<Button>();
+        makeBoard_Button.onClick.AddListener(() => on_MakeBoard());
         makeMaze_Button = transform.GetChild(7).GetComponent<Button>();
         makeMaze_Button.onClick.AddListener(() => on_MakeMaze());
 
+        Transform buttons = transform.parent.GetChild(0);
+        startPoint_Button = buttons.GetChild(0).GetComponent<Button>();
+        prev_Button = buttons.GetChild(1).GetComponent<Button>();
+        play_Button = buttons.GetChild(2).GetComponent<Button>();
+        next_Button = buttons.GetChild(3).GetComponent<Button>();
+        endPoint_Button = buttons.GetChild(4).GetComponent<Button>();
 
     }
     private void Start()
     {
         backTrackingVisualizer = GameManager.BackTrackingVisualizer;
         DropDownValueChange(0);
+        State = InputBox_State.Standby;
+        MazeType = MazeType.BackTracking;
     }
    
     void Make_BackTracking_Board()
@@ -86,14 +149,19 @@ public class InputBox : MonoBehaviour
         {
             backTrackingVisualizer.MakeBoard(GetInput_X(), GetInput_Y());
         }
+        State = InputBox_State.LoadComplete;
     }
     void MakeMaze_BackTracking()
     {
         backTrackingVisualizer.backTracking.MakeMaze();
+        //버튼 비활성화 후 
+        // 클리어보드에서 활성화
+
     }
     void ClearBoard_Recursive_BackTracking()
     {
         backTrackingVisualizer.DestroyBoard();
+        State = InputBox_State.Standby;
     }
     void DropDownValueChange(int value)
     {
