@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
+public enum GunType
+{
+    Revolver,
+    Shotgun,
+    AssaultRifle
+}
 public class GunBase : MonoBehaviour
 {
     /// <summary>
@@ -45,7 +51,7 @@ public class GunBase : MonoBehaviour
     /// 남은 총알 수
     /// </summary>
     protected int bulletCount;
-    protected int BulletCount
+    public int BulletCount
     {
         get => bulletCount;
         set
@@ -57,40 +63,36 @@ public class GunBase : MonoBehaviour
     public Action<int> on_BulletCountChange;
     public Action<float> on_FireRecoil;
 
-    VisualEffect muzzleEffect;
+    protected VisualEffect muzzleEffect;
     int onFireID;
 
     protected Transform fireTransform;
     public Transform FireTransform => fireTransform;
 
-
+    GunType gunType;
 
     private void Awake()
     {
         muzzleEffect = GetComponentInChildren<VisualEffect>();
         onFireID = Shader.PropertyToID("OnFire");
-       
     }
     void Initialize()
     {
         BulletCount = clipSize;
         isFireReady = true;
     }
-    public void Fire()
+    public void Fire(bool isStart = true)
     {
         if(isFireReady && bulletCount > 0 )
         {
-            isFireReady = false;
-
-            muzzleEffect.SendEvent(onFireID);
-            BulletCount--;
-
-            FireProcess();
-
-            StartCoroutine(FireReady());
+            FireProcess(isStart);
         }
     }
+    protected void MuzzleEffect()
+    {
+        muzzleEffect.SendEvent(onFireID);
 
+    }
     IEnumerator FireReady()
     {        
         yield return new WaitForSeconds(1/fireRate);
@@ -115,8 +117,13 @@ public class GunBase : MonoBehaviour
         Debug.Log($"전체 진행 시간 : {endTime - startTime}");
     }
 
-    protected virtual void FireProcess()
+    protected virtual void FireProcess(bool isFireStart = true)
     {
+        muzzleEffect.SendEvent(onFireID);
+        BulletCount--;
+        isFireReady = false;
+        StartCoroutine(FireReady());
+
     }
 
     protected void FireRecoil()
@@ -128,16 +135,15 @@ public class GunBase : MonoBehaviour
   
     public void Equip()
     {
-        fireTransform = GameManager.Inst.Player.transform.GetChild(0);
         Initialize();
     }
 
     protected Vector3 GetFireDirection()
     {
-        Vector3 result = fireTransform.forward;
+        Vector3 result = GameManager.Inst.Player.FireTransform.forward;
 
-        result = Quaternion.AngleAxis(UnityEngine.Random.Range(-spread, spread), fireTransform.right) * result; // 위 아래로 회전        
-        result = Quaternion.AngleAxis(UnityEngine.Random.Range(0.0f, 360.0f), fireTransform.forward) * result;  // forward 축을 기준으로 0~360사이로 회전
+        result = Quaternion.AngleAxis(UnityEngine.Random.Range(-spread, spread), GameManager.Inst.Player.FireTransform.right) * result; // 위 아래로 회전        
+        result = Quaternion.AngleAxis(UnityEngine.Random.Range(0.0f, 360.0f), GameManager.Inst.Player.FireTransform.forward) * result;  // forward 축을 기준으로 0~360사이로 회전
 
         //fireDir = result;
 
@@ -150,7 +156,7 @@ public class GunBase : MonoBehaviour
         if (fireTransform != null)
         {
             Gizmos.color = Color.white;
-            Gizmos.DrawLine(fireTransform.position, fireTransform.position + fireTransform.forward * range);
+            Gizmos.DrawLine(GameManager.Inst.Player.FireTransform.position, GameManager.Inst.Player.FireTransform.position + GameManager.Inst.Player.FireTransform.forward * range);
 
             //Gizmos.color = Color.red;
             //Gizmos.DrawLine(fireTransform.position, fireTransform.position + fireDir * range);

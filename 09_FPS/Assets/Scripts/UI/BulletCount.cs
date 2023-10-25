@@ -14,7 +14,11 @@ public class BulletCount : MonoBehaviour
     }
     private void Start()
     {
-        GameManager.Inst.Player.on_BulletCountChange = OnBulletCountChange;
+        GameManager.Inst.Player.Gun.on_BulletCountChange = OnBulletCountChange;
+        foreach(var gun in GameManager.Inst.Player.Guns)
+        {
+            gun.on_BulletCountChange += OnBulletCountChange;
+        }
     }
 
     private void OnBulletCountChange(int count)

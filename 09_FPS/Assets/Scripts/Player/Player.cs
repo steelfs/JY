@@ -7,27 +7,51 @@ public class Player : MonoBehaviour
 {
     GameObject gunCamera;
 
-    GunBase gun;
-    public GunBase Gun => gun;
+    GunBase activeGun;
+    GunBase defaultGun;
+    GunBase[] guns;
+    public GunBase[] Guns => guns;
+    public GunBase Gun => activeGun;
     StarterAssets.FirstPersonController controller;
 
+    public IEnumerator rifleFire;
+
+    Transform fireTransform;
+    public Transform FireTransform => fireTransform;
     public Action<int> on_BulletCountChange
     {
-        get => gun.on_BulletCountChange;
-        set => gun.on_BulletCountChange = value;
+        get => activeGun.on_BulletCountChange;
+        set => activeGun.on_BulletCountChange = value;
     } 
     private void Awake()
     {
         gunCamera = transform.GetChild(2).gameObject;
-        gun = GetComponentInChildren<GunBase>();
+        activeGun = GetComponentInChildren<GunBase>();
 
+        fireTransform = transform.GetChild(0);
         controller = GetComponent<StarterAssets.FirstPersonController>();
+        rifleFire = RifleFireCoroutine();
+        defaultGun = transform.GetChild(3).GetComponent<GunBase>();
+
+        activeGun = defaultGun;
+
+        guns = transform.GetChild(4).GetComponentsInChildren<GunBase>(true);
     }
 
     private void Start()
     {
-        gun.Equip();
-        gun.on_FireRecoil += GunFireRecoil;
+        Crosshair crosshair = FindAnyObjectByType<Crosshair>();
+
+        activeGun.Equip();
+        activeGun.on_FireRecoil += GunFireRecoil;
+        activeGun.on_FireRecoil += (expand) => crosshair.Expend(expand * 10);
+
+        foreach(var gun in guns)
+        {
+            gun.on_FireRecoil += GunFireRecoil;
+            gun.on_FireRecoil += (expand) => crosshair.Expend(expand * 10);
+        }
+
     }
 
     private void GunFireRecoil(float recoil)
@@ -44,16 +68,67 @@ public class Player : MonoBehaviour
         gunCamera.SetActive(show);
     }
 
-    public void GunFire()
+    public void GunFire(bool isFireStart = true)
     {
-        gun.Fire();
+        activeGun.Fire(isFireStart);
+    }
+
+    IEnumerator RifleFireCoroutine()
+    {
+        while (true)
+        {
+            activeGun.Fire();
+            yield return null;
+        }
     }
     public void RevolverReLoad()
     {
-        Revolver revolver = gun as Revolver;
+        Revolver revolver = activeGun as Revolver;
         if (revolver != null)
         {
             revolver.ReLoad();
+        }
+    }
+
+    public void GunChange(GunType type)
+    {
+        switch (type)
+        {
+            case GunType.Revolver:
+                activeGun = defaultGun;
+                activeGun.BulletCount = activeGun.clipSize;
+                defaultGun.gameObject.SetActive(true);
+                foreach(var gun in guns)
+                {
+                    gun.gameObject.SetActive(false);
+                }
+                break;
+            case GunType.Shotgun:
+                activeGun = guns[(int)GunType.Shotgun - 1];
+                activeGun.BulletCount = activeGun.clipSize;
+                activeGun.gameObject.SetActive(true);
+                foreach (var gun in guns)
+                {
+                    if (gun != activeGun)
+                    {
+                        gun.gameObject.SetActive(false);
+                    }
+                }
+                break;
+            case GunType.AssaultRifle:
+                activeGun = guns[(int)GunType.AssaultRifle - 1];
+                activeGun.BulletCount = activeGun.clipSize;
+                activeGun.gameObject.SetActive(true);
+                foreach (var gun in guns)
+                {
+                    if (gun != activeGun)
+                    {
+                        gun.gameObject.SetActive(false);
+                    }
+                }
+                break;
+            default:
+                break;
         }
     }
 }

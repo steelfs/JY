@@ -8,9 +8,10 @@ public class Revolver : GunBase
     WaitForSeconds reLoadWait;
 
     public bool isReLoading = false;
-    protected override void FireProcess()
+    protected override void FireProcess(bool isFireStart = true)
     {
-        Ray ray = new(fireTransform.position, GetFireDirection());
+        base.FireProcess();
+        Ray ray = new(GameManager.Inst.Player.FireTransform.position, GetFireDirection());
         if( Physics.Raycast(ray, out RaycastHit hitInfo, range) )
         {
             Vector3 reflect = Vector3.Reflect(ray.direction, hitInfo.normal);
