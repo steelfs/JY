@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 
     GunBase gun;
     public GunBase Gun => gun;
+    StarterAssets.FirstPersonController controller;
 
     public Action<int> on_BulletCountChange
     {
@@ -20,13 +21,18 @@ public class Player : MonoBehaviour
         gunCamera = transform.GetChild(2).gameObject;
         gun = GetComponentInChildren<GunBase>();
 
-       //MeshRenderer render = gun.transform.GetChild(0).GetComponent<MeshRenderer>();
-       //render.enabled = false;
+        controller = GetComponent<StarterAssets.FirstPersonController>();
     }
 
     private void Start()
     {
         gun.Equip();
+        gun.on_FireRecoil += GunFireRecoil;
+    }
+
+    private void GunFireRecoil(float recoil)
+    {
+        controller.fireRecoil(recoil);
     }
 
     /// <summary>
