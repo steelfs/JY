@@ -30,6 +30,31 @@ public class MazeVisualizer : MonoBehaviour
             cell.ResetPath();
         }
     }
+    public void PlayMaze()
+    {
+        InvokeRepeating("MoveToNext", 0f, 0.2f);
+    }
+    public void StopMaze()
+    {
+        CancelInvoke();
+    }
+    public void MoveToStartPoint()
+    {
+        foreach(var (item1, item2) in connectOrder)
+        {
+            DisconnectPath(item1, item2);
+            progress = 0;
+        }
+    }
+    public void MoveToEndPoint()
+    {
+        foreach (var (item1, item2) in connectOrder)
+        {
+            ConnectPath(item1, item2);
+            progress = cells.Length - 2;
+        }
+    }
+
     public void MoveToNext()
     {
         ConnectPath(connectOrder[progress].Item1, connectOrder[progress].Item2);
@@ -37,7 +62,8 @@ public class MazeVisualizer : MonoBehaviour
     }
     public void MoveToPrev()
     {
-
+        DisconnectPath(connectOrder[progress].Item1, connectOrder[progress].Item2);
+        progress = Mathf.Max(progress - 1, 0);
     }
     public void ConnectPath(Cell from, Cell to)
     {
@@ -78,15 +104,15 @@ public class MazeVisualizer : MonoBehaviour
             from.CloseWall(Direction.West);
             to.CloseWall(Direction.East);
         }
-        else if (diffY > 0)// from = 拉率, to = 酒阀率
-        {
-            from.CloseWall(Direction.South);
-            to.CloseWall(Direction.North);
-        }
-        else if (diffY < 0)// from = 酒阀率, to = 拉率
+        else if (diffY > 0)// from = 酒阀率, to = 拉率
         {
             from.CloseWall(Direction.North);
             to.CloseWall(Direction.South);
+        }
+        else if (diffY < 0)// from = 拉率, to = 酒阀率
+        {
+            from.CloseWall(Direction.South);
+            to.CloseWall(Direction.North);
         }
     }
     public void RenderBoard(int width, int height, Cell[] cells)// delegate甫 楷搬窍扁 困秦 cell狼 硅凯档 罐绰促.

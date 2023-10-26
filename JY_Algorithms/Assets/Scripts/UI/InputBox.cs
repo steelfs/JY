@@ -95,6 +95,7 @@ public class InputBox : MonoBehaviour
     TextMeshProUGUI placeHolder_X;
     TMP_InputField input_Y;
     TextMeshProUGUI placeHolder_Y;
+    TextMeshProUGUI playButtonText;
 
     TMP_Dropdown Select_DropDown;
     Button makeBoard_Button;
@@ -110,6 +111,7 @@ public class InputBox : MonoBehaviour
     Action on_MakeBoard;
     Action on_ClearBoard;
     Action on_MakeMaze;
+    Action on_PlayMaze;
     private void Awake()
     {
         input_X = transform.GetChild(2).GetComponent<TMP_InputField>();
@@ -135,14 +137,33 @@ public class InputBox : MonoBehaviour
         endPoint_Button = buttons.GetChild(4).GetComponent<Button>();
 
         next_Button.onClick.AddListener(MoveToNext);
+        prev_Button.onClick.AddListener(MoveToPrev);
+        startPoint_Button.onClick.AddListener(MoveToStartPoint);
+        playButtonText = play_Button.GetComponentInChildren<TextMeshProUGUI>();
 
+        endPoint_Button.onClick.AddListener(MoveToEndPoint);
+        play_Button.onClick.AddListener(() => on_PlayMaze());
+
+        on_PlayMaze = PlayMaze;
     }
     private void Start()
     {
         State = InputBox_State.Standby;
         DropDownValueChange(0);// 초기상태 BackTracking으로 설정
     }   
-   
+    void PlayMaze()
+    {
+        mazeVisualizer.PlayMaze();
+        on_PlayMaze = StopMaze;
+        playButtonText.text = "∥";
+    }
+    void StopMaze()
+    {
+        mazeVisualizer.StopMaze();
+        on_PlayMaze = PlayMaze;
+        playButtonText.text = "▶";
+    }
+
     void Make_BackTracking_Board()
     {
         if (!mazeVisualizer.IsExistCells)
@@ -161,6 +182,18 @@ public class InputBox : MonoBehaviour
     void MoveToNext()
     {
         mazeVisualizer.MoveToNext();
+    }
+    void MoveToPrev()
+    {
+        mazeVisualizer.MoveToPrev();
+    }
+    void MoveToStartPoint()
+    {
+        mazeVisualizer.MoveToStartPoint();
+    }
+    void MoveToEndPoint()
+    {
+        mazeVisualizer.MoveToEndPoint();
     }
     void ClearBoard()
     {
