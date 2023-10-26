@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Player : MonoBehaviour
 {
@@ -18,11 +19,23 @@ public class Player : MonoBehaviour
 
     Transform fireTransform;
     public Transform FireTransform => fireTransform;
-    public Action<int> on_BulletCountChange
+   
+    public void SetBulletCountChangeDelegate(Action<int> callBack)
     {
-        get => activeGun.on_BulletCountChange;
-        set => activeGun.on_BulletCountChange = value;
-    } 
+        defaultGun.on_BulletCountChange = callBack;
+        foreach (var gun in guns)
+        {
+            gun.on_BulletCountChange = callBack;
+            gun.on_BulletCountChange += OnAmmoDepleted;
+        }
+    }
+    void OnAmmoDepleted(int ammo)
+    {
+        if (ammo <= 0 && activeGun != defaultGun)
+        {
+            GunChange(GunType.Revolver);
+        }
+    }
     private void Awake()
     {
         gunCamera = transform.GetChild(2).gameObject;
@@ -36,6 +49,10 @@ public class Player : MonoBehaviour
         activeGun = defaultGun;
 
         guns = transform.GetChild(4).GetComponentsInChildren<GunBase>(true);
+        foreach (var gun in guns)
+        {
+
+        }
     }
 
     private void Start()

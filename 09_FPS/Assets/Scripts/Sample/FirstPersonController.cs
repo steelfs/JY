@@ -149,7 +149,7 @@ namespace StarterAssets
 				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
 				// Update Cinemachine camera target pitch
-				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(CinemachineCameraTarget.transform.localRotation.x +_cinemachineTargetPitch, 0.0f, 0.0f);
+				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
                 //CinemachineCameraTarget.transform.Rotate(_cinemachineTargetPitch, 0.0f, 0.0f);
 
                 // rotate the player left and right
@@ -169,7 +169,7 @@ namespace StarterAssets
 			while (elapsedTime < 1)
 			{
 				float angle = -fireUp.Evaluate(elapsedTime) * recoil;
-				_cinemachineTargetPitch =  angle;
+				_cinemachineTargetPitch += angle;
                 //fireTransform.Rotate(angle, 0, 0);
 
                 elapsedTime += (Time.deltaTime / upTime);
@@ -182,7 +182,7 @@ namespace StarterAssets
 			while (elapsedTime < 1)
 			{
 				float angle = fireDown.Evaluate(elapsedTime) * recoil * (recoil * 0.05f);  // (recoil * 0.05f)를 곱한 이유는 내려올때 곱하는 회수가 많아 결과값이 증폭되고 있어서 그것을 줄이기 위해 추가          
-                _cinemachineTargetPitch = angle;
+                _cinemachineTargetPitch += angle;
                 //fireTransform.Rotate(angle, 0, 0);
 
                 elapsedTime += (Time.deltaTime / downTime);
