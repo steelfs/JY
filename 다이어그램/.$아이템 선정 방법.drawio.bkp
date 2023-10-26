@@ -1,0 +1,19 @@
+<mxfile host="Electron" modified="2023-10-25T23:22:55.669Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="qkxQEaDCFqjDbWFMFbLG" version="22.0.2" type="device">
+  <diagram name="페이지-1" id="NRaMpD1OskXVeeqSX3c8">
+    <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="nCZVBXaMxHB6TxtYE7AP-1" value="아이디어, 아이템 선정 프로세스" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nCZVBXaMxHB6TxtYE7AP-2" value="문제점이 있는 곳을 찾는다&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="480" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nCZVBXaMxHB6TxtYE7AP-3" value="그 문제를&amp;nbsp;&lt;br&gt;현제, 과거에 유행했던 게임이나, 소셜서비스의 문제해결방식과 하나씩 융합해서 생각해본다." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="274" y="570" width="280" height="150" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

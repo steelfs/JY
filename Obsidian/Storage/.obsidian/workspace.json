@@ -8,22 +8,32 @@
         "type": "tabs",
         "children": [
           {
-            "id": "b2c97b02d85c82fc",
+            "id": "3e75ac2fa3e8c9f2",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "canvas",
+              "state": {
+                "file": "Algorithm/Maze_Wilson.canvas",
+                "viewState": {
+                  "x": 0,
+                  "y": 0,
+                  "zoom": 0
+                }
+              }
             }
           },
           {
-            "id": "68f660299bbe19d1",
+            "id": "5f6e59090f461c19",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "무제 파일.md",
-                "mode": "source",
-                "source": false
+                "file": "Algorithm/Maze_BackTracking.canvas",
+                "viewState": {
+                  "x": -344,
+                  "y": -42,
+                  "zoom": 0
+                }
               }
             }
           }
@@ -94,7 +104,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "무제 파일.md",
+                "file": "Algorithm/Maze_BackTracking.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +121,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "무제 파일.md",
+                "file": "Algorithm/Maze_BackTracking.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +144,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "무제 파일.md"
+                "file": "Algorithm/Maze_BackTracking.canvas"
               }
             }
           }
@@ -155,8 +165,17 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "68f660299bbe19d1",
+  "active": "9fb51d640cee9908",
   "lastOpenFiles": [
-    "무제 파일.md"
+    "Algorithm/Maze_Wilson.canvas",
+    "Algorithm",
+    "Algorithm/Maze_BackTracking.canvas",
+    "아이템 선정 과정.canvas",
+    "이론수업.md",
+    "프로그램 구현 순서.md",
+    "아이템 선정 과정.md",
+    "null.png.md",
+    "Attached_Resouces/null.png",
+    "Attached_Resouces"
   ]
 }
