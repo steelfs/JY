@@ -230,9 +230,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ReLoad"",
+                    ""name"": ""Reload"",
                     ""type"": ""Button"",
-                    ""id"": ""1e1d23ac-dd02-4bf6-b58f-f70c56e93d1c"",
+                    ""id"": ""0de33761-a250-4866-90ea-8918161219d8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -440,12 +440,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ae4d66bc-210c-47ae-ac11-7b6fc0301cda"",
+                    ""id"": ""ee1b0894-4896-420b-97c9-fcc0abee18ce"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
-                    ""action"": ""ReLoad"",
+                    ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -488,7 +488,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
-        m_Player_ReLoad = m_Player.FindAction("ReLoad", throwIfNotFound: true);
+        m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -650,7 +650,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Zoom;
-    private readonly InputAction m_Player_ReLoad;
+    private readonly InputAction m_Player_Reload;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -661,7 +661,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
-        public InputAction @ReLoad => m_Wrapper.m_Player_ReLoad;
+        public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -689,9 +689,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Zoom.started += instance.OnZoom;
             @Zoom.performed += instance.OnZoom;
             @Zoom.canceled += instance.OnZoom;
-            @ReLoad.started += instance.OnReLoad;
-            @ReLoad.performed += instance.OnReLoad;
-            @ReLoad.canceled += instance.OnReLoad;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -714,9 +714,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Zoom.started -= instance.OnZoom;
             @Zoom.performed -= instance.OnZoom;
             @Zoom.canceled -= instance.OnZoom;
-            @ReLoad.started -= instance.OnReLoad;
-            @ReLoad.performed -= instance.OnReLoad;
-            @ReLoad.canceled -= instance.OnReLoad;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -761,6 +761,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
-        void OnReLoad(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

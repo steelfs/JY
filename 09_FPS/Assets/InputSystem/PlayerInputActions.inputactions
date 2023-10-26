@@ -208,9 +208,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ReLoad",
+                    "name": "Reload",
                     "type": "Button",
-                    "id": "1e1d23ac-dd02-4bf6-b58f-f70c56e93d1c",
+                    "id": "0de33761-a250-4866-90ea-8918161219d8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -418,12 +418,12 @@
                 },
                 {
                     "name": "",
-                    "id": "ae4d66bc-210c-47ae-ac11-7b6fc0301cda",
+                    "id": "ee1b0894-4896-420b-97c9-fcc0abee18ce",
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "ReLoad",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

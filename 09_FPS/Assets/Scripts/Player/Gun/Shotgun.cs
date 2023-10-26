@@ -8,19 +8,21 @@ public class Shotgun : GunBase
 
     protected override void FireProcess(bool isFireStart = true)
     {
-        base.FireProcess();
-        for (int i = 0; i < pellet; i++)
-        {
-            Ray ray = new(GameManager.Inst.Player.FireTransform.position, GetFireDirection());
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, range))
+        if (isFireStart)
+        {            
+            base.FireProcess(isFireStart);
+
+            for (int i=0;i<pellet; i++)
             {
-                Vector3 reflect = Vector3.Reflect(ray.direction, hitInfo.normal);
-                Factory.Inst.GetBulletHole(hitInfo.point, hitInfo.normal, reflect);
-                //bulletHole.transform.position = hitInfo.point;
-                //bulletHole.transform.forward = -hitInfo.normal;
+                Ray ray = new(fireTransform.position, GetFireDirection());
+                if (Physics.Raycast(ray, out RaycastHit hitInfo, range))
+                {
+                    Vector3 reflect = Vector3.Reflect(ray.direction, hitInfo.normal);
+                    Factory.Inst.GetBulletHole(hitInfo.point, hitInfo.normal, reflect);
+                }
             }
+
+            FireRecoil();
         }
-        FireRecoil();
     }
-    
 }

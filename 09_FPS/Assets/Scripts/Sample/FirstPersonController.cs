@@ -65,9 +65,10 @@ namespace StarterAssets
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 
-
+		// 총기 반동용 커브
         public AnimationCurve fireUp;
         public AnimationCurve fireDown;
+
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
         private PlayerInput _playerInput;
@@ -136,13 +137,14 @@ namespace StarterAssets
 		private void CameraRotation()
 		{
 			// if there is an input
-			//if (_input.look.sqrMagnitude >= _threshold) // 움직임 양이_threshold 보다 크면
-            {
+			//if (_input.look.sqrMagnitude >= _threshold)	// 임계값 체크
+			{
 				//Don't multiply mouse input by Time.deltaTime(마우스는 델타타임 사용 안함)
 				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
+                // 총에 반동이 있을 때 _cinemachineTargetPitch를 변경해야 한다.
 
-                _cinemachineTargetPitch += _input.look.y  * RotationSpeed * deltaTimeMultiplier;
+                _cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
 				_rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
 
 				// clamp our pitch rotation
@@ -150,27 +152,26 @@ namespace StarterAssets
 
 				// Update Cinemachine camera target pitch
 				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
-                //CinemachineCameraTarget.transform.Rotate(_cinemachineTargetPitch, 0.0f, 0.0f);
 
-                // rotate the player left and right
-                transform.Rotate(Vector3.up * _rotationVelocity);
+				// rotate the player left and right
+				transform.Rotate(Vector3.up * _rotationVelocity);
 			}
 		}
-		public void fireRecoil(float recoil)
+
+		public void FireRecoil(float recoil)
 		{
 			StartCoroutine(FireRecoilCoroutine(recoil));
 		}
-		IEnumerator FireRecoilCoroutine(float recoil)
-		{
-			float upTime = 0.05f;
-			float elapsedTime = 0.0f;
 
+        IEnumerator FireRecoilCoroutine(float recoil)
+        {
+            float upTime = 0.05f;
+            float elapsedTime = 0.0f;
 
 			while (elapsedTime < 1)
 			{
 				float angle = -fireUp.Evaluate(elapsedTime) * recoil;
 				_cinemachineTargetPitch += angle;
-                //fireTransform.Rotate(angle, 0, 0);
 
                 elapsedTime += (Time.deltaTime / upTime);
 
@@ -183,14 +184,15 @@ namespace StarterAssets
 			{
 				float angle = fireDown.Evaluate(elapsedTime) * recoil * (recoil * 0.05f);  // (recoil * 0.05f)를 곱한 이유는 내려올때 곱하는 회수가 많아 결과값이 증폭되고 있어서 그것을 줄이기 위해 추가          
                 _cinemachineTargetPitch += angle;
-                //fireTransform.Rotate(angle, 0, 0);
 
                 elapsedTime += (Time.deltaTime / downTime);
 
 				yield return null;
 			}
+
 		}
-		private void Move()
+
+        private void Move()
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;

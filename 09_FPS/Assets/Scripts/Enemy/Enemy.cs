@@ -5,49 +5,33 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    //ÇÃ·¹ÀÌ¾îÀÇ ÃÑ¿¡ ¸ÂÀ¸¸é Á×´Â´Ù.
-    public float hp = 30;
+    // 1. í”Œë ˆì´ì–´ì˜ ì´ì— ë§žìœ¼ë©´ ì£½ëŠ”ë‹¤.
+
+    public float hp = 30.0f;
     public float HP
     {
         get => hp;
         set
         {
             hp = value;
-            if (hp <= 0)
+            if(hp <= 0)
             {
                 Die();
             }
         }
     }
-    public float maxHp = 30;
+    public float maxHp = 30.0f;
 
-    public Action<Enemy> on_Die;
+    public Action<Enemy> onDie;
 
     private void OnEnable()
     {
         HP = maxHp;
     }
-    void Die()
+
+    private void Die()
     {
-        on_Die?.Invoke(this);
-        this.gameObject.SetActive(false);
+        onDie?.Invoke(this);
+        gameObject.SetActive(false);
     }
-
-    //public Action on_DecreaseEnemyCount;
-    //protected override void OnDisable()
-    //{
-    //    on_DecreaseEnemyCount?.Invoke();
-    //    base.OnDisable();
-    //}
-    //private void Awake()
-    //{
-    //}
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        this.gameObject.SetActive(false);
-    //    }
-    //}
 }

@@ -6,20 +6,20 @@ using UnityEngine;
 
 public class BulletCount : MonoBehaviour
 {
-    TextMeshProUGUI bulletCount;
+    TextMeshProUGUI bullet;
 
     private void Awake()
     {
-        bulletCount = GetComponent<TextMeshProUGUI>();
+        bullet = GetComponent<TextMeshProUGUI>();
     }
+
     private void Start()
     {
-        GameManager.Inst.Player.SetBulletCountChangeDelegate(OnBulletCountChange);
-        GameManager.Inst.Player.GunChange(GunType.Revolver);
+        GameManager.Inst.Player.AddBulletCountChangeDelegate(OnBulletCountChange);
     }
 
     private void OnBulletCountChange(int count)
     {
-        bulletCount.text = count.ToString();
+        bullet.text = count.ToString();
     }
 }

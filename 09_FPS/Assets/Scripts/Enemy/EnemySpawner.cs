@@ -4,43 +4,48 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    //Àû »ı¼º
-    // Ç×»ó »ı¼ºµÇ¾îÀÖ´Â ÀûÀº 10¸íÀ» À¯ÁöÇØ¾ß ÇÑ´Ù.
-    // ÇÃ·¹ÀÌ¾î°¡ ÀûÀ» Á×ÀÌ¸é ÇÃ·¹ÀÌ¾î·ÎºÎÅÍ ¶³¾îÁø ·£´ıÇÑ À§Ä¡¿¡ 1ÃÊ µÚ »ı¼º
+    public int mazeWidth = 10;
+    public int mazeHeight = 10;
 
     public int enemyCount = 10;
     public GameObject enemyPrefab;
 
-    public int mazeWidth = 10;
-    public int mazeHeight = 10;
-
     private void Start()
     {
-        for (int i = 0; i < enemyCount; i++)
+        Enemy testEnemy = null;
+        for(int i = 0; i < enemyCount; i++)
         {
-            GameObject obj = Instantiate(enemyPrefab, this.transform);
+            GameObject obj =  Instantiate(enemyPrefab, this.transform);
             obj.name = $"Enemy_{i}";
             Enemy enemy = obj.GetComponent<Enemy>();
-            enemy.on_Die += (target) =>
+            enemy.onDie += (target) =>
             {
-                StartCoroutine(ReSpawn(target));
+                StartCoroutine(Respawn(target));
             };
+
             enemy.transform.position = GetRandomPos();
+            testEnemy = enemy;
         }
+
+        testEnemy.transform.position = new(5.5f, 0, -2.5f);
     }
 
-    Vector3 GetRandomPos()
+    private Vector3 GetRandomPos()
     {
         int size = CellVisualizer.CellSize;
-        return new(Random.Range(0, mazeWidth) * size + 2.5f, 0, -Random.Range(0, mazeHeight) * size - 2.5f);
+        return new( Random.Range(0, mazeWidth) * size + 2.5f, 0.0f, -Random.Range(0, mazeHeight) * size - 2.5f);
     }
 
-    IEnumerator ReSpawn(Enemy target)
+    IEnumerator Respawn(Enemy target)
     {
         yield return new WaitForSeconds(1);
 
         target.transform.position = GetRandomPos();
         target.gameObject.SetActive(true);
-
     }
+
+    // 1. ì ì„ ìƒì„±
+    // 2. í•­ìƒ ìƒì„±ë˜ì–´ ìˆëŠ” ì ì€ 10ëª… ìœ ì§€
+    //  2.1. ì‹œì‘í•  ë•Œ 10ë§ˆë¦¬ ìƒì„±
+    //  2.2. í”Œë ˆì´ì–´ê°€ ì ì„ ì£½ì´ë©´ í”Œë ˆì´ì–´ë¡œ ë¶€í„° ë–¨ì–´ì§„ ëœë¤í•œ ìœ„ì¹˜ì— 1ì´ˆ ë’¤ ìƒì„±
 }

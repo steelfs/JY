@@ -36,10 +36,6 @@ public class MazeGenerator
     /// <param name="to">도착셀</param>
     protected void ConnectPath(Cell from, Cell to)
     {
-        if (to == null)
-        {
-            return;
-        }
         Vector2Int diff = new(to.X - from.X, to.Y - from.Y);
 
         if(diff.x > 0)

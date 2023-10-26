@@ -1,153 +1,105 @@
-﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
-
 
 public class WilsonCell : Cell
 {
-    public int serial = 0;
-    const int NotSet = -1;
-    public WilsonCell next = null;
-    public WilsonCell prev = null;
+    /// <summary>
+    /// 경로가 만들어졌을때 다음 셀의 참조.
+    /// </summary>
+    public WilsonCell next;
+
+    /// <summary>
+    /// 이 셀이 미로에 포함되어 있는지 설정하고 확인하는 함수
+    /// </summary>
+    public bool isMazeMember;
+
     public WilsonCell(int x, int y) : base(x, y)
     {
-        serial = NotSet;
+        next = null;
+        isMazeMember = false;
     }
 }
+
 public class Wilson : MazeGenerator
 {
-    readonly int[,] dir = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };// 전역변수로 빼둬도 괜찮을 것같다.
+    /// <summary>
+    /// 4방향 위치값(재활용 용도)
+    /// </summary>
+    readonly Vector2Int[] dirs = { new(0, 1), new(1, 0), new(0, -1), new(-1, 0) };
 
     protected override void OnSpecificAlgorithmExcute()
     {
-        //생성 후 시리얼 부여 
-        Dictionary<int, WilsonCell> confirmedList = new Dictionary<int, WilsonCell>();
-        int serial = 0;
-
-        for (int y = 0; y < height; y++)
+        // 모든 셀을 만들기
+        for(int y = 0;y<height;y++)
         {
-            for (int x = 0; x < width; x++)
+            for(int x = 0;x<width;x++)
             {
-                WilsonCell cell = new WilsonCell(x,y);
-                cells[GridToIndex(x, y)] = cell;
-                cell.serial = serial++;
+                cells[GridToIndex(x,y)] = new WilsonCell(x,y);
             }
-        }
-        WilsonCell arrived = cells[UnityEngine.Random.Range(0, cells.Length)] as WilsonCell;
-        confirmedList[arrived.serial] = arrived;// 확정된 리스트에 추가
-           
-        while(confirmedList.Count < cells.Length)
-        {
-            WilsonCell startCell = GetNewStartPoint(confirmedList);
-            MoveToNext(startCell, confirmedList);
         }
 
-        foreach(WilsonCell cell in confirmedList.Values)
+        // 미로에 포함된 셀을 기록하는 리스트 만들기 과정
+        int[] notInMazeArray = new int[cells.Length];           // 배열 만들고
+        for(int i=0;i<notInMazeArray.Length;i++)
         {
-            if (cell.next != null)
-            {
-                ConnectPath(cell, cell.next);
-            }
+            notInMazeArray[i] = i;                              // 순서대로 번호 넣고
         }
-    }
-  
-    private WilsonCell GetNewStartPoint(Dictionary<int, WilsonCell> Added)//미로에 추가되지 않은 곳 중 랜덤한 셀을 출발지로 리턴
-    {
-        List<WilsonCell> unVisited = new List<WilsonCell>();
-        for (int i = 0; i < cells.Length; i++)
-        {
-            WilsonCell cell = cells[i] as WilsonCell;
-            if (!Added.ContainsKey(cell.serial))//ContainsValue or key 함수는 O(n) 시간복잡도
-            {
-                unVisited.Add(cell);
-            }
-        }
-        return unVisited[UnityEngine.Random.Range(0, unVisited.Count)];
-    }
-    void MoveToNext(WilsonCell current, Dictionary<int, WilsonCell> confirmedList)
-    {
-        Stack<WilsonCell> path = new Stack<WilsonCell>();
-        WilsonCell nextCell = null;
-        path.Push(current);//처음건 무조건 추가
-        while (true)
-        {
-            nextCell = GetNextCell(current);//current를 기준으로 네 방향중 하나를 가져옴
-            if (!IsAddedAtConfirmedList(nextCell, confirmedList))//가져온 셀이  컨펌리스트에 추가되어있지 않으면(도착지가 아니면)
-            {
-                if (!path.Contains(nextCell))//이미 지나온 길이 아니면
-                {
-                    current.next = nextCell;
-                    nextCell.prev = current;
-                    path.Push(nextCell);
-                    current = nextCell;
-                }
-                else//이미 지나온 길이면
-                {
-                    WilsonCell prevCell = current;
-                    while(nextCell != prevCell)// 다음칸으로 이동하려던 셀이 스텍의 이전 셀과 같아질 떄까지 계속 Pop
-                    {
-                        prevCell = path.Pop();//peek으로 빼고 Pop하는것도 고려해볼만 한것같다/
-                        current = prevCell;
-                    }
-                    path.Push(prevCell);// while 루프를 빠져나왔을 때 다시 넣어줘야한다.
-                }
-            }
-            else// 가져온 셀이 확정리스트에 추가되어있을 경우 path를 확정 리스트에 추가하고 루프를 종료한다.
-            {
-                current.next = nextCell;
-                nextCell.prev = current;
-                foreach(WilsonCell cell in path)
-                {
-                    confirmedList.Add(cell.serial, cell);
-                    //기존의 리스트에 추가되어있던것들 중 마지막것의 prev, next가 설정되지 않는 문제가 있다.
-                }
-                break; //while 루프 종료
-                //컨펌에 추가하고 종료
-            }
-        }
-        
-    }
-    WilsonCell GetNextCell(WilsonCell current)
-    {
-        List<WilsonCell> neighbors = new List<WilsonCell>();
+        Util.Shuffle(notInMazeArray);                           // 순서 섞고(랜덤으로 하나씩 나오게 만들기)
+        List<int> notInMaze = new List<int>(notInMazeArray);    // 결과를 리스트로 저장
 
-        for (int i = 0; i < 4; i++)
+        // 1. 필드의 한곳을 랜덤으로 미로에 추가한다.
+        int firstIndex = notInMaze[0];                          // 미로에 포함되지 않은 셀을 하나 꺼내기
+        notInMaze.RemoveAt(0);
+        WilsonCell first = (WilsonCell)cells[firstIndex];       // 꺼낸 셀을 미로에 포함시키기
+        first.isMazeMember = true;
+
+        while(notInMaze.Count > 0)  // 미로에 포함되지 않은 셀이 있으면 계속 반복
         {
-            int x = current.X + dir[i, 0];
-            int y = current.Y + dir[i, 1];
-            if (IsInGrid(x, y))
+            // 2. 미로에 포함되지 않은 셀(A셀)을 랜덤으로 선택한다.
+            int index = notInMaze[0];
+            notInMaze.RemoveAt(0);
+            WilsonCell current = (WilsonCell)cells[index];  // 미로에 포함되지 않은 셀을 하나 골라 current로 지정
+
+            do
             {
-                WilsonCell cell = cells[GridToIndex(x, y)] as WilsonCell;
-                neighbors.Add(cell);
-            }
-        }
-        if (current.prev != null)
-        {
-            for (int i = 0; i < neighbors.Count; i++)
+                // 3. A셀의 위치에서 랜덤으로 한 칸 움직인다.(B셀, 한칸 움직인 곳)
+                //  3.1. 움직인 경로는 기록되어야 한다.
+                //  3.2. 움직이다가 이전에 움직였던 경로에 닿을 경우 이전에 진행되었던 경로는 무시한다.
+                //  3.3. B셀의 위치가 미로에 포함된 영역에 도착할 때까지 3번으로 돌아가 반복한다.(C셀, 미로에 포함되어 있는 도착한 셀)
+                WilsonCell neighbor = GetNeighbor(current);     // current의 이웃 구하기
+                current.next = neighbor;                        // current가 어디로 이동하는지 기록
+                current = neighbor;                             // 구한 이웃을 새 current로 만들기
+            } while (!current.isMazeMember);                    // current가 미로에 포함이 되는 셀이 될 때까지 반복
+            
+            // 4. B셀 위치에서 C셀까지를 미로에 포함 시킨다.
+            //  4.1. 움직인 경로에 따라 길을 만든다.
+            WilsonCell path = (WilsonCell)cells[index];         // 처음 찾기 시작했던 셀 가져오기
+            while(path != current)                              // 최종 current가 될 때까지 반복
             {
-                if(neighbors[i] == current.prev)
-                {
-                    neighbors.RemoveAt(i);
-                }
+                path.isMazeMember = true;                           // 미로에 포함시키기
+                notInMaze.Remove(GridToIndex(path.X, path.Y));      // 미로에 포함되어있지 않은 셀의 목록에서 제거
+
+                ConnectPath(path, path.next);                       // 이번 셀과 다음 셀 사이에 길 쭗기
+                path = path.next;                               // 다음 셀로 진행
             }
-        }
-        return neighbors[UnityEngine.Random.Range(0, neighbors.Count)];
+        } // 5. 모든 셀이 미로에 포함될 때까지 2번으로 돌아가 반복한다.
     }
-    bool IsAddedAtConfirmedList(WilsonCell cell, Dictionary<int, WilsonCell> confirmedList)
+
+    /// <summary>
+    /// 파라메터로 받은 셀 중 이웃 셀을 하나 선택
+    /// </summary>
+    /// <param name="cell">이웃을 찾을 셀</param>
+    /// <returns>파라메터 셀의 이웃 셀</returns>
+    WilsonCell GetNeighbor(WilsonCell cell)
     {
-        bool result = false;
-        if (confirmedList.ContainsKey(cell.serial))
+        Vector2Int neighborPos;
+        do
         {
-            result = true;
-        }
-        return result;
+            Vector2Int dir = dirs[Random.Range(0, dirs.Length)];
+            neighborPos = new Vector2Int(cell.X + dir.x, cell.Y + dir.y);
+        } while (!IsInGrid(neighborPos));   // 그리드 영역안에 있는 위치를 고를 때까지 반복
+
+        return (WilsonCell)cells[GridToIndex(neighborPos)];
     }
 }
-
- 
-    
-

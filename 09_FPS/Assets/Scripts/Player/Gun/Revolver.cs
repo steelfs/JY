@@ -4,46 +4,51 @@ using UnityEngine;
 
 public class Revolver : GunBase
 {
-    public float reLoadTime = 1;
-    WaitForSeconds reLoadWait;
+    public float reloadTime = 1.0f;
+    bool isReloading = false;
 
-    public bool isReLoading = false;
-    protected override void FireProcess(bool isFireStart = true)
+    protected override void FireProcess(bool isFireStart)
     {
-        base.FireProcess();
-        Ray ray = new(GameManager.Inst.Player.FireTransform.position, GetFireDirection());
-        if( Physics.Raycast(ray, out RaycastHit hitInfo, range) )
+        if(isFireStart)
         {
-            if (hitInfo.collider.CompareTag("Enemy"))
-            {
-                Enemy enemy = hitInfo.collider.GetComponent<Enemy>();
-                HitEnemy(enemy);
-            }
-            else
-            {
-                Vector3 reflect = Vector3.Reflect(ray.direction, hitInfo.normal);
-                Factory.Inst.GetBulletHole(hitInfo.point, hitInfo.normal,reflect);
-            }
-        }
+            base.FireProcess(isFireStart);
 
-        FireRecoil();
+            Ray ray = new(fireTransform.position, GetFireDirection());
+            if( Physics.Raycast(ray, out RaycastHit hitInfo, range) )
+            {
+                if(hitInfo.collider.CompareTag("Enemy"))
+                {
+                    Enemy target = hitInfo.collider.GetComponent<Enemy>();
+                    HitEnemy(target);
+                }
+                else
+                {
+                    Vector3 reflect = Vector3.Reflect(ray.direction, hitInfo.normal);
+                    Factory.Inst.GetBulletHole(hitInfo.point, hitInfo.normal, reflect);
+                    //bulletHole.transform.position = hitInfo.point;
+                    //bulletHole.transform.forward = -hitInfo.normal;
+                }
+            }
+
+            FireRecoil();
+        }
     }
 
-    public void ReLoad()
+    public void Reload()
     {
-        if (!isReLoading)
+        if(!isReloading)
         {
-            isReLoading = true;
+            isReloading = true;
             isFireReady = false;
-            StartCoroutine(ReLoadCoroutine());
+            StartCoroutine(ReloadCoroutine());
         }
     }
 
-    IEnumerator ReLoadCoroutine()
+    IEnumerator ReloadCoroutine()
     {
-        yield return new WaitForSeconds(reLoadTime);
+        yield return new WaitForSeconds( reloadTime );
         isFireReady = true;
         BulletCount = clipSize;
-        isReLoading = false;
+        isReloading = false;
     }
 }

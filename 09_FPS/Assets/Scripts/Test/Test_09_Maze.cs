@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class Test_09_Maze : TestBase
 {
@@ -15,11 +14,7 @@ public class Test_09_Maze : TestBase
     public int height = 5;
     public int width = 5;
     public int seed = 0;
-    public Button runButton;
-    private void Start()
-    {
-        runButton.onClick.AddListener(Run);
-    }
+
     protected override void Test1(InputAction.CallbackContext context)
     {
         cellVisualizer.RefreshWall((int)testDirection);
@@ -42,6 +37,7 @@ public class Test_09_Maze : TestBase
         Cell[] cells = maze.MakeMaze(height, width, seed);
         mazeVisualizer_Eller.Draw(cells);
     }
+
     protected override void Test4(InputAction.CallbackContext context)
     {
         mazeVisualizer_Wilson.Clear();
@@ -50,12 +46,5 @@ public class Test_09_Maze : TestBase
         Cell[] cells = maze.MakeMaze(height, width, seed);
         mazeVisualizer_Wilson.Draw(cells);
     }
-    void Run()
-    {
-        mazeVisualizer_Wilson.Clear();
 
-        Wilson maze = new Wilson();
-        Cell[] cells = maze.MakeMaze(height, width, seed);
-        mazeVisualizer_Wilson.Draw(cells);
-    }
 }
