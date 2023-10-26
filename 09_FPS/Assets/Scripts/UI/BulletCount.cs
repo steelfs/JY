@@ -15,7 +15,7 @@ public class BulletCount : MonoBehaviour
     private void Start()
     {
         GameManager.Inst.Player.SetBulletCountChangeDelegate(OnBulletCountChange);
-
+        GameManager.Inst.Player.GunChange(GunType.Revolver);
     }
 
     private void OnBulletCountChange(int count)

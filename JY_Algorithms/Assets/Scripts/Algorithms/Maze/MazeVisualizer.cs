@@ -11,6 +11,9 @@ public class MazeVisualizer : MonoBehaviour
     public bool IsExistCells => cells != null;
     int progress = 0;
     public List<(Cell, Cell)> connectOrder = new List<(Cell, Cell)>();
+
+    Vector3 sixPos = new Vector3(22.5f, 0, -26);
+    Vector3 sevenPos = new Vector3(25.5f, 0, -30);
     public Cell[] Cells
     {
         get => cells;
@@ -30,7 +33,7 @@ public class MazeVisualizer : MonoBehaviour
     public void MoveToNext()
     {
         ConnectPath(connectOrder[progress].Item1, connectOrder[progress].Item2);
-        progress = Mathf.Min(progress + 1, cells.Length);
+        progress = Mathf.Min(progress + 1, cells.Length - 2);
     }
     public void MoveToPrev()
     {
@@ -88,6 +91,14 @@ public class MazeVisualizer : MonoBehaviour
     }
     public void RenderBoard(int width, int height, Cell[] cells)// delegate를 연결하기 위해 cell의 배열도 받는다.
     {
+        if(width > 6)
+        {
+            transform.position = sevenPos;
+        }
+        else if (width > 5)
+        {
+            transform.position = sixPos;
+        }
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)

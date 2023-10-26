@@ -49,10 +49,7 @@ public class Player : MonoBehaviour
         activeGun = defaultGun;
 
         guns = transform.GetChild(4).GetComponentsInChildren<GunBase>(true);
-        foreach (var gun in guns)
-        {
-
-        }
+   
     }
 
     private void Start()
@@ -68,7 +65,6 @@ public class Player : MonoBehaviour
             gun.on_FireRecoil += GunFireRecoil;
             gun.on_FireRecoil += (expand) => crosshair.Expend(expand * 10);
         }
-
     }
 
     private void GunFireRecoil(float recoil)
