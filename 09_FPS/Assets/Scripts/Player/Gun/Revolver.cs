@@ -14,10 +14,16 @@ public class Revolver : GunBase
         Ray ray = new(GameManager.Inst.Player.FireTransform.position, GetFireDirection());
         if( Physics.Raycast(ray, out RaycastHit hitInfo, range) )
         {
-            Vector3 reflect = Vector3.Reflect(ray.direction, hitInfo.normal);
-            Factory.Inst.GetBulletHole(hitInfo.point, hitInfo.normal,reflect);
-            //bulletHole.transform.position = hitInfo.point;
-            //bulletHole.transform.forward = -hitInfo.normal;
+            if (hitInfo.collider.CompareTag("Enemy"))
+            {
+                Enemy enemy = hitInfo.collider.GetComponent<Enemy>();
+                HitEnemy(enemy);
+            }
+            else
+            {
+                Vector3 reflect = Vector3.Reflect(ray.direction, hitInfo.normal);
+                Factory.Inst.GetBulletHole(hitInfo.point, hitInfo.normal,reflect);
+            }
         }
 
         FireRecoil();

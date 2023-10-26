@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3971033468607636569}
   - component: {fileID: 3971033468607636568}
   - component: {fileID: 5586896547475718880}
+  - component: {fileID: 1325027032}
   m_Layer: 0
   m_Name: BulletHoleEffect
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,3 +127,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 588e9e8e13ddc654cb96ff3e330c4a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &1325027032
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3971033468607636571}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: -0.008661509, y: 1.4014218, z: -0.018482447}

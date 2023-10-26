@@ -5,21 +5,28 @@ using UnityEngine;
 public enum PoolObjectType
 {
     BulletHole = 0,       // 총알 구멍
+    Enemy
 }
 
 public class Factory : Singleton<Factory>
 {    
     BulletHolePool bulletHolePool;
 
+    public EnemySpawner enemySpawner;
     protected override void OnInitialize()
     {
         base.OnInitialize();
 
         bulletHolePool = GetComponentInChildren<BulletHolePool>();
-
         bulletHolePool?.Initialize();
-    }
 
+
+    }
+    private void Start()
+    {
+        enemySpawner = FindAnyObjectByType<EnemySpawner>();
+
+    }
     /// <summary>
     /// 오브젝트를 풀에서 하나 가져오는 함수
     /// </summary>

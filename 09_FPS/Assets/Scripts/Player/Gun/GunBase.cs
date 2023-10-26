@@ -137,7 +137,10 @@ public class GunBase : MonoBehaviour
     {
         Initialize();
     }
-
+    protected void HitEnemy(Enemy enemy)
+    {
+        enemy.HP -= damage;
+    }
     protected Vector3 GetFireDirection()
     {
         Vector3 result = GameManager.Inst.Player.FireTransform.forward;
