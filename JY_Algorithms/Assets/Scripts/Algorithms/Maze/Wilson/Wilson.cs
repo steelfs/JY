@@ -11,15 +11,7 @@ public class WilsonCell : Cell
 
     }
 }
-public class Wilson : MonoBehaviour
+public class Wilson : MazeGenerator
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+  
 }

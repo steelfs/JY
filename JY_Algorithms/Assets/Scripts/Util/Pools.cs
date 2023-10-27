@@ -52,7 +52,6 @@ public class Pools : MonoBehaviour
                 pools[i].Enqueue(obj);
             }
         }
-        int z = 0;
     }
     public GameObject GetObject(PoolObjectType type, Transform parent)
     {

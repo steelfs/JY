@@ -3,8 +3,25 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 
+
+public enum MazeType
+{
+    None,
+    BackTracking,
+    Wilson
+}
 public class MazeVisualizer : MonoBehaviour
 {
+    RecursiveBackTracking backTracking;
+    public RecursiveBackTracking BackTracking => backTracking;  
+
+    MazeType mazeType;
+    public MazeType MazeType
+    {
+        get { return mazeType; }
+        set { mazeType = value; }
+    }
+
     public GameObject cellPrefab;
     public const int CellSize = 5;
     Cell[] cells = null;
@@ -18,10 +35,17 @@ public class MazeVisualizer : MonoBehaviour
         set
         {
             progress = value;
-            if (progress > connectOrder.Count - 1)
+            if (connectOrder.Count > 0)// 미로가 생성됐을 때만
             {
-                StopMaze();
-                progress = maxProgress;
+                if (progress > connectOrder.Count - 1)
+                {
+                    StopMaze();
+                    progress = maxProgress;
+                }
+                else if (progress < 0)
+                {
+                    progress = 0;
+                }
             }
         }
     }
@@ -36,7 +60,21 @@ public class MazeVisualizer : MonoBehaviour
     }
     public virtual void MakeBoard(int x, int y)
     {
-   
+        switch (mazeType)
+        {
+            case MazeType.None:
+                break;
+            case MazeType.BackTracking:
+                backTracking = new RecursiveBackTracking();
+                Cells = backTracking.MakeCells(x, y);
+
+                RenderBoard(x, y, Cells);
+                break;
+            case MazeType.Wilson:
+                break;
+            default: 
+                break;
+        }
     }
     public virtual void InitBoard()
     {
@@ -45,14 +83,26 @@ public class MazeVisualizer : MonoBehaviour
             cell.ResetPath();
         }
     }
+
+    /// <summary>
+    /// 셀프리팹을 연결하는 함수를 일정 시간마다 계속 진행하는 함수
+    /// </summary>
     public void PlayMaze()
     {
         InvokeRepeating("MoveToNext", 0f, 0.15f);
     }
+
+    /// <summary>
+    /// 미로의 재생을 일시정지 하는 함수 
+    /// </summary>
     public void StopMaze()
     {
         CancelInvoke();
     }
+
+    /// <summary>
+    /// 미로의 처음지점으로 한번에 이동하는 함수 
+    /// </summary>
     public void MoveToStartPoint()
     {
         foreach(var (item1, item2) in connectOrder)
@@ -61,6 +111,9 @@ public class MazeVisualizer : MonoBehaviour
             Progress = 0;
         }
     }
+    /// <summary>
+    /// 미로의 맨 끝 지점으로 한번에 이동하는 함수
+    /// </summary>
     public void MoveToEndPoint()
     {
         foreach (var (item1, item2) in connectOrder)
@@ -70,6 +123,9 @@ public class MazeVisualizer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 미로가 모두 만들어진 후 결과로 저장된 리스트에서 순서대로 연결하는 함수
+    /// </summary>
     public void MoveToNext()
     {
         ConnectPath(connectOrder[Progress].Item1, connectOrder[Progress].Item2);
@@ -78,8 +134,14 @@ public class MazeVisualizer : MonoBehaviour
     public void MoveToPrev()
     {
         DisconnectPath(connectOrder[Progress].Item1, connectOrder[Progress].Item2);
-        Progress = Mathf.Max(Progress - 1, 0);
+        Progress--;
     }
+
+    /// <summary>
+    /// 셀 두개를 받아서 연결(벽 비활성화)하는 함수
+    /// </summary>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
     public void ConnectPath(Cell from, Cell to)
     {
         int diffX = from.X - to.X;
@@ -105,6 +167,12 @@ public class MazeVisualizer : MonoBehaviour
             to.OpenWall(Direction.North);
         }
     }
+
+    /// <summary>
+    /// 셀 두 개를 받아서 연결을 끊는(벽 활성화) 함수
+    /// </summary>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
     public void DisconnectPath(Cell from, Cell to)
     {
         int diffX = from.X - to.X;
@@ -130,6 +198,14 @@ public class MazeVisualizer : MonoBehaviour
             to.CloseWall(Direction.North);
         }
     }
+
+    /// <summary>
+    /// 알고리즘으로 미로를 모두 만든 후 셀 프리팹을 만들어진 미로의 위치에 맞게 
+    /// 생성하는 함수
+    /// </summary>
+    /// <param name="width">보드의 X</param>
+    /// <param name="height">보드의 Y</param>
+    /// <param name="cells">보드를 구성하는 cell 의 배열</param>
     public void RenderBoard(int width, int height, Cell[] cells)// delegate를 연결하기 위해 cell의 배열도 받는다.
     {
         if(width > 6)
@@ -157,6 +233,12 @@ public class MazeVisualizer : MonoBehaviour
             }
         }
     }
+
+
+    /// <summary>
+    /// 미로의 데이터(cells 배열)을 null 로 만들고 
+    /// 프리팹도 모두 삭제하는 함수
+    /// </summary>
     public void DestroyBoard()
     {
         for (int i = 0; i < transform.childCount; i++)

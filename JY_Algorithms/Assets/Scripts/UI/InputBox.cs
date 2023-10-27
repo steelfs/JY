@@ -12,11 +12,7 @@ public enum InputBox_State
     Loading,
     LoadComplete
 }
-public enum MazeType
-{
-    None,
-    BackTracking,
-}
+
 public class InputBox : MonoBehaviour
 {
     InputBox_State state;
@@ -106,7 +102,7 @@ public class InputBox : MonoBehaviour
     Button prev_Button;
     Button next_Button;
     Button play_Button;
-    const string placeHolderText = "0~100";
+    const string placeHolderText = "0 ~ 10";
 
     Action on_MakeBoard;
     Action on_ClearBoard;
@@ -175,7 +171,7 @@ public class InputBox : MonoBehaviour
     void MakeMaze()
     {
         BackTrackingVisualizer backTrackingVisualizer = mazeVisualizer as BackTrackingVisualizer;
-        backTrackingVisualizer.backTracking.MakeMaze();
+        backTrackingVisualizer.BackTracking.MakeMaze();
 
         makeMaze_Button.interactable = false;
     }
@@ -207,7 +203,8 @@ public class InputBox : MonoBehaviour
         {
             case 0:
                 MazeType = MazeType.BackTracking;
-                mazeVisualizer = GameManager.BackTrackingVisualizer;
+                GameManager.Visualizer.MazeType = MazeType.BackTracking;
+                mazeVisualizer = GameManager.Visualizer;
                 break;
             case 1:
                 on_MakeBoard = null;
