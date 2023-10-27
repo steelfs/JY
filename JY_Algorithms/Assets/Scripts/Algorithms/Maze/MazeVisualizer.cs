@@ -9,7 +9,22 @@ public class MazeVisualizer : MonoBehaviour
     public const int CellSize = 5;
     Cell[] cells = null;
     public bool IsExistCells => cells != null;
+    int maxProgress => connectOrder.Count - 1;
     int progress = 0;
+
+    int Progress
+    {
+        get => progress;
+        set
+        {
+            progress = value;
+            if (progress > connectOrder.Count - 1)
+            {
+                StopMaze();
+                progress = maxProgress;
+            }
+        }
+    }
     public List<(Cell, Cell)> connectOrder = new List<(Cell, Cell)>();
 
     Vector3 sixPos = new Vector3(22.5f, 0, -26);
@@ -32,7 +47,7 @@ public class MazeVisualizer : MonoBehaviour
     }
     public void PlayMaze()
     {
-        InvokeRepeating("MoveToNext", 0f, 0.2f);
+        InvokeRepeating("MoveToNext", 0f, 0.15f);
     }
     public void StopMaze()
     {
@@ -43,7 +58,7 @@ public class MazeVisualizer : MonoBehaviour
         foreach(var (item1, item2) in connectOrder)
         {
             DisconnectPath(item1, item2);
-            progress = 0;
+            Progress = 0;
         }
     }
     public void MoveToEndPoint()
@@ -51,19 +66,19 @@ public class MazeVisualizer : MonoBehaviour
         foreach (var (item1, item2) in connectOrder)
         {
             ConnectPath(item1, item2);
-            progress = cells.Length - 2;
+            Progress = cells.Length - 2;
         }
     }
 
     public void MoveToNext()
     {
-        ConnectPath(connectOrder[progress].Item1, connectOrder[progress].Item2);
-        progress = Mathf.Min(progress + 1, cells.Length - 2);
+        ConnectPath(connectOrder[Progress].Item1, connectOrder[Progress].Item2);
+        Progress++;
     }
     public void MoveToPrev()
     {
-        DisconnectPath(connectOrder[progress].Item1, connectOrder[progress].Item2);
-        progress = Mathf.Max(progress - 1, 0);
+        DisconnectPath(connectOrder[Progress].Item1, connectOrder[Progress].Item2);
+        Progress = Mathf.Max(Progress - 1, 0);
     }
     public void ConnectPath(Cell from, Cell to)
     {
@@ -156,7 +171,8 @@ public class MazeVisualizer : MonoBehaviour
         }
         Cells = null;//셀의 배열을 null 로 만들기
         connectOrder.Clear();
-        progress = 0;
+        Progress = 0;
+        StopMaze();
     }
     public void AddToConnectOrder(Cell from, Cell to)
     {
