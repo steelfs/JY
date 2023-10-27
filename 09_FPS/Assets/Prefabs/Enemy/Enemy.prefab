@@ -425,6 +425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c26d8bcc346cb49bfd08b11e474d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sightRange: 50
+  sightAngle: 90
   walkSpeed: 5
   runSpeed: 10
   hp: 30
