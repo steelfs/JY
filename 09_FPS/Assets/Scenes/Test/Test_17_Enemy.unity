@@ -126,6 +126,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &99094624 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1850116019, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+    type: 3}
+  m_PrefabInstance: {fileID: 1104006926}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa9f5979ce65524e8da0904e5bc57b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &139498525
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76cdda063b70b834ea174649b0f71c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  seed: 0
 --- !u!4 &139498527
 Transform:
   m_ObjectHideFlags: 0
@@ -597,6 +609,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5393215579111688474, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+        type: 3}
+      propertyPath: clipSize
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
         type: 3}
       propertyPath: m_Name
@@ -703,9 +720,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c50fa52b9be0a4fa6ef62b0fa0a8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mazeWidth: 10
+  mazeHeight: 10
   enemyCount: 10
   enemyPrefab: {fileID: 5901307179439117298, guid: d3665fac2e584034385ad14b4c473ada,
     type: 3}
+  player: {fileID: 99094624}
 --- !u!1 &1191171923
 GameObject:
   m_ObjectHideFlags: 0

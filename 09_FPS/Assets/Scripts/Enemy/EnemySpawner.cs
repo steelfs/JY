@@ -9,10 +9,9 @@ public class EnemySpawner : MonoBehaviour
 
     public int enemyCount = 10;
     public GameObject enemyPrefab;
-
+    Player player;
     private void Start()
     {
-        Enemy testEnemy = null;
         for(int i = 0; i < enemyCount; i++)
         {
             GameObject obj =  Instantiate(enemyPrefab, this.transform);
@@ -23,17 +22,42 @@ public class EnemySpawner : MonoBehaviour
                 StartCoroutine(Respawn(target));
             };
 
-            enemy.transform.position = GetRandomPos();
-            testEnemy = enemy;
+            enemy.transform.position = GetRandomPos(true);
         }
 
-        testEnemy.transform.position = new(5.5f, 0, -2.5f);
     }
 
-    private Vector3 GetRandomPos()
+    private Vector3 GetRandomPos(bool init = false)
     {
         int size = CellVisualizer.CellSize;
-        return new( Random.Range(0, mazeWidth) * size + 2.5f, 0.0f, -Random.Range(0, mazeHeight) * size - 2.5f);
+        Vector2Int playerPos = new Vector2Int(-100, -100);
+        if (!init)
+        {
+            player = GameManager.Inst.Player;
+            playerPos = new((int)player.transform.position.x / size, -(int)player.transform.position.z / size);
+        }
+     
+        int x = 0;
+        int z = 0;
+        //do
+        //{
+        //    x = Random.Range(0, mazeWidth);
+        //}while (x < playerPos.x + 3 && x > playerPos.x - 3) ;
+
+        //do
+        //{
+        //    z = Random.Range(0, mazeHeight);
+        //}while (z < playerPos.y + 3 && z > playerPos.y - 3) ;
+
+        do
+        {
+            int index = Random.Range(0, mazeWidth * mazeHeight);
+            x = index % mazeWidth;
+            z = index / mazeHeight;
+        } while (x < playerPos.x + 3 && x > playerPos.x - 3 && z < playerPos.y + 3 && z > playerPos.y - 3);
+
+        Vector3 pos = new Vector3(x * size + 2.5f, 0, -z * size - 2.5f);
+        return pos;
     }
 
     IEnumerator Respawn(Enemy target)
