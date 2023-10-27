@@ -1,0 +1,158 @@
+{
+  "main": {
+    "id": "647102be086f3fe1",
+    "type": "split",
+    "children": [
+      {
+        "id": "30e1d4fd87c8ee94",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1e3119a662e813a2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "이론수업.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c9dbe4aeeaceb573",
+    "type": "split",
+    "children": [
+      {
+        "id": "4352aeb7abb70199",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7083b02fad9a417e",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "f2d75f99321194bb",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "10b28ffd096dbc5d",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "771ba8d5cccb74bf",
+    "type": "split",
+    "children": [
+      {
+        "id": "cf09d7f054b71395",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "64dc9307eda86a55",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "이론수업.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ceb55bb693516381",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "이론수업.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "3cf8fe29ba8ee5f9",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "a953f89946f29dc4",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "이론수업.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:퀵 스위처 열기": false,
+      "graph:그래프 뷰 열기": false,
+      "canvas:새 캔버스 만들기": false,
+      "daily-notes:오늘의 데일리 노트 열기": false,
+      "templates:템플릿 삽입": false,
+      "command-palette:명령어 팔레트 열기": false
+    }
+  },
+  "active": "1e3119a662e813a2",
+  "lastOpenFiles": [
+    "아이템 선정 과정.canvas",
+    "Algorithm/Maze_Wilson.canvas",
+    "Algorithm/Maze_BackTracking.canvas",
+    "Algorithm",
+    "프로그램 구현 순서.md",
+    "이론수업.md"
+  ]
+}
