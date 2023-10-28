@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,12 +9,14 @@ public enum MazeType
 {
     None,
     BackTracking,
-    Wilson
+    Wilson,
+    Eller
 }
 public class MazeVisualizer : MonoBehaviour
 {
     RecursiveBackTracking backTracking;
-    public RecursiveBackTracking BackTracking => backTracking;  
+    Wilson wilson;
+    CellVisualizer[] cellVisualizers;
 
     MazeType mazeType;
     public MazeType MazeType
@@ -53,6 +56,11 @@ public class MazeVisualizer : MonoBehaviour
 
     Vector3 sixPos = new Vector3(22.5f, 0, -26);
     Vector3 sevenPos = new Vector3(25.5f, 0, -30);
+
+    /// <summary>
+    /// MakeBoard 함수에서 현재 설정된 MazeType에 맞게 Cells의 배열을 만든다.
+    /// 그 후 설정된 MazeType에 맞는 미로를 MazeGenerator.MakeMaze 함수를 이용해 만든다.
+    /// </summary>
     public Cell[] Cells
     {
         get => cells;
@@ -67,12 +75,35 @@ public class MazeVisualizer : MonoBehaviour
             case MazeType.BackTracking:
                 backTracking = new RecursiveBackTracking();
                 Cells = backTracking.MakeCells(x, y);
-
                 RenderBoard(x, y, Cells);
                 break;
             case MazeType.Wilson:
+                wilson = new Wilson();
+                wilson.on_Set_PathMaterial = On_Path_Material;
+                wilson.on_Set_NextMaterial = On_SetNext_Material;
+                wilson.on_Set_ConfirmedMaterial = On_SetConfirmed_Material;
+                wilson.on_Set_DefaultMaterial = On_SetDefault_Material;
+                Cells = wilson.MakeCells(x, y);
+                RenderBoard(x, y, Cells);
                 break;
             default: 
+                break;
+        }
+    }
+  
+    public void MakeMaze()
+    {
+        switch (MazeType)
+        {
+            case MazeType.None:
+                break;
+            case MazeType.BackTracking:
+                backTracking.MakeMaze();
+                break;
+            case MazeType.Wilson:
+                wilson.MakeMaze();
+                break;
+            default:
                 break;
         }
     }
@@ -207,7 +238,7 @@ public class MazeVisualizer : MonoBehaviour
     /// <param name="height">보드의 Y</param>
     /// <param name="cells">보드를 구성하는 cell 의 배열</param>
     public void RenderBoard(int width, int height, Cell[] cells)// delegate를 연결하기 위해 cell의 배열도 받는다.
-    {
+    {cellVisualizers = new CellVisualizer[cells.Length];
         if(width > 6)
         {
             transform.position = sevenPos;
@@ -228,13 +259,32 @@ public class MazeVisualizer : MonoBehaviour
 
                 int index = (y * width) + x;
                 CellVisualizer cellVisualizer = cell.GetComponent<CellVisualizer>();
+                cellVisualizers[index] = cellVisualizer;
                 Cell currentCell = cells[index];
                 currentCell.on_RefreshWall = cellVisualizer.RefreshWalls;//UI 업데이트 연결
             }
         }
     }
-
-
+    void On_Path_Material(int index)
+    {
+        CellVisualizer cellVisualizer = cellVisualizers[index];
+        cellVisualizer.OnSet_Path_Material();
+    }
+    void On_SetDefault_Material(int index)
+    {
+        CellVisualizer cellVisualizer = cellVisualizers[index];
+        cellVisualizer.OnSet_Default_Material();
+    }
+    void On_SetNext_Material(int index)
+    {
+        CellVisualizer cellVisualizer = cellVisualizers[index];
+        cellVisualizer.OnSet_Next_Material();
+    }
+    void On_SetConfirmed_Material(int index)
+    {
+        CellVisualizer cellVisualizer = cellVisualizers[index];
+        cellVisualizer.OnSet_Confirmed_Material();
+    }
     /// <summary>
     /// 미로의 데이터(cells 배열)을 null 로 만들고 
     /// 프리팹도 모두 삭제하는 함수

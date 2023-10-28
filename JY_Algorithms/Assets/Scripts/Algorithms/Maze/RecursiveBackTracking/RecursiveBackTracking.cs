@@ -13,6 +13,12 @@ public class BackTrackingCell : Cell
 }
 public class RecursiveBackTracking : MazeGenerator
 {
+    /// <summary>
+    /// 셀 프리팹이 아닌 내부 Cell 의 배열을 만드는 함수
+    /// </summary>
+    /// <param name="width">cells배열의 가로</param>
+    /// <param name="height">배열의 새로</param>
+    /// <returns></returns>
     public override Cell[] MakeCells(int width, int height)
     {
         this.width = width;
@@ -29,6 +35,9 @@ public class RecursiveBackTracking : MazeGenerator
         return cells;
     }
 
+    /// <summary>
+    /// 미로를 만드는 함수
+    /// </summary>
     public override void MakeMaze()
     {
         int[] resultArr = new int[4];
@@ -65,7 +74,7 @@ public class RecursiveBackTracking : MazeGenerator
             {
                 stack.Push(next);
                 confirmedList.Add(next);
-                GameManager.BackTrackingVisualizer.AddToConnectOrder(current, next);
+                GameManager.Visualizer.AddToConnectOrder(current, next);
                 //튜플리스트에 추가
             }
         }

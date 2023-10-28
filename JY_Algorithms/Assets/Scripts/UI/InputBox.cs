@@ -144,6 +144,7 @@ public class InputBox : MonoBehaviour
     }
     private void Start()
     {
+        mazeVisualizer = GameManager.Visualizer;
         State = InputBox_State.Standby;
         DropDownValueChange(0);// 초기상태 BackTracking으로 설정
     }   
@@ -170,9 +171,7 @@ public class InputBox : MonoBehaviour
     }
     void MakeMaze()
     {
-        BackTrackingVisualizer backTrackingVisualizer = mazeVisualizer as BackTrackingVisualizer;
-        backTrackingVisualizer.BackTracking.MakeMaze();
-
+        GameManager.Visualizer.MakeMaze();
         makeMaze_Button.interactable = false;
     }
     void MoveToNext()
@@ -204,17 +203,14 @@ public class InputBox : MonoBehaviour
             case 0:
                 MazeType = MazeType.BackTracking;
                 GameManager.Visualizer.MazeType = MazeType.BackTracking;
-                mazeVisualizer = GameManager.Visualizer;
                 break;
             case 1:
-                on_MakeBoard = null;
-                on_ClearBoard = null;
-                on_MakeMaze = null;
+                MazeType = MazeType.Wilson;
+                GameManager.Visualizer.MazeType = MazeType.Wilson;
                 break;
             case 2:
-                on_MakeBoard = null;
-                on_ClearBoard = null;
-                on_MakeMaze = null;
+                MazeType = MazeType.Eller;
+                GameManager.Visualizer.MazeType = MazeType.Eller;
                 break;
         }
     }

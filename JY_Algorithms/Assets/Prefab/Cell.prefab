@@ -132,6 +132,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a59be0654033464790a24df5b390380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  default_Wall: {fileID: 2100000, guid: adb139f5d260e0946a33429e3871bfb6, type: 2}
+  default_Ground: {fileID: 2100000, guid: b6d434923fbd20646b408213ae4fa197, type: 2}
+  path_Wall: {fileID: 2100000, guid: 17f7f08f5e29b844881cbd9bc58dc6fb, type: 2}
+  path_Ground: {fileID: 2100000, guid: 220607ae697b95f489cd669e01448e6a, type: 2}
+  confirmed_Ground: {fileID: 2100000, guid: 9ea901e5488e94148a3a65e66accb8c4, type: 2}
+  confirmed_Wall: {fileID: 2100000, guid: dca9dd43ee182284894f0bb273c0770d, type: 2}
+  next_Ground: {fileID: 2100000, guid: cc891001ae5a37a438d044b543cab860, type: 2}
+  next_Wall: {fileID: 2100000, guid: 9e19775c58ce3f744970372340feb7d9, type: 2}
 --- !u!1 &6312289307743925524
 GameObject:
   m_ObjectHideFlags: 0
