@@ -175,6 +175,10 @@ public class MazeVisualizer : MonoBehaviour
     /// <param name="to"></param>
     public void ConnectPath(Cell from, Cell to)
     {
+        if (to == null || from == null)
+        {
+            return;
+        }
         int diffX = from.X - to.X;
         int diffY = from.Y - to.Y;
         if (diffX < 0)// from =哭率 , to = 坷弗率
@@ -206,6 +210,10 @@ public class MazeVisualizer : MonoBehaviour
     /// <param name="to"></param>
     public void DisconnectPath(Cell from, Cell to)
     {
+        if (to == null || from == null)
+        {
+            return;
+        }
         int diffX = from.X - to.X;
         int diffY = from.Y - to.Y;
         if (diffX < 0)// from =哭率 , to = 坷弗率
@@ -275,6 +283,7 @@ public class MazeVisualizer : MonoBehaviour
         CellVisualizer cellVisualizer = cellVisualizers[index];
         cellVisualizer.OnSet_Default_Material();
     }
+  
     void On_SetNext_Material(int index)
     {
         CellVisualizer cellVisualizer = cellVisualizers[index];

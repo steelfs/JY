@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -153,6 +153,45 @@ public class Enemy : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+   
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Vector3 playerPos = other.transform.position;
+            Vector3 dir = (playerPos - transform.position).normalized;
+            float degree = Vector3.Angle(transform.forward, dir);
+            if ((sightAngle / 2) > degree)
+            {
+                UnityEngine.Debug.Log("범위 안쪽");
+            }
+            else
+            {
+                UnityEngine.Debug.Log("범위 바깥쪽");
+            }
+
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        Handles.color = Color.blue;
+
+        Quaternion leftAngle = Quaternion.AngleAxis(sightAngle, Vector3.up);
+        Quaternion rightAngle = Quaternion.AngleAxis(-sightAngle, Vector3.up);
+        Vector3 leftRotation = leftAngle * transform.forward;
+        Vector3 rightRotation = rightAngle * transform.forward;
+        Vector3 left = transform.position + leftRotation * 5;
+        Vector3 right = transform.position + rightRotation * 5;
+        Handles.DrawLine(transform.position, left, 3.0f);
+        Handles.DrawLine(transform.position, right, 3.0f);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            UnityEngine.Debug.Log("플레이어 감지해제");
         }
     }
     public void OnAttacked(HitLocation hitLocation, float damage)
