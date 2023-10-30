@@ -1,23 +1,26 @@
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.LowLevel;
 
-public enum HitLocation
+public enum HitLocation : byte
 {
     Body,
     Head,
     Arm,
     Leg
 }
-public enum State
+public enum BehaviourState : byte
 {
-    Patrol,
+    Wander,
     Chase,
     Attack,
-    Die
+    Find,
+    Dead
 }
 public class Enemy : MonoBehaviour
 {
@@ -25,11 +28,14 @@ public class Enemy : MonoBehaviour
     NavMeshAgent agent;
     Vector3 destination;
     int size = CellVisualizer.CellSize;
+    Action on_Update = null;
+    public Action<Enemy> onDie;
 
-    public float sightRange = 10;
-    public float sightAngle = 30;
-    public float walkSpeed = 5;
-    public float runSpeed = 10;
+
+    public float sightRange = 20;
+    public float sightAngle = 90;
+    public float walkSpeed = 2;
+    public float runSpeed = 7;
     float speedPenalty = 0;
 
     public float hp = 30.0f;
@@ -41,43 +47,115 @@ public class Enemy : MonoBehaviour
             hp = value;
             if(hp <= 0)
             {
-                Die();
+                Update_Dead();
             }
         }
     }
     public float maxHp = 30.0f;
 
-    State state;
-    public State State
+    BehaviourState state = BehaviourState.Dead;
+    public BehaviourState State
     {
         get => state;
         set
         {
-            state = value;
-            switch (state)
+            if (state != value)
             {
-                case State.Patrol:
-                    Patrol();
-                    StartCoroutine(DetectCoroutine);
-                    break;
-                case State.Chase:
-                    break;
-                case State.Attack:
-                    break;
-                case State.Die:
-                    break;
-                default:
-                    break;
+                OnStateExit(state);
+                state = value;
+                OnStateEnter(state);
             }
         }
     }
 
-    public Action<Enemy> onDie;
+    private void OnStateEnter(BehaviourState newState)
+    {
+        switch (newState)
+        {
+            case BehaviourState.Wander:
+                StopAllCoroutines();
+                agent.speed = walkSpeed;
+                on_Update = Update_Wander;
+                break;
+            case BehaviourState.Chase:
+                agent.speed = runSpeed;
+                on_Update = Update_Chase;
+                break;
+            case BehaviourState.Attack:
+                on_Update = Update_Attack;
+                break;
+            case BehaviourState.Find:
+                findTimeElapsed = findTime;
+                on_Update = Update_Find;
+                agent.speed = runSpeed;
+                StartCoroutine(LookAround());
+                break;
+            case BehaviourState.Dead:
+                agent.speed = 0;
+                on_Update = Update_Dead;
+                break;
+            default:
+                break;
+        }
+    }
+    private void OnStateExit(BehaviourState prevState)
+    {
+        switch (prevState)
+        {
+            case BehaviourState.Chase:
+                agent.speed = walkSpeed;
+
+                break;
+            case BehaviourState.Wander:
+            case BehaviourState.Dead:
+            case BehaviourState.Attack:
+                break;
+            case BehaviourState.Find:
+                break;
+            default:
+                break;
+        }
+    }
+
+    public float findTime = 5;
+    public float findTimeElapsed = 5;
+    private void Update_Find()
+    {
+        findTimeElapsed -= Time.deltaTime;
+        if (findTimeElapsed < 0)
+        {
+            State = BehaviourState.Wander;
+        }
+        if(PlayerFind())
+        {
+            State = BehaviourState.Chase;
+        }
+    }
+    IEnumerator LookAround()
+    {
+        Vector3 left = transform.position - transform.right * 0.1f;
+        Vector3 right = transform.position + transform.right * 0.1f;
+        Vector3 back = transform.position - transform.forward * 0.1f;
+        Vector3[] positions = { left , right, back};
+
+        int index = 0;
+        int length = positions.Length;
+        while (true)
+        {
+            agent.SetDestination(positions[index]);
+            index = (index + 1) % length;
+            yield return new WaitForSeconds(1);
+        }
+    }
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        
+        on_Update = Update_Wander;
+        State = BehaviourState.Wander;
+
+        SphereCollider sphereCollider = GetComponent<SphereCollider>();
+        sphereCollider.radius = sightRange;
     }
     private void OnEnable()
     {
@@ -86,34 +164,120 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         player = GameManager.Inst.Player;
-        DetectCoroutine = DetectPlayerCoroutine();
-        State = State.Patrol;
+        State = BehaviourState.Wander;
+    }
+    private void Update()
+    {
+        on_Update();
+       // SetDestination();
 
     }
-    void Patrol()
+    Collider[] playerCollider = new Collider[1];
+    Transform target = null;
+    bool PlayerFind()
     {
-        HP = maxHp;
-        agent.speed = walkSpeed;
-        speedPenalty = 0;
-        SetDestination();
+        bool result = false;
+        //target != null &&
+        if (target != null)
+        {
+            result = IsPlayerInSight(out _);
+        }
+    
+
+        return result;
     }
-    void Chase()
+    bool IsPlayerInSight(out Vector3 position)
     {
+        bool result = false;
+        position = Vector3.zero;
+        if (target != null && Physics.OverlapSphereNonAlloc(transform.position, sightRange, playerCollider, LayerMask.GetMask("Player")) > 0)
+        {
+            Vector3 playerPos = playerCollider[0].transform.position;
+            Vector3 dir = playerCollider[0].transform.position - transform.position;
+            Ray ray = new(transform.position + transform.up, dir);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo ))
+            {
+                if (target.transform == hitInfo.transform)//플레이어가 맞았다.
+                {
+                    //추적상태로
+                    float angle = Vector3.Angle(transform.forward, dir);
+                    if (angle * 2 < sightAngle)//시야범위 안에 있다.
+                    {
+                        position = playerCollider[0].transform.position;
+                        result = true;
+                    }
+
+                }
+            }
+        }
+
+        return result;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            target = other.transform;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            target = null;
+        }
+    }
+    void Update_Wander()
+    {
+        //SetDestination();
+        if (PlayerFind())//플레이어가 시야범위에 들어오면
+        {
+            State = BehaviourState.Chase;
+        }
+        else if ( agent.remainingDistance < 0.01f)
+        {
+            Vector3 position = NewDestination();
+            agent.SetDestination(position);
+        }
+       // HP = maxHp;
+       // agent.speed = walkSpeed;
+       // speedPenalty = 0;
+    }
+    void Update_Chase()
+    {
+        if (IsPlayerInSight(out Vector3 newPos))
+        {
+            if ((newPos - transform.position).sqrMagnitude < 1.0f)
+            {
+                Debug.Log("공격범위 진입");
+            }
+            agent.SetDestination(newPos);
+        }
+        else if (!agent.pathPending && agent.remainingDistance < 0.01f)
+        {
+                //마지막 목격장소에 도착했는데 플레이어가 안보일 때
+            State = BehaviourState.Find;
+        }
+        //마지막 목격한 장소까지 이동
+        //이동후 플레이어가 없으면 다시 패트롤
 
     }
-    void Attack()
+    void Update_Attack()
     {
-
+        //
     }
-    private void Die()
+    private void Update_Dead()
     {
         onDie?.Invoke(this);
         gameObject.SetActive(false);
     }
     void SetDestination()
     {
-        Vector3 destination = NewDestination();
-        agent.SetDestination(destination);
+        if (!agent.pathPending && agent.remainingDistance < 0.01f)
+        {
+            Vector3 destination = NewDestination();
+            agent.SetDestination(destination);
+        }
     }
     Vector3 NewDestination()
     {
@@ -126,74 +290,42 @@ public class Enemy : MonoBehaviour
     // NavMeshAgent 를 이용해 이동을 한다.
     //3. 목적지 기준 +- 3칸 이내 목적지 설정
     // 도착시 목적지 재설정
-    private void Update()
-    {
-        if (!agent.pathPending && agent.remainingDistance < 0.01f)
-        {
-            SetDestination();
-        }
-    }
-    IEnumerator DetectCoroutine;
-    IEnumerator DetectPlayerCoroutine()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1);
-            Vector3 toPlayer = (player.transform.position - transform.position).normalized;
-            float angle = Vector3.Angle(transform.forward, toPlayer);
-
-            if (angle < sightAngle / 2)
-            { // 시야각 체크
-                if (Physics.Raycast(transform.position, toPlayer, out RaycastHit hit, sightRange))
-                {
-                    if (hit.collider.tag == "Player")
-                    {
-                        // 플레이어 발견!
-                        agent.SetDestination(player.transform.position);
-                    }
-                }
-            }
-        }
-    }
    
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Vector3 playerPos = other.transform.position;
-            Vector3 dir = (playerPos - transform.position).normalized;
-            float degree = Vector3.Angle(transform.forward, dir);
-            if ((sightAngle / 2) > degree)
-            {
-                UnityEngine.Debug.Log("범위 안쪽");
-            }
-            else
-            {
-                UnityEngine.Debug.Log("범위 바깥쪽");
-            }
-
-        }
-    }
+   
+  
+  
     private void OnDrawGizmos()
     {
         Handles.color = Color.blue;
 
-        Quaternion leftAngle = Quaternion.AngleAxis(sightAngle, Vector3.up);
-        Quaternion rightAngle = Quaternion.AngleAxis(-sightAngle, Vector3.up);
+        Quaternion leftAngle = Quaternion.AngleAxis(sightAngle * 0.5f, Vector3.up);
+        Quaternion rightAngle = Quaternion.AngleAxis(-sightAngle * 0.5f, Vector3.up);
         Vector3 leftRotation = leftAngle * transform.forward;
         Vector3 rightRotation = rightAngle * transform.forward;
-        Vector3 left = transform.position + leftRotation * 5;
-        Vector3 right = transform.position + rightRotation * 5;
+        Vector3 left = transform.position + leftRotation * sightRange;
+        Vector3 right = transform.position + rightRotation * sightRange;
         Handles.DrawLine(transform.position, left, 3.0f);
         Handles.DrawLine(transform.position, right, 3.0f);
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
+
+        switch (State)
         {
-            UnityEngine.Debug.Log("플레이어 감지해제");
+            case BehaviourState.Wander:
+                Handles.color = Color.blue;
+                break;
+            case BehaviourState.Chase:
+                Handles.color = Color.yellow;
+                break;
+            case BehaviourState.Attack:
+                Handles.color = Color.red;
+                break;
+            case BehaviourState.Dead:
+                Handles.color = Color.black;
+                break;
+            default:
+                break;
         }
     }
+ 
     public void OnAttacked(HitLocation hitLocation, float damage)
     {
         

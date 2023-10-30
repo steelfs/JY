@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 433211602611084280}
   - component: {fileID: -5436916599504576242}
   - component: {fileID: -4473582330263419437}
-  - component: {fileID: 7581230631459856469}
+  - component: {fileID: 2083761933818973160}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
@@ -426,8 +426,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c26d8bcc346cb49bfd08b11e474d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRange: 50
-  sightAngle: 90
+  sightRange: 15
+  sightAngle: 45
   walkSpeed: 0
   runSpeed: 0
   hp: 30
@@ -470,7 +470,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!135 &7581230631459856469
+--- !u!135 &2083761933818973160
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -481,7 +481,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6985432874169352469
 GameObject:

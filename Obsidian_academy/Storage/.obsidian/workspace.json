@@ -11,14 +11,11 @@
             "id": "1e3119a662e813a2",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "Algorithm/Maze_Wilson.canvas",
-                "viewState": {
-                  "x": 496.04566233729486,
-                  "y": 268.40091795509096,
-                  "zoom": -0.3333333333333333
-                }
+                "file": "이론수업.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -88,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Algorithm/Maze_Wilson.canvas",
+                "file": "이론수업.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Algorithm/Maze_Wilson.canvas",
+                "file": "이론수업.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -128,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Algorithm/Maze_Wilson.canvas"
+                "file": "이론수업.md"
               }
             }
           }
@@ -151,8 +148,8 @@
   },
   "active": "1e3119a662e813a2",
   "lastOpenFiles": [
-    "Algorithm/Maze_BackTracking.canvas",
     "Algorithm/Maze_Wilson.canvas",
+    "Algorithm/Maze_BackTracking.canvas",
     "이론수업.md",
     "아이템 선정 과정.canvas",
     "Algorithm",
