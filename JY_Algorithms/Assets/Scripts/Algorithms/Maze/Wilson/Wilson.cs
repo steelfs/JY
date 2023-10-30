@@ -16,10 +16,7 @@ public class WilsonCell : Cell
 }
 public class Wilson : MazeGenerator
 {
-    public Action<int> on_Set_PathMaterial;
-    public Action<int> on_Set_DefaultMaterial;
-    public Action<int> on_Set_ConfirmedMaterial;
-    public Action<int> on_Set_NextMaterial;
+   
 
     WaitForSeconds duration = new WaitForSeconds(1);
     public override Cell[] MakeCells(int width, int height)

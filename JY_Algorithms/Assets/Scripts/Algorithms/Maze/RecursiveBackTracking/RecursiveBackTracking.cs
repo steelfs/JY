@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.U2D;
 
 public class BackTrackingCell : Cell
 {
+    public BackTrackingCell prev { get; set; }
+    public BackTrackingCell next { get; set; }
     public BackTrackingCell(int x, int y) : base(x, y)
     {
 
@@ -38,7 +41,7 @@ public class RecursiveBackTracking : MazeGenerator
     /// <summary>
     /// 미로를 만드는 함수
     /// </summary>
-    public override void MakeMaze()
+    public override async void MakeMaze()
     {
         int[] resultArr = new int[4];
         BackTrackingCell start = cells[Random.Range(0, cells.Length)] as BackTrackingCell;
@@ -68,15 +71,28 @@ public class RecursiveBackTracking : MazeGenerator
             }
             if (next == null)
             {
-                stack.Pop();
+                BackTrackingCell cell = stack.Pop();
+                await Task.Delay(100);
+                on_Set_ConfirmedMaterial?.Invoke(GridToIndex(cell.X, cell.Y));
             }
             else
             {
+                current.next = next;
+                next.prev = current;
+                
                 stack.Push(next);
                 confirmedList.Add(next);
                 GameManager.Visualizer.AddToConnectOrder(current, next);
+                await Task.Delay(200);
+                on_Set_PathMaterial?.Invoke(GridToIndex(current.X, current.Y));
+                on_Set_NextMaterial?.Invoke(GridToIndex(next.X, next.Y));
                 //튜플리스트에 추가
             }
+        }
+        foreach(BackTrackingCell cell in cells)
+        {
+            on_Set_DefaultMaterial?.Invoke(GridToIndex(cell.X, cell.Y));
+            await Task.Delay(30);
         }
     }
     BackTrackingCell[] GetNeighborsArr(BackTrackingCell current)

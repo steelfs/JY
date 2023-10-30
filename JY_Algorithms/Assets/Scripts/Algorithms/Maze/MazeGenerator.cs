@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,10 @@ public class MazeGenerator
     public int height;
     public Cell[] cells = null;
 
+    public Action<int> on_Set_PathMaterial;
+    public Action<int> on_Set_DefaultMaterial;
+    public Action<int> on_Set_ConfirmedMaterial;
+    public Action<int> on_Set_NextMaterial;
     public virtual Cell[] MakeCells(int width, int height)
     {
         this.width = width;

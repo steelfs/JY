@@ -74,6 +74,10 @@ public class MazeVisualizer : MonoBehaviour
                 break;
             case MazeType.BackTracking:
                 backTracking = new RecursiveBackTracking();
+                backTracking.on_Set_PathMaterial = On_Path_Material;
+                backTracking.on_Set_NextMaterial = On_SetNext_Material;
+                backTracking.on_Set_ConfirmedMaterial = On_SetConfirmed_Material;
+                backTracking.on_Set_DefaultMaterial = On_SetDefault_Material;
                 Cells = backTracking.MakeCells(x, y);
                 RenderBoard(x, y, Cells);
                 break;
