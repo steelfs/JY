@@ -13,7 +13,7 @@ public class Revolver : GunBase
         {
             base.FireProcess(isFireStart);
 
-            ShootProcess();
+            ShotProcess();
             FireRecoil();
         }
     }

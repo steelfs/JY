@@ -6,10 +6,10 @@ TagManager:
   tags:
   - CinemachineTarget
   - Enemy
-  - Head
-  - Body
-  - Leg
-  - Arm
+  - Enemy_Head
+  - Enemy_Body
+  - Enemy_Arm
+  - Enemy_Leg
   layers:
   - Default
   - TransparentFX

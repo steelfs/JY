@@ -27,7 +27,7 @@ public class AssaultRifle : GunBase
             MuzzleEffect();
             BulletCount--;
 
-            ShootProcess();
+            ShotProcess();
 
             FireRecoil();
 

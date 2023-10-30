@@ -1,11 +1,18 @@
 using System;
 using System.Collections;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
-using UnityEditor;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.LowLevel;
+
+public enum BehaviourState : byte
+{
+    Wander,
+    Chase,
+    Find,
+    Attack,
+    Dead
+}
 
 public enum HitLocation : byte
 {
@@ -14,30 +21,9 @@ public enum HitLocation : byte
     Arm,
     Leg
 }
-public enum BehaviourState : byte
-{
-    Wander,
-    Chase,
-    Attack,
-    Find,
-    Dead
-}
+
 public class Enemy : MonoBehaviour
 {
-    Player player;
-    NavMeshAgent agent;
-    Vector3 destination;
-    int size = CellVisualizer.CellSize;
-    Action on_Update = null;
-    public Action<Enemy> onDie;
-
-
-    public float sightRange = 20;
-    public float sightAngle = 90;
-    public float walkSpeed = 2;
-    public float runSpeed = 7;
-    float speedPenalty = 0;
-
     public float hp = 30.0f;
     public float HP
     {
@@ -47,11 +33,15 @@ public class Enemy : MonoBehaviour
             hp = value;
             if(hp <= 0)
             {
-                Update_Dead();
+                Die();
             }
         }
     }
     public float maxHp = 30.0f;
+
+    public float walkSpeed = 2.0f;
+    public float runSpeed = 7.0f;
+    float speedPenalty = 0;
 
     BehaviourState state = BehaviourState.Dead;
     public BehaviourState State
@@ -59,7 +49,7 @@ public class Enemy : MonoBehaviour
         get => state;
         set
         {
-            if (state != value)
+            if(state != value)
             {
                 OnStateExit(state);
                 state = value;
@@ -68,79 +58,252 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    Action onUpdate = null;
+
+    public Action<Enemy> onDie;
+
+    public float sightAngle = 90.0f;
+    public float sightRange = 20.0f;
+
+    NavMeshAgent agent;
+
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+
+        SphereCollider sphere = GetComponent<SphereCollider>();
+        sphere.radius = sightRange;
+        State = BehaviourState.Wander;
+    }
+
+    private void OnEnable()
+    {
+        HP = maxHp;
+        agent.speed = walkSpeed;
+        speedPenalty = 0;
+    }
+
+    private void Update()
+    {
+        onUpdate();
+    }
+
+    void Update_Wander()
+    {
+        if(PlayerFind())
+        {
+            State = BehaviourState.Chase;
+        }
+        else if (!agent.pathPending && agent.remainingDistance <= 0)
+        {
+            Vector3 destination = GetRandomDestination();
+            agent.SetDestination(destination);
+            //Debug.Log($"Dest : {destination}");
+        }
+    }
+
+    void Update_Chase()
+    {
+        // 마지막 목격한 장소까지 이동
+        if( IsPlayerInSight(out Vector3 newPostion) )
+        {
+            agent.SetDestination(newPostion);
+            Debug.Log($"목적지 갱신 : {newPostion}");
+        }
+        else if (!agent.pathPending && agent.remainingDistance <= 0)
+        {
+            // 플레이어가 안보이는데 마지막으로 목격한 장소에 도착했다. => 다시 배회 상태로
+            Debug.Log($"배회 상태로 전환");
+            State = BehaviourState.Find;
+        }
+    }
+
+    public float findTime = 5.0f;
+    float findTimeElapsed = 5.0f;
+    void Update_Find()
+    {
+        findTimeElapsed -= Time.deltaTime;
+        if(findTimeElapsed < 0 )
+        {
+            State = BehaviourState.Wander;  // 일정 시간까지 플레이어 못찾았다. => 배회
+        }
+
+        if (PlayerFind())
+        {
+            State = BehaviourState.Chase;   // 플레이어를 찾았다 => 추적
+        }   
+    }
+
+    public float attackPower = 10.0f;
+    void Update_Attack()
+    {
+        // 적
+        // 1. chase 상태에서 일정거리 안으로 플레이어가 들어오면 공격 상태로 변경된다.
+        // 2. 공격 상태일 때는 플레이어를 무조건 계속 쫒아온다.
+        // 3. 플레이어가 죽었다 => 배회 상태
+        // 4. 적이 죽었다. => 죽음 상태
+
+        // 플레이어
+        // 1. hp와 hpMax 만들기
+        // 2. 피격용 함수 만들기
+        //  2.1. hp 감소 => hp가 0이하면 플레이어 사망(디버그로 출력만)
+        //  2.2. 몇시 방향에서 피격 당했는지 UI로 표시
+    }
+
+    void Update_Dead()
+    {
+
+    }
+
+    Vector3 GetRandomDestination()
+    {
+        Vector3 result = new();
+        float size = CellVisualizer.CellSize;
+
+        Vector2Int current = new((int)(transform.position.x / size), (int)(-transform.position.z / size));
+        Vector2Int target = new(
+            UnityEngine.Random.Range(current.x - 3, current.x + 4), UnityEngine.Random.Range(current.y - 3, current.y + 4));
+
+        result.x = (target.x + 0.5f) * size;
+        result.y = 0.0f;
+        result.z = -(target.y + 0.5f) * size;
+
+        return result;
+    }
+
+    private void Die()
+    {
+        onDie?.Invoke(this);
+        gameObject.SetActive(false);
+    }
+
+    public void OnAttacked(HitLocation hitLocation, float damage)
+    {
+        switch(hitLocation)
+        {
+            case HitLocation.Body:
+                HP -= damage;
+                //Debug.Log("몸통을 맞았다.");
+                break;
+            case HitLocation.Head:
+                HP -= damage * 2;
+                //Debug.Log("머리를 맞았다.");
+                break;
+            case HitLocation.Arm:
+                HP -= damage;
+                // 공격력 감소
+                //Debug.Log("팔을 맞았다.");
+                break;
+            case HitLocation.Leg:
+                speedPenalty += 1;
+                agent.speed = walkSpeed - speedPenalty;
+                //Debug.Log("다리을 맞았다.");
+                break;
+        }
+    }
+
     private void OnStateEnter(BehaviourState newState)
     {
         switch (newState)
         {
             case BehaviourState.Wander:
-                StopAllCoroutines();
+                onUpdate = Update_Wander;
                 agent.speed = walkSpeed;
-                on_Update = Update_Wander;
                 break;
             case BehaviourState.Chase:
+                onUpdate = Update_Chase;
                 agent.speed = runSpeed;
-                on_Update = Update_Chase;
-                break;
-            case BehaviourState.Attack:
-                on_Update = Update_Attack;
                 break;
             case BehaviourState.Find:
                 findTimeElapsed = findTime;
-                on_Update = Update_Find;
-                agent.speed = runSpeed;
+                onUpdate = Update_Find;
+                agent.speed = walkSpeed;
+                agent.angularSpeed = 360.0f;
                 StartCoroutine(LookAround());
                 break;
-            case BehaviourState.Dead:
-                agent.speed = 0;
-                on_Update = Update_Dead;
+            case BehaviourState.Attack:
+                onUpdate = Update_Attack;
                 break;
-            default:
+            case BehaviourState.Dead:
+                onUpdate = Update_Dead;
+                agent.speed = 0.0f;
                 break;
         }
     }
+
     private void OnStateExit(BehaviourState prevState)
     {
         switch (prevState)
         {
-            case BehaviourState.Chase:
-                agent.speed = walkSpeed;
-
-                break;
-            case BehaviourState.Wander:
-            case BehaviourState.Dead:
-            case BehaviourState.Attack:
-                break;
             case BehaviourState.Find:
+                agent.angularSpeed = 120.0f;
+                StopAllCoroutines();
                 break;
+            case BehaviourState.Wander:                
+            case BehaviourState.Chase:
+            case BehaviourState.Attack:
+            case BehaviourState.Dead:
             default:
                 break;
         }
     }
 
-    public float findTime = 5;
-    public float findTimeElapsed = 5;
-    private void Update_Find()
+    Transform target = null;
+    Collider[] playerCollider = new Collider[1];
+    bool PlayerFind()
     {
-        findTimeElapsed -= Time.deltaTime;
-        if (findTimeElapsed < 0)
+        bool result = false;
+
+        if(target != null)             
         {
-            State = BehaviourState.Wander;
+            result = IsPlayerInSight(out _);
         }
-        if(PlayerFind())
-        {
-            State = BehaviourState.Chase;
-        }
+
+        return result;
     }
+
+    bool IsPlayerInSight(out Vector3 position)
+    {
+        bool result = false;
+        position = Vector3.zero;
+        if ( Physics.OverlapSphereNonAlloc(transform.position, sightRange, playerCollider, LayerMask.GetMask("Player")) > 0 )
+        {
+            // 벽에 가려지는가?
+            Vector3 dir = playerCollider[0].transform.position - transform.position;
+            Ray ray = new(transform.position + Vector3.up, dir);
+            if (Physics.Raycast(ray, out RaycastHit hit, sightRange))
+            {
+                if (hit.collider == playerCollider[0])
+                {
+                    // 플레이어와의 사이에 가리는게 없다.
+
+                    // 시야각 안에 들어있는가?
+                    float angle = Vector3.Angle(transform.forward, dir);
+                    if (angle * 2 < sightAngle)
+                    {
+                        // 플레이어가 적의 시야각 안에 있다.
+                        position = playerCollider[0].transform.position;
+                        result = true;
+                        //Debug.Log("플레이어 발견");
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
     IEnumerator LookAround()
     {
-        Vector3 left = transform.position - transform.right * 0.1f;
-        Vector3 right = transform.position + transform.right * 0.1f;
-        Vector3 back = transform.position - transform.forward * 0.1f;
-        Vector3[] positions = { left , right, back};
-
+        // 두리번 거리기
+        Vector3[] positions = { 
+            transform.position - transform.right * 0.1f, 
+            transform.position + transform.right * 0.1f,
+            transform.position - transform.forward * 0.1f
+        };
         int index = 0;
         int length = positions.Length;
-        while (true)
+        while(true)
         {
             agent.SetDestination(positions[index]);
             index = (index + 1) % length;
@@ -148,78 +311,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        on_Update = Update_Wander;
-        State = BehaviourState.Wander;
 
-        SphereCollider sphereCollider = GetComponent<SphereCollider>();
-        sphereCollider.radius = sightRange;
-    }
-    private void OnEnable()
-    {
-    
-    }
-    private void Start()
-    {
-        player = GameManager.Inst.Player;
-        State = BehaviourState.Wander;
-    }
-    private void Update()
-    {
-        on_Update();
-       // SetDestination();
-
-    }
-    Collider[] playerCollider = new Collider[1];
-    Transform target = null;
-    bool PlayerFind()
-    {
-        bool result = false;
-        //target != null &&
-        if (target != null)
-        {
-            result = IsPlayerInSight(out _);
-        }
-    
-
-        return result;
-    }
-    bool IsPlayerInSight(out Vector3 position)
-    {
-        bool result = false;
-        position = Vector3.zero;
-        if (target != null && Physics.OverlapSphereNonAlloc(transform.position, sightRange, playerCollider, LayerMask.GetMask("Player")) > 0)
-        {
-            Vector3 playerPos = playerCollider[0].transform.position;
-            Vector3 dir = playerCollider[0].transform.position - transform.position;
-            Ray ray = new(transform.position + transform.up, dir);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo ))
-            {
-                if (target.transform == hitInfo.transform)//플레이어가 맞았다.
-                {
-                    //추적상태로
-                    float angle = Vector3.Angle(transform.forward, dir);
-                    if (angle * 2 < sightAngle)//시야범위 안에 있다.
-                    {
-                        position = playerCollider[0].transform.position;
-                        result = true;
-                    }
-
-                }
-            }
-        }
-
-        return result;
-    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if(other.CompareTag("Player"))
         {
             target = other.transform;
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -227,136 +327,43 @@ public class Enemy : MonoBehaviour
             target = null;
         }
     }
-    void Update_Wander()
-    {
-        //SetDestination();
-        if (PlayerFind())//플레이어가 시야범위에 들어오면
-        {
-            State = BehaviourState.Chase;
-        }
-        else if ( agent.remainingDistance < 0.01f)
-        {
-            Vector3 position = NewDestination();
-            agent.SetDestination(position);
-        }
-       // HP = maxHp;
-       // agent.speed = walkSpeed;
-       // speedPenalty = 0;
-    }
-    void Update_Chase()
-    {
-        if (IsPlayerInSight(out Vector3 newPos))
-        {
-            if ((newPos - transform.position).sqrMagnitude < 1.0f)
-            {
-                Debug.Log("공격범위 진입");
-            }
-            agent.SetDestination(newPos);
-        }
-        else if (!agent.pathPending && agent.remainingDistance < 0.01f)
-        {
-                //마지막 목격장소에 도착했는데 플레이어가 안보일 때
-            State = BehaviourState.Find;
-        }
-        //마지막 목격한 장소까지 이동
-        //이동후 플레이어가 없으면 다시 패트롤
 
-    }
-    void Update_Attack()
-    {
-        //
-    }
-    private void Update_Dead()
-    {
-        onDie?.Invoke(this);
-        gameObject.SetActive(false);
-    }
-    void SetDestination()
-    {
-        if (!agent.pathPending && agent.remainingDistance < 0.01f)
-        {
-            Vector3 destination = NewDestination();
-            agent.SetDestination(destination);
-        }
-    }
-    Vector3 NewDestination()
-    {
-        destination.x = (int)(transform.position.x + UnityEngine.Random.Range(-3, 3) * size);
-        destination.z = (int)(transform.position.z + UnityEngine.Random.Range(-3, 3) * size);
-
-        return destination;
-    }
-    //이동속도가지기
-    // NavMeshAgent 를 이용해 이동을 한다.
-    //3. 목적지 기준 +- 3칸 이내 목적지 설정
-    // 도착시 목적지 재설정
-   
-   
-  
-  
     private void OnDrawGizmos()
     {
-        Handles.color = Color.blue;
+        Vector3 p0 = transform.position + Vector3.up;
+        Vector3 f = transform.forward * sightRange;
 
-        Quaternion leftAngle = Quaternion.AngleAxis(sightAngle * 0.5f, Vector3.up);
-        Quaternion rightAngle = Quaternion.AngleAxis(-sightAngle * 0.5f, Vector3.up);
-        Vector3 leftRotation = leftAngle * transform.forward;
-        Vector3 rightRotation = rightAngle * transform.forward;
-        Vector3 left = transform.position + leftRotation * sightRange;
-        Vector3 right = transform.position + rightRotation * sightRange;
-        Handles.DrawLine(transform.position, left, 3.0f);
-        Handles.DrawLine(transform.position, right, 3.0f);
+        Vector3 p1 = Quaternion.Euler(0, sightAngle * 0.5f, 0) * f + p0;
+        Vector3 p2 = Quaternion.Euler(0, -sightAngle * 0.5f, 0) * f + p0;
 
-        switch (State)
+        switch(State)
         {
             case BehaviourState.Wander:
-                Handles.color = Color.blue;
+                Gizmos.color = Color.green;
                 break;
             case BehaviourState.Chase:
-                Handles.color = Color.yellow;
+                Gizmos.color = Color.yellow;
+                break;
+            case BehaviourState.Find:
+                Gizmos.color = Color.blue;
                 break;
             case BehaviourState.Attack:
-                Handles.color = Color.red;
+                Gizmos.color = Color.red;
                 break;
             case BehaviourState.Dead:
-                Handles.color = Color.black;
-                break;
-            default:
+                Gizmos.color = Color.black;
                 break;
         }
-    }
- 
-    public void OnAttacked(HitLocation hitLocation, float damage)
-    {
-        
-        switch (hitLocation)
-        {
-            case HitLocation.Body:
-                
-                HP -= damage;
-                break;
-            case HitLocation.Head:
-                HP -= damage * 2;
-                break;
-            case HitLocation.Arm:
-                HP -= damage;
-                break;
-            case HitLocation.Leg:
-                speedPenalty += 1;
-                agent.speed = walkSpeed - speedPenalty;
-                HP -= damage;
-                break;
-            default:
-                break;
-        }
-      
+
+        Gizmos.DrawLine(p0, p0+f);
+        Gizmos.DrawLine(p0, p1);
+        Gizmos.DrawLine(p0, p2);
     }
 }
 
 
-//상태를 가진다.
-// 순찰 : 랜덤으로 계속 이동, 추적
-// : 플레이어가 시야에 들어오면 추적상태가 되어서 마지막으로 목격한 위치를 목적지로 도착후 ,
-// 공격 : 추적상태에서 공격범위 안으로 들어왔을 때 공격시작,
-// 사망 : 일정시간 지나서 부활 후 순찰상태
-
+// 1. 적은 상태를 가진다.
+//  1.1. 순찰 상태 : 랜덤으로 계속 이동
+//  1.2. 추적 상태 : 플레이어가 시야에 들어오면 추적 상태가 되어서 마지막으로 목격한 장소까지 이동. (더 이상 발견이 안되면 순찰상태로 돌아감)
+//  1.3. 공격 상태 : 추적 상태인데 공격 범위안에 들어오면 공격 시작
+//  1.4. 사망 상태 : HP가 0 이하이면 진입. 일정 시간 후에 부활해서 다시 순찰 상태로

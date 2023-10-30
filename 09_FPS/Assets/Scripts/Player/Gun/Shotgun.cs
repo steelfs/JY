@@ -12,7 +12,10 @@ public class Shotgun : GunBase
         {            
             base.FireProcess(isFireStart);
 
-            ShootProcess();
+            for (int i=0;i<pellet; i++)
+            {
+                ShotProcess();
+            }
 
             FireRecoil();
         }

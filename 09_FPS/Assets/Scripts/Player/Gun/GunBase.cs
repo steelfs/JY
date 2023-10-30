@@ -91,42 +91,7 @@ public class GunBase : MonoBehaviour
             FireProcess(isFireStart);
         }
     }
-    protected void ShootProcess()
-    {
-        Ray ray = new(fireTransform.position, GetFireDirection());
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, range))
-        {
-            if (hitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-            {
-                Enemy target = hitInfo.collider.GetComponentInParent<Enemy>();
-                HitLocation hitLocation = HitLocation.Body;
-                if (hitInfo.collider.CompareTag("Head"))
-                {
-                    hitLocation = HitLocation.Head;
-                }
-                else if (hitInfo.collider.CompareTag("Body"))
-                {
-                }
-                else if (hitInfo.collider.CompareTag("Arm"))
-                {
-                    hitLocation = HitLocation.Arm;
-                }
-                else if (hitInfo.collider.CompareTag("Leg"))
-                {
-                    hitLocation = HitLocation.Leg;
-                }
-                target.OnAttacked(hitLocation, damage);
-            }
-            else
-            {
-                Vector3 reflect = Vector3.Reflect(ray.direction, hitInfo.normal);
-                Factory.Inst.GetBulletHole(hitInfo.point, hitInfo.normal, reflect);
-                //bulletHole.transform.position = hitInfo.point;
-                //bulletHole.transform.forward = -hitInfo.normal;
-            }
-        }
 
-    }
     IEnumerator FireReady()
     {        
         yield return new WaitForSeconds(1/fireRate);
@@ -164,6 +129,37 @@ public class GunBase : MonoBehaviour
         BulletCount--;
     }
 
+    protected void ShotProcess()
+    {
+        Ray ray = new(fireTransform.position, GetFireDirection());
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, range))
+        {
+            if (hitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                Enemy target = hitInfo.collider.GetComponentInParent<Enemy>();
+                HitLocation location = HitLocation.Body;
+                if (hitInfo.collider.CompareTag("Enemy_Head"))
+                {
+                    location = HitLocation.Head;
+                }
+                else if (hitInfo.collider.CompareTag("Enemy_Arm"))
+                {
+                    location = HitLocation.Arm;
+                }
+                else if (hitInfo.collider.CompareTag("Enemy_Leg"))
+                {
+                    location = HitLocation.Leg;
+                }
+                target.OnAttacked(location, damage);
+            }
+            else
+            {
+                Vector3 reflect = Vector3.Reflect(ray.direction, hitInfo.normal);
+                Factory.Inst.GetBulletHole(hitInfo.point, hitInfo.normal, reflect);
+            }
+        }
+    }
+
     protected void FireRecoil()
     {
         //Time.timeScale = 0.1f;
@@ -192,11 +188,6 @@ public class GunBase : MonoBehaviour
         //fireDir = result;
 
         return result;
-    }
-
-    protected void HitEnemy(Enemy enemy)
-    {
-        enemy.HP -= damage;
     }
 
     //Vector3 fireDir = Vector3.forward;
