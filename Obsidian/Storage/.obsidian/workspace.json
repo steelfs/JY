@@ -13,11 +13,11 @@
             "state": {
               "type": "canvas",
               "state": {
-                "file": "Algorithm/Maze_Wilson.canvas",
+                "file": "Algorithm/Maze_Eller.canvas",
                 "viewState": {
-                  "x": 410.95683760683755,
-                  "y": 422.5009912682376,
-                  "zoom": -0.3386011667231546
+                  "x": 36.853276353276385,
+                  "y": 184.50712250712252,
+                  "zoom": -0.09156723958307617
                 }
               }
             }
@@ -88,7 +88,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Algorithm/Maze_Wilson.canvas",
+                "file": "Algorithm/Maze_Eller.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +105,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Algorithm/Maze_Wilson.canvas",
+                "file": "Algorithm/Maze_Eller.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -128,7 +128,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Algorithm/Maze_Wilson.canvas"
+                "file": "Algorithm/Maze_Eller.canvas"
               }
             }
           }
@@ -151,8 +151,9 @@
   },
   "active": "1e3119a662e813a2",
   "lastOpenFiles": [
-    "Algorithm/Maze_BackTracking.canvas",
     "Algorithm/Maze_Wilson.canvas",
+    "Algorithm/Maze_Eller.canvas",
+    "Algorithm/Maze_BackTracking.canvas",
     "이론수업.md",
     "아이템 선정 과정.canvas",
     "Algorithm",

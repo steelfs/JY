@@ -16,6 +16,7 @@ public class MazeVisualizer : MonoBehaviour
 {
     RecursiveBackTracking backTracking;
     Wilson wilson;
+    Eller eller;
     CellVisualizer[] cellVisualizers;
 
     MazeType mazeType;
@@ -90,6 +91,11 @@ public class MazeVisualizer : MonoBehaviour
                 Cells = wilson.MakeCells(x, y);
                 RenderBoard(x, y, Cells);
                 break;
+            case MazeType.Eller:
+                eller = new Eller();
+                Cells = eller.MakeCells(x, y); 
+                RenderBoard (x, y, Cells);
+                break;
             default: 
                 break;
         }
@@ -106,6 +112,9 @@ public class MazeVisualizer : MonoBehaviour
                 break;
             case MazeType.Wilson:
                 wilson.MakeMaze();
+                break;
+            case MazeType.Eller:
+                eller.MakeMaze();
                 break;
             default:
                 break;
@@ -166,6 +175,7 @@ public class MazeVisualizer : MonoBehaviour
         ConnectPath(connectOrder[Progress].Item1, connectOrder[Progress].Item2);
         Progress++;
     }
+ 
     public void MoveToPrev()
     {
         DisconnectPath(connectOrder[Progress].Item1, connectOrder[Progress].Item2);
@@ -323,18 +333,5 @@ public class MazeVisualizer : MonoBehaviour
     {
         connectOrder.Add((from, to));
     }
-    public virtual void StartConnect()
-    {
-
-    }
-    public virtual void StopConnect()
-    {
-
-    }
-    //    //void InitBoard
-    //    void Clear Board
-    //    void ConnectPath
-    //void DisconnectPath
-    //IEnumurator StartConnect
-    //void StopConnect
+ 
 }

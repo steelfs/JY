@@ -16,9 +16,6 @@ public class WilsonCell : Cell
 }
 public class Wilson : MazeGenerator
 {
-   
-
-    WaitForSeconds duration = new WaitForSeconds(1);
     public override Cell[] MakeCells(int width, int height)
     {
         this.width = width;

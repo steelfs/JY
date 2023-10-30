@@ -10,22 +10,10 @@ public class TestObject : TestBase
     
     protected override void Test1(InputAction.CallbackContext context)
     {
-        Test();
     }
     protected override void Test2(InputAction.CallbackContext context)
     {
         cellVisualizer.OnSet_Default_Material();
     }
-    async void Test()
-    {
-        Debug.Log("Start_Test");
-        TestDelay();
-        
-        Debug.Log("End_Test");
-    }
-    void TestDelay()
-    {
-        Debug.Log("Start_Delay");
-        Debug.Log("End_Delay");
-    }
+  
 }
