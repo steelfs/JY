@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5354353358335484346}
   - component: {fileID: 6632119305424197355}
-  - component: {fileID: 8077603907793172255}
+  - component: {fileID: -5671805151001692865}
   m_Layer: 0
   m_Name: Item_AssaultRifle
   m_TagString: Untagged
@@ -48,7 +48,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &8077603907793172255
+--- !u!114 &-5671805151001692865
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,11 +57,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5354353358335484345}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 189458a56be1baf42825a7c357e165d2, type: 3}
+  m_Script: {fileID: 11500000, guid: d398e947f9c00fa45bb564ee3666516b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: 360
-  gunType: 2
+  gunType: 0
+  GunType: 0
 --- !u!1001 &6658111888794290303
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -25,9 +25,13 @@ public class Item : MonoBehaviour
             Player player = other.GetComponent<Player>();
             if (player != null)
             {
-                player.GunChange(gunType);
+                OnItemConsume(player);
                 Destroy(this.gameObject);
             }
         }
+    }
+    protected virtual void OnItemConsume(Player player)
+    {
+
     }
 }

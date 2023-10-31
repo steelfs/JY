@@ -97,6 +97,10 @@ public class Enemy : MonoBehaviour
         speedPenalty = 0;
     }
 
+    private void Start()
+    {
+        
+    }
     private void Update()
     {
         onUpdate();
@@ -179,6 +183,11 @@ public class Enemy : MonoBehaviour
         // 2. 피격용 함수 만들기
         //  2.1. hp 감소 => hp가 0이하면 플레이어 사망(디버그로 출력만)
         //  2.2. 몇시 방향에서 피격 당했는지 UI로 표시
+    }
+    Dictionary<float, GameObject> dropTable = new Dictionary<float, GameObject>();
+    void DropItem()
+    {
+
     }
     void Attack()
     {

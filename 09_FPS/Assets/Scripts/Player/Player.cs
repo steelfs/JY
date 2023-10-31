@@ -21,8 +21,11 @@ public class Player : MonoBehaviour
                 gameObject.SetActive(false);
             }
             hp = Math.Clamp(hp, 0, maxHP);
+            on_HP_Change?.Invoke(hp);
+           
         }
     }
+    public Action<float> on_HP_Change;
     public Action on_Die;
     public Action<float> on_Attacked;
     public void Attacked(Enemy enemy)
@@ -151,6 +154,14 @@ public class Player : MonoBehaviour
         if (ammo <= 0)
         {
             GunChange(GunType.Revoler);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Potion"))
+        {
+            HP += 50;
+            Destroy(other.gameObject);
         }
     }
 }
