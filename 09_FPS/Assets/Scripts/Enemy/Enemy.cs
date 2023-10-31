@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem.LowLevel;
 
 public enum BehaviourState : byte
@@ -66,7 +67,7 @@ public class Enemy : MonoBehaviour
     public float sightRange = 20.0f;
 
     NavMeshAgent agent;
-
+    Player attackTarget = null;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -74,8 +75,21 @@ public class Enemy : MonoBehaviour
         SphereCollider sphere = GetComponent<SphereCollider>();
         sphere.radius = sightRange;
         State = BehaviourState.Wander;
-    }
 
+        Transform child = transform.GetChild(6);
+        AttackSensor attackSensor = child.GetComponent<AttackSensor>();
+        attackSensor.on_SensorTriggered += (target) =>
+        {
+            attackTarget = target.GetComponent<Player>();
+           // attackTarget.on_Die += () => State = BehaviourState.Wander;
+            State = BehaviourState.Attack;
+        };
+    }
+    //void ReturnWander()
+    //{
+    //    State = BehaviourState.Wander;
+    //    attackTarget.on_Die -= ReturnWander;
+    //}
     private void OnEnable()
     {
         HP = maxHp;
@@ -104,6 +118,10 @@ public class Enemy : MonoBehaviour
 
     void Update_Chase()
     {
+        if ((target.transform.position - transform.position).sqrMagnitude < 0.001f)
+        {
+            State = BehaviourState.Attack;
+        }
         // 마지막 목격한 장소까지 이동
         if( IsPlayerInSight(out Vector3 newPostion) )
         {
@@ -135,6 +153,8 @@ public class Enemy : MonoBehaviour
     }
 
     public float attackPower = 10.0f;
+    public float attackInterval = 1.0f;
+    public float attackElapsed = 0;
     void Update_Attack()
     {
         // 적
@@ -143,13 +163,25 @@ public class Enemy : MonoBehaviour
         // 3. 플레이어가 죽었다 => 배회 상태
         // 4. 적이 죽었다. => 죽음 상태
 
+        agent.SetDestination(attackTarget.transform.position);
+        attackElapsed -= Time.deltaTime;
+        if (attackElapsed < 0)
+        {
+            Attack();
+            attackElapsed = attackInterval;
+        }
         // 플레이어
         // 1. hp와 hpMax 만들기
         // 2. 피격용 함수 만들기
         //  2.1. hp 감소 => hp가 0이하면 플레이어 사망(디버그로 출력만)
         //  2.2. 몇시 방향에서 피격 당했는지 UI로 표시
     }
-
+    void Attack()
+    {
+        Debug.Log($"공격{attackTarget.gameObject.name}");
+        attackTarget.Attacked(this);
+        //attackTarget;
+    }
     void Update_Dead()
     {
 
@@ -239,9 +271,11 @@ public class Enemy : MonoBehaviour
                 agent.angularSpeed = 120.0f;
                 StopAllCoroutines();
                 break;
+            case BehaviourState.Attack:
+                attackTarget = null;
+                break;
             case BehaviourState.Wander:                
             case BehaviourState.Chase:
-            case BehaviourState.Attack:
             case BehaviourState.Dead:
             default:
                 break;

@@ -1,10 +1,10 @@
 {
 	"nodes":[
-		{"id":"0e15435ef752bba3","x":-302,"y":-100,"width":340,"height":140,"type":"text","text":"2.  옆 셀과 다른 set일 경우 랜덤하게 merge 한다.\nmerge된 셀을 같은 set에 병합시키고 시각적으로 연결한다.\n"},
-		{"id":"0884bd81043f0f67","x":-257,"y":-180,"width":250,"height":60,"type":"text","text":"1. 각 셀들은 고유한 set을 갖는다."},
-		{"id":"b32775b71419ca26","x":-404,"y":80,"width":545,"height":180,"type":"text","text":"3. 2번까지 한 줄이 완성 됐으면  첫번째 줄에서 세팅된 set들을 세로로 merge한다.\n각 set은 최소 하나이상 아랫쪽으로 merge 되어야한다\n\n윗쪽 셀과 merge된 아랫쪽 셀은 윗쪽 셀과 같은 set에 병합시킨다."},
-		{"id":"ac4dcd8c2d4cd482","x":-257,"y":300,"width":250,"height":60,"type":"text","text":"다시 2번 => 3번 순으로 반복한다."},
-		{"id":"8eb7159b836f4f56","x":-302,"y":420,"width":339,"height":80,"type":"text","text":"마지막줄에 대해서는 같은 set에 속하지 않은 셀들을 100% 확률로 모두 병합한다."}
+		{"id":"b32775b71419ca26","type":"text","text":"3. 2번까지 한 줄이 완성 됐으면  첫번째 줄에서 세팅된 set들을 세로로 merge한다.\n각 set은 최소 하나이상 아랫쪽으로 merge 되어야한다\n\n윗쪽 셀과 merge된 아랫쪽 셀은 윗쪽 셀과 같은 set에 병합시킨다.","x":-404,"y":80,"width":545,"height":180},
+		{"id":"ac4dcd8c2d4cd482","type":"text","text":"다시 2번 => 3번 순으로 반복한다.","x":-257,"y":300,"width":250,"height":60},
+		{"id":"8eb7159b836f4f56","type":"text","text":"마지막줄에 대해서는 같은 set에 속하지 않은 셀들을 100% 확률로 모두 병합한다.","x":-302,"y":420,"width":339,"height":80},
+		{"id":"0884bd81043f0f67","type":"text","text":"1. 각 셀들은 고유한 set을 갖는다.","x":-257,"y":-220,"width":250,"height":60},
+		{"id":"0e15435ef752bba3","type":"text","text":"2.  옆 셀과 다른 set일 경우 랜덤하게 merge 한다.\nmerge된 셀을 같은 set에 병합시키고 시각적으로 연결한다.\n","x":-302,"y":-120,"width":340,"height":140}
 	],
 	"edges":[
 		{"id":"4c1f9812fbb5dfbe","fromNode":"b32775b71419ca26","fromSide":"bottom","toNode":"ac4dcd8c2d4cd482","toSide":"top"},
