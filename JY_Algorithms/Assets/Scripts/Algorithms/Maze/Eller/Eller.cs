@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 
 public class EllerCell : Cell
 {
@@ -42,20 +43,32 @@ public class Eller : MazeGenerator
             row.Clear();
             for (int x = 0; x < width - 1; x++)
             {
+                if(IsInGrid(x - 1, y))
+                {
+                    on_Set_DefaultMaterial?.Invoke(GridToIndex(x - 1, y));
+                }
                 EllerCell current = cells[GridToIndex(x, y)] as EllerCell;
                 EllerCell next = cells[GridToIndex(x + 1, y)] as EllerCell;
+                on_Set_PathMaterial?.Invoke(GridToIndex(current.X, current.Y));
+                on_Set_PathMaterial?.Invoke(GridToIndex(next.X, next.Y));
+
                 MergeCell(current, next, 0.5f);
                 row.Add(current);
                 row.Add(next);
-                await Task.Delay(500);
+                await Task.Delay(2000);
             }
             row = row.Distinct().ToList();
             EllerCell[] arr = row.ToArray();
+            foreach (EllerCell cell in arr)
+            {
+                on_Set_DefaultMaterial?.Invoke(GridToIndex(cell.X, cell.Y));
+                await Task.Delay(50);
+            }
             Util.Shuffle(arr);
             MergeCellColumn(arr);
         }
     }
-    void MergeCellColumn(EllerCell[] row)
+    async void MergeCellColumn(EllerCell[] row)
     {
         EllerCell[] belows = new EllerCell[row.Length];
         for (int i = 0; i < row.Length; i++)
@@ -78,10 +91,17 @@ public class Eller : MazeGenerator
                     continue;
                 }
             }
-            if (mergeCount > 0)
+            on_Set_PathMaterial?.Invoke(GridToIndex(row[i].X, row[i].Y));
+            on_Set_PathMaterial?.Invoke(GridToIndex(belows[i].X, belows[i].Y));
+            if (mergeCount > 1)
             {
-
+                MergeCell(row[i], belows[i], 1.0f);//100프로 확률로 머지
             }
+            else
+            {
+                MergeCell(row[i], belows[i], 0.5f);
+            }
+            await Task.Delay(2000);
         }
         // 호출하기 전 같은 행의 셀들을 모아서 한번 섞은 다음 차례로 이 함수를 호출한다.
         //만약 같은 행에 있는 셀들 줄 sets에 포함되어있는게 있다면 확률적으로 머지하고 없다면 100 프로확률로 머지한다.

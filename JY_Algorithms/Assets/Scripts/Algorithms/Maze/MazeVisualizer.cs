@@ -93,6 +93,10 @@ public class MazeVisualizer : MonoBehaviour
                 break;
             case MazeType.Eller:
                 eller = new Eller();
+                eller.on_Set_PathMaterial = On_Path_Material;
+                eller.on_Set_NextMaterial = On_SetNext_Material;
+                eller.on_Set_ConfirmedMaterial = On_SetConfirmed_Material;
+                eller.on_Set_DefaultMaterial = On_SetDefault_Material;
                 Cells = eller.MakeCells(x, y); 
                 RenderBoard (x, y, Cells);
                 break;
