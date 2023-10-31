@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 3298119125205070558}
   - component: {fileID: 5311629588267690210}
   - component: {fileID: 177461217042320582}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: AttackSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -654,7 +654,7 @@ GameObject:
   - component: {fileID: 8566370070748267017}
   - component: {fileID: 6218215281358186394}
   - component: {fileID: 4952919454736650539}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -730,12 +730,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 5901307179439117298}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.8
+  m_Radius: 0.6
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

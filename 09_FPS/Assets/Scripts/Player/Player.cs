@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
             if (hp <= 0 && isAlive)
             {
                 Die();
+                gameObject.SetActive(false);
             }
             hp = Math.Clamp(hp, 0, maxHP);
         }

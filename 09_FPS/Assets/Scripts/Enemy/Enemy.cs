@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
             hp = value;
             if(hp <= 0)
             {
-                Die();
+                State = BehaviourState.Dead;
             }
         }
     }
@@ -108,7 +108,7 @@ public class Enemy : MonoBehaviour
         {
             State = BehaviourState.Chase;
         }
-        else if (!agent.pathPending && agent.remainingDistance <= 0)
+        else if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             Vector3 destination = GetRandomDestination();
             agent.SetDestination(destination);
@@ -118,17 +118,21 @@ public class Enemy : MonoBehaviour
 
     void Update_Chase()
     {
-        if ((target.transform.position - transform.position).sqrMagnitude < 0.001f)
+        if (target != null)
         {
-            State = BehaviourState.Attack;
+            if ((target.transform.position - transform.position).sqrMagnitude < 0.01f)
+            {
+                State = BehaviourState.Attack;
+            }
         }
+      
         // 마지막 목격한 장소까지 이동
         if( IsPlayerInSight(out Vector3 newPostion) )
         {
             agent.SetDestination(newPostion);
             Debug.Log($"목적지 갱신 : {newPostion}");
         }
-        else if (!agent.pathPending && agent.remainingDistance <= 0)
+        else if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             // 플레이어가 안보이는데 마지막으로 목격한 장소에 도착했다. => 다시 배회 상태로
             Debug.Log($"배회 상태로 전환");
@@ -184,7 +188,13 @@ public class Enemy : MonoBehaviour
     }
     void Update_Dead()
     {
-
+        
+    }
+    public void Respawn(Vector3 spawnPos)
+    {
+        agent.Warp(spawnPos);
+        State = BehaviourState.Wander;
+        gameObject.SetActive(true);
     }
 
     Vector3 GetRandomDestination()
@@ -203,12 +213,7 @@ public class Enemy : MonoBehaviour
         return result;
     }
 
-    private void Die()
-    {
-        onDie?.Invoke(this);
-        gameObject.SetActive(false);
-    }
-
+  
     public void OnAttacked(HitLocation hitLocation, float damage)
     {
         switch(hitLocation)
@@ -227,10 +232,17 @@ public class Enemy : MonoBehaviour
                 //Debug.Log("팔을 맞았다.");
                 break;
             case HitLocation.Leg:
+                HP -= damage;
                 speedPenalty += 1;
                 agent.speed = walkSpeed - speedPenalty;
                 //Debug.Log("다리을 맞았다.");
                 break;
+        }
+        if (State == BehaviourState.Wander || State == BehaviourState.Find)
+        {
+            State = BehaviourState.Chase;
+            Player player = GameManager.Inst.Player;
+            agent.SetDestination(player.transform.position);
         }
     }
 
@@ -241,6 +253,7 @@ public class Enemy : MonoBehaviour
             case BehaviourState.Wander:
                 onUpdate = Update_Wander;
                 agent.speed = walkSpeed;
+                agent.SetDestination(GetRandomDestination());
                 break;
             case BehaviourState.Chase:
                 onUpdate = Update_Chase;
@@ -258,6 +271,8 @@ public class Enemy : MonoBehaviour
                 break;
             case BehaviourState.Dead:
                 onUpdate = Update_Dead;
+                onDie?.Invoke(this);
+                gameObject.SetActive(false);
                 agent.speed = 0.0f;
                 break;
         }
@@ -274,9 +289,13 @@ public class Enemy : MonoBehaviour
             case BehaviourState.Attack:
                 attackTarget = null;
                 break;
+            case BehaviourState.Dead:
+                gameObject.SetActive(true);
+                HP = maxHp;
+                break;
+
             case BehaviourState.Wander:                
             case BehaviourState.Chase:
-            case BehaviourState.Dead:
             default:
                 break;
         }
@@ -305,7 +324,7 @@ public class Enemy : MonoBehaviour
             // 벽에 가려지는가?
             Vector3 dir = playerCollider[0].transform.position - transform.position;
             Ray ray = new(transform.position + Vector3.up, dir);
-            if (Physics.Raycast(ray, out RaycastHit hit, sightRange))
+            if (Physics.Raycast(ray, out RaycastHit hit, LayerMask.GetMask("Player", "Default")))
             {
                 if (hit.collider == playerCollider[0])
                 {
