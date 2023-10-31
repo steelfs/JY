@@ -11,14 +11,11 @@
             "id": "1e3119a662e813a2",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "Algorithm/Maze_Eller.canvas",
-                "viewState": {
-                  "x": 36.853276353276385,
-                  "y": 184.50712250712252,
-                  "zoom": -0.09156723958307617
-                }
+                "file": "문제해결/HP가 줄어들 때 알파값이 증가해야 할 때.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -88,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Algorithm/Maze_Eller.canvas",
+                "file": "문제해결/HP가 줄어들 때 알파값이 증가해야 할 때.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Algorithm/Maze_Eller.canvas",
+                "file": "문제해결/HP가 줄어들 때 알파값이 증가해야 할 때.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -128,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Algorithm/Maze_Eller.canvas"
+                "file": "문제해결/HP가 줄어들 때 알파값이 증가해야 할 때.md"
               }
             }
           }
@@ -151,8 +148,10 @@
   },
   "active": "1e3119a662e813a2",
   "lastOpenFiles": [
-    "Algorithm/Maze_Wilson.canvas",
     "Algorithm/Maze_Eller.canvas",
+    "문제해결/HP가 줄어들 때 알파값이 증가해야 할 때.md",
+    "문제해결",
+    "Algorithm/Maze_Wilson.canvas",
     "Algorithm/Maze_BackTracking.canvas",
     "이론수업.md",
     "아이템 선정 과정.canvas",

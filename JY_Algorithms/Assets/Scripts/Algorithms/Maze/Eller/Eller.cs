@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEngine;
 
 public class EllerCell : Cell
 {
@@ -41,21 +42,21 @@ public class Eller : MazeGenerator
         for (int y = 0; y < height; y++)
         {
             row.Clear();
-            for (int x = 0; x < width - 1; x++)
+            for (int x = 0; x < width; x++)
             {
                 if(IsInGrid(x - 1, y))
                 {
                     on_Set_DefaultMaterial?.Invoke(GridToIndex(x - 1, y));
                 }
                 EllerCell current = cells[GridToIndex(x, y)] as EllerCell;
-                EllerCell next = cells[GridToIndex(x + 1, y)] as EllerCell;
+                EllerCell next = cells[GridToIndex(Mathf.Min(x + 1, width - 1), y)] as EllerCell;
                 on_Set_PathMaterial?.Invoke(GridToIndex(current.X, current.Y));
                 on_Set_PathMaterial?.Invoke(GridToIndex(next.X, next.Y));
 
                 MergeCell(current, next, 0.5f);
                 row.Add(current);
                 row.Add(next);
-                await Task.Delay(2000);
+                await Task.Delay(1000);
             }
             row = row.Distinct().ToList();
             EllerCell[] arr = row.ToArray();
@@ -65,70 +66,72 @@ public class Eller : MazeGenerator
                 await Task.Delay(50);
             }
             Util.Shuffle(arr);
-            MergeCellColumn(arr);
+            await MergeCellColumn(arr);
         }
     }
-    async void MergeCellColumn(EllerCell[] row)
+    //병합되지 않은 셀 역시 sets에 포함되어야 한다.
+    //j가 항상 0이어서 같은 셀을 기준으로 sets에 추가되어있는지 확인하는 문제
+    async Task MergeCellColumn(EllerCell[] row)
     {
         EllerCell[] belows = new EllerCell[row.Length];
         for (int i = 0; i < row.Length; i++)
         {
-            EllerCell below = cells[GridToIndex(row[i].X, row[i].Y + 1)] as EllerCell;
+            EllerCell below = cells[GridToIndex(row[i].X, row[i].Y + 1)] as EllerCell;//index out of range
             belows[i] = below;
         }
-        for (int i = 0; i < row.Length; i++)
+        foreach(List<EllerCell> set in sets.Values.ToList())
         {
-            int mergeCount = 0;
-            for (int j = 0; j < belows.Length; j++)
+            int i = 0;
+            while (i < set.Count)
             {
-                if (sets.ContainsKey(belows[j].group))// 이미 하나 이상 윗쪽 그룹과 합쳐진 경우
+                EllerCell current = set[i];
+                EllerCell belowCell = cells[GridToIndex(set[i].X, set[i].Y + 1)] as EllerCell;
+                if (set.Count != 1)//카운트가 남았으면 50%확률로 머지
                 {
-                    mergeCount++;
+                    MergeCell(current, belowCell, 0.5f);
                 }
-                else
+                else//카운트가 1이면 (마지막 셀이면) 100%확률로 머지
                 {
-                    //아직 합쳐지지 않은 경우
-                    continue;
+                    MergeCell(current, belowCell, 1);
                 }
+                on_Set_DefaultMaterial?.Invoke(GridToIndex(set[Mathf.Max(0, i - 1)].X, set[Mathf.Max(0, i - 1)].Y));// 이전에 셋팅된 머티리얼 되돌리기
+                on_Set_DefaultMaterial?.Invoke(GridToIndex(set[Mathf.Max(0, i - 1)].X, set[Mathf.Max(0, i - 1)].Y + 1));
+                on_Set_PathMaterial?.Invoke(GridToIndex(current.X, current.Y));//현재 진행될 셀의 머티리얼 설정
+                on_Set_PathMaterial?.Invoke(GridToIndex(belowCell.X, belowCell.Y));
+                await Task.Delay(1000);
+                i++;
             }
-            on_Set_PathMaterial?.Invoke(GridToIndex(row[i].X, row[i].Y));
-            on_Set_PathMaterial?.Invoke(GridToIndex(belows[i].X, belows[i].Y));
-            if (mergeCount > 1)
-            {
-                MergeCell(row[i], belows[i], 1.0f);//100프로 확률로 머지
-            }
-            else
-            {
-                MergeCell(row[i], belows[i], 0.5f);
-            }
-            await Task.Delay(2000);
         }
-        // 호출하기 전 같은 행의 셀들을 모아서 한번 섞은 다음 차례로 이 함수를 호출한다.
-        //만약 같은 행에 있는 셀들 줄 sets에 포함되어있는게 있다면 확률적으로 머지하고 없다면 100 프로확률로 머지한다.
+        
     }
     void MergeCell(EllerCell from, EllerCell to, float successRate)
     {
-        if (from.group != to.group)
+        if (!sets.ContainsKey(from.group))//리스트가 없을경우 생성
         {
-            if (UnityEngine.Random.value < successRate)
-            {
-                to.group = from.group;
-                if (!sets.ContainsKey(from.group))
-                {
-                    sets[from.group] = new List<EllerCell>();
-                    sets[from.group].Add(from);
-                    sets[from.group].Add(to);
-                }
-                else 
-                {
-                    sets[from.group].Add(to);
-                }
-             
-                //sets[from.group].Distinct().ToList();//중복된 아이템 제거하기
-                GameManager.Visualizer.ConnectPath(from, to);
-            }
+            sets[from.group] = new List<EllerCell>();
         }
-       
+        if (UnityEngine.Random.value < successRate)//50%확률로 머지
+        {
+            to.group = from.group;
+            sets[from.group].Add(from);
+            sets[from.group].Add(to);
+
+            //sets[from.group].Distinct().ToList();//
+            GameManager.Visualizer.ConnectPath(from, to);
+        }
+        else
+        {
+            sets[from.group].Add(from);
+            if (!sets.ContainsKey(to.group))
+            {
+                sets[to.group] = new List<EllerCell>();
+            }
+            sets[to.group].Add(to);
+        }
+        sets[from.group] = sets[from.group].Distinct().ToList();//중복된 요소 제거하기
+        sets[to.group] = sets[to.group].Distinct().ToList();
     }
+
+
 }
 
