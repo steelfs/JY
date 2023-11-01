@@ -6,7 +6,7 @@ public class TestBase : MonoBehaviour
 {
     protected PlayerInputActions inputActions;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         inputActions = new PlayerInputActions();
     }

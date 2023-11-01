@@ -6,22 +6,28 @@ using UnityEngine.InputSystem;
 
 public class TestObject : TestBase
 {
-    
+    public Cell cell;
+    public Direction direction;
+    protected override void Awake()
+    {
+        base.Awake();
+        cell = new Cell(1,1);
+    }
     protected override void Test1(InputAction.CallbackContext context)
     {
-        PlayerPrefs.DeleteAll();
+        cell.OpenWall(direction);
+        Debug.Log($"{direction} is Open");
     }
     protected override void Test2(InputAction.CallbackContext context)
     {
-        PlayerPrefs.SetFloat("HP", 50.5f);
+        cell.CloseWall(direction);
+
+        Debug.Log($"{direction} is Close");
     }
     protected override void Test3(InputAction.CallbackContext context)
     {
-        //float hp = PlayerPrefs.GetFloat("HP");
-        //Debug.Log(hp);
-
-        bool result = PlayerPrefs.HasKey("MP");
-        Debug.Log($"MP 존재 여부 = {result}");
+        bool isOpen = cell.IsOpened(direction);
+        Debug.Log($"{direction} = {isOpen}");
     }
 
 }

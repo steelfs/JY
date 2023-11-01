@@ -59,7 +59,7 @@ public class Eller : MazeGenerator
                 }
                 row.Add(current);
                 row.Add(next);
-                await Task.Delay(2000);
+                await Task.Delay(500);
             }
             row = row.Distinct().ToList();
             foreach (EllerCell cell in row)
@@ -119,6 +119,8 @@ public class Eller : MazeGenerator
             //리스트가 이미 지워진 문제 발생
         }
     }
+
+   
     void MergeCell(EllerCell from, EllerCell to, float successRate)
     {
         if (previous_From != null)

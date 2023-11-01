@@ -42,4 +42,8 @@ public class Cell
         //~ 는 반전시키는 NOT연산자.  반전 시킨 후 And를 해서 0으로 셋팅
     }
     public void ResetPath() {path = 0; on_RefreshWall?.Invoke(path); }
+    public bool IsOpened(Direction direction)
+    {
+        return (path & (byte)direction) != 0; //& 한 후 0이 아니면 그곳에 비트가 이미 셋팅되어있다
+    }
 }
