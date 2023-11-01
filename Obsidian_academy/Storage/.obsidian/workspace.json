@@ -11,14 +11,11 @@
             "id": "1e3119a662e813a2",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "Algorithm/Maze_Eller.canvas",
-                "viewState": {
-                  "x": 22,
-                  "y": 97,
-                  "zoom": 0
-                }
+                "file": "이론수업.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -88,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Algorithm/Maze_Eller.canvas",
+                "file": "이론수업.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Algorithm/Maze_Eller.canvas",
+                "file": "이론수업.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -128,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Algorithm/Maze_Eller.canvas"
+                "file": "이론수업.md"
               }
             }
           }
@@ -151,13 +148,13 @@
   },
   "active": "1e3119a662e813a2",
   "lastOpenFiles": [
-    "Algorithm/Maze_Wilson.canvas",
-    "Algorithm/Maze_Eller.canvas",
-    "Algorithm/Maze_Eller.md",
+    "프로그램 구현 순서.md",
     "이론수업.md",
+    "Algorithm/Maze_Eller.canvas",
+    "Algorithm/Maze_Wilson.canvas",
+    "Algorithm/Maze_Eller.md",
     "Algorithm/Maze_BackTracking.canvas",
     "아이템 선정 과정.canvas",
-    "Algorithm",
-    "프로그램 구현 순서.md"
+    "Algorithm"
   ]
 }
