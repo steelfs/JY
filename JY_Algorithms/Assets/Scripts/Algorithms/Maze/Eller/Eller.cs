@@ -72,7 +72,7 @@ public class Eller : MazeGenerator
                 await MergeCellColumn(row);
             }
         }
-
+        GameManager.Visualizer.InitBoard();
     }
     async Task MergeCellColumn(List<EllerCell> row)
     {

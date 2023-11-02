@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -29,6 +30,8 @@ public class MazeVisualizer : MonoBehaviour
     public GameObject cellPrefab;
     public const int CellSize = 5;
     Cell[] cells = null;
+    int width;
+    int height;
     public bool IsExistCells => cells != null;
     int maxProgress => connectOrder.Count - 1;
     int progress = 0;
@@ -69,6 +72,8 @@ public class MazeVisualizer : MonoBehaviour
     }
     public virtual void MakeBoard(int x, int y)
     {
+        width = x;
+        height = y;
         switch (mazeType)
         {
             case MazeType.None:
@@ -124,11 +129,18 @@ public class MazeVisualizer : MonoBehaviour
                 break;
         }
     }
-    public virtual void InitBoard()
+    public virtual async void InitBoard()
     {
         foreach (Cell cell in cells)
         {
             cell.ResetPath();
+            On_SetConfirmed_Material((cell.Y * width) + cell.X);
+            await Task.Delay(20);
+        }
+        foreach (Cell cell in cells)
+        {
+            On_SetDefault_Material((cell.Y * width) + cell.X);
+            await Task.Delay(20);
         }
     }
 
