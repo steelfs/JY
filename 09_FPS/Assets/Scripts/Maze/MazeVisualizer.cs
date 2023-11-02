@@ -5,9 +5,12 @@ using UnityEngine;
 public class MazeVisualizer : MonoBehaviour
 {
     public GameObject cellPrefab;
-
-    public void Draw(Cell[] data)
+    public GameObject goalPrefab;
+    public GameObject[] cellPrefabs;
+    public void Draw(Cell[] data, Cell goal)
     {
+        cellPrefabs = new GameObject[400];
+        int i = 0;
         foreach (Cell cell in data)
         {
             GameObject obj = Instantiate(cellPrefab, transform);
@@ -16,7 +19,14 @@ public class MazeVisualizer : MonoBehaviour
 
             CellVisualizer displayer = obj.GetComponent<CellVisualizer>();
             displayer.RefreshWall(cell.Path);
+            cellPrefabs[i++] = obj;
         }
+
+        GameObject goalObj = Instantiate(goalPrefab, transform);
+        goalObj.name = "Cell_Goal";
+        goalObj.transform.Translate(goal.X * CellVisualizer.CellSize, 0, -goal.Y * CellVisualizer.CellSize);
+        CellVisualizer goalVisualizer = goalObj.GetComponent<CellVisualizer>();
+        goalVisualizer.RefreshWall(goal.Path);
     }
 
     public void Clear()

@@ -218,11 +218,11 @@ public class Enemy : MonoBehaviour
             float random = UnityEngine.Random.value;
             if (random < 0.8f)
             {
-                index = (int)ItemTable.Rifle;
+                index = (int)ItemTable.Heal;
             }
             else if(random < 0.9f)
             {
-                index = (int)ItemTable.Heal;
+                index = (int)ItemTable.Rifle;
             }
             else
             {

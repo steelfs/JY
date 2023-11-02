@@ -70,6 +70,11 @@ public class MazeVisualizer : MonoBehaviour
         get => cells;
         set { cells = value; }
     }
+
+    private void Start()
+    {
+        seconds = new WaitForSeconds(0.02f);
+    }
     public virtual void MakeBoard(int x, int y)
     {
         width = x;
@@ -142,8 +147,23 @@ public class MazeVisualizer : MonoBehaviour
             On_SetDefault_Material((cell.Y * width) + cell.X);
             await Task.Delay(20);
         }
+        //StartCoroutine(InitCoroutine());
     }
-
+    WaitForSeconds seconds;
+    //IEnumerator InitCoroutine()
+    //{
+    //    foreach (Cell cell in cells)
+    //    {
+    //        cell.ResetPath();
+    //        On_SetConfirmed_Material((cell.Y * width) + cell.X);
+    //        yield return seconds;
+    //    }
+    //    foreach (Cell cell in cells)
+    //    {
+    //        On_SetDefault_Material((cell.Y * width) + cell.X);
+    //        yield return seconds;
+    //    }
+    //}
     /// <summary>
     /// 셀프리팹을 연결하는 함수를 일정 시간마다 계속 진행하는 함수
     /// </summary>

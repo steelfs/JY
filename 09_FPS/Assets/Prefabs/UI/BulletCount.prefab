@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6746797266517977965}
   - component: {fileID: 6746797266517977967}
   - component: {fileID: 6746797266517977964}
-  - component: {fileID: 3075655779390176518}
+  - component: {fileID: 347546684}
   m_Layer: 5
   m_Name: BulletCount
   m_TagString: Untagged
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3075655779390176518
+--- !u!114 &347546684
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,12 +145,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6746797266517977954}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c94c3eac235fc574593a10b077dbd92b, type: 3}
+  m_Script: {fileID: 11500000, guid: fb14b586c8bd46c47b7cc9b84c7a62cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpPanelCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
