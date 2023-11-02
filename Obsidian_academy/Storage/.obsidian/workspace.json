@@ -11,31 +11,18 @@
             "id": "1e3119a662e813a2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "이론수업.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "9f1217b21284f63b",
-            "type": "leaf",
-            "state": {
               "type": "canvas",
               "state": {
                 "file": "Algorithm/Kruskal.canvas",
                 "viewState": {
-                  "x": 0,
-                  "y": 0,
+                  "x": -201,
+                  "y": -24,
                   "zoom": 0
                 }
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -162,17 +149,18 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "9f1217b21284f63b",
+  "active": "1e3119a662e813a2",
   "lastOpenFiles": [
-    "Algorithm/Maze_Eller.canvas",
+    "문제해결/HP가 줄어들 때 알파값이 증가해야 할 때.md",
     "Algorithm/Kruskal.canvas",
-    "아이템 선정 과정.canvas",
     "Tip.md",
-    "이론수업.md",
-    "프로그램 구현 순서.md",
+    "Algorithm/Maze_Eller.canvas",
+    "문제해결",
     "Algorithm/Maze_Wilson.canvas",
-    "Algorithm/Maze_Eller.md",
     "Algorithm/Maze_BackTracking.canvas",
-    "Algorithm"
+    "이론수업.md",
+    "아이템 선정 과정.canvas",
+    "Algorithm",
+    "프로그램 구현 순서.md"
   ]
 }
