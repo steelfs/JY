@@ -60,31 +60,31 @@ public class InputBox : MonoBehaviour
         }
     }
 
-    MazeType mazeType;
-    public MazeType MazeType
-    {
-        get { return mazeType; }
-        set 
-        {
-            mazeType = value;
-            switch (mazeType)
-            {
-                case MazeType.None:
-                    on_MakeBoard = null;
-                    on_ClearBoard = null;
-                    on_MakeMaze = null;
-                    break;
-                case MazeType.BackTracking:
-                    on_MakeBoard = Make_BackTracking_Board;
-                    on_ClearBoard = ClearBoard;
-                    on_MakeMaze = MakeMaze;
-                    break;
-                default:
-                    break;
-            }
+    //MazeType mazeType;
+    //public MazeType MazeType
+    //{
+    //    get { return mazeType; }
+    //    set 
+    //    {
+    //        mazeType = value;
+    //        switch (mazeType)
+    //        {
+    //            case MazeType.None:
+    //                on_MakeBoard = null;
+    //                on_ClearBoard = null;
+    //                on_MakeMaze = null;
+    //                break;
+    //            case MazeType.BackTracking:
+    //                on_MakeBoard = Make_Board;
+    //                on_ClearBoard = ClearBoard;
+    //                on_MakeMaze = MakeMaze;
+    //                break;
+    //            default:
+    //                break;
+    //        }
 
-        }
-    }
+    //    }
+    //}
     //BackTrackingVisualizer backTrackingVisualizer;
     MazeVisualizer mazeVisualizer;
     TMP_InputField input_X;
@@ -104,9 +104,6 @@ public class InputBox : MonoBehaviour
     Button play_Button;
     const string placeHolderText = "0 ~ 10";
 
-    Action on_MakeBoard;
-    Action on_ClearBoard;
-    Action on_MakeMaze;
     Action on_PlayMaze;
     private void Awake()
     {
@@ -119,11 +116,11 @@ public class InputBox : MonoBehaviour
         Select_DropDown = transform.GetChild(6).GetComponent<TMP_Dropdown>();
         Select_DropDown.onValueChanged.AddListener(DropDownValueChange);
         destroy_Button = transform.GetChild(5).GetComponent<Button>();
-        destroy_Button.onClick.AddListener(() => on_ClearBoard());
+        destroy_Button.onClick.AddListener(ClearBoard);
         makeBoard_Button = transform.GetChild(4).GetComponent<Button>();
-        makeBoard_Button.onClick.AddListener(() => on_MakeBoard());
+        makeBoard_Button.onClick.AddListener(Make_Board);
         makeMaze_Button = transform.GetChild(7).GetComponent<Button>();
-        makeMaze_Button.onClick.AddListener(() => on_MakeMaze());
+        makeMaze_Button.onClick.AddListener(MakeMaze);
 
         Transform buttons = transform.parent.GetChild(0);
         startPoint_Button = buttons.GetChild(0).GetComponent<Button>();
@@ -161,7 +158,7 @@ public class InputBox : MonoBehaviour
         playButtonText.text = "¢º";
     }
 
-    void Make_BackTracking_Board()
+    void Make_Board()
     {
         if (!mazeVisualizer.IsExistCells)
         {
@@ -201,16 +198,16 @@ public class InputBox : MonoBehaviour
         switch (value)
         {
             case 0:
-                MazeType = MazeType.BackTracking;
                 GameManager.Visualizer.MazeType = MazeType.BackTracking;
                 break;
             case 1:
-                MazeType = MazeType.Wilson;
                 GameManager.Visualizer.MazeType = MazeType.Wilson;
                 break;
             case 2:
-                MazeType = MazeType.Eller;
                 GameManager.Visualizer.MazeType = MazeType.Eller;
+                break;
+            case 3:
+                GameManager.Visualizer.MazeType = MazeType.kruskal;
                 break;
         }
     }

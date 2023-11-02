@@ -11,13 +11,15 @@ public enum MazeType
     None,
     BackTracking,
     Wilson,
-    Eller
+    Eller,
+    kruskal
 }
 public class MazeVisualizer : MonoBehaviour
 {
     RecursiveBackTracking backTracking;
     Wilson wilson;
     Eller eller;
+    Kruskal kruskal;
     CellVisualizer[] cellVisualizers;
 
     MazeType mazeType;
@@ -110,6 +112,15 @@ public class MazeVisualizer : MonoBehaviour
                 Cells = eller.MakeCells(x, y); 
                 RenderBoard (x, y, Cells);
                 break;
+            case MazeType.kruskal:
+                kruskal = new Kruskal();
+                kruskal.on_Set_PathMaterial = On_Path_Material;
+                kruskal.on_Set_NextMaterial = On_SetNext_Material;
+                kruskal.on_Set_ConfirmedMaterial = On_SetConfirmed_Material;
+                kruskal.on_Set_DefaultMaterial = On_SetDefault_Material;
+                Cells = kruskal.MakeCells(x, y);
+                RenderBoard(x, y, Cells);
+                break;
             default: 
                 break;
         }
@@ -129,6 +140,9 @@ public class MazeVisualizer : MonoBehaviour
                 break;
             case MazeType.Eller:
                 eller.MakeMaze();
+                break;
+            case MazeType.kruskal:
+                kruskal.MakeMaze();
                 break;
             default:
                 break;

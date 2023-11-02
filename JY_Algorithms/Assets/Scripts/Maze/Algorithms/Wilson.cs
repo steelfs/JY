@@ -60,7 +60,17 @@ public class Wilson : MazeGenerator
         {
             WilsonCell current = path.Peek();//경로 중 가장 최근에 추가된것은 기준으로
             WilsonCell[] neighbors = GetNeighbors(current)as WilsonCell[];// 상하좌우 셀을 가져온다.(이전 셀과 보드 바깥쪽은 제외)
-            WilsonCell next = neighbors[UnityEngine.Random.Range(0, neighbors.Length)];//가져온 셀들 중 랜덤하게 하나를 다음셀로 설정
+            WilsonCell next = null;//가져온 셀들 중 랜덤하게 하나를 다음셀로 설정
+            while(next == null)
+            {
+                next = neighbors[UnityEngine.Random.Range(0, neighbors.Length)];
+                if (next == current.Prev)
+                {
+                    next = null;
+                }
+            }
+
+
             on_Set_PathMaterial?.Invoke(GridToIndex(current.X, current.Y));
             on_Set_NextMaterial?.Invoke(GridToIndex(next.X, next.Y));//머티리얼 변경
             await Task.Delay(100); //0.1초 딜레이
@@ -123,30 +133,30 @@ public class Wilson : MazeGenerator
         }
     }
   
-    protected override Cell[] GetNeighbors(Cell current)
-    {
-        int[,] dir = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
-        WilsonCell[] dirs = null;
-        List<WilsonCell> neighbors = new List<WilsonCell>();
-        WilsonCell current_ = current as WilsonCell;
-        for (int i = 0; i < 4; i++)
-        {
-            int X = current.X + dir[i, 0];
-            int Y = current.Y + dir[i, 1];
-            if (IsInGrid(X, Y))
-            {
-                WilsonCell newCell = cells[GridToIndex(X, Y)] as WilsonCell;
+    //protected override Cell[] GetNeighbors(Cell current)
+    //{
+    //    int[,] dir = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+    //    WilsonCell[] dirs = null;
+    //    List<WilsonCell> neighbors = new List<WilsonCell>();
+    //    WilsonCell current_ = current as WilsonCell;
+    //    for (int i = 0; i < 4; i++)
+    //    {
+    //        int X = current.X + dir[i, 0];
+    //        int Y = current.Y + dir[i, 1];
+    //        if (IsInGrid(X, Y))
+    //        {
+    //            WilsonCell newCell = cells[GridToIndex(X, Y)] as WilsonCell;
 
-                if (current_.Prev == newCell)
-                    continue;
+    //            if (current_.Prev == newCell)
+    //                continue;
 
-                neighbors.Add(newCell);
-            }
-        }
-        dirs = neighbors.ToArray();
-        Util.Shuffle(dirs);
-        return dirs;
-    }
+    //            neighbors.Add(newCell);
+    //        }
+    //    }
+    //    dirs = neighbors.ToArray();
+    //    Util.Shuffle(dirs);
+    //    return dirs;
+    //}
 
 
 }

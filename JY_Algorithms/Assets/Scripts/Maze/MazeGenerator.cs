@@ -50,22 +50,19 @@ public class MazeGenerator
         int x = index % height;
         return new Vector2Int(x, y);
     }
-    protected virtual Cell[] GetNeighbors(Cell current)
+    protected virtual T[] GetNeighbors<T>(T current) where T : Cell
     {
         int[,] dir = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
-        Cell[] dirs = null;
-        List<Cell> neighbors = new List<Cell>();
+        List<T> neighbors = new List<T>();
         for (int i = 0; i < 4; i++)
         {
             int X = current.X + dir[i, 0];
             int Y = current.Y + dir[i, 1];
             if (IsInGrid(X, Y))
             {
-                neighbors.Add(cells[GridToIndex(X, Y)]);
+                neighbors.Add((T)cells[GridToIndex(X, Y)]);
             }
         }
-        dirs = neighbors.ToArray();
-        Util.Shuffle(dirs);
-        return dirs;
+        return neighbors.ToArray();
     }
 }

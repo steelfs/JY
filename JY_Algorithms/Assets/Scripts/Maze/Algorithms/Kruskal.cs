@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -13,6 +14,9 @@ public class Kruskal_Cell : Cell
 }
 public class Kruskal : MazeGenerator
 {
+    Dictionary<int, List<Kruskal_Cell>> sets = new Dictionary<int, List<Kruskal_Cell>>();
+    List<Kruskal_Cell> notInMaze = new List<Kruskal_Cell>();
+   
     public override Cell[] MakeCells(int width, int height)
     {
         this.width = width;
@@ -26,13 +30,21 @@ public class Kruskal : MazeGenerator
                 cells[index] = new Kruskal_Cell(x, y);
                 Kruskal_Cell cell = cells[index] as Kruskal_Cell;
                 cell.group = index;//고유한 인덱스 부여
+
+                sets[index] = new List<Kruskal_Cell> { cell };
+                notInMaze.Add(cell);
             }
         }
         return cells;
     }
-    public override void MakeMaze()
+    public override async void MakeMaze()
     {
-
-        base.MakeMaze();
+        while(notInMaze.Count > 0)
+        {
+            Kruskal_Cell chosen = notInMaze[Random.Range(0, notInMaze.Count)];
+            Kruskal_Cell[] neighbors = GetNeighbors(chosen);
+            await Task.Delay(30);
+        }
     }
+  
 }
