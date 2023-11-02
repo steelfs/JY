@@ -1,0 +1,7 @@
+{
+	"nodes":[
+		{"id":"de6947d3aabae729","x":-296,"y":-188,"width":276,"height":68,"type":"text","text":"각 셀은 고유한 그룹을 갖는다."},
+		{"id":"5d2c345b1d72294d","x":-382,"y":28,"width":362,"height":112,"type":"text","text":"미로에 확정된 셀과 확정되지 않은 셀들을 담을 Dictionary와"}
+	],
+	"edges":[]
+}
