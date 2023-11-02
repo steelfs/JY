@@ -18,8 +18,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "9f1217b21284f63b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Tip.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "이론수업.md",
+                "file": "Tip.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "이론수업.md",
+                "file": "Tip.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "이론수업.md"
+                "file": "Tip.md"
               }
             }
           }
@@ -146,10 +159,11 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "1e3119a662e813a2",
+  "active": "9f1217b21284f63b",
   "lastOpenFiles": [
-    "프로그램 구현 순서.md",
     "이론수업.md",
+    "Tip.md",
+    "프로그램 구현 순서.md",
     "Algorithm/Maze_Eller.canvas",
     "Algorithm/Maze_Wilson.canvas",
     "Algorithm/Maze_Eller.md",

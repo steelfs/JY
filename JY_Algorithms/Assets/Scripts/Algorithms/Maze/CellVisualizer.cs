@@ -40,6 +40,11 @@ public class CellVisualizer : MonoBehaviour
         }
         //ex 2와 2를 and를 하면 1이 아니라 2가 나오기 때문에 0이 아닌 조건으로 체크를 해야한다. != 1 로 체크를 하면 비트가 세팅이 되어있어도 false를 반환한다.
     }
+    public void TestCoroutine()
+    {
+
+    }
+  
     public void OnSet_Path_Material()
     {
         ground_Renderer.material = path_Ground;

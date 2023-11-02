@@ -6,7 +6,6 @@ public class Item : MonoBehaviour
 {
     Transform meshTransform;
     public float spinSpeed = 360.0f;
-    public GunType gunType;
 
     private void Awake()
     {

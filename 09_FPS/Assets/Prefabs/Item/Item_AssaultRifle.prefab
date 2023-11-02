@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5354353358335484346}
   - component: {fileID: 6632119305424197355}
   - component: {fileID: -5671805151001692865}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Item_AssaultRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5354353358335484345}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.35
   m_Height: 2
@@ -61,8 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: 360
-  gunType: 0
-  GunType: 0
+  GunType: 2
 --- !u!1001 &6658111888794290303
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129,6 +128,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: assault1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239965240344621176, guid: 2be4c88b587558549ab9cebc696a266c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2be4c88b587558549ab9cebc696a266c, type: 3}

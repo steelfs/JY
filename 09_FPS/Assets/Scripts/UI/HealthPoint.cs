@@ -13,7 +13,7 @@ public class HealthPoint : MonoBehaviour
     }
     private void Start()
     {
-        GameManager.Inst.Player.on_HP_Change = On_HpChange;
+        GameManager.Inst.Player.on_HP_Change += On_HpChange;
         
     }
     void On_HpChange(float hp)

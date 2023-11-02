@@ -699,6 +699,10 @@ MonoBehaviour:
   maxHp: 30
   walkSpeed: 2
   runSpeed: 7
+  dropItems:
+  - {fileID: 9174925097601190337, guid: e56142d439374694e9ee897c3d44fd97, type: 3}
+  - {fileID: 5354353358335484345, guid: 5b08869a357aeb247ab09906fa03df69, type: 3}
+  - {fileID: 429038531016746023, guid: 12db1c19f10eb3948bbd613cbbebc3f5, type: 3}
   sightAngle: 90
   sightRange: 20
   findTime: 5

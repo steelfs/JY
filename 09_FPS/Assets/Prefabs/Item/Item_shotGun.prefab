@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 429038531016746022}
   - component: {fileID: 8538461138084865553}
   - component: {fileID: 1338339657742187844}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Item_shotGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,8 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: 360
-  gunType: 0
-  GunType: 0
+  GunType: 1
 --- !u!1001 &3069942309436780738
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129,6 +128,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: shotgun1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6431950812378452143, guid: 57468f15f4c66f941bfcc52f8e5df8b8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57468f15f4c66f941bfcc52f8e5df8b8, type: 3}

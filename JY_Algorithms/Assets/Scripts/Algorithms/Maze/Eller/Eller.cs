@@ -87,7 +87,7 @@ public class Eller : MazeGenerator
             set = sets[row[i].group];//sets에 저장된 리스트 가져오기
             for (int t = 0; t < set.Count; t++)
             {
-                if (set[t].Y != row[0].Y)//불러온 리스트에서 Y값이 현제 줄과 같지 않으면 제거
+                if (set[t].Y != row[0].Y)//불러온 리스트에서 Y값이 현제 처리하려는 줄과 같지 않으면 제거
                 {
                     set.Remove(set[t--]);
                 }

@@ -44,6 +44,8 @@ public class Enemy : MonoBehaviour
     public float runSpeed = 7.0f;
     float speedPenalty = 0;
 
+    public GameObject[] dropItems;
+
     BehaviourState state = BehaviourState.Dead;
     public BehaviourState State
     {
@@ -185,10 +187,6 @@ public class Enemy : MonoBehaviour
         //  2.2. 몇시 방향에서 피격 당했는지 UI로 표시
     }
     Dictionary<float, GameObject> dropTable = new Dictionary<float, GameObject>();
-    void DropItem()
-    {
-
-    }
     void Attack()
     {
         Debug.Log($"공격{attackTarget.gameObject.name}");
@@ -205,7 +203,39 @@ public class Enemy : MonoBehaviour
         State = BehaviourState.Wander;
         gameObject.SetActive(true);
     }
-
+    enum ItemTable
+    {
+        Heal,
+        Rifle,
+        ShotGun,
+        Random
+    }
+    void DropItem(ItemTable table = ItemTable.Random)
+    {
+        int index = 0;
+        if (table == ItemTable.Random)
+        {
+            float random = UnityEngine.Random.value;
+            if (random < 0.8f)
+            {
+                index = (int)ItemTable.Rifle;
+            }
+            else if(random < 0.9f)
+            {
+                index = (int)ItemTable.Heal;
+            }
+            else
+            {
+                index = (int)ItemTable.ShotGun;
+            }
+        }
+        else
+        {
+            index = (int)table;
+        }
+        Instantiate(dropItems[index], transform.position + transform.up, transform.rotation); 
+    }
+    
     Vector3 GetRandomDestination()
     {
         Vector3 result = new();
@@ -279,7 +309,9 @@ public class Enemy : MonoBehaviour
                 onUpdate = Update_Attack;
                 break;
             case BehaviourState.Dead:
+                //아이템 드롭 추가
                 onUpdate = Update_Dead;
+                DropItem();
                 onDie?.Invoke(this);
                 gameObject.SetActive(false);
                 agent.speed = 0.0f;

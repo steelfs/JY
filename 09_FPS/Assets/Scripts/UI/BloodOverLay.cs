@@ -11,7 +11,7 @@ public class BloodOverLay : MonoBehaviour
 
     float inverseMaxHP;
     Image image;
-    Color color = Color.clear;
+    public Color color = Color.clear;
 
     private void Awake()
     {
@@ -20,12 +20,12 @@ public class BloodOverLay : MonoBehaviour
     }
     private void Start()
     {
-        inverseMaxHP = GameManager.Inst.Player.maxHP;
-        GameManager.Inst.Player.on_HP_Change = OnHPChange;
+        inverseMaxHP = 1 / GameManager.Inst.Player.maxHP;
+        GameManager.Inst.Player.on_HP_Change += OnHPChange;
     }
     void OnHPChange(float hp)
     {
-        float ratio = hp * inverseMaxHP;
+        float ratio = 1 - hp * inverseMaxHP;
         color.a = animationCurve.Evaluate(ratio);
         image.color = color;
 

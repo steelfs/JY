@@ -7,6 +7,6 @@ public class GunItem : Item
     public GunType GunType;
     protected override void OnItemConsume(Player player)
     {
-
+        player.GunChange(GunType);
     }
 }
