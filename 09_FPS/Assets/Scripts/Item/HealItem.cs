@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class HealItem : Item
 {
-    public float heal = 30.0f;
-    protected override void OnItemConsume(Player player)
+    public float heal = 20.0f;
+
+    protected override void OnItemConsum(Player player)
     {
         player.HP += heal;
-        Destroy(this.gameObject);
     }
 }

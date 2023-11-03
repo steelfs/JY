@@ -32,16 +32,16 @@ public class CellVisualizer : MonoBehaviour
     }
 
     public Direction GetPaths()
-    {
+    {        
         int mask = 0;
         for (int i = 0; i < walls.Length; i++)                     // 모든 벽을 체크
-        {
-            // 마스크 만들기(1,2,4,8 순서)
-            if (!walls[i].activeSelf)
+        {                                          
+            if( !walls[i].activeSelf )
             {
-                mask |= 1 << i;
+                mask |= 1 << i;     // 마스크 만들기(1,2,4,8 순서)
             }
         }
-        return (Direction)mask;//변수선언은 사용하기 직전에 하는것이 가독성이 좋다
+
+        return (Direction)mask;
     }
 }

@@ -6,6 +6,7 @@ public class Item : MonoBehaviour
 {
     Transform meshTransform;
     public float spinSpeed = 360.0f;
+    
 
     private void Awake()
     {
@@ -24,13 +25,13 @@ public class Item : MonoBehaviour
             Player player = other.GetComponent<Player>();
             if (player != null)
             {
-                OnItemConsume(player);
+                OnItemConsum(player);
                 Destroy(this.gameObject);
             }
         }
     }
-    protected virtual void OnItemConsume(Player player)
-    {
 
+    protected virtual void OnItemConsum(Player player)
+    {
     }
 }

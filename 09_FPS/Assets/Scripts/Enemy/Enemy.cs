@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem.LowLevel;
 
 public enum BehaviourState : byte
@@ -44,8 +43,6 @@ public class Enemy : MonoBehaviour
     public float runSpeed = 7.0f;
     float speedPenalty = 0;
 
-    public GameObject[] dropItems;
-
     BehaviourState state = BehaviourState.Dead;
     public BehaviourState State
     {
@@ -69,7 +66,11 @@ public class Enemy : MonoBehaviour
     public float sightRange = 20.0f;
 
     NavMeshAgent agent;
+
     Player attackTarget = null;
+
+    public GameObject[] dropItems;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -80,18 +81,19 @@ public class Enemy : MonoBehaviour
 
         Transform child = transform.GetChild(6);
         AttackSensor attackSensor = child.GetComponent<AttackSensor>();
-        attackSensor.on_SensorTriggered += (target) =>
+        attackSensor.onSensorTriggered += (target) =>
         {
             attackTarget = target.GetComponent<Player>();
-           // attackTarget.on_Die += () => State = BehaviourState.Wander;
+            attackTarget.onDie += ReturnWander;
             State = BehaviourState.Attack;
         };
     }
-    //void ReturnWander()
-    //{
-    //    State = BehaviourState.Wander;
-    //    attackTarget.on_Die -= ReturnWander;
-    //}
+
+    void ReturnWander()
+    {
+        State = BehaviourState.Wander;
+    }
+
     private void OnEnable()
     {
         HP = maxHp;
@@ -99,10 +101,6 @@ public class Enemy : MonoBehaviour
         speedPenalty = 0;
     }
 
-    private void Start()
-    {
-        
-    }
     private void Update()
     {
         onUpdate();
@@ -124,24 +122,16 @@ public class Enemy : MonoBehaviour
 
     void Update_Chase()
     {
-        if (target != null)
-        {
-            if ((target.transform.position - transform.position).sqrMagnitude < 0.01f)
-            {
-                State = BehaviourState.Attack;
-            }
-        }
-      
         // 마지막 목격한 장소까지 이동
         if( IsPlayerInSight(out Vector3 newPostion) )
         {
             agent.SetDestination(newPostion);
-            Debug.Log($"목적지 갱신 : {newPostion}");
+            //Debug.Log($"목적지 갱신 : {newPostion}");
         }
         else if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             // 플레이어가 안보이는데 마지막으로 목격한 장소에 도착했다. => 다시 배회 상태로
-            Debug.Log($"배회 상태로 전환");
+            //Debug.Log($"배회 상태로 전환");
             State = BehaviourState.Find;
         }
     }
@@ -164,78 +154,24 @@ public class Enemy : MonoBehaviour
 
     public float attackPower = 10.0f;
     public float attackInterval = 1.0f;
-    public float attackElapsed = 0;
+    float attackElapsed = 0;
     void Update_Attack()
     {
-        // 적
-        // 1. chase 상태에서 일정거리 안으로 플레이어가 들어오면 공격 상태로 변경된다.
-        // 2. 공격 상태일 때는 플레이어를 무조건 계속 쫒아온다.
-        // 3. 플레이어가 죽었다 => 배회 상태
-        // 4. 적이 죽었다. => 죽음 상태
-
         agent.SetDestination(attackTarget.transform.position);
+
         attackElapsed -= Time.deltaTime;
         if (attackElapsed < 0)
         {
             Attack();
             attackElapsed = attackInterval;
         }
-        // 플레이어
-        // 1. hp와 hpMax 만들기
-        // 2. 피격용 함수 만들기
-        //  2.1. hp 감소 => hp가 0이하면 플레이어 사망(디버그로 출력만)
-        //  2.2. 몇시 방향에서 피격 당했는지 UI로 표시
     }
-    Dictionary<float, GameObject> dropTable = new Dictionary<float, GameObject>();
-    void Attack()
-    {
-        Debug.Log($"공격{attackTarget.gameObject.name}");
-        attackTarget.Attacked(this);
-        //attackTarget;
-    }
+
     void Update_Dead()
     {
-        
+
     }
-    public void Respawn(Vector3 spawnPos)
-    {
-        agent.Warp(spawnPos);
-        State = BehaviourState.Wander;
-        gameObject.SetActive(true);
-    }
-    enum ItemTable
-    {
-        Heal,
-        Rifle,
-        ShotGun,
-        Random
-    }
-    void DropItem(ItemTable table = ItemTable.Random)
-    {
-        int index = 0;
-        if (table == ItemTable.Random)
-        {
-            float random = UnityEngine.Random.value;
-            if (random < 0.8f)
-            {
-                index = (int)ItemTable.Heal;
-            }
-            else if(random < 0.9f)
-            {
-                index = (int)ItemTable.Rifle;
-            }
-            else
-            {
-                index = (int)ItemTable.ShotGun;
-            }
-        }
-        else
-        {
-            index = (int)table;
-        }
-        Instantiate(dropItems[index], transform.position + transform.up, transform.rotation); 
-    }
-    
+
     Vector3 GetRandomDestination()
     {
         Vector3 result = new();
@@ -252,7 +188,12 @@ public class Enemy : MonoBehaviour
         return result;
     }
 
-  
+    private void Attack()
+    {
+        Debug.Log($"플레이어 {attackTarget.gameObject.name} 공격");
+        attackTarget.Attacked(this);
+    }
+
     public void OnAttacked(HitLocation hitLocation, float damage)
     {
         switch(hitLocation)
@@ -271,13 +212,13 @@ public class Enemy : MonoBehaviour
                 //Debug.Log("팔을 맞았다.");
                 break;
             case HitLocation.Leg:
-                HP -= damage;
                 speedPenalty += 1;
                 agent.speed = walkSpeed - speedPenalty;
                 //Debug.Log("다리을 맞았다.");
                 break;
         }
-        if (State == BehaviourState.Wander || State == BehaviourState.Find)
+
+        if( State == BehaviourState.Wander || State == BehaviourState.Find)
         {
             State = BehaviourState.Chase;
             Player player = GameManager.Inst.Player;
@@ -309,12 +250,11 @@ public class Enemy : MonoBehaviour
                 onUpdate = Update_Attack;
                 break;
             case BehaviourState.Dead:
-                //아이템 드롭 추가
-                onUpdate = Update_Dead;
                 DropItem();
+                onUpdate = Update_Dead;
+                agent.speed = 0.0f;
                 onDie?.Invoke(this);
                 gameObject.SetActive(false);
-                agent.speed = 0.0f;
                 break;
         }
     }
@@ -328,13 +268,13 @@ public class Enemy : MonoBehaviour
                 StopAllCoroutines();
                 break;
             case BehaviourState.Attack:
+                attackTarget.onDie -= ReturnWander;
                 attackTarget = null;
                 break;
             case BehaviourState.Dead:
                 gameObject.SetActive(true);
                 HP = maxHp;
                 break;
-
             case BehaviourState.Wander:                
             case BehaviourState.Chase:
             default:
@@ -365,7 +305,7 @@ public class Enemy : MonoBehaviour
             // 벽에 가려지는가?
             Vector3 dir = playerCollider[0].transform.position - transform.position;
             Ray ray = new(transform.position + Vector3.up, dir);
-            if (Physics.Raycast(ray, out RaycastHit hit, LayerMask.GetMask("Player", "Default")))
+            if (Physics.Raycast(ray, out RaycastHit hit, sightRange, LayerMask.GetMask("Player", "Default")))
             {
                 if (hit.collider == playerCollider[0])
                 {
@@ -405,6 +345,45 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void Respawn(Vector3 spawnPos)
+    {
+        agent.Warp(spawnPos);
+        State = BehaviourState.Wander;
+    }
+
+    enum ItemTable
+    {        
+        Heal,
+        AssaultRifle,
+        ShotGun,
+        Random
+    }
+
+    void DropItem(ItemTable table = ItemTable.Random)
+    {
+        int index = 0;
+        if(table == ItemTable.Random) 
+        {
+            float random = UnityEngine.Random.value;
+            if(random < 0.8f)
+            {
+                index = (int)ItemTable.Heal;
+            }
+            else if(random < 0.9f)
+            {
+                index = (int)ItemTable.AssaultRifle;
+            }
+            else
+            {
+                index = (int)ItemTable.ShotGun;
+            }
+        }
+        else
+        {
+            index = (int)table;
+        }
+        Instantiate(dropItems[index], transform.position, transform.rotation);
+    }
 
     private void OnTriggerEnter(Collider other)
     {

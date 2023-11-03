@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class GunItem : Item
 {
-    public GunType GunType;
-    protected override void OnItemConsume(Player player)
+    public GunType gunType;
+
+    protected override void OnItemConsum(Player player)
     {
-        player.GunChange(GunType);
+        player.GunChange(gunType);
     }
 }

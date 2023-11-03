@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 StartCoroutine(Respawn(target));
             };
-            GameManager.Inst.Player.on_Die += () => enemy.State = BehaviourState.Wander;
+
             enemy.transform.position = GetRandomPos(true);
         }
     }
@@ -56,6 +56,7 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator Respawn(Enemy target)
     {
         yield return new WaitForSeconds(1);
+
         target.Respawn(GetRandomPos());
     }
 }

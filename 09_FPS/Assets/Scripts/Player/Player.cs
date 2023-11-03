@@ -2,47 +2,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using static UnityEngine.Rendering.DebugUI;
 
 public class Player : MonoBehaviour
 {
     bool isAlive = true;
-    float hp = 100;
-    public float maxHP = 100;
+    float hp;
+    public float MaxHP = 100.0f;
     public float HP
     {
         get => hp;
         set
         {
             hp = value;
-            if (hp <= 0 && isAlive)
+            if(hp<=0 && isAlive)
             {
                 Die();
-                gameObject.SetActive(false);
             }
-            hp = Math.Clamp(hp, 0, maxHP);
-            on_HP_Change?.Invoke(hp);
-           
+            hp = Mathf.Clamp(hp, 0, MaxHP);
+            onHPChange?.Invoke(hp);
         }
     }
-    public Action<float> on_HP_Change;
-    public Action on_Die;
-    public Action<float> on_Attacked;
-    public void Attacked(Enemy enemy)
-    {
-        Vector3 dir = enemy.transform.position - transform.position;
-        float angle = Vector3.SignedAngle(transform.forward, dir, transform.up);
-        on_Attacked?.Invoke(-angle);
-        //Vector3.Angle
-        HP -= enemy.attackPower;
-
-    }
-    private void Die()
-    {
-        isAlive = false;
-        on_Die?.Invoke();
-        Debug.Log("플레이어 사망");
-    }
+    public Action onDie;
+    public Action<float> onHPChange;
 
     GameObject gunCamera;
 
@@ -51,6 +34,8 @@ public class Player : MonoBehaviour
     GunBase[] powerGuns;    
 
     StarterAssets.FirstPersonController controller;
+
+    CharacterController cc;
 
     private void Awake()
     {
@@ -71,6 +56,7 @@ public class Player : MonoBehaviour
         activeGun = defaultGun;        
 
         controller = GetComponent<StarterAssets.FirstPersonController>();
+        cc = GetComponent<CharacterController>();
     }
 
     private void Start()
@@ -84,8 +70,10 @@ public class Player : MonoBehaviour
             gun.onFireRecoil += (expend) => crosshair.Expend(expend * 10);
         }
 
-        hp = maxHP;
+        HP = MaxHP;
         GunChange(GunType.Revoler);
+
+        Spawn();
     }
 
     private void GunFireRecoil(float recoil)
@@ -156,12 +144,74 @@ public class Player : MonoBehaviour
             GunChange(GunType.Revoler);
         }
     }
-    private void OnTriggerEnter(Collider other)
+
+    public Action<float> onAttacked;
+    public void Attacked(Enemy enemy)
     {
-        if (other.CompareTag("Potion"))
+        Vector3 dir = enemy.transform.position - transform.position;
+        float angle = Vector3.SignedAngle(transform.forward, dir, transform.up);
+        onAttacked?.Invoke(-angle);
+
+        HP -= enemy.attackPower;
+    }
+
+    void Die()
+    {
+        isAlive = false;
+        Debug.Log("사망");
+        onDie?.Invoke();
+        gameObject.SetActive(false);
+    }
+
+    public void Spawn()
+    {
+        cc.enabled = false;
+
+        MazeVisualizer maze = FindAnyObjectByType<MazeVisualizer>();
+        int width = (int)(maze.width * 0.2f);
+        int height = (int)(maze.height * 0.2f);
+
+        int widthMin = (int)((maze.width - width) * 0.5f);
+        int widthMax = (int)((maze.width + width) * 0.5f);
+        int heightMin = (int)((maze.height - height) * 0.5f);
+        int heightMax = (int)((maze.height + height) * 0.5f);
+
+        int x = UnityEngine.Random.Range(widthMin, widthMax);
+        int y = UnityEngine.Random.Range(heightMin, heightMax);
+
+        //Debug.Log($"{x}, {y}");
+
+        Vector3 world = maze.GridToWorld(x, y);                
+        transform.position = world;
+
+        Ray ray = new(world + Vector3.up, Vector3.down);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, 10.0f))
         {
-            HP += 50;
-            Destroy(other.gameObject);
+            CellVisualizer cell = hitInfo.collider.gameObject.GetComponentInParent<CellVisualizer>();
+            Direction paths = cell.GetPaths();
+            Debug.Log(paths);
+            List<Vector3> dirList = new List<Vector3>(4);
+            if ((paths & Direction.North) != 0)
+            {
+                dirList.Add(Vector3.forward);
+            }
+            if ((paths & Direction.East) != 0)
+            {
+                dirList.Add(Vector3.right);
+            }
+            if ((paths & Direction.South) != 0)
+            {
+                dirList.Add(Vector3.back);
+            }
+            if ((paths & Direction.West) != 0)
+            {
+                dirList.Add(Vector3.left);
+            }
+
+            Vector3 dir = dirList[UnityEngine.Random.Range(0, dirList.Count)];
+            transform.LookAt(transform.position + dir);
         }
+
+        cc.enabled = true;
     }
 }

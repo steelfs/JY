@@ -6,9 +6,9 @@ public class AttackSensor : Sensor
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if(other.CompareTag("Player"))
         {
-            on_SensorTriggered?.Invoke(other.gameObject);
+            onSensorTriggered?.Invoke(other.gameObject);
         }
     }
 }

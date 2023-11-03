@@ -10,7 +10,6 @@ TagManager:
   - Enemy_Body
   - Enemy_Arm
   - Enemy_Leg
-  - Potion
   layers:
   - Default
   - TransparentFX

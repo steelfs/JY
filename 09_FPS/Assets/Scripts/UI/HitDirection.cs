@@ -10,18 +10,16 @@ public class HitDirection : MonoBehaviour
     float timeElapsed = 0;
 
     Image image;
+
     private void Awake()
     {
         image = GetComponent<Image>();
     }
-    private void OnEnable()
-    {
-        image.color = Color.white;
-    }
+
     private void Start()
     {
         Player player = GameManager.Inst.Player;
-        player.on_Attacked += PlayerAttacked;
+        player.onAttacked += PlayerAttacked;
         image.color = Color.clear;
         timeElapsed = duration;
     }
@@ -30,13 +28,17 @@ public class HitDirection : MonoBehaviour
     {
         image.color = Color.white;
         timeElapsed = 0;
-        transform.rotation = Quaternion.Euler(0,0, angle);
+        this.gameObject.SetActive(true);
+
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
+
     private void Update()
     {
         timeElapsed += Time.deltaTime;
         float alpha = timeElapsed / duration;
 
         image.color = Color.Lerp(Color.white, Color.clear, alpha);
+
     }
 }

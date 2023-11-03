@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Sensor : MonoBehaviour
 {
-    public Action<GameObject> on_SensorTriggered;
+    public Action<GameObject> onSensorTriggered;
 
     private void OnTriggerEnter(Collider other)
     {
-        on_SensorTriggered?.Invoke(other.gameObject);
+        onSensorTriggered?.Invoke(other.gameObject);
     }
 }

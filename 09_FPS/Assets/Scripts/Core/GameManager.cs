@@ -10,8 +10,7 @@ public class GameManager : Singleton<GameManager>
     /// 플레이어
     /// </summary>
     public Player Player => player;
-    MazeVisualizer mazeVisualizer;
-    public static MazeVisualizer MazeVisualizer => Inst.mazeVisualizer;
+
     CinemachineVirtualCamera vcamera;
     /// <summary>
     /// 플레이어를 찍는 가상카메라
@@ -24,7 +23,7 @@ public class GameManager : Singleton<GameManager>
     protected override void OnInitialize()
     {
         base.OnInitialize();
-        mazeVisualizer = FindAnyObjectByType<MazeVisualizer>();
+
         player = FindAnyObjectByType<Player>();
 
         GameObject obj = GameObject.Find("PlayerFollowCamera");

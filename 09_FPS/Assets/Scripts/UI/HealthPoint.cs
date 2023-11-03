@@ -2,22 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HealthPoint : MonoBehaviour
 {
-    TextMeshProUGUI hpText;
+    TextMeshProUGUI hp;
+
     private void Awake()
     {
-        hpText = GetComponent<TextMeshProUGUI>();
+        hp = GetComponent<TextMeshProUGUI>();
     }
+
     private void Start()
     {
-        GameManager.Inst.Player.on_HP_Change += On_HpChange;
-        
+        GameManager.Inst.Player.onHPChange += OnHPChange;
     }
-    void On_HpChange(float hp)
+
+    private void OnHPChange(float hp)
     {
-        hpText.text = $"{hp:f0} / 100";
+        this.hp.text = hp.ToString("f0");
     }
 }

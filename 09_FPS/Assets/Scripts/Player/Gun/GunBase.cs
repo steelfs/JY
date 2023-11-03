@@ -141,22 +141,18 @@ public class GunBase : MonoBehaviour
                 if (hitInfo.collider.CompareTag("Enemy_Head"))
                 {
                     location = HitLocation.Head;
-                   // Debug.Log("Head");
                 }
                 else if (hitInfo.collider.CompareTag("Enemy_Arm"))
                 {
                     location = HitLocation.Arm;
-                   // Debug.Log("Arm");
                 }
                 else if (hitInfo.collider.CompareTag("Enemy_Leg"))
                 {
                     location = HitLocation.Leg;
-                    //Debug.Log("Leg");
                 }
                 else if (hitInfo.collider.CompareTag("Enemy_Body"))
                 {
                     location = HitLocation.Body;
-                 //   Debug.Log("Body");
                 }
                 target.OnAttacked(location, damage);
             }

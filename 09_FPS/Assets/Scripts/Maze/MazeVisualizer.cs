@@ -7,17 +7,16 @@ public class MazeVisualizer : MonoBehaviour
     public GameObject cellPrefab;
     public GameObject goalPrefab;
 
-
-    public GameObject[] cellPrefabs;
-
     public int width;
     public int height;
+
     public void Draw(MazeGenerator maze)
     {
-        this.width = maze.Width;
-        this.height = maze.Height;
+        width = maze.Width;
+        height = maze.Height;
         Cell[] data = maze.Cells;
         Cell goal = maze.Goal;
+
         foreach (Cell cell in data)
         {
             GameObject obj = Instantiate(cellPrefab, transform);
@@ -29,10 +28,10 @@ public class MazeVisualizer : MonoBehaviour
         }
 
         GameObject goalObj = Instantiate(goalPrefab, transform);
-        goalObj.name = "Cell_Goal";
         goalObj.transform.Translate(goal.X * CellVisualizer.CellSize, 0, -goal.Y * CellVisualizer.CellSize);
-        CellVisualizer goalVisualizer = goalObj.GetComponent<CellVisualizer>();
-        goalVisualizer.RefreshWall(goal.Path);
+        goalObj.gameObject.name = "Cell_Goal";
+        CellVisualizer goalDisplayer = goalObj.GetComponent<CellVisualizer>();
+        goalDisplayer.RefreshWall(goal.Path);
     }
 
     public void Clear()
@@ -44,10 +43,10 @@ public class MazeVisualizer : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
+
     public Vector3 GridToWorld(int x, int y)
     {
-        Vector3 result = new(CellVisualizer.CellSize * x + 2.5f, 0, -CellVisualizer.CellSize * y -2.5f);
-
+        Vector3 result = new(CellVisualizer.CellSize * x + 2.5f, 0, -CellVisualizer.CellSize * y - 2.5f);
         return result;
     }
 }

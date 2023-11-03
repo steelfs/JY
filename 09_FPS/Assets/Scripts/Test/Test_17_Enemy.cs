@@ -19,8 +19,8 @@ public class Test_17_Enemy : TestBase
         if( seed != -1)
             Random.InitState(seed);
 
-        //revolver.fireRate = 10;
-        //revolver.damage = gunPower;
+        revolver.fireRate = 10;
+        revolver.damage = gunPower;
     }
 
     protected override void Test1(InputAction.CallbackContext context)
@@ -35,13 +35,21 @@ public class Test_17_Enemy : TestBase
 
     protected override void Test2(InputAction.CallbackContext context)
     {
+        //PlayerPrefs.SetInt("Level", 100);
+        //int level = PlayerPrefs.GetInt("Level");
+        //Debug.Log(level);
+        //bool result = PlayerPrefs.HasKey("Level");
+        //Debug.Log(result);
+        //result = PlayerPrefs.HasKey("HP");
+        //Debug.Log(result);
+    }
+
+    protected override void Test3(InputAction.CallbackContext context)
+    {
         GameManager.Inst.Player.HP -= 10;
     }
-    //회복 아이템 만들기
-    //플레이어 HP에 따라 curve사용해서 어둡게 하기
-    //HP 숫자로 표시
-    //죽으면 회복아이템, 총을 랜덤하게 드랍
-    protected override void Test3(InputAction.CallbackContext context)
+
+    protected override void Test4(InputAction.CallbackContext context)
     {
         GameManager.Inst.Player.HP += 10;
     }
