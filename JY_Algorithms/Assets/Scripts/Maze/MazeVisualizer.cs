@@ -60,8 +60,9 @@ public class MazeVisualizer : MonoBehaviour
     }
     public List<(Cell, Cell)> connectOrder = new List<(Cell, Cell)>();
 
-    Vector3 sixPos = new Vector3(22.5f, 0, -26);
-    Vector3 sevenPos = new Vector3(25.5f, 0, -30);
+    Vector3 six_By_Six = new Vector3(22.5f, 0, -26);
+    Vector3 seven_By_Seven = new Vector3(25.5f, 0, -30);
+    Vector3 eight_By_Eight = new Vector3(27, 0, -32);
 
     /// <summary>
     /// MakeBoard 함수에서 현재 설정된 MazeType에 맞게 Cells의 배열을 만든다.
@@ -310,14 +311,19 @@ public class MazeVisualizer : MonoBehaviour
     /// <param name="height">보드의 Y</param>
     /// <param name="cells">보드를 구성하는 cell 의 배열</param>
     public void RenderBoard(int width, int height, Cell[] cells)// delegate를 연결하기 위해 cell의 배열도 받는다.
-    {cellVisualizers = new CellVisualizer[cells.Length];
-        if(width > 6)
+    {
+        cellVisualizers = new CellVisualizer[cells.Length];
+        if (width > 7)
         {
-            transform.position = sevenPos;
+            transform.position = eight_By_Eight;
+        }
+        else if(width > 6)
+        {
+            transform.position = seven_By_Seven;
         }
         else if (width > 5)
         {
-            transform.position = sixPos;
+            transform.position = six_By_Six;
         }
         for (int y = 0; y < height; y++)
         {
