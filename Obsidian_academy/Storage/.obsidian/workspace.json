@@ -15,8 +15,8 @@
               "state": {
                 "file": "Algorithm/Kruskal.canvas",
                 "viewState": {
-                  "x": -201,
-                  "y": -24,
+                  "x": -327,
+                  "y": -9,
                   "zoom": 0
                 }
               }
@@ -151,14 +151,14 @@
   },
   "active": "1e3119a662e813a2",
   "lastOpenFiles": [
-    "문제해결/HP가 줄어들 때 알파값이 증가해야 할 때.md",
+    "이론수업.md",
     "Algorithm/Kruskal.canvas",
+    "문제해결/HP가 줄어들 때 알파값이 증가해야 할 때.md",
     "Tip.md",
     "Algorithm/Maze_Eller.canvas",
     "문제해결",
     "Algorithm/Maze_Wilson.canvas",
     "Algorithm/Maze_BackTracking.canvas",
-    "이론수업.md",
     "아이템 선정 과정.canvas",
     "Algorithm",
     "프로그램 구현 순서.md"

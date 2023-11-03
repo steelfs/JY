@@ -39,12 +39,13 @@ public class Kruskal : MazeGenerator
     }
     public override async void MakeMaze()
     {
-        while(notInMaze.Count > 0)
+        while(sets.Count > 0)
         {
             Kruskal_Cell chosen = notInMaze[Random.Range(0, notInMaze.Count)];
+
             Kruskal_Cell[] neighbors = GetNeighbors(chosen);
             await Task.Delay(30);
         }
     }
-  
+    
 }
