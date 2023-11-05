@@ -81,7 +81,7 @@ public class Kruskal : MazeGenerator
     public override async void MakeMaze()
     {
         List<(Kruskal_Cell, Kruskal_Cell)> remainCells = new List<(Kruskal_Cell, Kruskal_Cell)> ();
-        for (int i = 0; i < cells.Length; i++)
+        for (int i = 0; i < cells.Length; i++)//u+연결할 수 있는 모든 경우의 수를 저장
         {
             Kruskal_Cell ftom = cells[i] as Kruskal_Cell;
             Kruskal_Cell[] neighbors = GetNeighbors(ftom);
@@ -98,7 +98,9 @@ public class Kruskal : MazeGenerator
             int fromIndex = GridToIndex(from.X, from.Y);
             int toIndex = GridToIndex(to.X, to.Y);
 
-            if (unionFind.Find(fromIndex) != unionFind.Find(toIndex))
+            int fromUnion = unionFind.Find(fromIndex);
+            int toUnion = unionFind.Find(toIndex);
+            if (fromUnion != toUnion)
             {
                 if (previousFrom != null)
                 {
@@ -112,10 +114,10 @@ public class Kruskal : MazeGenerator
                 GameManager.Visualizer.ConnectPath(cells[fromIndex], cells[toIndex]);
                 await Task.Delay(200);
                 unionFind.Union(fromIndex, toIndex);
+                GameManager.Visualizer.AddToConnectOrder(cells[GridToIndex(from.X, from.Y)], cells[GridToIndex(to.X, to.Y)]);
             }
-
         }
-
+        GameManager.Visualizer.InitBoard();
         //while(notInMaze.Count > 0)// 미로에 편입되지 않은것 부터 먼저 처리
         //{
         //    GetNeighborsAndMerge(true);
