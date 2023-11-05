@@ -52,8 +52,6 @@ public class Kruskal_Cell : Cell
 }
 public class Kruskal : MazeGenerator
 {
-    Dictionary<int, List<Kruskal_Cell>> sets = new Dictionary<int, List<Kruskal_Cell>>();//그룹을 키로 주면 같은 그룹의 셀들의 리스트를 바로 접근할 수 있는 딕셔너리
-    List<Kruskal_Cell> notInMaze = new List<Kruskal_Cell>();//아직 미로에 추가되지 않은 셀들의 리스트
     Kruskal_Cell previousFrom;//머티리얼 변경용
     Kruskal_Cell previousTo;
     UnionFind unionFind;
@@ -70,10 +68,7 @@ public class Kruskal : MazeGenerator
                 cells[index] = new Kruskal_Cell(x, y);
                 Kruskal_Cell cell = cells[index] as Kruskal_Cell;
                 unionFind = new(width * height);
-
                 cell.group = index;//고유한 인덱스 부여
-                sets[index] = new List<Kruskal_Cell> { cell };
-                notInMaze.Add(cell);
             }
         }
         return cells;
@@ -118,92 +113,5 @@ public class Kruskal : MazeGenerator
             }
         }
         GameManager.Visualizer.InitBoard();
-        //while(notInMaze.Count > 0)// 미로에 편입되지 않은것 부터 먼저 처리
-        //{
-        //    GetNeighborsAndMerge(true);
-        //    await Task.Delay(300);
-        //}
-        //while(sets.Count > 1)
-        //{
-        //    GetNeighborsAndMerge(false);
-        //    await Task.Delay(300);
-        //}
-        //GameManager.Visualizer.InitBoard();
-    }
-    void GetNeighborsAndMerge(bool getFromNotInMaze)
-    {
-        Kruskal_Cell[] neighbors; 
-        List<Kruskal_Cell> neighbors_List;
-        Kruskal_Cell from = null;
-        Kruskal_Cell to = null;
-        while (to == null)
-        {
-            if (getFromNotInMaze)
-            {
-                from = notInMaze[Random.Range(0, notInMaze.Count)];
-            }
-            else
-            {
-                from = cells[Random.Range(0, cells.Length)] as Kruskal_Cell;
-            }
-            neighbors = GetNeighbors(from);//상하좌우 셀 구해오기
-            neighbors_List = neighbors.ToList();
-            while (neighbors_List.Count > 0)
-            {
-                to = neighbors_List[Random.Range(0, neighbors_List.Count)];//구해온 셀들 중 랜덤한 것 고르기
-                if (to.group != from.group)//그룹이 다르면 toCell 이 null 이 아닌채로 루프 종료
-                {
-                    break;
-                }
-                else
-                {
-                    neighbors_List.Remove(to);
-                    to = null;
-                }
-            }
-        }
-        MergeCell(from, to);//머지
-    }
-    void MergeCell(Kruskal_Cell from, Kruskal_Cell to)
-    {
-        GameManager.Visualizer.ConnectPath(from, to);
-        GameManager.Visualizer.AddToConnectOrder(from, to);
-        if (previousFrom != null)
-        {
-            on_Set_DefaultMaterial?.Invoke(GridToIndex(previousFrom.X, previousFrom.Y));//이전에 표시한 머티리얼 초기화
-            on_Set_DefaultMaterial?.Invoke(GridToIndex(previousTo.X, previousTo.Y));
-        }
-        on_Set_ConfirmedMaterial?.Invoke(GridToIndex(from.X, from.Y));//현재 작업할 셀의 머티리얼 표시
-        on_Set_ConfirmedMaterial?.Invoke(GridToIndex(to.X, to.Y));
-        previousFrom = from;
-        previousTo = to;
-
-        notInMaze.Remove(from);
-        notInMaze.Remove(to);
-        List<Kruskal_Cell> fromSet = sets[from.group];//리스트 가져오기
-        List<Kruskal_Cell> toSet = sets[to.group];
-
-        //카운트가 작은쪽을 큰쪽에 머지한다.  어느쪽을 머지해도 상관없는데 갯수가 커지면 시간이 조금더 커지는 것을 우려했다.
-        if (fromSet.Count > toSet.Count)
-        {
-            int toGroup = to.group;
-            foreach(Kruskal_Cell toCell in toSet)
-            {
-                toCell.group = from.group;
-                fromSet.Add(toCell);
-            }
-            sets.Remove(toGroup);
-        }
-        else
-        {
-            int fromGroup = from.group;
-            foreach(Kruskal_Cell fromCell in fromSet)
-            {
-                fromCell.group = to.group;
-                toSet.Add(fromCell);
-            }
-            sets.Remove(fromGroup);
-        }
-
     }
 }
