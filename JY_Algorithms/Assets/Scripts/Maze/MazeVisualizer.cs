@@ -334,7 +334,6 @@ public class MazeVisualizer : MonoBehaviour
                 cell.transform.localRotation = Quaternion.Euler(0, 180, 0);
                 cell.transform.localPosition = Vector3.zero;
                 cell.transform.Translate(x * CellSize, 0, -y * CellSize, Space.Self);// 위에서 로컬로테이션을 180도 돌렸기 때문에 역방향으로 계산
-
                 int index = (y * width) + x;
                 CellVisualizer cellVisualizer = cell.GetComponent<CellVisualizer>();
                 cellVisualizers[index] = cellVisualizer;
@@ -370,7 +369,8 @@ public class MazeVisualizer : MonoBehaviour
     /// </summary>
     public void DestroyBoard()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        int childCount = transform.childCount;
+        for (int i = 0; i < childCount; i++)
         {
             Cell cell = cells[i];
             cell.ResetPath();
@@ -378,7 +378,9 @@ public class MazeVisualizer : MonoBehaviour
             cell.Path = 0;
             //x, y 는 생성시 초기화되기 때문에 생략
             cell = null;
-            transform.GetChild(i).gameObject.SetActive(false);
+            Pooled_Obj pooled_Obj= transform.GetChild(0).GetComponent<Pooled_Obj>();
+            pooled_Obj.ReturnToPool();
+
         }
         Cells = null;//셀의 배열을 null 로 만들기
         connectOrder.Clear();

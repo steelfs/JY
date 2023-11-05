@@ -46,8 +46,8 @@ public class Pools : MonoBehaviour
                 obj.AddComponent<Pooled_Obj>();
                 obj.SetActive(false);
                 Pooled_Obj poolObj = obj.GetComponent<Pooled_Obj>();
-                poolObj.on_ReturnPool += ReturnPool;
                 poolObj.poolIndex = i;// 비활성화시 다시 풀로 되돌릴때 사용
+              //  poolObj.on_ReturnPool += ReturnPool;
               
                 pools[i].Enqueue(obj);
             }
@@ -65,14 +65,15 @@ public class Pools : MonoBehaviour
     {
         Queue<GameObject> queue = pools[obj.poolIndex];
         queue.Enqueue(obj.gameObject);
-        StartCoroutine(SetParent(obj));
-     
-    }
-    IEnumerator SetParent(Pooled_Obj obj)
-    {
-        yield return null;
+
         obj.transform.SetParent(parents[obj.poolIndex].transform);
+        //StartCoroutine(SetParent(obj));
     }
+    //IEnumerator SetParent(Pooled_Obj obj)
+    //{
+    //    yield return null;
+        
+    //}
     void GenerateObject()
     {
 
