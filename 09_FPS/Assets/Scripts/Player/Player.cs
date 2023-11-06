@@ -8,6 +8,7 @@ using static UnityEngine.Rendering.DebugUI;
 public class Player : MonoBehaviour
 {
     bool isAlive = true;
+    public bool IsAlive => isAlive;
     float hp;
     public float MaxHP = 100.0f;
     public float HP
@@ -159,6 +160,8 @@ public class Player : MonoBehaviour
     {
         isAlive = false;
         Debug.Log("사망");
+
+
         onDie?.Invoke();
         gameObject.SetActive(false);
     }
@@ -213,5 +216,6 @@ public class Player : MonoBehaviour
         }
 
         cc.enabled = true;
+
     }
 }

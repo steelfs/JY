@@ -86,31 +86,31 @@ namespace StarterAssets
 		IEnumerator ZoomIn()
 		{
 			// 확대
-			float fov = GameManager.Inst.VCamera.m_Lens.FieldOfView;	// 현재 fov값 가져오기
+			float fov = GameManager.VCamera.m_Lens.FieldOfView;	// 현재 fov값 가져오기
 
 			while(fov > 20)							// fov가 20 아래로 내려갈때까지 진행
 			{
 				fov -= Time.deltaTime * 80;			// 0.25초 동안 20이 처리되어야 하므로 * 80
-				GameManager.Inst.VCamera.m_Lens.FieldOfView = fov;	// 계산 결과를 카메라에 적용
+				GameManager.VCamera.m_Lens.FieldOfView = fov;	// 계산 결과를 카메라에 적용
                 yield return null;					// 다음 프레임까지 대기
 			}
 
-            GameManager.Inst.VCamera.m_Lens.FieldOfView = 20;	// fov 수치를 깔끔하게 만들기
+            GameManager.VCamera.m_Lens.FieldOfView = 20;	// fov 수치를 깔끔하게 만들기
         }
 
 		IEnumerator ZoomOut()
 		{
             // 축소
-            float fov = GameManager.Inst.VCamera.m_Lens.FieldOfView;
+            float fov = GameManager.VCamera.m_Lens.FieldOfView;
 
             while (fov < 40)
             {
                 fov += Time.deltaTime * 80;			// 0.25초 동안 20이 처리되어야 하므로 * 80
-                GameManager.Inst.VCamera.m_Lens.FieldOfView = fov;
+                GameManager.VCamera.m_Lens.FieldOfView = fov;
                 yield return null;
             }
 
-            GameManager.Inst.VCamera.m_Lens.FieldOfView = 40;
+            GameManager.VCamera.m_Lens.FieldOfView = 40;
         }
 
 		public void OnReload(InputAction.CallbackContext context)

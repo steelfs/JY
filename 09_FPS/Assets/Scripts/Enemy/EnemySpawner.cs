@@ -20,9 +20,10 @@ public class EnemySpawner : MonoBehaviour
             enemy.onDie += (target) =>
             {
                 StartCoroutine(Respawn(target));
+                GameManager.Inst.AddKillCount();
             };
 
-            enemy.transform.position = GetRandomPos(true);
+            enemy.Respawn(GetRandomPos(true));
         }
     }
 

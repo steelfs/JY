@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -10,7 +10,6 @@ using UnityEditor;
 public class Test_18_Exit : TestBase
 {
     public MazeVisualizer maze;
-    public int seed = -1;
 
     private void Start()
     {
@@ -29,7 +28,6 @@ public class Test_18_Exit : TestBase
         {
             Random.InitState(seed);
         }
-
         int width = (int)(maze.width * 0.2f);
         int height = (int)(maze.height * 0.2f);
 
@@ -74,7 +72,6 @@ public class Test_18_Exit : TestBase
             {
                 dirList.Add(Vector3.left);
             }
-
             Vector3 dir = dirList[Random.Range(0, dirList.Count)];
             player.transform.LookAt(player.transform.position + dir);
         }

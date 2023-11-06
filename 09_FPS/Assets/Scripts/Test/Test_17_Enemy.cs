@@ -8,7 +8,6 @@ public class Test_17_Enemy : TestBase
 {
     //public Enemy enemy;
 
-    public int seed = -1;
 
     public Revolver revolver;
     public float gunPower = 5;
