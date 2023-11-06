@@ -40,7 +40,6 @@ public class UnionFind
             return;
         }
     }
-
 }
 public class Kruskal_Cell : Cell
 {

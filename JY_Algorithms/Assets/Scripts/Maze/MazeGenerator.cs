@@ -50,7 +50,7 @@ public class MazeGenerator
         int x = index % height;
         return new Vector2Int(x, y);
     }
-    protected virtual T[] GetNeighbors<T>(T current) where T : Cell
+    protected T[] GetNeighbors<T>(T current) where T : Cell
     {
         int[,] dir = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
         List<T> neighbors = new List<T>();

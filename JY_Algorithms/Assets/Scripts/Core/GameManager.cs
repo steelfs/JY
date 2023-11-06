@@ -11,6 +11,7 @@ public class GameManager : Singleton<GameManager>
     public static Pools Pools => Inst.pools;
     public static MazeVisualizer Visualizer => Inst.visualizer;
 
+
     private void Awake()
     {
         visualizer = FindAnyObjectByType<MazeVisualizer>();
