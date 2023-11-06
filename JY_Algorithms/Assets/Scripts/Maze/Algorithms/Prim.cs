@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Prim_Cell : Cell
@@ -11,6 +12,8 @@ public class Prim_Cell : Cell
 }
 public class Prim : MazeGenerator
 {
+    Prim_Cell previous_From;
+    Prim_Cell previous_To;
     public override Cell[] MakeCells(int width, int height)
     {
         this.width = width;
@@ -21,13 +24,12 @@ public class Prim : MazeGenerator
             for (int x = 0; x < width; x++)
             {
                 int index = GridToIndex(x, y);
-                cells[index] = new EllerCell(x, y);
-                Prim_Cell cell = cells[index] as Prim_Cell;
+                cells[index] = new Prim_Cell(x, y);
             }
         }
         return cells;
     }
-    public override void MakeMaze()
+    public override async void MakeMaze()
     {
         HashSet<Prim_Cell>inMaze = new HashSet<Prim_Cell>(cells as Prim_Cell[]);
         List<Prim_Cell> frontiers = new List<Prim_Cell> ();
@@ -49,6 +51,7 @@ public class Prim : MazeGenerator
                 if (inMaze.Contains(neighbor))
                 {
                     MergeCell(neighbor, chosen);
+                    await Task.Delay(200);
                     frontiers.Remove(chosen);
                     inMaze.Add(chosen);
                 }
@@ -61,7 +64,7 @@ public class Prim : MazeGenerator
                 }
                 else
                 {
-
+                    frontiers.Add(neighbor);
                 }
             }
         }
@@ -71,6 +74,15 @@ public class Prim : MazeGenerator
     }
     void MergeCell(Prim_Cell from, Prim_Cell to)
     {
+        if (previous_From != null)
+        {
+            on_Set_DefaultMaterial?.Invoke(GridToIndex(previous_From.X, previous_From.Y));
+            on_Set_DefaultMaterial?.Invoke(GridToIndex(previous_To.X, previous_To.Y));
+        }
+        on_Set_NextMaterial?.Invoke(GridToIndex(from.X, from.Y));
+        on_Set_NextMaterial?.Invoke(GridToIndex(to.X, to.Y));
+        previous_From = from;
+        previous_To = to;
         GameManager.Visualizer.ConnectPath(from, to);
         GameManager.Visualizer.AddToConnectOrder(from, to);
     }

@@ -12,7 +12,8 @@ public enum MazeType
     BackTracking,
     Wilson,
     Eller,
-    kruskal
+    kruskal,
+    Prim
 }
 public class MazeVisualizer : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class MazeVisualizer : MonoBehaviour
     Wilson wilson;
     Eller eller;
     Kruskal kruskal;
+    Prim prim;
     CellVisualizer[] cellVisualizers;
 
     MazeType mazeType;
@@ -122,6 +124,15 @@ public class MazeVisualizer : MonoBehaviour
                 Cells = kruskal.MakeCells(x, y);
                 RenderBoard(x, y, Cells);
                 break;
+            case MazeType.Prim:
+                prim = new Prim();
+                prim.on_Set_PathMaterial = On_Path_Material;
+                prim.on_Set_NextMaterial = On_SetNext_Material;
+                prim.on_Set_ConfirmedMaterial = On_SetConfirmed_Material;
+                prim.on_Set_DefaultMaterial = On_SetDefault_Material;
+                Cells = prim.MakeCells(x, y);
+                RenderBoard(x, y, Cells);
+                break;
             default: 
                 break;
         }
@@ -144,6 +155,9 @@ public class MazeVisualizer : MonoBehaviour
                 break;
             case MazeType.kruskal:
                 kruskal.MakeMaze();
+                break;
+            case MazeType.Prim:
+                prim.MakeMaze();
                 break;
             default:
                 break;
