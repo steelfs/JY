@@ -12,8 +12,6 @@ public class Prim_Cell : Cell
 }
 public class Prim : MazeGenerator
 {
-    Prim_Cell previous_From;
-    Prim_Cell previous_To;
     public override Cell[] MakeCells(int width, int height)
     {
         this.width = width;
@@ -31,58 +29,55 @@ public class Prim : MazeGenerator
     }
     public override async void MakeMaze()
     {
-        HashSet<Prim_Cell>inMaze = new HashSet<Prim_Cell>(cells as Prim_Cell[]);
+        HashSet<Prim_Cell>inMaze = new HashSet<Prim_Cell>(cells.Length);
+        //만약 사이즈가 커져서 랜덤한 인덱스의 요소를 가져오는데 시간이 많이 소요되면
+        //frontiers 에도inMaze 처럼 HashSet을 추가로 만들어 줄 수 있다.
         List<Prim_Cell> frontiers = new List<Prim_Cell> ();
 
         Prim_Cell first = cells[Random.Range(0, cells.Length)] as Prim_Cell;
         inMaze.Add(first);
+        on_Set_ConfirmedMaterial?.Invoke(GridToIndex(first.X, first.Y));
         Prim_Cell[] neighbors = GetNeighbors(first);
         foreach (Prim_Cell neighbor in neighbors)
         {
             frontiers.Add(neighbor);
+            on_Set_NextMaterial?.Invoke(GridToIndex(neighbor.X, neighbor.Y));
         }
         while (frontiers.Count > 0)
         {
             Prim_Cell chosen = frontiers[Random.Range(0, frontiers.Count)];
-
-            neighbors = GetNeighbors(chosen);
+            on_Set_ConfirmedMaterial?.Invoke(GridToIndex(chosen.X, chosen.Y));
+            neighbors = GetNeighbors(chosen);//상하좌우 셀들중 보드 안쪽 것들 모두 가져오기
+            List<Prim_Cell> tempList = new List<Prim_Cell>();// 인접한 셀 중 미로에 추가된 셀이 하나이상일 경우 이 리스트에 저장 후 랜덤으로 고르게 된다.
             foreach (Prim_Cell neighbor in neighbors)
             {
-                if (inMaze.Contains(neighbor))
+                if (inMaze.Contains(neighbor))//만약 미로에 추가되어있는 셀 이라면 후보리스트에 추가
                 {
-                    MergeCell(neighbor, chosen);
-                    await Task.Delay(200);
-                    frontiers.Remove(chosen);
-                    inMaze.Add(chosen);
-                }
-            }
-            foreach (Prim_Cell neighbor in neighbors)
-            {
-                if (inMaze.Contains(neighbor))
-                {
-                    continue;
+                    tempList.Add(neighbor);
                 }
                 else
                 {
-                    frontiers.Add(neighbor);
+                    if (!frontiers.Contains(neighbor))//아니라면 후보리스트에 추가
+                    {
+                        frontiers.Add(neighbor);
+                        on_Set_NextMaterial?.Invoke(GridToIndex(neighbor.X, neighbor.Y));
+                    }
                 }
             }
-        }
+            await Task.Delay(200);
 
+            Prim_Cell cell = tempList[Random.Range(0, tempList.Count)];
+            MergeCell(chosen, cell);//머지
+            frontiers.Remove(chosen);//선택된 셀을 frontiers 에서 제거하고
+            inMaze.Add(chosen);//선택된 셀을 inMaze 에 추가한다.
+        }
+        GameManager.Visualizer.InitBoard();
 
 
     }
     void MergeCell(Prim_Cell from, Prim_Cell to)
     {
-        if (previous_From != null)
-        {
-            on_Set_DefaultMaterial?.Invoke(GridToIndex(previous_From.X, previous_From.Y));
-            on_Set_DefaultMaterial?.Invoke(GridToIndex(previous_To.X, previous_To.Y));
-        }
-        on_Set_NextMaterial?.Invoke(GridToIndex(from.X, from.Y));
-        on_Set_NextMaterial?.Invoke(GridToIndex(to.X, to.Y));
-        previous_From = from;
-        previous_To = to;
+      
         GameManager.Visualizer.ConnectPath(from, to);
         GameManager.Visualizer.AddToConnectOrder(from, to);
     }
