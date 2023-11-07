@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MiniMapCam : MonoBehaviour
@@ -15,7 +12,6 @@ public class MiniMapCam : MonoBehaviour
     }
     private void Update()
     {
-       // transform.Translate(player.transform.position.x, player.transform.position.y + 30, player.transform.position.z);
         newPos.x = player.transform.position.x;
         newPos.y = player.transform.position.y + 40;
         newPos.z = player.transform.position.z;
