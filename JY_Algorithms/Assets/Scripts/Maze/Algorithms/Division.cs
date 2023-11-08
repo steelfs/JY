@@ -11,5 +11,6 @@ public class Division_Cell : Cell
 }
 public class Division : MazeGenerator
 {
-    
+    Stack<List<Division_Cell>> division_Cells = new Stack<List<Division_Cell>>();
+
 }

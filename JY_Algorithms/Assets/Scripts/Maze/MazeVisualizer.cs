@@ -143,6 +143,7 @@ public class MazeVisualizer : MonoBehaviour
                 division.on_Set_DefaultMaterial = On_SetDefault_Material;
                 Cells = division.MakeCells(x, y);
                 RenderBoard(x, y, Cells);
+                InitBoard_Division();
                 break;
             default: 
                 break;
@@ -370,9 +371,40 @@ public class MazeVisualizer : MonoBehaviour
             }
         }
     }
+
+
+    const byte N = 1, E = 2, S = 4, W = 8;
     void InitBoard_Division()
     {
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                int index = GridToIndex(x, y);
+                cells[index].Path = 15;
+                if (index < 10)
+                {
+                }
+                else if (index % width == 0)
+                {
 
+                }
+                else if (index / 9 == 9)
+                {
+
+                }
+                else if(index > 89)
+                {
+
+                }
+                cellVisualizers[y].RefreshWalls(cells[y].Path);
+            }
+            
+        }
+    }
+    int GridToIndex(int x, int y)
+    {
+        return (y * width) + x;
     }
     void On_Path_Material(int index)
     {
