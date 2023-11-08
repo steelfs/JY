@@ -13,7 +13,8 @@ public enum MazeType
     Wilson,
     Eller,
     kruskal,
-    Prim
+    Prim,
+    Division
 }
 public class MazeVisualizer : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class MazeVisualizer : MonoBehaviour
     Eller eller;
     Kruskal kruskal;
     Prim prim;
+    Division division;
     CellVisualizer[] cellVisualizers;
 
     MazeType mazeType;
@@ -133,6 +135,15 @@ public class MazeVisualizer : MonoBehaviour
                 Cells = prim.MakeCells(x, y);
                 RenderBoard(x, y, Cells);
                 break;
+            case MazeType.Division:
+                division = new Division();
+                division.on_Set_PathMaterial = On_Path_Material;
+                division.on_Set_NextMaterial = On_SetNext_Material;
+                division.on_Set_ConfirmedMaterial = On_SetConfirmed_Material;
+                division.on_Set_DefaultMaterial = On_SetDefault_Material;
+                Cells = division.MakeCells(x, y);
+                RenderBoard(x, y, Cells);
+                break;
             default: 
                 break;
         }
@@ -158,6 +169,9 @@ public class MazeVisualizer : MonoBehaviour
                 break;
             case MazeType.Prim:
                 prim.MakeMaze();
+                break;
+            case MazeType.Division:
+                division.MakeMaze();
                 break;
             default:
                 break;
@@ -356,6 +370,10 @@ public class MazeVisualizer : MonoBehaviour
             }
         }
     }
+    void InitBoard_Division()
+    {
+
+    }
     void On_Path_Material(int index)
     {
         CellVisualizer cellVisualizer = cellVisualizers[index];
@@ -405,5 +423,5 @@ public class MazeVisualizer : MonoBehaviour
     {
         connectOrder.Add((from, to));
     }
- 
+    
 }

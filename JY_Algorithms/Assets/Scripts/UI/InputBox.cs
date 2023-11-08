@@ -212,6 +212,9 @@ public class InputBox : MonoBehaviour
             case 4:
                 GameManager.Visualizer.MazeType = MazeType.Prim;
                 break;
+            case 5:
+                GameManager.Visualizer.MazeType = MazeType.Division;
+                break;
         }
     }
     int GetInput_X()

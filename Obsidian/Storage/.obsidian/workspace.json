@@ -11,11 +11,14 @@
             "id": "1e3119a662e813a2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "프로그램 구현 순서.md",
-                "mode": "source",
-                "source": false
+                "file": "Algorithm/Recursive_Division.canvas",
+                "viewState": {
+                  "x": 0,
+                  "y": 0,
+                  "zoom": 0
+                }
               }
             }
           }
@@ -85,7 +88,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "프로그램 구현 순서.md",
+                "file": "Algorithm/Recursive_Division.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +105,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "프로그램 구현 순서.md",
+                "file": "Algorithm/Recursive_Division.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +128,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "프로그램 구현 순서.md"
+                "file": "Algorithm/Recursive_Division.canvas"
               }
             }
           }
@@ -148,8 +151,10 @@
   },
   "active": "1e3119a662e813a2",
   "lastOpenFiles": [
-    "Algorithm/Maze_Prim.canvas",
     "이론수업.md",
+    "Algorithm/Recursive_Division.canvas",
+    "프로그램 구현 순서.md",
+    "Algorithm/Maze_Prim.canvas",
     "Algorithm/Kruskal.canvas",
     "문제해결/HP가 줄어들 때 알파값이 증가해야 할 때.md",
     "Tip.md",
@@ -158,7 +163,6 @@
     "Algorithm/Maze_Wilson.canvas",
     "Algorithm/Maze_BackTracking.canvas",
     "아이템 선정 과정.canvas",
-    "Algorithm",
-    "프로그램 구현 순서.md"
+    "Algorithm"
   ]
 }
