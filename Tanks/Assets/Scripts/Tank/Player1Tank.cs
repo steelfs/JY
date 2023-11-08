@@ -33,13 +33,13 @@ public class Player1Tank : MonoBehaviour
     }
     private void Start()
     {
-        InvokeRepeating("Shoot", 0, 0.5f);
+       // InvokeRepeating("Shoot", 0, 0.5f);
         bodyRenderer.material.SetColor("_BaseColor", baseColor);
        // turretRanderer.material.color = baseColor;
     }
     void Shoot()
     {
-        GameObject obj = Instantiate(bullet, shootTransform.position, shootTransform.rotation);
+        Factory.Inst.GetObject(PoolObjectType.shell, shootTransform.position, shootTransform.rotation);
         
     }
     private void OnEnable()

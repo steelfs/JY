@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Shell : MonoBehaviour
+public class Shell : PooledObject
 {
     //생성되면 즉시 앞으로 나간다.
     //포탄이 아닌 다른것과 부딫히면 폭발
@@ -12,21 +12,29 @@ public class Shell : MonoBehaviour
     // 터지는 효과 VFX로 만들기
     // 포탄, 폭발이펙트는 팩토리, 오브젝트풀로 생성
     //
-
+    bool isExplode = false;
     Rigidbody rb;
-    public float force = 50.0f;
+    public GameObject explosionPrefab;
+    public float movePower = 20.0f;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
     private void OnEnable()
     {
-        Shoot();
+        rb.velocity = transform.forward * movePower;
+        rb.angularVelocity = Vector3.zero;
+        //Shoot();
     }
-    void Shoot()
+    private void OnCollisionEnter(Collision collision)
     {
-        Vector3 force_ = transform.forward * force;
-        force_.y = 5;
-        rb.AddForce(force_, ForceMode.Impulse);
+        if (!isExplode)
+        {
+            Time.timeScale = 0.1f;
+            isExplode = true;
+            Vector3 pos = collision.contacts[0].point;
+            Vector3 normal = collision.contacts[0].normal;
+            Instantiate(explosionPrefab, pos, Quaternion.LookRotation(normal));
+        }
     }
 }
