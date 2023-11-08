@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "프로그램 구현 순서.md",
+                "file": "이론수업.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "프로그램 구현 순서.md",
+                "file": "이론수업.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "프로그램 구현 순서.md",
+                "file": "이론수업.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "프로그램 구현 순서.md"
+                "file": "이론수업.md"
               }
             }
           }
@@ -148,6 +148,7 @@
   },
   "active": "1e3119a662e813a2",
   "lastOpenFiles": [
+    "프로그램 구현 순서.md",
     "Algorithm/Maze_Prim.canvas",
     "이론수업.md",
     "Algorithm/Kruskal.canvas",
@@ -158,7 +159,6 @@
     "Algorithm/Maze_Wilson.canvas",
     "Algorithm/Maze_BackTracking.canvas",
     "아이템 선정 과정.canvas",
-    "Algorithm",
-    "프로그램 구현 순서.md"
+    "Algorithm"
   ]
 }
