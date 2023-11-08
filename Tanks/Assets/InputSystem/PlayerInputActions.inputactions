@@ -130,7 +130,7 @@
             ]
         },
         {
-            "name": "Player",
+            "name": "Player1",
             "id": "f981fa78-e582-4624-aa2e-f05abcf1d3f7",
             "actions": [
                 {
@@ -159,6 +159,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "91574d00-a14c-4edd-b476-2e4e1b49efa8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -260,6 +269,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "3d58bffc-ca99-4524-9bb0-f84876f6f4b3",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
