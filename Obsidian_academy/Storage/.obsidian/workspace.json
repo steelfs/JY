@@ -11,14 +11,11 @@
             "id": "1e3119a662e813a2",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "Algorithm/Recursive_Division.canvas",
-                "viewState": {
-                  "x": 0,
-                  "y": 0,
-                  "zoom": 0
-                }
+                "file": "이론수업.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -88,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Algorithm/Recursive_Division.canvas",
+                "file": "이론수업.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Algorithm/Recursive_Division.canvas",
+                "file": "이론수업.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -128,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Algorithm/Recursive_Division.canvas"
+                "file": "이론수업.md"
               }
             }
           }
@@ -151,8 +148,8 @@
   },
   "active": "1e3119a662e813a2",
   "lastOpenFiles": [
-    "이론수업.md",
     "Algorithm/Recursive_Division.canvas",
+    "이론수업.md",
     "프로그램 구현 순서.md",
     "Algorithm/Maze_Prim.canvas",
     "Algorithm/Kruskal.canvas",
