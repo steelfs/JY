@@ -1,58 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Shell : PooledObject
+public class Shell : MonoBehaviour
 {
-    //»ı¼ºµÇ¸é Áï½Ã ¾ÕÀ¸·Î ³ª°£´Ù.
-    //Æ÷ÅºÀÌ ¾Æ´Ñ ´Ù¸¥°Í°ú ºÎ‹HÈ÷¸é Æø¹ß
-    // ÁÖº¯¿¡ Æø¹ß·ÂÀ» Àü´Ş
-    // ÅÍÁö´Â ÀÌÆåÆ®
-    // ÅÍÁö´Â È¿°ú VFX·Î ¸¸µé±â
-    // Æ÷Åº, Æø¹ßÀÌÆåÆ®´Â ÆÑÅä¸®, ¿ÀºêÁ§Æ®Ç®·Î »ı¼º
-    //
     public float explosionRadius = 2.0f;
     public float explosionForce = 10.0f;
 
-    bool isExplode = false;
-    Rigidbody rb;
+    public float firePower = 10.0f;
     public GameObject explosionPrefab;
-    public float movePower = 20.0f;
+
+    Rigidbody rigid;
+
+    bool isExplosion = false;
+
+    // 1. ìƒì„± ë˜ë©´ ì¦‰ì‹œ ì•ìœ¼ë¡œ ë‚ ì•„ê°„ë‹¤.
+    // 2. í¬íƒ„ì´ ì•„ë‹Œ ë‹¤ë¥¸ ê²ƒê³¼ ë¶€ë”ªì¹˜ë©´ í­ë°œí•œë‹¤.
+    //  2.1. ì£¼ë³€ì— í­íŒ”ë ¥ì„ ì „ë‹¬í•œë‹¤.
+    //  2.2. í„°ì§€ëŠ” ì´íŒ©íŠ¸ê°€ ë‚˜ì˜¨ë‹¤.(ShellExplosionì„ VFX ê·¸ë˜í”„ë¡œ ë³€ê²½í•´ë³´ê¸°)
+    // 3. í¬íƒ„, í­íŒ”ì´íŒ©íŠ¸ëŠ” íŒ©í† ë¦¬ë¡œ ìƒì„±í•  ìˆ˜ ìˆë‹¤.
+    // 4. í¬íƒ„, í­íŒ”ì´íŒ©íŠ¸ëŠ” ì˜¤ë¸Œì íŠ¸ í’€ë¡œ ê´€ë¦¬ëœë‹¤.
+
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        rigid = GetComponent<Rigidbody>();
     }
+
     private void OnEnable()
     {
-        rb.velocity = transform.forward * movePower;
-        rb.angularVelocity = Vector3.zero;
-        //Shoot();
+        rigid.velocity = transform.forward * firePower;
+        rigid.angularVelocity = Vector3.zero;
+        isExplosion = false;
     }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (!isExplode)
+        if(!isExplosion)
         {
-           // Time.timeScale = 0;
-            isExplode = true;
+            Time.timeScale = 0.00f;
+            isExplosion = true;
             Vector3 pos = collision.contacts[0].point;
             Vector3 normal = collision.contacts[0].normal;
-            GameObject obj =  Instantiate(explosionPrefab, pos, Quaternion.LookRotation(normal));
+            GameObject obj = Instantiate(explosionPrefab, pos, Quaternion.LookRotation(normal));
             ParticleSystem ps = obj.GetComponent<ParticleSystem>();
             ps.Play();
-
-            Collider[] colls = Physics.OverlapSphere(pos, explosionRadius, LayerMask.GetMask("ExplosionTarget", "Players"));
-            if (colls.Length > 0)
+            
+            Collider[] colliders = Physics.OverlapSphere(pos, explosionRadius, LayerMask.GetMask("ExplosionTarget", "Players"));
+            if(colliders.Length > 0 )
             {
-                foreach(Collider coll in colls)
+                foreach(Collider collider in colliders)
                 {
-                    Rigidbody targetRigid = coll.GetComponent<Rigidbody>();
+                    Rigidbody targetRigid = collider.GetComponent<Rigidbody>();
                     if (targetRigid != null)
                     {
                         targetRigid.AddExplosionForce(explosionForce, pos, explosionRadius);
                     }
                 }
             }
+
         }
     }
 }

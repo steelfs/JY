@@ -1,96 +1,80 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player1Tank : MonoBehaviour
 {
-    public GameObject bullet;
-    Transform shootTransform;
-
     public Color baseColor;
-    PlayerInputActions inputActions;
-    Vector2 moveDir = Vector2.zero;
-    public float moveSpeed = 5.0f;
-    public float turretRotateSpeed = 3;
-    public float rotateSpeed = 180;
-    float rotateDir = 0;
-    Quaternion turretRotation;
+
+    public float moveSpeed = 1.0f;
+    public float rotateSpeed = 360.0f;
+    public float turretSpinSpeed = 4.0f;
+
+    Vector2 inputDir = Vector2.zero;
     Quaternion lookTarget = Quaternion.identity;
+
+    Rigidbody rigid;
     Transform turret;
 
-    Renderer bodyRenderer;
-    Renderer turretRanderer;
-    Rigidbody rb;
+    PlayerInputActions inputActions;
+
     private void Awake()
     {
+        rigid = GetComponent<Rigidbody>();
         inputActions = new PlayerInputActions();
-        turret = transform.GetChild(0).GetChild(3).transform;
-        bodyRenderer = transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
-        turretRanderer = transform.GetChild(0).GetChild(3).GetComponent<Renderer>();
-        shootTransform = transform.GetChild(0).GetChild(3).GetChild(0).transform;
-        rb = GetComponent<Rigidbody>();
-        lookTarget = turret.rotation;
 
+        Transform child = transform.GetChild(0);
+        turret = child.GetChild(3).transform;
+        lookTarget = turret.rotation;
     }
-    private void Start()
-    {
-       // InvokeRepeating("Shoot", 0, 0.5f);
-        bodyRenderer.material.SetColor("_BaseColor", baseColor);
-       // turretRanderer.material.color = baseColor;
-    }
-    void Shoot()
-    {
-        Factory.Inst.GetObject(PoolObjectType.shell, shootTransform.position, shootTransform.rotation);
-        
-    }
+
     private void OnEnable()
     {
         inputActions.Player1.Enable();
         inputActions.Player1.Move.performed += OnMove;
         inputActions.Player1.Move.canceled += OnMove;
-        //inputActions.Player.RotateTurret.performed += OnRotate_Turret;
-        inputActions.Player1.Rotate.performed += On_Rotate;
-        inputActions.Player1.Rotate.canceled += On_Rotate;
     }
 
-    private void On_Rotate(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    private void OnDisable()
     {
-        rotateDir = context.ReadValue<float>();
-    }
-
-    private void OnRotate_Turret(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-        Vector3 mouseScreenPosition = context.ReadValue<Vector2>();
-        Debug.Log(mouseScreenPosition);
-        float distanceToScreen = Camera.main.WorldToScreenPoint(transform.position).z;//z값은 카메라와 오브젝트간의 거리를 나타냄
-        mouseScreenPosition.z = distanceToScreen;//z값에 거리를 넣어준 뒤
-        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition); //월드좌표로 변환
-        turret.LookAt(mouseWorldPosition);
-        //Debug.Log(mouseWorldPosition);
-        //rotation = Quaternion.LookRotation(mouseWorldPosition);
+        inputActions.Player1.Move.canceled -= OnMove;
+        inputActions.Player1.Move.performed -= OnMove;
+        inputActions.Player1.Disable();
     }
 
     private void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        moveDir = context.ReadValue<Vector2>();
+        inputDir = context.ReadValue<Vector2>();        
     }
+
+    private void Start()
+    {
+        MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer renderer in renderers)
+        {
+            renderer.material.SetColor("_BaseColor", baseColor);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        rigid.MovePosition(transform.position + Time.fixedDeltaTime * moveSpeed * inputDir.y * transform.forward);
+        rigid.MoveRotation(
+            Quaternion.Euler(0, Time.fixedDeltaTime * rotateSpeed * inputDir.x, 0) * transform.rotation);
+    }
+
     private void Update()
     {
         Vector2 screen = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(screen);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, 100, LayerMask.GetMask("Ground")))
+        if( Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, LayerMask.GetMask("Ground")) )
         {
             Vector3 lookDir = hitInfo.point - turret.position;
             lookDir.y = 0;
             lookTarget = Quaternion.LookRotation(lookDir, Vector3.up);
-            //turret.rotation = Quaternion.Slerp();
         }
-        turret.rotation = Quaternion.Slerp(turret.rotation, lookTarget, Time.deltaTime * turretRotateSpeed);
-       
+
+        turret.rotation = Quaternion.Slerp(turret.rotation, lookTarget, Time.deltaTime * turretSpinSpeed);
     }
-    private void FixedUpdate()
-    {
-        rb.MovePosition(transform.position + (Time.deltaTime * moveSpeed * moveDir.y) * transform.forward);
-        rb.MoveRotation(Quaternion.Euler(0,Time.deltaTime * rotateSpeed * moveDir.x, 0) * transform.rotation);
-    }
- 
 }
