@@ -12,6 +12,9 @@ public class Shell : PooledObject
     // 터지는 효과 VFX로 만들기
     // 포탄, 폭발이펙트는 팩토리, 오브젝트풀로 생성
     //
+    public float explosionRadius = 2.0f;
+    public float explosionForce = 10.0f;
+
     bool isExplode = false;
     Rigidbody rb;
     public GameObject explosionPrefab;
@@ -30,11 +33,26 @@ public class Shell : PooledObject
     {
         if (!isExplode)
         {
-            Time.timeScale = 0.1f;
+           // Time.timeScale = 0;
             isExplode = true;
             Vector3 pos = collision.contacts[0].point;
             Vector3 normal = collision.contacts[0].normal;
-            Instantiate(explosionPrefab, pos, Quaternion.LookRotation(normal));
+            GameObject obj =  Instantiate(explosionPrefab, pos, Quaternion.LookRotation(normal));
+            ParticleSystem ps = obj.GetComponent<ParticleSystem>();
+            ps.Play();
+
+            Collider[] colls = Physics.OverlapSphere(pos, explosionRadius, LayerMask.GetMask("ExplosionTarget", "Players"));
+            if (colls.Length > 0)
+            {
+                foreach(Collider coll in colls)
+                {
+                    Rigidbody targetRigid = coll.GetComponent<Rigidbody>();
+                    if (targetRigid != null)
+                    {
+                        targetRigid.AddExplosionForce(explosionForce, pos, explosionRadius);
+                    }
+                }
+            }
         }
     }
 }

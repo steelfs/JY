@@ -2709,7 +2709,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c057741e6fcc04dab74c23afd1b156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
+  width: 10
+  height: 10
+  wallPrefab: {fileID: 0}
 --- !u!1 &1260721372
 GameObject:
   m_ObjectHideFlags: 0
@@ -4042,6 +4044,8 @@ MonoBehaviour:
   m_Options:
     m_Options:
     - m_Text: BackTracking
+      m_Image: {fileID: 0}
+    - m_Text: Test
       m_Image: {fileID: 0}
     - m_Text: Wilson
       m_Image: {fileID: 0}

@@ -9,6 +9,7 @@ using UnityEngine;
 public enum MazeType
 {
     None,
+    BackTrackking_Test,
     BackTracking,
     Wilson,
     Eller,
@@ -18,6 +19,7 @@ public enum MazeType
 }
 public class MazeVisualizer : MonoBehaviour
 {
+    RecursiveBackTracking_Test backTracking_Test;
     RecursiveBackTracking backTracking;
     Wilson wilson;
     Eller eller;
@@ -90,6 +92,15 @@ public class MazeVisualizer : MonoBehaviour
         {
             case MazeType.None:
                 break;
+            case MazeType.BackTrackking_Test:
+                backTracking_Test = new RecursiveBackTracking_Test();
+                backTracking_Test.on_Set_PathMaterial = On_Path_Material;
+                backTracking_Test.on_Set_NextMaterial = On_SetNext_Material;
+                backTracking_Test.on_Set_ConfirmedMaterial = On_SetConfirmed_Material;
+                backTracking_Test.on_Set_DefaultMaterial = On_SetDefault_Material;
+                Cells = backTracking_Test.MakeCells(x, y);
+                RenderBoard(x, y, Cells);
+                break;
             case MazeType.BackTracking:
                 backTracking = new RecursiveBackTracking();
                 backTracking.on_Set_PathMaterial = On_Path_Material;
@@ -156,6 +167,9 @@ public class MazeVisualizer : MonoBehaviour
         {
             case MazeType.None:
                 break;
+            case MazeType.BackTrackking_Test:
+                backTracking_Test.MakeMaze();
+                break;
             case MazeType.BackTracking:
                 backTracking.MakeMaze();
                 break;
@@ -213,6 +227,7 @@ public class MazeVisualizer : MonoBehaviour
     /// </summary>
     public void PlayMaze()
     {
+
         InvokeRepeating("MoveToNext", 0f, 0.1f);
     }
 
@@ -384,6 +399,7 @@ public class MazeVisualizer : MonoBehaviour
                 cells[index].Path = 15;
                 if (index < 10)
                 {
+
                 }
                 else if (index % width == 0)
                 {

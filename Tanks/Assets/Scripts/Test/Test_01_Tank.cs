@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Test_01_Tank : TestBase
 {
@@ -15,4 +16,8 @@ public class Test_01_Tank : TestBase
 
     // 3. 플레이어가 시작할 때 맴버변수로 설정되어 있는 컬러값에 따라 머티리얼이 변경된다.
     //  3.1. 쉐이더 그래프 이용하기
+    protected override void Test1(InputAction.CallbackContext context)
+    {
+        Time.timeScale = 0.1f;
+    }
 }
