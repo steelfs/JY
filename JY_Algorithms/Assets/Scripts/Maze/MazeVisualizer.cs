@@ -374,7 +374,7 @@ public class MazeVisualizer : MonoBehaviour
 
 
     const byte N = 1, E = 2, S = 4, W = 8;
-    void InitBoard_Division()
+    async void InitBoard_Division()
     {
         for (int y = 0; y < height; y++)
         {
@@ -382,22 +382,54 @@ public class MazeVisualizer : MonoBehaviour
             {
                 int index = GridToIndex(x, y);
                 cells[index].Path = 15;
-                if (index < 10)
+                if (index < width)
                 {
+                    if (index == 0)
+                    {
+                        cells[index].Path &= unchecked((byte)~N);
+                        cells[index].Path &= unchecked((byte)~W);
+                    }
+                    else if (index == width - 1)
+                    {
+                        cells[index].Path &= unchecked((byte)~N);
+                        cells[index].Path &= unchecked((byte)~E);
+                    }
+                    else
+                    {
+                        cells[index].Path &= unchecked((byte)~N);
+                    }
                 }
                 else if (index % width == 0)
                 {
-
+                    if (!(y == height - 1))
+                    {
+                        cells[index].Path &= unchecked((byte)~W);
+                    }
+                    else
+                    {
+                        cells[index].Path &= unchecked((byte)~W);
+                        cells[index].Path &= unchecked((byte)~S);
+                    }
                 }
-                else if (index / 9 == 9)
+                else if (index % width == width - 1)
                 {
-
+                    if (!(index == cells.Length - 1))
+                    {
+                        cells[index].Path &= unchecked((byte)~E);
+                    }
+                    else
+                    {
+                        cells[index].Path &= unchecked((byte)~S);
+                        cells[index].Path &= unchecked((byte)~E);
+                    }
                 }
-                else if(index > 89)
+                else if (index > (width * (height - 1)))
                 {
-
+                    cells[index].Path &= unchecked((byte)~S);
                 }
-                cellVisualizers[y].RefreshWalls(cells[y].Path);
+
+                cellVisualizers[index].RefreshWalls(cells[index].Path);
+                await Task.Delay(100);
             }
             
         }
