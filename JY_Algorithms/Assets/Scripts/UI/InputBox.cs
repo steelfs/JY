@@ -198,24 +198,21 @@ public class InputBox : MonoBehaviour
         switch (value)
         {
             case 0:
-                GameManager.Visualizer.MazeType = MazeType.BackTrackking_Test;
-                break;
-            case 1:
                 GameManager.Visualizer.MazeType = MazeType.BackTracking;
                 break;
-            case 2:
+            case 1:
                 GameManager.Visualizer.MazeType = MazeType.Wilson;
                 break;
-            case 3:
+            case 2:
                 GameManager.Visualizer.MazeType = MazeType.Eller;
                 break;
-            case 4:
+            case 3:
                 GameManager.Visualizer.MazeType = MazeType.kruskal;
                 break;
-            case 5:
+            case 4:
                 GameManager.Visualizer.MazeType = MazeType.Prim;
                 break;
-            case 6:
+            case 5:
                 GameManager.Visualizer.MazeType = MazeType.Division;
                 break;
         }
