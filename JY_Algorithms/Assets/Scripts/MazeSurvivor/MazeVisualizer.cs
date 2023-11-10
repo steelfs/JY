@@ -12,7 +12,8 @@ public class MazeVisualizer : MonoBehaviour
     BackTracking_Test backTracking;
     Wilson_Test wilson;
     Eller_Test eller;
-    Kruskal_Test kruskal;
+    Kruskal kruskal;
+    public Kruskal Kruskal => kruskal;
     Prim_Test prim;
     Division_Test division;
     CellVisualizer_Test[] cellVisualizers;
@@ -58,6 +59,7 @@ public class MazeVisualizer : MonoBehaviour
     Vector3 six_By_Six = new Vector3(22.5f, 0, -26);
     Vector3 seven_By_Seven = new Vector3(25.5f, 0, -30);
     Vector3 eight_By_Eight = new Vector3(27, 0, -32);
+    Vector3 ten_By_Ten = new Vector3(30, 0, -34);
 
     /// <summary>
     /// MakeBoard 함수에서 현재 설정된 MazeType에 맞게 Cells의 배열을 만든다.
@@ -109,7 +111,7 @@ public class MazeVisualizer : MonoBehaviour
                 RenderBoard (x, y, Cells);
                 break;
             case MazeType.kruskal:
-                kruskal = new Kruskal_Test();
+                kruskal = new Kruskal();
                 kruskal.on_Set_PathMaterial = On_Path_Material;
                 kruskal.on_Set_NextMaterial = On_SetNext_Material;
                 kruskal.on_Set_ConfirmedMaterial = On_SetConfirmed_Material;
@@ -125,16 +127,6 @@ public class MazeVisualizer : MonoBehaviour
                 prim.on_Set_DefaultMaterial = On_SetDefault_Material;
                 Cells = prim.MakeCells(x, y);
                 RenderBoard(x, y, Cells);
-                break;
-            case MazeType.Division:
-                division = new Division_Test();
-                division.on_Set_PathMaterial = On_Path_Material;
-                division.on_Set_NextMaterial = On_SetNext_Material;
-                division.on_Set_ConfirmedMaterial = On_SetConfirmed_Material;
-                division.on_Set_DefaultMaterial = On_SetDefault_Material;
-                Cells = division.MakeCells(x, y);
-                RenderBoard(x, y, Cells);
-                InitBoard_Division();
                 break;
             default: 
                 break;
@@ -288,6 +280,24 @@ public class MazeVisualizer : MonoBehaviour
         }
     }
 
+    public Vector3 GetRandomPos(out Vector3 rotation)//플레이어가 스폰될 랜덤한 포지션과 로테이션값을 out으로 주는 함수
+    {
+        int random = UnityEngine.Random.Range(0, cells.Length);
+        Transform visualizer = cellVisualizers[random].transform;
+        Vector3 result = visualizer.position;
+        result.y = 0.5f;
+
+        List<Vector3> angles = new List<Vector3>();
+        for (int i = 1; i < 5; i++)
+        {
+            if (visualizer.transform.GetChild(i).gameObject.activeSelf == false)
+            {
+                angles.Add(new Vector3(0, 90 * (i - 1), 0));
+            }
+        }
+        rotation = angles[UnityEngine.Random.Range(0, angles.Count)];
+        return result;
+    }
     /// <summary>
     /// 셀 두 개를 받아서 연결을 끊는(벽 활성화) 함수
     /// </summary>
@@ -333,7 +343,11 @@ public class MazeVisualizer : MonoBehaviour
     public void RenderBoard(int width, int height, Cell[] cells)// delegate를 연결하기 위해 cell의 배열도 받는다.
     {
         cellVisualizers = new CellVisualizer_Test[cells.Length];
-        if (width > 7)
+        if (width > 9)
+        {
+            transform.position = ten_By_Ten;
+        }
+        else if (width > 7)
         {
             transform.position = eight_By_Eight;
         }
@@ -364,67 +378,7 @@ public class MazeVisualizer : MonoBehaviour
     }
 
 
-    const byte N = 1, E = 2, S = 4, W = 8;
-    async void InitBoard_Division()
-    {
-        for (int y = 0; y < height; y++)
-        {
-            for (int x = 0; x < width; x++)
-            {
-                int index = GridToIndex(x, y);
-                cells[index].Path = 15;
-                if (index < width)
-                {
-                    if (index == 0)
-                    {
-                        cells[index].Path &= unchecked((byte)~N);
-                        cells[index].Path &= unchecked((byte)~W);
-                    }
-                    else if (index == width - 1)
-                    {
-                        cells[index].Path &= unchecked((byte)~N);
-                        cells[index].Path &= unchecked((byte)~E);
-                    }
-                    else
-                    {
-                        cells[index].Path &= unchecked((byte)~N);
-                    }
-                }
-                else if (index % width == 0)
-                {
-                    if (!(y == height - 1))
-                    {
-                        cells[index].Path &= unchecked((byte)~W);
-                    }
-                    else
-                    {
-                        cells[index].Path &= unchecked((byte)~W);
-                        cells[index].Path &= unchecked((byte)~S);
-                    }
-                }
-                else if (index % width == width - 1)
-                {
-                    if (!(index == cells.Length - 1))
-                    {
-                        cells[index].Path &= unchecked((byte)~E);
-                    }
-                    else
-                    {
-                        cells[index].Path &= unchecked((byte)~S);
-                        cells[index].Path &= unchecked((byte)~E);
-                    }
-                }
-                else if (index > (width * (height - 1)))
-                {
-                    cells[index].Path &= unchecked((byte)~S);
-                }
-
-                cellVisualizers[index].RefreshWalls(cells[index].Path);
-                await Task.Delay(100);
-            }
-            
-        }
-    }
+    
     int GridToIndex(int x, int y)
     {
         return (y * width) + x;

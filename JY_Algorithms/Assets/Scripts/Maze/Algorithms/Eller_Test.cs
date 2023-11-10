@@ -70,7 +70,7 @@ public class Eller_Test : MazeGenerator_Test
                 await MergeCellColumn(row);
             }
         }
-        GameManager.Visualizer.InitBoard();
+        GameManager.Visualizer_Test.InitBoard();
     }
     async Task MergeCellColumn(List<EllerCell_Test> row)
     {
@@ -157,8 +157,8 @@ public class Eller_Test : MazeGenerator_Test
                 sets[from.group].Add(from);
                 sets[from.group].Add(to);
             }
-            GameManager.Visualizer.ConnectPath(from, to);
-            GameManager.Visualizer.AddToConnectOrder(from, to);
+            GameManager.Visualizer_Test.ConnectPath(from, to);
+            GameManager.Visualizer_Test.AddToConnectOrder(from, to);
         }
         else
         {

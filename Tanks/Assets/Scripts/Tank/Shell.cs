@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shell : MonoBehaviour
+public class Shell : PooledObject
 {
     public float explosionRadius = 2.0f;
     public float explosionForce = 10.0f;
@@ -31,6 +31,7 @@ public class Shell : MonoBehaviour
         rigid.velocity = transform.forward * firePower;
         rigid.angularVelocity = Vector3.zero;
         isExplosion = false;
+        StartCoroutine(LifeOver(20.0f));
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -38,13 +39,19 @@ public class Shell : MonoBehaviour
         if(!isExplosion)
         {
             Time.timeScale = 0.00f;
+            StopAllCoroutines();
+            StartCoroutine(LifeOver(5.0f));
             isExplosion = true;
             Vector3 pos = collision.contacts[0].point;
             Vector3 normal = collision.contacts[0].normal;
-            GameObject obj = Instantiate(explosionPrefab, pos, Quaternion.LookRotation(normal));
-            ParticleSystem ps = obj.GetComponent<ParticleSystem>();
-            ps.Play();
+           
             
+            // GameObject obj = Instantiate(explosionPrefab, pos, Quaternion.LookRotation(normal));
+            // ParticleSystem ps = obj.GetComponent<ParticleSystem>();
+            // ps.Play();
+
+            Factory.Inst.GetExplosion(pos, normal);
+
             Collider[] colliders = Physics.OverlapSphere(pos, explosionRadius, LayerMask.GetMask("ExplosionTarget", "Players"));
             if(colliders.Length > 0 )
             {

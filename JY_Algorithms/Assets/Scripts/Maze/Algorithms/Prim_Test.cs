@@ -71,15 +71,15 @@ public class Prim_Test : MazeGenerator_Test
             frontiers.Remove(chosen);//선택된 셀을 frontiers 에서 제거하고
             inMaze.Add(chosen);//선택된 셀을 inMaze 에 추가한다.
         }
-        GameManager.Visualizer.InitBoard();
+        GameManager.Visualizer_Test.InitBoard();
 
 
     }
     void MergeCell(Prim_Cell_Test from, Prim_Cell_Test to)
     {
       
-        GameManager.Visualizer.ConnectPath(from, to);
-        GameManager.Visualizer.AddToConnectOrder(from, to);
+        GameManager.Visualizer_Test.ConnectPath(from, to);
+        GameManager.Visualizer_Test.AddToConnectOrder(from, to);
     }
 
 }

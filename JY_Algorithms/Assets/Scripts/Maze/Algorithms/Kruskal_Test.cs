@@ -105,12 +105,12 @@ public class Kruskal_Test : MazeGenerator_Test
                 on_Set_ConfirmedMaterial?.Invoke(GridToIndex(to.X, to.Y));
                 previousFrom = from;
                 previousTo = to;
-                GameManager.Visualizer.ConnectPath(cells[fromIndex], cells[toIndex]);
+                GameManager.Visualizer_Test.ConnectPath(cells[fromIndex], cells[toIndex]);
                 await Task.Delay(200);
                 unionFind.Union(fromIndex, toIndex);
-                GameManager.Visualizer.AddToConnectOrder(cells[GridToIndex(from.X, from.Y)], cells[GridToIndex(to.X, to.Y)]);
+                GameManager.Visualizer_Test.AddToConnectOrder(cells[GridToIndex(from.X, from.Y)], cells[GridToIndex(to.X, to.Y)]);
             }
         }
-        GameManager.Visualizer.InitBoard();
+        GameManager.Visualizer_Test.InitBoard();
     }
 }

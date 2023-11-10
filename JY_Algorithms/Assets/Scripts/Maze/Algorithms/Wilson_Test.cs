@@ -129,7 +129,7 @@ public class Wilson_Test : MazeGenerator_Test
         }
         for ( i = 0; i < confirmed.Count ; i++)
         {
-            GameManager.Visualizer.AddToConnectOrder(confirmed[i], confirmed[i].Next);
+            GameManager.Visualizer_Test.AddToConnectOrder(confirmed[i], confirmed[i].Next);
         }
     }
   

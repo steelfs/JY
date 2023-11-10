@@ -82,7 +82,7 @@ public class BackTracking_Test : MazeGenerator_Test
                 
                 stack.Push(next);
                 confirmedList.Add(next);
-                GameManager.Visualizer.AddToConnectOrder(current, next);
+                GameManager.Visualizer_Test.AddToConnectOrder(current, next);
                 await Task.Delay(100);
                 on_Set_PathMaterial?.Invoke(GridToIndex(current.X, current.Y));
                 on_Set_NextMaterial?.Invoke(GridToIndex(next.X, next.Y));

@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 25958230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27, y: 0, z: -32}
+  m_LocalPosition: {x: 30, y: 0, z: -34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -164,18 +164,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 25958230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1414dc777f2a3ba4b9a243d1a31768e4, type: 3}
+  m_Script: {fileID: 11500000, guid: aa89c470183b4ab4182901ca946801a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellVisualizers: []
-  mazeType: 0
   cellPrefab: {fileID: 6312289306663680332, guid: de8b8ca1166ae1c4ba32e0180d70c256, type: 3}
-  width: 0
-  height: 0
-  progress: 0
-  six_By_Six: {x: 22.5, y: 0, z: -26}
-  seven_By_Seven: {x: 25.5, y: 0, z: -30}
-  eight_By_Eight: {x: 27, y: 0, z: -32}
 --- !u!1 &36350695
 GameObject:
   m_ObjectHideFlags: 0
@@ -5581,6 +5573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6078c39b62b75e4a8ef2f0e02b330a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 496144636360808226, guid: f6c33ac19d13a694b8bb647d5264a10c, type: 3}
   IsTestMode: 1
 --- !u!4 &2108394563
 Transform:

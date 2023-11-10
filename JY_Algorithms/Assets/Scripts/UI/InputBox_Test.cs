@@ -86,7 +86,9 @@ public class InputBox_Test : MonoBehaviour
     //    }
     //}
     //BackTrackingVisualizer backTrackingVisualizer;
-    MazeVisualizer_Test mazeVisualizer;
+    MazeVisualizer_Test mazeVisualizer_Test;
+    MazeVisualizer mazeVisualizer;
+
     TMP_InputField input_X;
     TextMeshProUGUI placeHolder_X;
     TMP_InputField input_Y;
@@ -141,80 +143,84 @@ public class InputBox_Test : MonoBehaviour
     }
     private void Start()
     {
+        mazeVisualizer_Test = GameManager.Visualizer_Test;
         mazeVisualizer = GameManager.Visualizer;
         State = InputBox_State.Standby;
         DropDownValueChange(0);// 초기상태 BackTracking으로 설정
     }   
     void PlayMaze()
     {
-        mazeVisualizer.PlayMaze();
+        mazeVisualizer_Test.PlayMaze();
         on_PlayMaze = StopMaze;
         playButtonText.text = "∥";
     }
     void StopMaze()
     {
-        mazeVisualizer.StopMaze();
+        mazeVisualizer_Test.StopMaze();
         on_PlayMaze = PlayMaze;
         playButtonText.text = "▶";
     }
 
     void Make_Board()
     {
-        if (!mazeVisualizer.IsExistCells)
+        if (!mazeVisualizer_Test.IsExistCells)
         {
-            mazeVisualizer.MakeBoard(GetInput_X(), GetInput_Y());
+            mazeVisualizer_Test.MakeBoard(GetInput_X(), GetInput_Y());
         }
         State = InputBox_State.LoadComplete;
     }
     void MakeMaze()
     {
-        GameManager.Visualizer.MakeMaze();
+        GameManager.Visualizer_Test.MakeMaze();
         makeMaze_Button.interactable = false;
     }
     void MoveToNext()
     {
-        mazeVisualizer.MoveToNext();
+        mazeVisualizer_Test.MoveToNext();
     }
     void MoveToPrev()
     {
-        mazeVisualizer.MoveToPrev();
+        mazeVisualizer_Test.MoveToPrev();
     }
     void MoveToStartPoint()
     {
-        mazeVisualizer.MoveToStartPoint();
+        mazeVisualizer_Test.MoveToStartPoint();
     }
     void MoveToEndPoint()
     {
-        mazeVisualizer.MoveToEndPoint();
+        mazeVisualizer_Test.MoveToEndPoint();
     }
     void ClearBoard()
     {
-        mazeVisualizer.DestroyBoard();
+        mazeVisualizer_Test.DestroyBoard();
         State = InputBox_State.Standby;
         makeMaze_Button.interactable = true;
     }
     void DropDownValueChange(int value)
     {
-        switch (value)
+        if (GameManager.Visualizer_Test != null)//test모드일 때 실행
         {
-            case 0:
-                GameManager.Visualizer.MazeType = MazeType.BackTracking;
-                break;
-            case 1:
-                GameManager.Visualizer.MazeType = MazeType.Wilson;
-                break;
-            case 2:
-                GameManager.Visualizer.MazeType = MazeType.Eller;
-                break;
-            case 3:
-                GameManager.Visualizer.MazeType = MazeType.kruskal;
-                break;
-            case 4:
-                GameManager.Visualizer.MazeType = MazeType.Prim;
-                break;
-            case 5:
-                GameManager.Visualizer.MazeType = MazeType.Division;
-                break;
+            switch (value)
+            {
+                case 0:
+                    GameManager.Visualizer_Test.MazeType = MazeType.BackTracking;
+                    break;
+                case 1:
+                    GameManager.Visualizer_Test.MazeType = MazeType.Wilson;
+                    break;
+                case 2:
+                    GameManager.Visualizer_Test.MazeType = MazeType.Eller;
+                    break;
+                case 3:
+                    GameManager.Visualizer_Test.MazeType = MazeType.kruskal;
+                    break;
+                case 4:
+                    GameManager.Visualizer_Test.MazeType = MazeType.Prim;
+                    break;
+                case 5:
+                    GameManager.Visualizer_Test.MazeType = MazeType.Division;
+                    break;
+            }
         }
     }
     int GetInput_X()
