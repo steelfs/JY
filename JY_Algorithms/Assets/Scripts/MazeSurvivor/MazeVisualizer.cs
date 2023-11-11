@@ -26,7 +26,7 @@ public class MazeVisualizer : MonoBehaviour
     }
 
     public GameObject cellPrefab;
-    public const int CellSize = 5;
+    //public const int CellSize = 5;
     Cell[] cells = null;
     int width;
     int height;
@@ -284,7 +284,7 @@ public class MazeVisualizer : MonoBehaviour
     {
         int random = UnityEngine.Random.Range(0, cells.Length);
         Transform visualizer = cellVisualizers[random].transform;
-        Vector3 result = visualizer.position;
+        Vector3 result = visualizer.localPosition;
         result.y = 0.5f;
 
         List<Vector3> angles = new List<Vector3>();
@@ -292,7 +292,7 @@ public class MazeVisualizer : MonoBehaviour
         {
             if (visualizer.transform.GetChild(i).gameObject.activeSelf == false)
             {
-                angles.Add(new Vector3(0, 90 * (i - 1), 0));
+                angles.Add(new Vector3(0, 90 * (i - 1) + 180, 0));
             }
         }
         rotation = angles[UnityEngine.Random.Range(0, angles.Count)];
@@ -343,22 +343,22 @@ public class MazeVisualizer : MonoBehaviour
     public void RenderBoard(int width, int height, Cell[] cells)// delegate를 연결하기 위해 cell의 배열도 받는다.
     {
         cellVisualizers = new CellVisualizer_Test[cells.Length];
-        if (width > 9)
-        {
-            transform.position = ten_By_Ten;
-        }
-        else if (width > 7)
-        {
-            transform.position = eight_By_Eight;
-        }
-        else if(width > 6)
-        {
-            transform.position = seven_By_Seven;
-        }
-        else if (width > 5)
-        {
-            transform.position = six_By_Six;
-        }
+        //if (width > 9)
+        //{
+        //    transform.position = ten_By_Ten;
+        //}
+        //else if (width > 7)
+        //{
+        //    transform.position = eight_By_Eight;
+        //}
+        //else if(width > 6)
+        //{
+        //    transform.position = seven_By_Seven;
+        //}
+        //else if (width > 5)
+        //{
+        //    transform.position = six_By_Six;
+        //}
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -367,7 +367,7 @@ public class MazeVisualizer : MonoBehaviour
                 cell.name = $"Cell_{x}_{y}";
                 cell.transform.localRotation = Quaternion.Euler(0, 180, 0);
                 cell.transform.localPosition = Vector3.zero;
-                cell.transform.Translate(x * CellSize, 0, -y * CellSize, Space.Self);// 위에서 로컬로테이션을 180도 돌렸기 때문에 역방향으로 계산
+                cell.transform.Translate(x * MazeVisualizer_Test.CellSize, 0, -y * MazeVisualizer_Test.CellSize, Space.World);// 위에서 로컬로테이션을 180도 돌렸기 때문에 역방향으로 계산
                 int index = (y * width) + x;
                 CellVisualizer_Test cellVisualizer = cell.GetComponent<CellVisualizer_Test>();
                 cellVisualizers[index] = cellVisualizer;

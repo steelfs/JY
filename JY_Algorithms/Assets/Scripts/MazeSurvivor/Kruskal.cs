@@ -71,7 +71,7 @@ public class Kruskal : MazeGenerator_Test
                 previousFrom = from;
                 previousTo = to;
                 GameManager.Visualizer.ConnectPath(cells[fromIndex], cells[toIndex]);
-                await Task.Delay(30);
+                //await Task.Delay(30);
                 unionFind.Union(fromIndex, toIndex);
                 GameManager.Visualizer.AddToConnectOrder(cells[GridToIndex(from.X, from.Y)], cells[GridToIndex(to.X, to.Y)]);
             }

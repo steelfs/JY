@@ -1350,6 +1350,8 @@ MonoBehaviour:
   PoolPrefabs:
   - prefab: {fileID: 6312289306663680332, guid: de8b8ca1166ae1c4ba32e0180d70c256, type: 3}
     poolSize: 120
+  - prefab: {fileID: 4257733837813856952, guid: 03e4b73d6f9851b489788841d6df2556, type: 3}
+    poolSize: 120
 --- !u!4 &614686471
 Transform:
   m_ObjectHideFlags: 0
@@ -4060,6 +4062,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1596593443}
   - component: {fileID: 1596593442}
+  - component: {fileID: 1596593444}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -4144,6 +4147,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1596593444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596593441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &1605282807
 GameObject:
   m_ObjectHideFlags: 0
@@ -5523,6 +5546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6078c39b62b75e4a8ef2f0e02b330a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 0}
   IsTestMode: 1
 --- !u!4 &2108394563
 Transform:
