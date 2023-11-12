@@ -5,17 +5,19 @@ using UnityEngine.VFX;
 
 public class Explosion : PooledObject
 {
-    VisualEffect visualEffect;
-    readonly int onExplosion_ID = Shader.PropertyToID("OnExplosion");
+    VisualEffect vfx;
+    readonly int OnExplosionID = Shader.PropertyToID("OnExplosion");
+
     private void Awake()
     {
-        visualEffect = GetComponent<VisualEffect>();
+        vfx = GetComponent<VisualEffect>();
     }
-    public void Initialize(Vector3 position, Vector3 normal)
+
+    public void Initialize(Vector3 pos, Vector3 normal)
     {
-        transform.position = position;
+        transform.position = pos;
         transform.up = normal;
-        visualEffect.SendEvent(onExplosion_ID);
+        vfx.SendEvent(OnExplosionID);
         StartCoroutine(LifeOver(1.5f));
     }
 }
