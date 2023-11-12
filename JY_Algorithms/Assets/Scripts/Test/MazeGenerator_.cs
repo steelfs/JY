@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MazeGenerator_ : MonoBehaviour
+public class MazeGenerator_ : MonoBehaviour//현재 사용하지 않는 클래스 
 {
     public int width = 10;
     public int height = 10;

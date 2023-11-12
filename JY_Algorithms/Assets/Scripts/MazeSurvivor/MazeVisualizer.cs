@@ -17,6 +17,7 @@ public class MazeVisualizer : MonoBehaviour
     Prim_Test prim;
     Division_Test division;
     CellVisualizer_Test[] cellVisualizers;
+    public CellVisualizer_Test[] CellVisualizers => cellVisualizers;
 
     MazeType mazeType;
     public MazeType MazeType
@@ -292,7 +293,7 @@ public class MazeVisualizer : MonoBehaviour
         {
             if (visualizer.transform.GetChild(i).gameObject.activeSelf == false)
             {
-                angles.Add(new Vector3(0, 90 * (i - 1) + 180, 0));
+                angles.Add(new Vector3(0, 90 * (i - 1) , 0));
             }
         }
         rotation = angles[UnityEngine.Random.Range(0, angles.Count)];
@@ -365,7 +366,6 @@ public class MazeVisualizer : MonoBehaviour
             {
                 GameObject cell = GameManager.Pools.GetObject(PoolObjectType.Cell, transform);
                 cell.name = $"Cell_{x}_{y}";
-                cell.transform.localRotation = Quaternion.Euler(0, 180, 0);
                 cell.transform.localPosition = Vector3.zero;
                 cell.transform.Translate(x * MazeVisualizer_Test.CellSize, 0, -y * MazeVisualizer_Test.CellSize, Space.World);// 위에서 로컬로테이션을 180도 돌렸기 때문에 역방향으로 계산
                 int index = (y * width) + x;

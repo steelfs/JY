@@ -14,6 +14,7 @@ public enum GameState
 public class GameManager : Singleton<GameManager>
 {
     public int itemCount = 5;
+    const int MaxItemCount = 8;
     GameState gameState = GameState.None;
     GameState GameState
     {
@@ -39,39 +40,40 @@ public class GameManager : Singleton<GameManager>
     IEnumerator SpawnPlayerAndItems()
     {
         yield return StartCoroutine(PlayerSpawn_Coroutine());
-        yield return StartCoroutine(ItemSpawn_Coroutine(itemCount));
+        yield return StartCoroutine(ItemSpawn_Coroutine());
     }
     IEnumerator PlayerSpawn_Coroutine()
     {
-        Vector3 spawnPos = Visualizer.GetRandomPos(out Vector3 rotation);
+        Vector2Int grid = Util.GetRandomGrid();
+        Vector3 spawnPos = Util.GridToWorld(grid);
         spawnPos.y += 2;
         Pools.GetObject(PoolObjectType.SpawnEffect, spawnPos);
         yield return new WaitForSeconds(0.5f);
         spawnPos.y -= 2;
+        Vector3 rotation = Util.GetRandomRotation(grid.x, grid.y);
         GameObject player_ = Instantiate(playerPrefab, spawnPos, Quaternion.Euler(rotation));
         this.player = player_.GetComponent<Player>();
         yield return new WaitForSeconds(1.0f);
     }
-    IEnumerator ItemSpawn_Coroutine(int itemCount)
+    IEnumerator ItemSpawn_Coroutine()
     {
-        List<Vector3> spawnPositions = new List<Vector3>(itemCount);
-
-        for (int i = 0; i < itemCount; i++)
+        List<Vector2Int> spawnPositions = new List<Vector2Int>(itemCount);
+        while(spawnPositions.Count < this.itemCount)
         {
-            //UnityEngine.Random.InitState(i);
-            Vector3 spawnPos = Visualizer.GetRandomPos(out _);
-            bool contains = spawnPositions.Contains(spawnPos);
-            bool IsNearBy = IsNearByPlayer(spawnPos);
-            if (contains || IsNearBy)//or 플레이어와 가까울 경우
+            Vector2Int gridPos = Util.GetRandomGrid();
+            bool nearBy_Player = IsNearBy_Player(gridPos);
+            bool nearBy_Others = IsNearBy_Another_Item(spawnPositions, gridPos);
+            if (nearBy_Player || nearBy_Others)//or 플레이어와 가까울 경우
             {
-                i--;
                 continue;
             }
-            spawnPositions.Add(spawnPos);
+            spawnPositions.Add(gridPos);
         }
+       
         for (int i = 0; i < spawnPositions.Count; i++)
         {
-            Vector3 position = spawnPositions[i];
+            Vector2Int spawnGridPos = spawnPositions[i];
+            Vector3 position = Util.GridToWorld(spawnGridPos);
             position.y += 2;
             Pools.GetObject(PoolObjectType.SpawnEffect, position);
             yield return new WaitForSeconds(0.5f);
@@ -80,12 +82,40 @@ public class GameManager : Singleton<GameManager>
             yield return new WaitForSeconds(0.05f);
         }
     }
-    bool IsNearByPlayer(Vector3 spawnPosition)
+    bool IsNearBy_Another_Item(List<Vector2Int> spawnPositions, Vector2Int newPosition)
     {
-        //float distanceSquared = Vector3.SqrMagnitude(player.transform.position - spawnPosition);
-        //float maxDistanceSquared = 5 * 5 * MazeVisualizer_Test.CellSize * MazeVisualizer_Test.CellSize; // 5칸 거리의 제곱
+        bool result = false;
+        if (spawnPositions.Count < 1) 
+        {
+            return false;
+        }
+        if (itemCount > MaxItemCount)
+            itemCount = MaxItemCount;
 
-        return false;
+        int distanceMin = Mathf.Max(1, 10 / Mathf.RoundToInt(Mathf.Sqrt(Mathf.Min(itemCount))));
+        foreach (Vector2Int saved_Position in spawnPositions)
+        {
+            int diffX = newPosition.x - saved_Position.x;
+            int diffY = newPosition.y - saved_Position.y;
+            if ((diffX < distanceMin && diffX > -distanceMin) && (diffY < distanceMin && diffY > -distanceMin))
+            {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+    bool IsNearBy_Player(Vector2Int spawnGridPosition)
+    {
+        bool result = false;
+        Vector2Int playerGridPos = Util.WorldToGrid(player.transform.position);
+        int diffX = playerGridPos.x - spawnGridPosition.x;
+        int diffY = playerGridPos.y - spawnGridPosition.y;
+        if ((diffX < 3 && diffX > -3) && (diffY < 3 && diffY > -3))
+        {
+            result = true;
+        }
+        return result;
     }
     // 플레이어와 떨어진 위치
     // 위치가 겹치지 않게
@@ -104,6 +134,7 @@ public class GameManager : Singleton<GameManager>
     public static MazeVisualizer_Test Visualizer_Test => Inst.visualizer_Test;
     public static MazeVisualizer Visualizer => Inst.mazeVisualizer;
     public static Player Player => Inst.player;
+    public static Kruskal Kruskal => Inst.kruskal;
 
 
     private void Awake()
