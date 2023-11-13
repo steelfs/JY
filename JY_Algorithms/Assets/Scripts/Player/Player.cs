@@ -21,10 +21,25 @@ public class Player : MonoBehaviour
         inputActions.Player.Enable();
         inputActions.Player.MoveForward_BackWard.performed += OnMove_Forward_Backward;
         inputActions.Player.MoveForward_BackWard.canceled += OnMove_Forward_Backward;
-
         inputActions.Player.MoveRight_Left.performed += OnMove_Right_Left;
         inputActions.Player.MoveRight_Left.canceled += OnMove_Right_Left;
 
+        inputActions.UI.Enable();
+        inputActions.UI.CloseQuestionPanel.performed += OnCloseQuestionPanel;
+    }
+
+    private void OnCloseQuestionPanel(UnityEngine.InputSystem.InputAction.CallbackContext _)
+    {
+        GameManager.Inst.CloseQuestionPanel();
+    }
+
+    public void Enable_Input()
+    {
+        inputActions.Player.Enable();
+    }
+    public void Disable_Input()
+    {
+        inputActions.Player.Disable();
     }
     private void OnMove_Right_Left(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {

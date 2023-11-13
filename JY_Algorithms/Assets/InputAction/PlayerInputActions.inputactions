@@ -320,6 +320,34 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "f40a8364-8550-472a-81ed-40bdaea5d46f",
+            "actions": [
+                {
+                    "name": "CloseQuestionPanel",
+                    "type": "Button",
+                    "id": "702427eb-5fec-485b-b9ac-25369f9ac91b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6acf6ac5-8ecd-4815-8529-f64aa99ed15f",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseQuestionPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

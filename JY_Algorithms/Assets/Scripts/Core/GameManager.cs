@@ -13,6 +13,50 @@ public enum GameState
 }
 public class GameManager : Singleton<GameManager>
 {
+    public GameObject playerPrefab;
+
+    public bool IsTestMode = true;
+
+    Player player;
+    Pools pools;
+    InputBox_Test inputBox;
+    MazeVisualizer_Test visualizer_Test;
+    MazeVisualizer mazeVisualizer;
+    Kruskal kruskal;
+    QuestionPanel questionPanel;
+    public static InputBox_Test InputBox => Inst.inputBox;
+    public static Pools Pools => Inst.pools;
+    public static MazeVisualizer_Test Visualizer_Test => Inst.visualizer_Test;
+    public static MazeVisualizer Visualizer => Inst.mazeVisualizer;
+    public static Player Player => Inst.player;
+    public static Kruskal Kruskal => Inst.kruskal;
+    public static QuestionPanel QuestionPanel => Inst.questionPanel;
+
+    private void Awake()
+    {
+        questionPanel = FindAnyObjectByType<QuestionPanel>();
+        visualizer_Test = FindAnyObjectByType<MazeVisualizer_Test>();
+        mazeVisualizer = FindAnyObjectByType<MazeVisualizer>();
+        inputBox = FindAnyObjectByType<InputBox_Test>();
+        pools = FindAnyObjectByType<Pools>();
+    }
+    private void Start()
+    {
+        if (!IsTestMode)
+        {
+            Visualizer.MazeType = MazeType.kruskal;
+            Visualizer.MakeBoard(10, 10);
+            kruskal = Visualizer.Kruskal;
+            kruskal.on_DoneWithMakeMaze += () => StartCoroutine(WaitCoroutine());
+            Visualizer.MakeMaze();
+        }
+    }
+    IEnumerator WaitCoroutine()
+    {
+        yield return new WaitForSeconds(1);
+        GameState = GameState.Start;
+    }
+
     public int itemCount = 5;
     const int MaxItemCount = 8;
     GameState gameState = GameState.None;
@@ -117,49 +161,18 @@ public class GameManager : Singleton<GameManager>
         }
         return result;
     }
-    // 플레이어와 떨어진 위치
-    // 위치가 겹치지 않게
-    public GameObject playerPrefab;
-
-    public bool IsTestMode = true;
-
-    Player player;
-    Pools pools;
-    InputBox_Test inputBox;
-    MazeVisualizer_Test visualizer_Test;
-    MazeVisualizer mazeVisualizer;
-    Kruskal kruskal;
-    public static InputBox_Test InputBox => Inst.inputBox;
-    public static Pools Pools => Inst.pools;
-    public static MazeVisualizer_Test Visualizer_Test => Inst.visualizer_Test;
-    public static MazeVisualizer Visualizer => Inst.mazeVisualizer;
-    public static Player Player => Inst.player;
-    public static Kruskal Kruskal => Inst.kruskal;
-
-
-    private void Awake()
+    public void OpenQuestionPanel()
     {
-
-        visualizer_Test = FindAnyObjectByType<MazeVisualizer_Test>();
-        mazeVisualizer = FindAnyObjectByType<MazeVisualizer>();
-        inputBox = FindAnyObjectByType<InputBox_Test>();
-        pools = FindAnyObjectByType<Pools>();
+        Player.Disable_Input();
+        QuestionPanel.Open();
+        QuestionPanel.Question_Type = QuestionType.Free_Input;
+        // 일정 확률로 Free_Input or SelectAnswer
     }
-    private void Start()
+    public void CloseQuestionPanel() 
     {
-        if (!IsTestMode)
-        {
-            Visualizer.MazeType = MazeType.kruskal;
-            Visualizer.MakeBoard(10, 10);
-            kruskal = Visualizer.Kruskal;
-            kruskal.on_DoneWithMakeMaze += () => StartCoroutine(WaitCoroutine());
-            Visualizer.MakeMaze();
-        }
-    }
-    IEnumerator WaitCoroutine()
-    {
-        yield return new WaitForSeconds(1);
-        GameState = GameState.Start;
+        QuestionPanel.Close();
+        Player.Enable_Input();
     }
 
+   
 }

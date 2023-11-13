@@ -342,6 +342,34 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""f40a8364-8550-472a-81ed-40bdaea5d46f"",
+            ""actions"": [
+                {
+                    ""name"": ""CloseQuestionPanel"",
+                    ""type"": ""Button"",
+                    ""id"": ""702427eb-5fec-485b-b9ac-25369f9ac91b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""6acf6ac5-8ecd-4815-8529-f64aa99ed15f"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseQuestionPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -380,6 +408,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_MoveForward_BackWard = m_Player.FindAction("MoveForward_BackWard", throwIfNotFound: true);
         m_Player_MoveRight_Left = m_Player.FindAction("MoveRight_Left", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_CloseQuestionPanel = m_UI.FindAction("CloseQuestionPanel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -617,6 +648,52 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_CloseQuestionPanel;
+    public struct UIActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CloseQuestionPanel => m_Wrapper.m_UI_CloseQuestionPanel;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @CloseQuestionPanel.started += instance.OnCloseQuestionPanel;
+            @CloseQuestionPanel.performed += instance.OnCloseQuestionPanel;
+            @CloseQuestionPanel.canceled += instance.OnCloseQuestionPanel;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @CloseQuestionPanel.started -= instance.OnCloseQuestionPanel;
+            @CloseQuestionPanel.performed -= instance.OnCloseQuestionPanel;
+            @CloseQuestionPanel.canceled -= instance.OnCloseQuestionPanel;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     private int m_KMSchemeIndex = -1;
     public InputControlScheme KMScheme
     {
@@ -644,5 +721,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnMoveForward_BackWard(InputAction.CallbackContext context);
         void OnMoveRight_Left(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnCloseQuestionPanel(InputAction.CallbackContext context);
     }
 }
