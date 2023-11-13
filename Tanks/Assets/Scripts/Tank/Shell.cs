@@ -11,6 +11,7 @@ public class Shell : PooledObject
     public GameObject explosionPrefab;
 
     Rigidbody rigid;
+    Collider coll;
 
     bool isExplosion = false;
 
@@ -24,6 +25,7 @@ public class Shell : PooledObject
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
+        coll = GetComponent<Collider>();
     }
 
     private void OnEnable()
@@ -41,7 +43,6 @@ public class Shell : PooledObject
         {
             //Time.timeScale = 0.00f;
             StopAllCoroutines();
-            StartCoroutine(LifeOver(5.0f));
 
             isExplosion = true;
             Vector3 pos = collision.contacts[0].point;
@@ -53,13 +54,34 @@ public class Shell : PooledObject
             {
                 foreach(Collider collider in colliders)
                 {
-                    Rigidbody targetRigid = collider.GetComponent<Rigidbody>();
-                    if (targetRigid != null)
+                    PlayerBase player = collider.GetComponent<PlayerBase>();
+                    if (player != null)
                     {
-                        targetRigid.AddExplosionForce(explosionForce, pos, explosionRadius);
+                        player.DamageTaken(explosionForce, pos, explosionRadius);
                     }
+
+                    //Rigidbody targetRigid = collider.GetComponent<Rigidbody>();
+                    //if (targetRigid != null)
+                    //{
+                    //    targetRigid.AddExplosionForce(explosionForce, pos, explosionRadius);
+                    //}
                 }
             }
+            StartCoroutine(EndProcess());
         }
+    }
+    IEnumerator EndProcess()
+    {
+        yield return new WaitForSeconds(1);
+        rigid.drag = 15;//공기 마찰력
+        rigid.angularDrag = 15;//회전마찰력
+        coll.enabled = false;
+
+        yield return new WaitForSeconds(3);
+        gameObject.SetActive(false);
+        rigid.drag = 0;
+        rigid.angularDrag = 0.05f;
+        coll.enabled = true;
+
     }
 }
