@@ -38,5 +38,11 @@ public class PlayerBase : MonoBehaviour
     public void DamageTaken(float explosionForce, Vector3 pos, float explosionRadius)
     {
 
+
+        Die();
+    }
+    void Die()
+    {
+
     }
 }
