@@ -11,7 +11,8 @@ public class PlayerBase : MonoBehaviour
     protected Vector2 inputDir = Vector2.zero;
     protected Rigidbody rigid;
     protected PlayerInputActions inputActions;
-
+    protected bool IsAlive = true;
+    
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody>();
@@ -35,14 +36,37 @@ public class PlayerBase : MonoBehaviour
     {
         inputDir = context.ReadValue<Vector2>();
     }
-    public void DamageTaken(float explosionForce, Vector3 pos, float explosionRadius)
+    public void DamageTaken(float damage, Vector3 hitDir)
     {
+        //Vector3 dir = transform.position - hitDir;
+        //float ratio = dir.magnitude / explosionRadius;
 
-
-        Die();
+        Die(hitDir);
     }
-    void Die()
+    void Die(Vector3 hitDir)
     {
+        if (IsAlive)
+        {
+            IsAlive = false;
+            inputActions.Disable();
+            //Debug.Log(dir);
+            Vector3 explosionDir = hitDir + transform.up * 3;
+            rigid.constraints = RigidbodyConstraints.None;
 
+            Vector3 torqueAxis = Quaternion.Euler(0, Random.Range(80, 100), 0) * hitDir;
+
+
+            rigid.AddForce(explosionDir, ForceMode.Impulse);
+            rigid.AddTorque(torqueAxis, ForceMode.Impulse);
+        }
+        
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!IsAlive && !collision.gameObject.CompareTag("Shell"))
+        {
+            rigid.drag = 5;
+            rigid.angularDrag = 5;
+        }
     }
 }

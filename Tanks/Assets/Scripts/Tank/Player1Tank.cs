@@ -42,16 +42,20 @@ public class Player1Tank : PlayerBase
 
     private void Update()
     {
-        Vector2 screen = Mouse.current.position.ReadValue();
-        Ray ray = Camera.main.ScreenPointToRay(screen);
-        if( Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, LayerMask.GetMask("Ground")) )
+        if (IsAlive)
         {
-            Vector3 lookDir = hitInfo.point - turret.position;
-            lookDir.y = 0;
-            lookTarget = Quaternion.LookRotation(lookDir, Vector3.up);
-        }
+            Vector2 screen = Mouse.current.position.ReadValue();
+            Ray ray = Camera.main.ScreenPointToRay(screen);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, LayerMask.GetMask("Ground")))
+            {
+                Vector3 lookDir = hitInfo.point - turret.position;
+                lookDir.y = 0;
+                lookTarget = Quaternion.LookRotation(lookDir, Vector3.up);
+            }
 
-        turret.rotation = Quaternion.Slerp(turret.rotation, lookTarget, Time.deltaTime * turretSpinSpeed);
+            turret.rotation = Quaternion.Slerp(turret.rotation, lookTarget, Time.deltaTime * turretSpinSpeed);
+        }
+      
     }
    
 }

@@ -6,8 +6,13 @@ using UnityEngine.InputSystem;
 public class Test_05_EndProcess : TestBase
 {
     public Transform shellTransform;
+    
     protected override void Test1(InputAction.CallbackContext context)
     {
         Factory.Inst.GetShell(shellTransform);
+    }
+    protected override void Test2(InputAction.CallbackContext context)
+    {
+        
     }
 }

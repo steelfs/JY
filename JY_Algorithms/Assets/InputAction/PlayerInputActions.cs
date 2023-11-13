@@ -256,10 +256,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""id"": ""44fa4c2a-0ae4-47c0-a584-f9908ee40be5"",
             ""actions"": [
                 {
-                    ""name"": ""Move"",
+                    ""name"": ""MoveForward_BackWard"",
                     ""type"": ""Value"",
                     ""id"": ""e0105236-3184-4c0b-996d-c6afb469d4ea"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MoveRight_Left"",
+                    ""type"": ""Value"",
+                    ""id"": ""97db93a0-e7fb-4331-8682-916660e970b1"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -267,57 +276,68 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""d08e109a-a8e0-4709-aabe-f3c024b45499"",
-                    ""path"": ""2DVector"",
+                    ""name"": ""1D Axis"",
+                    ""id"": ""ea21f3e6-d321-46a7-bb65-07ceaac78e3c"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""MoveForward_BackWard"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""300d4f14-761f-4855-9bcf-de563b7e5dba"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""c50b87f4-d82f-4bee-b094-e0f5eb04659e"",
+                    ""name"": ""negative"",
+                    ""id"": ""afcfd332-2938-4af1-b7cb-7ccb78e483b6"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""MoveForward_BackWard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""left"",
-                    ""id"": ""66b93b4f-efa9-4cde-97f0-088091dc1115"",
+                    ""name"": ""positive"",
+                    ""id"": ""a38d47f5-17a9-49b0-b484-14957b920724"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveForward_BackWard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""d5b7c135-bfb8-441a-890f-6a372a593586"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveRight_Left"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""88b36c02-c2ce-4a93-80c5-a2c40d5c6fc2"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""MoveRight_Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""right"",
-                    ""id"": ""8003574d-937c-431c-942f-4c82f9a0210a"",
+                    ""name"": ""positive"",
+                    ""id"": ""7c4c34e1-f52e-4c38-9f70-2c02e957554e"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""MoveRight_Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -358,7 +378,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Test_MouseRight = m_Test.FindAction("MouseRight", throwIfNotFound: true);
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+        m_Player_MoveForward_BackWard = m_Player.FindAction("MoveForward_BackWard", throwIfNotFound: true);
+        m_Player_MoveRight_Left = m_Player.FindAction("MoveRight_Left", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -546,12 +567,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_Move;
+    private readonly InputAction m_Player_MoveForward_BackWard;
+    private readonly InputAction m_Player_MoveRight_Left;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Player_Move;
+        public InputAction @MoveForward_BackWard => m_Wrapper.m_Player_MoveForward_BackWard;
+        public InputAction @MoveRight_Left => m_Wrapper.m_Player_MoveRight_Left;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -561,16 +584,22 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-            @Move.started += instance.OnMove;
-            @Move.performed += instance.OnMove;
-            @Move.canceled += instance.OnMove;
+            @MoveForward_BackWard.started += instance.OnMoveForward_BackWard;
+            @MoveForward_BackWard.performed += instance.OnMoveForward_BackWard;
+            @MoveForward_BackWard.canceled += instance.OnMoveForward_BackWard;
+            @MoveRight_Left.started += instance.OnMoveRight_Left;
+            @MoveRight_Left.performed += instance.OnMoveRight_Left;
+            @MoveRight_Left.canceled += instance.OnMoveRight_Left;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
         {
-            @Move.started -= instance.OnMove;
-            @Move.performed -= instance.OnMove;
-            @Move.canceled -= instance.OnMove;
+            @MoveForward_BackWard.started -= instance.OnMoveForward_BackWard;
+            @MoveForward_BackWard.performed -= instance.OnMoveForward_BackWard;
+            @MoveForward_BackWard.canceled -= instance.OnMoveForward_BackWard;
+            @MoveRight_Left.started -= instance.OnMoveRight_Left;
+            @MoveRight_Left.performed -= instance.OnMoveRight_Left;
+            @MoveRight_Left.canceled -= instance.OnMoveRight_Left;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -613,6 +642,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     }
     public interface IPlayerActions
     {
-        void OnMove(InputAction.CallbackContext context);
+        void OnMoveForward_BackWard(InputAction.CallbackContext context);
+        void OnMoveRight_Left(InputAction.CallbackContext context);
     }
 }

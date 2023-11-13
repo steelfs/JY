@@ -5,28 +5,72 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     PlayerInputActions inputActions;
-    public float moveSpeed = 5.0f;
-    Vector2 moveDir = Vector2.zero;
+    public float moveSpeed = 10.0f;
+    Vector3 moveDir = Vector3.zero;
+
+    Animator anim;
+    int walkHash = Animator.StringToHash("walk");
+    int idleHash = Animator.StringToHash("idle");
     private void Awake()
     {
         inputActions = new PlayerInputActions();
+        anim = GetComponent<Animator>();
     }
     private void OnEnable()
     {
         inputActions.Player.Enable();
-        inputActions.Player.Move.performed += OnMove;
-        inputActions.Player.Move.canceled += OnMove;
+        inputActions.Player.MoveForward_BackWard.performed += OnMove_Forward_Backward;
+        inputActions.Player.MoveForward_BackWard.canceled += OnMove_Forward_Backward;
+
+        inputActions.Player.MoveRight_Left.performed += OnMove_Right_Left;
+        inputActions.Player.MoveRight_Left.canceled += OnMove_Right_Left;
 
     }
-
-    private void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    private void OnMove_Right_Left(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        moveDir = context.ReadValue<Vector2>();
-        moveDir *= Time.deltaTime * moveSpeed;
-        Debug.Log($"X_{moveDir.x}__Y_{moveDir.y}");
+        if (!context.canceled)
+        {
+            anim.SetTrigger(walkHash);
+        }
+        else
+        {
+            anim.SetTrigger(idleHash);
+        }
+        float dir = context.ReadValue<float>();
+        moveDir.x = dir;
+        if (dir > 0)
+        {
+            transform.rotation = Quaternion.Euler(0,90,0);
+        }
+        else if (dir < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, -90, 0);
+        }
+    }
+    private void OnMove_Forward_Backward(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        if (!context.canceled)
+        {
+            anim.SetTrigger(walkHash);
+        }
+        else
+        {
+            anim.SetTrigger(idleHash);
+        }
+        float dir = context.ReadValue<float>();
+        moveDir.z = dir;
+        if (dir > 0)
+        {
+            transform.rotation = Quaternion.identity;
+        }
+        else if (dir < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
     private void Update()
     {
-        transform.Translate(moveDir.x, 0, moveDir.y, Space.World);
+        transform.Translate(Time.deltaTime * moveSpeed * moveDir, Space.World);
+
     }
 }

@@ -10,10 +10,13 @@ public class Shell : PooledObject
     public float firePower = 10.0f;
     public GameObject explosionPrefab;
 
+    public AnimationCurve explosionCurve;
+
     Rigidbody rigid;
     Collider coll;
 
     bool isExplosion = false;
+
 
     // 1. 생성 되면 즉시 앞으로 날아간다.
     // 2. 포탄이 아닌 다른 것과 부딪치면 폭발한다.
@@ -57,15 +60,19 @@ public class Shell : PooledObject
                     PlayerBase player = collider.GetComponent<PlayerBase>();
                     if (player != null)
                     {
-                        player.DamageTaken(explosionForce, pos, explosionRadius);
-                    }
+                        Vector3 dir = player.transform.position - pos;
+                        float ratio = dir.magnitude / explosionRadius;
+                        float damage = explosionCurve.Evaluate(ratio) * explosionForce;
 
-                    //Rigidbody targetRigid = collider.GetComponent<Rigidbody>();
-                    //if (targetRigid != null)
-                    //{
-                    //    targetRigid.AddExplosionForce(explosionForce, pos, explosionRadius);
-                    //}
+                        dir = dir.normalized * (1 - ratio);
+                        player.DamageTaken(damage, dir);
+
+                       
+                    }
+                    Rigidbody rb = collider.GetComponent<Rigidbody>();
+                    rb.AddExplosionForce(explosionForce, pos, explosionRadius);
                 }
+                
             }
             StartCoroutine(EndProcess());
         }
