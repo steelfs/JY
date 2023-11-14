@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerBase : MonoBehaviour
 {
@@ -8,17 +9,24 @@ public class PlayerBase : MonoBehaviour
 
     public float moveSpeed = 1.0f;
     public float rotateSpeed = 360.0f;
+
+    protected bool isAlive = true;
     protected Vector2 inputDir = Vector2.zero;
+
     protected Rigidbody rigid;
+
     protected PlayerInputActions inputActions;
-    protected bool IsAlive = true;
-    
+
+    GameObject explosionEffect;
+
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody>();
         inputActions = new PlayerInputActions();
+
+        explosionEffect = transform.GetChild(1).gameObject;
     }
-    protected void Start()
+    private void Start()
     {
         MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
         foreach (MeshRenderer renderer in renderers)
@@ -26,47 +34,68 @@ public class PlayerBase : MonoBehaviour
             renderer.material.SetColor("_BaseColor", baseColor);
         }
     }
+
     private void FixedUpdate()
     {
         rigid.MovePosition(transform.position + Time.fixedDeltaTime * moveSpeed * inputDir.y * transform.forward);
         rigid.MoveRotation(
             Quaternion.Euler(0, Time.fixedDeltaTime * rotateSpeed * inputDir.x, 0) * transform.rotation);
     }
-    protected void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
+
+    protected void OnMove(InputAction.CallbackContext context)
     {
         inputDir = context.ReadValue<Vector2>();
     }
+
     public void DamageTaken(float damage, Vector3 hitDir)
     {
-        //Vector3 dir = transform.position - hitDir;
-        //float ratio = dir.magnitude / explosionRadius;
 
-        Die(hitDir);
+        // 나중에 수정하기
+        Die(hitDir * damage * 0.1f);
     }
+
+    public float test = 1.0f;
+    public int test2 = 5;
     void Die(Vector3 hitDir)
     {
-        if (IsAlive)
+        if(isAlive)
         {
-            IsAlive = false;
+            //Time.timeScale = 0.01f;
+            isAlive = false;
+            explosionEffect.transform.SetParent(null);
+            explosionEffect.SetActive(true);
             inputActions.Disable();
-            //Debug.Log(dir);
-            Vector3 explosionDir = hitDir + transform.up * 3;
+
+            //Debug.Log($"{hitDir},{hitDir.sqrMagnitude}");
+            Vector3 explosionDir = hitDir + transform.up * hitDir.sqrMagnitude * 2;
             rigid.constraints = RigidbodyConstraints.None;
 
-            Vector3 torqueAxis = Quaternion.Euler(0, Random.Range(80, 100), 0) * hitDir;
-
+            Vector3 torqueAxis = Quaternion.Euler(0, Random.Range(80.0f,100.0f), 0) * explosionDir;
+            //Vector3 torqueAxis = Quaternion.Euler(0, 90.0f, 0) * hitDir;
 
             rigid.AddForce(explosionDir, ForceMode.Impulse);
-            rigid.AddTorque(torqueAxis, ForceMode.Impulse);
+            rigid.AddTorque(torqueAxis, ForceMode.VelocityChange);            
         }
-        
     }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (!IsAlive && !collision.gameObject.CompareTag("Shell"))
+        if(!isAlive && !collision.gameObject.CompareTag("Shell"))
         {
-            rigid.drag = 5;
-            rigid.angularDrag = 5;
+            StartCoroutine(EndProcess());
         }
+    }
+
+    IEnumerator EndProcess()
+    {
+        rigid.angularDrag = 3.0f;
+        yield return new WaitForSeconds(3);
+
+        Collider col = GetComponent<Collider>();
+        col.enabled = false;
+        rigid.drag = 10.0f;
+
+        yield return new WaitForSeconds(5);
+        Destroy(this.gameObject);
     }
 }

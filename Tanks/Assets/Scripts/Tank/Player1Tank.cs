@@ -5,16 +5,17 @@ using UnityEngine.InputSystem;
 using static UnityEditor.PlayerSettings;
 
 public class Player1Tank : PlayerBase
-{
-   
+{    
     public float turretSpinSpeed = 4.0f;
     
     Quaternion lookTarget = Quaternion.identity;
-    Transform turret;
+    
+    Transform turret;    
 
     protected override void Awake()
     {
         base.Awake();
+
         Transform child = transform.GetChild(0);
         turret = child.GetChild(3).transform;
         lookTarget = turret.rotation;
@@ -34,19 +35,13 @@ public class Player1Tank : PlayerBase
         inputActions.Player1.Disable();
     }
 
-
-
-
-
-
-
     private void Update()
     {
-        if (IsAlive)
+        if( isAlive )
         {
             Vector2 screen = Mouse.current.position.ReadValue();
             Ray ray = Camera.main.ScreenPointToRay(screen);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, LayerMask.GetMask("Ground")))
+            if( Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, LayerMask.GetMask("Ground")) )
             {
                 Vector3 lookDir = hitInfo.point - turret.position;
                 lookDir.y = 0;
@@ -55,7 +50,5 @@ public class Player1Tank : PlayerBase
 
             turret.rotation = Quaternion.Slerp(turret.rotation, lookTarget, Time.deltaTime * turretSpinSpeed);
         }
-      
     }
-   
 }

@@ -10,13 +10,12 @@ public class Shell : PooledObject
     public float firePower = 10.0f;
     public GameObject explosionPrefab;
 
-    public AnimationCurve explosionCurve;
+    public AnimationCurve explotionCurve;
 
     Rigidbody rigid;
-    Collider coll;
+    Collider col;
 
     bool isExplosion = false;
-
 
     // 1. 생성 되면 즉시 앞으로 날아간다.
     // 2. 포탄이 아닌 다른 것과 부딪치면 폭발한다.
@@ -26,9 +25,9 @@ public class Shell : PooledObject
     // 4. 포탄, 폭팔이팩트는 오브젝트 풀로 관리된다.
 
     private void Awake()
-    {
+    {        
         rigid = GetComponent<Rigidbody>();
-        coll = GetComponent<Collider>();
+        col = GetComponent<Collider>();
     }
 
     private void OnEnable()
@@ -45,7 +44,7 @@ public class Shell : PooledObject
         if(!isExplosion)
         {
             //Time.timeScale = 0.00f;
-            StopAllCoroutines();
+            StopAllCoroutines();            
 
             isExplosion = true;
             Vector3 pos = collision.contacts[0].point;
@@ -57,38 +56,42 @@ public class Shell : PooledObject
             {
                 foreach(Collider collider in colliders)
                 {
+                    Rigidbody targetRigid = collider.GetComponent<Rigidbody>();
+                    if (targetRigid != null)
+                    {
+                        targetRigid.AddExplosionForce(explosionForce, pos, explosionRadius);
+                    }
                     PlayerBase player = collider.GetComponent<PlayerBase>();
                     if (player != null)
                     {
                         Vector3 dir = player.transform.position - pos;
                         float ratio = dir.magnitude / explosionRadius;
-                        float damage = explosionCurve.Evaluate(ratio) * explosionForce;
+                        float damage = explotionCurve.Evaluate(ratio) * explosionForce;
 
                         dir = dir.normalized * (1 - ratio);
                         player.DamageTaken(damage, dir);
-
-                       
                     }
-                    Rigidbody rb = collider.GetComponent<Rigidbody>();
-                    rb.AddExplosionForce(explosionForce, pos, explosionRadius);
                 }
-                
             }
+
             StartCoroutine(EndProcess());
         }
     }
+
     IEnumerator EndProcess()
     {
-        yield return new WaitForSeconds(1);
-        rigid.drag = 15;//공기 마찰력
-        rigid.angularDrag = 15;//회전마찰력
-        coll.enabled = false;
-
         yield return new WaitForSeconds(3);
-        gameObject.SetActive(false);
-        rigid.drag = 0;
-        rigid.angularDrag = 0.05f;
-        coll.enabled = true;
 
+        col.enabled = false;
+        rigid.drag = 20.0f;
+        rigid.angularDrag = 20.0f;
+
+        yield return new WaitForSeconds(5);
+
+        gameObject.SetActive(false);
+
+        col.enabled = true;
+        rigid.drag = 0.0f;
+        rigid.angularDrag = 0.05f;
     }
 }
