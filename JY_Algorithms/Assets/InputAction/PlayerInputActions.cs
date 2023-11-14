@@ -355,6 +355,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Enter"",
+                    ""type"": ""Button"",
+                    ""id"": ""57ff008a-2e91-4c63-8afd-881c36452596"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -366,6 +375,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CloseQuestionPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c50de8d-2d3e-4e15-9824-01524161f8a0"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -411,6 +431,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_CloseQuestionPanel = m_UI.FindAction("CloseQuestionPanel", throwIfNotFound: true);
+        m_UI_Enter = m_UI.FindAction("Enter", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -653,11 +674,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_CloseQuestionPanel;
+    private readonly InputAction m_UI_Enter;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
         public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @CloseQuestionPanel => m_Wrapper.m_UI_CloseQuestionPanel;
+        public InputAction @Enter => m_Wrapper.m_UI_Enter;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -670,6 +693,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @CloseQuestionPanel.started += instance.OnCloseQuestionPanel;
             @CloseQuestionPanel.performed += instance.OnCloseQuestionPanel;
             @CloseQuestionPanel.canceled += instance.OnCloseQuestionPanel;
+            @Enter.started += instance.OnEnter;
+            @Enter.performed += instance.OnEnter;
+            @Enter.canceled += instance.OnEnter;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -677,6 +703,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @CloseQuestionPanel.started -= instance.OnCloseQuestionPanel;
             @CloseQuestionPanel.performed -= instance.OnCloseQuestionPanel;
             @CloseQuestionPanel.canceled -= instance.OnCloseQuestionPanel;
+            @Enter.started -= instance.OnEnter;
+            @Enter.performed -= instance.OnEnter;
+            @Enter.canceled -= instance.OnEnter;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -725,5 +754,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnCloseQuestionPanel(InputAction.CallbackContext context);
+        void OnEnter(InputAction.CallbackContext context);
     }
 }

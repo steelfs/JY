@@ -24,6 +24,7 @@ public class GameManager : Singleton<GameManager>
     MazeVisualizer mazeVisualizer;
     Kruskal kruskal;
     QuestionPanel questionPanel;
+    ToolBox toolBox;
     public static InputBox_Test InputBox => Inst.inputBox;
     public static Pools Pools => Inst.pools;
     public static MazeVisualizer_Test Visualizer_Test => Inst.visualizer_Test;
@@ -31,9 +32,10 @@ public class GameManager : Singleton<GameManager>
     public static Player Player => Inst.player;
     public static Kruskal Kruskal => Inst.kruskal;
     public static QuestionPanel QuestionPanel => Inst.questionPanel;
-
+    public static ToolBox ToolBox => Inst.toolBox;
     private void Awake()
     {
+        toolBox = FindAnyObjectByType<ToolBox>();
         questionPanel = FindAnyObjectByType<QuestionPanel>();
         visualizer_Test = FindAnyObjectByType<MazeVisualizer_Test>();
         mazeVisualizer = FindAnyObjectByType<MazeVisualizer>();
@@ -70,6 +72,7 @@ public class GameManager : Singleton<GameManager>
             {
                 case GameState.Start:
                     StartCoroutine(SpawnPlayerAndItems());
+                    toolBox.Open();
                     break;
                 case GameState.Playing:
 
@@ -102,6 +105,7 @@ public class GameManager : Singleton<GameManager>
     IEnumerator ItemSpawn_Coroutine()
     {
         List<Vector2Int> spawnPositions = new List<Vector2Int>(itemCount);
+
         while(spawnPositions.Count < this.itemCount)
         {
             Vector2Int gridPos = Util.GetRandomGrid();
@@ -163,16 +167,16 @@ public class GameManager : Singleton<GameManager>
     }
     public void OpenQuestionPanel()
     {
-        Player.Disable_Input();
-        QuestionPanel.Open();
+        Player.InputState = InputState.UI;
         QuestionPanel.Question_Type = QuestionType.Free_Input;
+        QuestionPanel.Open();
         // ÀÏÁ¤ È®·ü·Î Free_Input or SelectAnswer
     }
     public void CloseQuestionPanel() 
     {
         QuestionPanel.Close();
-        Player.Enable_Input();
+        Player.InputState = InputState.Player;
     }
 
-   
+    
 }

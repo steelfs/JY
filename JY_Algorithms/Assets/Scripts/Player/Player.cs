@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum InputState
+{
+    Player,
+    UI
+}
 public class Player : MonoBehaviour
 {
     PlayerInputActions inputActions;
@@ -11,6 +16,25 @@ public class Player : MonoBehaviour
     Animator anim;
     int walkHash = Animator.StringToHash("walk");
     int idleHash = Animator.StringToHash("idle");
+
+    InputState inputState;
+    public InputState InputState
+    {
+        get => inputState;
+        set
+        {
+            inputState = value;
+            switch (inputState)
+            {
+                case InputState.Player:
+                    Enable_PlayerInput();
+                    break;
+                case InputState.UI:
+                    Disable_PlayerInput();
+                    break;
+            }
+        }
+    }
     private void Awake()
     {
         inputActions = new PlayerInputActions();
@@ -26,6 +50,12 @@ public class Player : MonoBehaviour
 
         inputActions.UI.Enable();
         inputActions.UI.CloseQuestionPanel.performed += OnCloseQuestionPanel;
+        inputActions.UI.Enter.performed += OnPressEnter;
+    }
+
+    private void OnPressEnter(UnityEngine.InputSystem.InputAction.CallbackContext _)
+    {
+        GameManager.QuestionPanel.FreeInput_Accepted();
     }
 
     private void OnCloseQuestionPanel(UnityEngine.InputSystem.InputAction.CallbackContext _)
@@ -33,13 +63,21 @@ public class Player : MonoBehaviour
         GameManager.Inst.CloseQuestionPanel();
     }
 
-    public void Enable_Input()
+    void Enable_PlayerInput()
     {
         inputActions.Player.Enable();
     }
-    public void Disable_Input()
+    void Disable_PlayerInput()
     {
         inputActions.Player.Disable();
+    }
+    void Enable_UI_Input()
+    {
+        inputActions.UI.Enable();
+    }
+    void Disable_UI_Input()
+    {
+        inputActions.UI.Disable();
     }
     private void OnMove_Right_Left(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
