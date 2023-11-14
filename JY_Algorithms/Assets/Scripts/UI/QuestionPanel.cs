@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public enum QuestionType
 {
@@ -88,6 +89,8 @@ public class QuestionPanel : MonoBehaviour
         canvasGroup.alpha = 0;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
+        Player_StringBuilder.Clear();
+        npc_StringBuilder.Clear();
     }
    
 
@@ -125,8 +128,7 @@ public class QuestionPanel : MonoBehaviour
         {
             answer = $"Well Done!\nYou Have Type \"{playerInput}\".\nThat Means \"{answer}\"";
         }
-
-        yield return second;
+        //yield return second;
         for (int i = 0; i < answer.Length; i++)
         {
             npc_StringBuilder.Append(answer[i]);
@@ -138,7 +140,12 @@ public class QuestionPanel : MonoBehaviour
     {
         yield return Print_Player_Input(Player_input);
         yield return Print_NPC_Input(NPC_answer, Player_input);
-        RecieveReward(Player_input.Length);
+        if (isCorrectAnswer)
+        {
+            yield return second;
+            GameManager.Inst.CloseQuestionPanel();
+            GameManager.ToolBox.IncreaseCash(Player_input.Length);
+        }
     }
     public void FreeInput_Accepted()
     {
@@ -151,6 +158,7 @@ public class QuestionPanel : MonoBehaviour
                 Debug.Log($"{input}__{value}!");
                 StartCoroutine(ShowResult(input, value));
                 inputField.text = string.Empty;
+
             }
             else
             {

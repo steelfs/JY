@@ -6,10 +6,10 @@ using UnityEngine.InputSystem;
 public class TestObject : TestBase
 {
     public Vector2Int grid;
+    public int amount;
     protected override void Test1(InputAction.CallbackContext context)
     {
-        bool result = IsNearByPlayer(grid);
-        Debug.Log(result);
+        GameManager.ToolBox.IncreaseCash(amount);
     }
     bool IsNearByPlayer(Vector2Int spawnGridPosition)
     {
