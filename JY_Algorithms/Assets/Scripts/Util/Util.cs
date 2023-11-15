@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Util
 {
+    
     public static void Shuffle<T>(T[] source)
     {
         for(int i=source.Length-1; i>-1; i--)
@@ -27,8 +28,26 @@ public class Util
     }
     public static Vector2Int WorldToGrid(Vector3 world)
     {
-        int x = (int)(world.x / MazeVisualizer_Test.CellSize);
-        int y = (int)(world.z / -MazeVisualizer_Test.CellSize);
+        int x = Mathf.RoundToInt(world.x);
+        int y = Mathf.RoundToInt((world.z * -1));
+
+        if(x % MazeVisualizer_Test.CellSize > 2)
+        {
+            x = (x / MazeVisualizer_Test.CellSize) + 1;
+        }
+        else
+        {
+            x = (x / MazeVisualizer_Test.CellSize);
+        }
+        if (y % MazeVisualizer_Test.CellSize > 2)
+        {
+            y = (y / MazeVisualizer_Test.CellSize) + 1;
+        }
+        else
+        {
+            y = (y / MazeVisualizer_Test.CellSize);
+        }
+
         return new Vector2Int(x, y);
     }
     public static Vector2Int GetRandomGrid()//플레이어가 스폰될 랜덤한 포지션과 로테이션값을 out으로 주는 함수
@@ -106,8 +125,15 @@ public class Util
         }
         return neighbors.ToArray();
     }
-    public static bool IsNeighbor(int x, int y, int condition)
+    public static bool IsNeighbor(Vector2Int from, Vector2Int to, int condition)
     {
-        return true;
+        bool result = false;
+        int diffX = from.x - to.x;
+        int diffY = from.y - to.y;
+        if ((diffX > -condition && diffX < condition) && (diffY > -condition && diffY < condition))
+        {
+            result = true;
+        }
+        return result;
     }
 }

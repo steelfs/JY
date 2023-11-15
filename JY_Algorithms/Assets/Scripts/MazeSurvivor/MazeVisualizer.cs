@@ -448,15 +448,17 @@ public class MazeVisualizer : MonoBehaviour
     {
         connectOrder.Add((from, to));
     }
+
+    /// <summary>
+    /// 클릭한 셀 방향에 벽이 뚫려있는지 확인하는 함수
+    /// </summary>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <returns></returns>
     public bool IsMovable(CellVisualizer from, CellVisualizer to)
     {
-        int diffX = from.x - to.x;
-        int diffY = from.y - to.y;
-        
         bool result = true;
         GameObject child = null;
-
-
         if (from.x == to.x)//세로방향
         {
             if (from.y > to.y)

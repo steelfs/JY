@@ -3622,7 +3622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 496144636360808226, guid: f6c33ac19d13a694b8bb647d5264a10c, type: 3}
   IsTestMode: 0
-  itemCount: 3
+  itemCount: 8
 --- !u!4 &2108394563
 Transform:
   m_ObjectHideFlags: 0

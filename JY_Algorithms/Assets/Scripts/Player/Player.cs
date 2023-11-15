@@ -91,12 +91,12 @@ public class Player : MonoBehaviour
     {
         Vector2 mouse = Mouse.current.position.ReadValue();
         Vector3 world = Camera.main.ScreenToWorldPoint(mouse);
-        Vector2Int grid = Util.WorldToGrid(world);
 
-        Vector2Int currentPos = Util.WorldToGrid(transform.position);
-        CellVisualizer from = GameManager.Visualizer.CellVisualizers[Util.GridToIndex(currentPos.x, currentPos.y)];
+        Vector2Int grid = Util.WorldToGrid(world);//클릭한 곳의 그리드상 위치
+        Vector2Int currentGridPos = Util.WorldToGrid(transform.position);//현재 캐릭터의 오브젝트 위치
+        CellVisualizer from = GameManager.Visualizer.CellVisualizers[Util.GridToIndex(currentGridPos.x, currentGridPos.y)];
         CellVisualizer to = GameManager.Visualizer.CellVisualizers[Util.GridToIndex(grid.x, grid.y)];
-        if (GameManager.Visualizer.IsMovable(from, to))
+        if (GameManager.Visualizer.IsMovable(from, to) && Util.IsNeighbor(currentGridPos, grid, 2))
         {
             this.moveDir = (to.transform.position - transform.position).normalized;
         }

@@ -61,7 +61,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     public int itemCount = 5;
-    const int MaxItemCount = 8;
+    const int MaxItemCount = 7;
     GameState gameState = GameState.None;
     GameState GameState
     {
@@ -154,15 +154,12 @@ public class GameManager : Singleton<GameManager>
         if (itemCount > MaxItemCount)
             itemCount = MaxItemCount;
 
-        int distanceMin = Mathf.Max(1, 10 / Mathf.RoundToInt(Mathf.Sqrt(Mathf.Min(itemCount))));
+        int distanceMin = Mathf.Max(1, 10 / Mathf.RoundToInt(Mathf.Sqrt(itemCount)));
         foreach (Vector2Int saved_Position in spawnPositions)
         {
-            int diffX = newPosition.x - saved_Position.x;
-            int diffY = newPosition.y - saved_Position.y;
-            if ((diffX < distanceMin && diffX > -distanceMin) && (diffY < distanceMin && diffY > -distanceMin))
+            if (Util.IsNeighbor(newPosition, saved_Position, distanceMin))
             {
-                result = true;
-                break;
+                result = true; break;
             }
         }
         return result;
