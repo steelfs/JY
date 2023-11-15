@@ -383,6 +383,7 @@ public class MazeVisualizer : MonoBehaviour
                 int index = (y * width) + x;
                 CellVisualizer cellVisualizer = cell.GetComponent<CellVisualizer>();
                 cellVisualizers[index] = cellVisualizer;
+                cellVisualizer.x = x; cellVisualizer.y = y;
                 Cell currentCell = cells[index];
                 currentCell.on_RefreshWall = cellVisualizer.RefreshWalls;//UI 업데이트 연결
             }
@@ -472,7 +473,16 @@ public class MazeVisualizer : MonoBehaviour
 
         Vector2Int grid = Util.WorldToGrid(target.transform.position);
         CellVisualizer cellVisualizer = cellVisualizers[GridToIndex(grid.x, grid.y)];
-        cellVisualizer.OnSet_Next_Material();
+        queue.Enqueue(cellVisualizer);
 
+        Vector2Int[] neighbors = Util.GetNeighbors(grid.x, grid.y);
+        foreach(Vector2Int neighbor in neighbors)
+        {
+            queue.Enqueue(cellVisualizers[GridToIndex(neighbor.x, neighbor.y)]);
+        }
+        foreach(CellVisualizer cell in queue)
+        {
+            cell.OnSet_Path_Material();
+        }
     }
 }

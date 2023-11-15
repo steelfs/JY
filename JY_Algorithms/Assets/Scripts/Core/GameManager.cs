@@ -76,6 +76,7 @@ public class GameManager : Singleton<GameManager>
                     break;
                 case GameState.Playing:
                     mazeVisualizer.ShowMoveRange(PlayerType.Player);
+
                     break;
                 case GameState.End:
                     break;
@@ -88,6 +89,7 @@ public class GameManager : Singleton<GameManager>
     {
         yield return StartCoroutine(PlayerSpawn_Coroutine());
         yield return StartCoroutine(ItemSpawn_Coroutine());
+
         GameState = GameState.Playing;
     }
     IEnumerator PlayerSpawn_Coroutine()

@@ -14,6 +14,9 @@ public class CellVisualizer : MonoBehaviour
     public Material confirmed_Wall;
     public Material next_Ground;
     public Material next_Wall;
+
+    public int x { get; set; }
+    public int y { get; set; }
     private void Awake()
     {
         

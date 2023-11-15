@@ -91,17 +91,17 @@ public class Util
         int x = index % GameManager.Kruskal.height;
         return new Vector2Int(x, y);
     }
-    public static T[] GetNeighbors<T>(T current) where T : Cell
+    public static Vector2Int[] GetNeighbors(int x, int y)
     {
         int[,] dir = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
-        List<T> neighbors = new List<T>();
+        List<Vector2Int> neighbors = new List<Vector2Int>();
         for (int i = 0; i < 4; i++)
         {
-            int X = current.X + dir[i, 0];
-            int Y = current.Y + dir[i, 1];
+            int X = x + dir[i, 0];
+            int Y = y + dir[i, 1];
             if (IsInGrid(X, Y))
             {
-                neighbors.Add((T)GameManager.Kruskal.cells[GridToIndex(X, Y)]);
+                neighbors.Add(new Vector2Int(X, Y));
             }
         }
         return neighbors.ToArray();
