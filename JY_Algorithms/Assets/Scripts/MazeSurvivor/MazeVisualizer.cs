@@ -3,12 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
-
+public enum PlayerType
+{
+    Player,
+    NPC01,
+    NPC02,
+    NPC03
+}
 
 public class MazeVisualizer : MonoBehaviour
 {
+    Queue<CellVisualizer> playerMovingQueue = new Queue<CellVisualizer>(10);//최대 8개 사용 예상
+    Queue<CellVisualizer> npc01MovingQueue = new Queue<CellVisualizer>(10);
+    Queue<CellVisualizer> npc02MovingQueue = new Queue<CellVisualizer>(10);
+    Queue<CellVisualizer> npc03MovingQueue = new Queue<CellVisualizer>(10);
+
     BackTracking_Test backTracking;
     Wilson_Test wilson;
     Eller_Test eller;
@@ -16,8 +28,8 @@ public class MazeVisualizer : MonoBehaviour
     public Kruskal Kruskal => kruskal;
     Prim_Test prim;
     Division_Test division;
-    CellVisualizer_Test[] cellVisualizers;
-    public CellVisualizer_Test[] CellVisualizers => cellVisualizers;
+    CellVisualizer[] cellVisualizers;
+    public CellVisualizer[] CellVisualizers => cellVisualizers;
 
     MazeType mazeType;
     public MazeType MazeType
@@ -343,7 +355,7 @@ public class MazeVisualizer : MonoBehaviour
     /// <param name="cells">보드를 구성하는 cell 의 배열</param>
     public void RenderBoard(int width, int height, Cell[] cells)// delegate를 연결하기 위해 cell의 배열도 받는다.
     {
-        cellVisualizers = new CellVisualizer_Test[cells.Length];
+        cellVisualizers = new CellVisualizer[cells.Length];
         //if (width > 9)
         //{
         //    transform.position = ten_By_Ten;
@@ -369,7 +381,7 @@ public class MazeVisualizer : MonoBehaviour
                 cell.transform.localPosition = Vector3.zero;
                 cell.transform.Translate(x * MazeVisualizer_Test.CellSize, 0, -y * MazeVisualizer_Test.CellSize, Space.World);// 위에서 로컬로테이션을 180도 돌렸기 때문에 역방향으로 계산
                 int index = (y * width) + x;
-                CellVisualizer_Test cellVisualizer = cell.GetComponent<CellVisualizer_Test>();
+                CellVisualizer cellVisualizer = cell.GetComponent<CellVisualizer>();
                 cellVisualizers[index] = cellVisualizer;
                 Cell currentCell = cells[index];
                 currentCell.on_RefreshWall = cellVisualizer.RefreshWalls;//UI 업데이트 연결
@@ -377,7 +389,10 @@ public class MazeVisualizer : MonoBehaviour
         }
     }
 
+    public void PopupMoveRange()
+    {
 
+    }
     
     int GridToIndex(int x, int y)
     {
@@ -385,23 +400,23 @@ public class MazeVisualizer : MonoBehaviour
     }
     void On_Path_Material(int index)
     {
-        CellVisualizer_Test cellVisualizer = cellVisualizers[index];
+        CellVisualizer cellVisualizer = cellVisualizers[index];
         cellVisualizer.OnSet_Path_Material();
     }
     void On_SetDefault_Material(int index)
     {
-        CellVisualizer_Test cellVisualizer = cellVisualizers[index];
+        CellVisualizer cellVisualizer = cellVisualizers[index];
         cellVisualizer.OnSet_Default_Material();
     }
   
     void On_SetNext_Material(int index)
     {
-        CellVisualizer_Test cellVisualizer = cellVisualizers[index];
+        CellVisualizer cellVisualizer = cellVisualizers[index];
         cellVisualizer.OnSet_Next_Material();
     }
     void On_SetConfirmed_Material(int index)
     {
-        CellVisualizer_Test cellVisualizer = cellVisualizers[index];
+        CellVisualizer cellVisualizer = cellVisualizers[index];
         cellVisualizer.OnSet_Confirmed_Material();
     }
     /// <summary>
@@ -432,5 +447,32 @@ public class MazeVisualizer : MonoBehaviour
     {
         connectOrder.Add((from, to));
     }
-    
+    public void ShowMoveRange(PlayerType type)
+    {
+        Transform target = null;
+        Queue<CellVisualizer> queue = null;
+        switch (type)
+        {
+            case PlayerType.Player:
+                target = GameManager.Player.transform;
+                queue = playerMovingQueue;
+                break;
+            case PlayerType.NPC01:
+                queue = npc01MovingQueue;
+                break;
+            case PlayerType.NPC02:
+                queue = npc02MovingQueue;
+                break;
+            case PlayerType.NPC03:
+                queue = npc03MovingQueue;
+                break;
+            default:
+                break;
+        }
+
+        Vector2Int grid = Util.WorldToGrid(target.transform.position);
+        CellVisualizer cellVisualizer = cellVisualizers[GridToIndex(grid.x, grid.y)];
+        cellVisualizer.OnSet_Next_Material();
+
+    }
 }

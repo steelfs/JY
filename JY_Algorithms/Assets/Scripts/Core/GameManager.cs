@@ -75,7 +75,7 @@ public class GameManager : Singleton<GameManager>
                     toolBox.Open();
                     break;
                 case GameState.Playing:
-
+                    mazeVisualizer.ShowMoveRange(PlayerType.Player);
                     break;
                 case GameState.End:
                     break;
@@ -88,10 +88,12 @@ public class GameManager : Singleton<GameManager>
     {
         yield return StartCoroutine(PlayerSpawn_Coroutine());
         yield return StartCoroutine(ItemSpawn_Coroutine());
+        GameState = GameState.Playing;
     }
     IEnumerator PlayerSpawn_Coroutine()
     {
-        Vector2Int grid = Util.GetRandomGrid();
+        Vector2Int[] startingPoinst = Util.Get_StartingPoints();//배열의 순서를 섞어서 리턴하기 때문에 첫번째 것을 그냥 꺼내쓰면 랜덤
+        Vector2Int grid = startingPoinst[0];//
         Vector3 spawnPos = Util.GridToWorld(grid);
         spawnPos.y += 2;
         Pools.GetObject(PoolObjectType.SpawnEffect, spawnPos);

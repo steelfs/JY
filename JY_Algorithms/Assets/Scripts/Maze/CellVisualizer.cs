@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CellVisualizer_Test : MonoBehaviour
+public class CellVisualizer : MonoBehaviour
 {
     GameObject[] walls;
     Renderer[] wall_Renderers;

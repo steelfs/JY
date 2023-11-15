@@ -24,7 +24,7 @@ public class MazeVisualizer_Test : MonoBehaviour
     Kruskal_Test kruskal;
     Prim_Test prim;
     Division_Test division;
-    CellVisualizer_Test[] cellVisualizers;
+    CellVisualizer[] cellVisualizers;
 
     MazeType mazeType;
     public MazeType MazeType
@@ -341,7 +341,7 @@ public class MazeVisualizer_Test : MonoBehaviour
     /// <param name="cells">보드를 구성하는 cell 의 배열</param>
     public void RenderBoard(int width, int height, Cell[] cells)// delegate를 연결하기 위해 cell의 배열도 받는다.
     {
-        cellVisualizers = new CellVisualizer_Test[cells.Length];
+        cellVisualizers = new CellVisualizer[cells.Length];
         if (width > 7)
         {
             transform.position = eight_By_Eight;
@@ -364,7 +364,7 @@ public class MazeVisualizer_Test : MonoBehaviour
                 cell.transform.localPosition = Vector3.zero;
                 cell.transform.Translate(x * CellSize, 0, -y * CellSize, Space.Self);// 위에서 로컬로테이션을 180도 돌렸기 때문에 역방향으로 계산
                 int index = (y * width) + x;
-                CellVisualizer_Test cellVisualizer = cell.GetComponent<CellVisualizer_Test>();
+                CellVisualizer cellVisualizer = cell.GetComponent<CellVisualizer>();
                 cellVisualizers[index] = cellVisualizer;
                 Cell currentCell = cells[index];
                 currentCell.on_RefreshWall = cellVisualizer.RefreshWalls;//UI 업데이트 연결
@@ -440,23 +440,23 @@ public class MazeVisualizer_Test : MonoBehaviour
     }
     void On_Path_Material(int index)
     {
-        CellVisualizer_Test cellVisualizer = cellVisualizers[index];
+        CellVisualizer cellVisualizer = cellVisualizers[index];
         cellVisualizer.OnSet_Path_Material();
     }
     void On_SetDefault_Material(int index)
     {
-        CellVisualizer_Test cellVisualizer = cellVisualizers[index];
+        CellVisualizer cellVisualizer = cellVisualizers[index];
         cellVisualizer.OnSet_Default_Material();
     }
   
     void On_SetNext_Material(int index)
     {
-        CellVisualizer_Test cellVisualizer = cellVisualizers[index];
+        CellVisualizer cellVisualizer = cellVisualizers[index];
         cellVisualizer.OnSet_Next_Material();
     }
     void On_SetConfirmed_Material(int index)
     {
-        CellVisualizer_Test cellVisualizer = cellVisualizers[index];
+        CellVisualizer cellVisualizer = cellVisualizers[index];
         cellVisualizer.OnSet_Confirmed_Material();
     }
     /// <summary>

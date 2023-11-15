@@ -10,7 +10,7 @@ public class Util
     {
         for(int i=source.Length-1; i>-1; i--)
         {
-            int index = UnityEngine.Random.Range(0, i);
+            int index = UnityEngine.Random.Range(0, i + 1);
             (source[index], source[i]) = (source[i], source[index]);
         }
     }
@@ -20,7 +20,7 @@ public class Util
     //}
     public static Vector3 GridToWorld(Vector2Int grid)
     {
-        CellVisualizer_Test cellVisualizer = GameManager.Visualizer.CellVisualizers[GridToIndex(grid.x, grid.y)];
+        CellVisualizer cellVisualizer = GameManager.Visualizer.CellVisualizers[GridToIndex(grid.x, grid.y)];
         Vector3 result = cellVisualizer.transform.position;
 
         return result;
@@ -39,11 +39,29 @@ public class Util
 
         return result;
     }
+    public static Vector2Int[] Get_StartingPoints()
+    {
+        int width = GameManager.Kruskal.width;
+        int height = GameManager.Kruskal.height;
+        Cell[] cells = GameManager.Kruskal.cells;
+        Vector2Int[] positions = new Vector2Int[4];  
+        Cell north_West = cells[0];
+        Cell northEast = cells[width - 1];
+        Cell southWest = cells[width * (height - 1)];
+        Cell southEast = cells[(width * height) - 1];
+        positions[0] = new Vector2Int(north_West.X, north_West.Y);
+        positions[1] = new Vector2Int(northEast.X, northEast.Y);
+        positions[2] = new Vector2Int(southWest.X, southWest.Y);
+        positions[3] = new Vector2Int(southEast.X, southEast.Y);
+
+        Shuffle(positions);
+        return positions;
+    }
     //gridToWorld, WorldToGrid ÀÛ¼ºÇÒ Â÷·Ê
     public static Vector3 GetRandomRotation(int x, int y)
     {
         int index = GridToIndex(x, y);
-        CellVisualizer_Test cellVisualizer = GameManager.Visualizer.CellVisualizers[index];
+        CellVisualizer cellVisualizer = GameManager.Visualizer.CellVisualizers[index];
         List<Vector3> angles = new List<Vector3>();
         for (int i = 1; i < 5; i++)
         {

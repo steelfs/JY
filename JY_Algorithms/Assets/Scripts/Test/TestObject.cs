@@ -11,17 +11,30 @@ public class TestObject : TestBase
     {
         GameManager.ToolBox.IncreaseCash(amount);
     }
-    bool IsNearByPlayer(Vector2Int spawnGridPosition)
+    protected override void Test2(InputAction.CallbackContext context)
     {
-        bool result = false;
-        Vector2Int playerGridPos = Util.WorldToGrid(GameManager.Player.transform.position);
-        int diffX = playerGridPos.x - spawnGridPosition.x;
-        int diffY = playerGridPos.y - spawnGridPosition.y;
-        if ((diffX < 3 && diffX > -3) && (diffY < 3 && diffY > -3))
+        int[] count = new int[4];
+        for (int i = 0; i < 100000; i++)
         {
-            result = true;
+            Vector2Int[] positions = Util.Get_StartingPoints();
+            Vector2Int chosen = positions[0];
+            if (chosen.x == 0 && chosen.y == 0)
+            {
+                count[0]++;
+            }
+            else if (chosen.x == 9 && chosen.y == 0)
+            {
+                count[1]++;
+            }
+            else if (chosen.x == 0 && chosen.y == 9)
+            {
+                count[2]++;
+            }
+            else if (chosen.x == 9 && chosen.y == 9)
+            {
+                count[3]++;
+            }
         }
-
-        return result;
+        Debug.Log($"1 = {count[0]}, 2 = {count[1]}, 3 = {count[2]}, 4 = {count[3]} ");
     }
 }

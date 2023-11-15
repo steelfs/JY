@@ -6,23 +6,35 @@ using UnityEngine.VFX;
 public enum PoolObjectType
 {
     Shell = 0,
-    Explosion
+    Explosion,
+    ShellGuided,
+    ShellClust,
+    ShellClust_Baby
 }
 
 public class Factory : Singleton<Factory>
 {
     ShellPool shellPool;
     ExplosionPool explosionPool;
+    Shell_Guided_Pool shell_Guided_Pool;
+    Shell_Clust_Pool shell_Clust_Pool;
+    Shell_ClustBaby_Pool shell_ClustBaby_Pool;
 
     protected override void OnInitialize()
     {
         base.OnInitialize();
 
+        shell_Clust_Pool = GetComponentInChildren<Shell_Clust_Pool>();
+        shell_ClustBaby_Pool = GetComponentInChildren<Shell_ClustBaby_Pool>();
         shellPool = GetComponentInChildren<ShellPool>();
         explosionPool = GetComponentInChildren<ExplosionPool>();
+        shell_Guided_Pool = GetComponentInChildren<Shell_Guided_Pool>();
 
         shellPool?.Initialize();
         explosionPool?.Initialize();
+        shell_Guided_Pool?.Initialize();
+        shell_Clust_Pool?.Initialize();
+        shell_ClustBaby_Pool?.Initialize();
     }
 
     /// <summary>
@@ -36,10 +48,19 @@ public class Factory : Singleton<Factory>
         switch (type)
         {
             case PoolObjectType.Shell:
-                result = shellPool?.GetObject(spawn)?.gameObject;                
+                result = shellPool?.GetObject(spawn)?.gameObject;
                 break;
             case PoolObjectType.Explosion:
                 result = explosionPool?.GetObject(spawn)?.gameObject;
+                break;
+            case PoolObjectType.ShellGuided:
+                result = shell_Guided_Pool?.GetObject(spawn)?.gameObject;
+                break;
+            case PoolObjectType.ShellClust:
+                result = shell_Clust_Pool?.GetObject(spawn)?.gameObject;
+                break;
+            case PoolObjectType.ShellClust_Baby:
+                result = shell_ClustBaby_Pool?.GetObject(spawn)?.gameObject;
                 break;
             default:
                 result = new GameObject();
@@ -63,11 +84,11 @@ public class Factory : Singleton<Factory>
         obj.transform.Rotate(angle * Vector3.forward);
 
         switch (type)
-        {        
-            default:                
+        {
+            default:
                 break;
         }
-        
+
         return obj;
     }
 
@@ -84,5 +105,23 @@ public class Factory : Singleton<Factory>
         GameObject obj = GetObject(PoolObjectType.Shell, parent);
         Shell shell = obj.GetComponent<Shell>();
         return shell;
+    }
+    public Shell_Guided GetGuided(Transform parent = null)
+    {
+        GameObject obj = GetObject(PoolObjectType.ShellGuided, parent);
+        Shell_Guided guided = obj.GetComponent<Shell_Guided>();
+        return guided;
+    }
+    public Shell_Clust GetClust(Transform parent = null)
+    {
+        GameObject obj = GetObject(PoolObjectType.ShellClust, parent);
+        Shell_Clust clust = obj.GetComponent<Shell_Clust>();
+        return clust;
+    }
+    public Shell_BabyClust GetClustBaby(Vector3 pos)
+    {
+        GameObject obj = GetObject(PoolObjectType.ShellClust_Baby, pos);
+        Shell_BabyClust GetClustBaby = obj.GetComponent<Shell_BabyClust>();
+        return GetClustBaby;
     }
 }
