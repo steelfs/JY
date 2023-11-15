@@ -52,6 +52,7 @@ public class GameManager : Singleton<GameManager>
             kruskal.on_DoneWithMakeMaze += () => StartCoroutine(WaitCoroutine());
             Visualizer.MakeMaze();
         }
+
     }
     IEnumerator WaitCoroutine()
     {
@@ -76,7 +77,7 @@ public class GameManager : Singleton<GameManager>
                     break;
                 case GameState.Playing:
                     mazeVisualizer.ShowMoveRange(PlayerType.Player);
-
+                    Player.InputState = InputState.Player;
                     break;
                 case GameState.End:
                     break;
@@ -95,15 +96,17 @@ public class GameManager : Singleton<GameManager>
     IEnumerator PlayerSpawn_Coroutine()
     {
         Vector2Int[] startingPoinst = Util.Get_StartingPoints();//배열의 순서를 섞어서 리턴하기 때문에 첫번째 것을 그냥 꺼내쓰면 랜덤
-        Vector2Int grid = startingPoinst[0];//
-        Vector3 spawnPos = Util.GridToWorld(grid);
+        Vector2Int grid = startingPoinst[0];//스타팅 포인트 네 곳 중 랜덤한 곳 선택
+        Vector3 spawnPos = Util.GridToWorld(grid);//그리드좌표를 월드좌표로 변환
         spawnPos.y += 2;
-        Pools.GetObject(PoolObjectType.SpawnEffect, spawnPos);
+        Pools.GetObject(PoolObjectType.SpawnEffect, spawnPos);// 소환. 풀에서 꺼내기
         yield return new WaitForSeconds(0.5f);
         spawnPos.y -= 2;
-        Vector3 rotation = Util.GetRandomRotation(grid.x, grid.y);
+        Vector3 rotation = Util.GetRandomRotation(grid.x, grid.y);// 벽이 없는 방향중 랜덤한 방향으로 회전
         GameObject player_ = Instantiate(playerPrefab, spawnPos, Quaternion.Euler(rotation));
         this.player = player_.GetComponent<Player>();
+        player.InputState = InputState.None;
+
         yield return new WaitForSeconds(1.0f);
     }
     IEnumerator ItemSpawn_Coroutine()
@@ -112,10 +115,10 @@ public class GameManager : Singleton<GameManager>
 
         while(spawnPositions.Count < this.itemCount)
         {
-            Vector2Int gridPos = Util.GetRandomGrid();
+            Vector2Int gridPos = Util.GetRandomGrid();//보드의 랜덤한 좌표 
             bool nearBy_Player = IsNearBy_Player(gridPos);
             bool nearBy_Others = IsNearBy_Another_Item(spawnPositions, gridPos);
-            if (nearBy_Player || nearBy_Others)//or 플레이어와 가까울 경우
+            if (nearBy_Player || nearBy_Others)//or 플레이어가 가까이 있거나 다른 아이템이 가까이 있을 경우  스킵.
             {
                 continue;
             }
@@ -134,6 +137,13 @@ public class GameManager : Singleton<GameManager>
             yield return new WaitForSeconds(0.05f);
         }
     }
+
+    /// <summary>
+    /// 아이템이 생성될 때 다른 아이템이 특정반경 내에 있는지 확인하는 함수 
+    /// </summary>
+    /// <param name="spawnPositions"></param>
+    /// <param name="newPosition"></param>
+    /// <returns></returns>
     bool IsNearBy_Another_Item(List<Vector2Int> spawnPositions, Vector2Int newPosition)
     {
         bool result = false;
@@ -157,6 +167,11 @@ public class GameManager : Singleton<GameManager>
         }
         return result;
     }
+    /// <summary>
+    /// // 오브젝트를 생성할 때 플레이어가 특정 반경 안에 있는지 확인하는 함수
+    /// </summary>
+    /// <param name="spawnGridPosition"></param>
+    /// <returns></returns>
     bool IsNearBy_Player(Vector2Int spawnGridPosition)
     {
         bool result = false;
@@ -169,7 +184,7 @@ public class GameManager : Singleton<GameManager>
         }
         return result;
     }
-    public void OpenQuestionPanel()
+    public void OpenQuestionPanel()//UI 패널 오픈
     {
         Player.InputState = InputState.UI;
         QuestionPanel.Question_Type = QuestionType.Free_Input;

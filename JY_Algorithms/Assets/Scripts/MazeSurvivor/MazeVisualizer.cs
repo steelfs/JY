@@ -448,6 +448,47 @@ public class MazeVisualizer : MonoBehaviour
     {
         connectOrder.Add((from, to));
     }
+    public bool IsMovable(CellVisualizer from, CellVisualizer to)
+    {
+        int diffX = from.x - to.x;
+        int diffY = from.y - to.y;
+        
+        bool result = true;
+        GameObject child = null;
+
+
+        if (from.x == to.x)//세로방향
+        {
+            if (from.y > to.y)
+            {
+                child = from.transform.GetChild(1).gameObject;//from의 북쪽방향 확인
+            }
+            else
+            {
+                child = from.transform.GetChild(3).gameObject;//from의 남쪽방향
+            }
+            if (child.activeSelf == true)
+            {
+                result = false;
+            }
+        }
+        else if (from.y == to.y)//가로방향
+        {
+            if (from.x > to.x)
+            {
+                child = from.transform.GetChild(4).gameObject;//from의 서쪽방향 확인
+            }
+            else
+            {
+                child = from.transform.GetChild(2).gameObject;//from의 동쪽방향 확인
+            }
+            if (child.activeSelf == true)
+            {
+                result = false;
+            }
+        }
+        return result;
+    }
     public void ShowMoveRange(PlayerType type)
     {
         Transform target = null;
@@ -472,13 +513,17 @@ public class MazeVisualizer : MonoBehaviour
         }
 
         Vector2Int grid = Util.WorldToGrid(target.transform.position);
-        CellVisualizer cellVisualizer = cellVisualizers[GridToIndex(grid.x, grid.y)];
-        queue.Enqueue(cellVisualizer);
+        CellVisualizer origin = cellVisualizers[GridToIndex(grid.x, grid.y)];
+        queue.Enqueue(origin);
 
-        Vector2Int[] neighbors = Util.GetNeighbors(grid.x, grid.y);
+        Vector2Int[] neighbors = Util.GetNeighbors(grid.x, grid.y);//보드 안쪽의 상하좌우 셀 가져오기
         foreach(Vector2Int neighbor in neighbors)
         {
-            queue.Enqueue(cellVisualizers[GridToIndex(neighbor.x, neighbor.y)]);
+            CellVisualizer cell = cellVisualizers[GridToIndex(neighbor.x, neighbor.y)];
+            if (IsMovable(origin, cell))//벽이 막혀있지 않으면
+            {
+                queue.Enqueue(cellVisualizers[GridToIndex(neighbor.x, neighbor.y)]);
+            }
         }
         foreach(CellVisualizer cell in queue)
         {

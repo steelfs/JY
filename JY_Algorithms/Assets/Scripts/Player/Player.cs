@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum InputState
 {
+    None,
     Player,
     UI
 }
 public class Player : MonoBehaviour
 {
     PlayerInputActions inputActions;
-    public float moveSpeed = 10.0f;
     Vector3 moveDir = Vector3.zero;
-
+    Vector3 destination;
     Animator anim;
+
+    public float moveSpeed = 10.0f;
     int walkHash = Animator.StringToHash("walk");
     int idleHash = Animator.StringToHash("idle");
 
@@ -26,10 +29,16 @@ public class Player : MonoBehaviour
             inputState = value;
             switch (inputState)
             {
+                case InputState.None:
+                    Disable_PlayerInput();
+                    Disable_UI_Input();
+                    break;
                 case InputState.Player:
                     Enable_PlayerInput();
+                    Disable_UI_Input();
                     break;
                 case InputState.UI:
+                    Enable_UI_Input();
                     Disable_PlayerInput();
                     break;
             }
@@ -43,14 +52,13 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         inputActions.Player.Enable();
-        inputActions.Player.MoveForward_BackWard.performed += OnMove_Forward_Backward;
-        inputActions.Player.MoveForward_BackWard.canceled += OnMove_Forward_Backward;
-        inputActions.Player.MoveRight_Left.performed += OnMove_Right_Left;
-        inputActions.Player.MoveRight_Left.canceled += OnMove_Right_Left;
+        inputActions.Player.MoveClick.performed += OnMoveClick;
 
         inputActions.UI.Enable();
         inputActions.UI.CloseQuestionPanel.performed += OnCloseQuestionPanel;
         inputActions.UI.Enter.performed += OnPressEnter;
+
+
     }
 
     private void OnPressEnter(UnityEngine.InputSystem.InputAction.CallbackContext _)
@@ -79,47 +87,22 @@ public class Player : MonoBehaviour
     {
         inputActions.UI.Disable();
     }
-    private void OnMove_Right_Left(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    private void OnMoveClick(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        if (!context.canceled)
+        Vector2 mouse = Mouse.current.position.ReadValue();
+        Vector3 world = Camera.main.ScreenToWorldPoint(mouse);
+        Vector2Int grid = Util.WorldToGrid(world);
+
+        Vector2Int currentPos = Util.WorldToGrid(transform.position);
+        CellVisualizer from = GameManager.Visualizer.CellVisualizers[Util.GridToIndex(currentPos.x, currentPos.y)];
+        CellVisualizer to = GameManager.Visualizer.CellVisualizers[Util.GridToIndex(grid.x, grid.y)];
+        if (GameManager.Visualizer.IsMovable(from, to))
         {
-            anim.SetTrigger(walkHash);
+            this.moveDir = (to.transform.position - transform.position).normalized;
         }
-        else
-        {
-            anim.SetTrigger(idleHash);
-        }
-        float dir = context.ReadValue<float>();
-        moveDir.x = dir;
-        if (dir > 0)
-        {
-            transform.rotation = Quaternion.Euler(0,90,0);
-        }
-        else if (dir < 0)
-        {
-            transform.rotation = Quaternion.Euler(0, -90, 0);
-        }
-    }
-    private void OnMove_Forward_Backward(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-        if (!context.canceled)
-        {
-            anim.SetTrigger(walkHash);
-        }
-        else
-        {
-            anim.SetTrigger(idleHash);
-        }
-        float dir = context.ReadValue<float>();
-        moveDir.z = dir;
-        if (dir > 0)
-        {
-            transform.rotation = Quaternion.identity;
-        }
-        else if (dir < 0)
-        {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
+
+
+        Debug.Log(world);
     }
     private void Update()
     {

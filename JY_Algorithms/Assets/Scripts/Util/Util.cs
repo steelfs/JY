@@ -106,4 +106,8 @@ public class Util
         }
         return neighbors.ToArray();
     }
+    public static bool IsNeighbor(int x, int y, int condition)
+    {
+        return true;
+    }
 }
