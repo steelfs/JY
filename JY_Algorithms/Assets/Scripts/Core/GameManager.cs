@@ -152,9 +152,9 @@ public class GameManager : Singleton<GameManager>
             return false;
         }
         if (itemCount > MaxItemCount)
-            itemCount = MaxItemCount;
+            itemCount = Mathf.Clamp(MaxItemCount, 3, 7);
 
-        int distanceMin = Mathf.Max(1, 10 / Mathf.RoundToInt(Mathf.Sqrt(itemCount)));
+        int distanceMin = Mathf.Max(1, 7 / Mathf.RoundToInt(Mathf.Sqrt(itemCount)));
         foreach (Vector2Int saved_Position in spawnPositions)
         {
             if (Util.IsNeighbor(newPosition, saved_Position, distanceMin))

@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ffcb9166ce28745913fe919ad6c33f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {x: 0, y: 0}
+  world: {x: 0, y: 0, z: 0}
   amount: 0
 --- !u!4 &5962648
 Transform:
@@ -3622,7 +3622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 496144636360808226, guid: f6c33ac19d13a694b8bb647d5264a10c, type: 3}
   IsTestMode: 0
-  itemCount: 8
+  itemCount: 2
 --- !u!4 &2108394563
 Transform:
   m_ObjectHideFlags: 0

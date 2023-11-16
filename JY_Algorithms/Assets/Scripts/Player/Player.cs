@@ -89,20 +89,34 @@ public class Player : MonoBehaviour
     }
     private void OnMoveClick(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, LayerMask.GetMask("Cell")))
+        {
+            CellVisualizer cell = hitInfo.transform.GetComponentInParent<CellVisualizer>();
+        
+        }
+
+
+
         Vector2 mouse = Mouse.current.position.ReadValue();
         Vector3 world = Camera.main.ScreenToWorldPoint(mouse);
 
         Vector2Int grid = Util.WorldToGrid(world);//클릭한 곳의 그리드상 위치
-        Vector2Int currentGridPos = Util.WorldToGrid(transform.position);//현재 캐릭터의 오브젝트 위치
-        CellVisualizer from = GameManager.Visualizer.CellVisualizers[Util.GridToIndex(currentGridPos.x, currentGridPos.y)];
         CellVisualizer to = GameManager.Visualizer.CellVisualizers[Util.GridToIndex(grid.x, grid.y)];
-        if (GameManager.Visualizer.IsMovable(from, to) && Util.IsNeighbor(currentGridPos, grid, 2))
-        {
-            this.moveDir = (to.transform.position - transform.position).normalized;
-        }
 
 
-        Debug.Log(world);
+        //Vector2Int currentGridPos = Util.WorldToGrid(transform.position);//현재 캐릭터의 오브젝트 위치
+        //CellVisualizer from = GameManager.Visualizer.CellVisualizers[Util.GridToIndex(currentGridPos.x, currentGridPos.y)];
+
+        
+
+        //if (GameManager.Visualizer.IsMovable(from, to) && Util.IsNeighbor(currentGridPos, grid, 2))
+        //{
+        //    this.moveDir = (to.transform.position - transform.position).normalized;
+        //}
+
+
+        //Debug.Log(world);
     }
     private void Update()
     {
