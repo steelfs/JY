@@ -127,6 +127,10 @@ public class Util
     }
     public static bool IsNeighbor(Vector2Int from, Vector2Int to, int condition)
     {
+        if (from.x != to.x && from.y != to.y)
+        {
+            return false;
+        }
         bool result = false;
         int diffX = from.x - to.x;
         int diffY = from.y - to.y;
