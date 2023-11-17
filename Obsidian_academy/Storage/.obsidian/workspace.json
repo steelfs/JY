@@ -11,14 +11,11 @@
             "id": "1e3119a662e813a2",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "Maze_Survivor.canvas",
-                "viewState": {
-                  "x": 0,
-                  "y": 0,
-                  "zoom": 0
-                }
+                "file": "이론수업.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -88,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Maze_Survivor.canvas",
+                "file": "이론수업.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Maze_Survivor.canvas",
+                "file": "이론수업.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -128,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Maze_Survivor.canvas"
+                "file": "이론수업.md"
               }
             }
           }
@@ -149,10 +146,10 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "1e3119a662e813a2",
+  "active": "7083b02fad9a417e",
   "lastOpenFiles": [
-    "무제 파일.md",
     "Maze_Survivor.canvas",
+    "무제 파일.md",
     "아이템 선정 과정.canvas",
     "이론수업.md",
     "프로그램 구현 순서.md",
