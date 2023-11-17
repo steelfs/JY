@@ -24,7 +24,14 @@ public class QuizData_English
     HashSet<int> usedIndexes = new HashSet<int>();
     public void InitQuizData()
     {
-        quizzes_.Clear();
+        if (quizzes_ == null)
+        {
+            quizzes_ = new Dictionary<int, Quiz>();
+        }
+        else
+        {
+            quizzes_.Clear();
+        }
         while(quizzes.Count > quizzes_.Count)
         {
             int random = Random.Range(1, quizzes.Count + 1);

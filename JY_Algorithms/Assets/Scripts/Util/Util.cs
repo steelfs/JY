@@ -15,6 +15,18 @@ public class Util
             (source[index], source[i]) = (source[i], source[index]);
         }
     }
+    public static void ShuffleList<T>(List<T> list)
+    {
+        int i = list.Count - 1;
+        while(i > 0)
+        {
+            T temp = list[i];
+            int random = UnityEngine.Random.Range(0, i + 1);
+            list[i] = list[random];
+            list[random] = temp;
+            i--;
+        }
+    }
     //public static Vector2Int WorldToGrid()
     //{
 

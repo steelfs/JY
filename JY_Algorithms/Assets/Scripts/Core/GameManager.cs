@@ -25,6 +25,7 @@ public class GameManager : Singleton<GameManager>
     Kruskal kruskal;
     QuestionPanel questionPanel;
     ToolBox toolBox;
+    QuizData_English quizData_English;
     public static InputBox_Test InputBox => Inst.inputBox;
     public static Pools Pools => Inst.pools;
     public static MazeVisualizer_Test Visualizer_Test => Inst.visualizer_Test;
@@ -41,6 +42,8 @@ public class GameManager : Singleton<GameManager>
         mazeVisualizer = FindAnyObjectByType<MazeVisualizer>();
         inputBox = FindAnyObjectByType<InputBox_Test>();
         pools = FindAnyObjectByType<Pools>();
+        quizData_English = new();
+        quizData_English.InitQuizData();
     }
     private void Start()
     {
