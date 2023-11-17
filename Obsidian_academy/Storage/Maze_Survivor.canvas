@@ -1,6 +1,7 @@
 {
 	"nodes":[
-		{"id":"eace847817c15099","x":-225,"y":-133,"width":345,"height":193,"type":"text","text":"Money\nDictionary\n\nUI\nCube Texture\n"}
+		{"id":"48b746ff79769aab","x":-277,"y":-124,"width":250,"height":60,"type":"text","text":"각 셀마다 문제를 갖고있어야함"},
+		{"id":"59e5c1a187cd82d2","x":-299,"y":-286,"width":299,"height":126,"type":"text","text":"QuizData_분야\n\nDictionary<int, (int, sting)> \n문제번호, 정답, 문제 \n\n"}
 	],
 	"edges":[]
 }

@@ -11,11 +11,14 @@
             "id": "1e3119a662e813a2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "이론수업.md",
-                "mode": "source",
-                "source": false
+                "file": "Maze_Survivor.canvas",
+                "viewState": {
+                  "x": -52.5,
+                  "y": -36.5,
+                  "zoom": 0
+                }
               }
             }
           }
@@ -85,7 +88,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "이론수업.md",
+                "file": "Maze_Survivor.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +105,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "이론수업.md",
+                "file": "Maze_Survivor.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +128,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "이론수업.md"
+                "file": "Maze_Survivor.canvas"
               }
             }
           }
@@ -146,12 +149,12 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "7083b02fad9a417e",
+  "active": "1e3119a662e813a2",
   "lastOpenFiles": [
+    "이론수업.md",
     "Maze_Survivor.canvas",
     "무제 파일.md",
     "아이템 선정 과정.canvas",
-    "이론수업.md",
     "프로그램 구현 순서.md",
     "Algorithm/Maze_BackTracking.canvas",
     "문제해결/HP가 줄어들 때 알파값이 증가해야 할 때.md",

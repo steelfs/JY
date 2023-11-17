@@ -12,9 +12,9 @@ public enum InputState
 public class Player : MonoBehaviour
 {
     PlayerInputActions inputActions;
-    Vector3 moveDir = Vector3.zero;
     Vector3 destination;
     Animator anim;
+    Rigidbody rb;
 
     public float moveSpeed = 10.0f;
     int walkHash = Animator.StringToHash("walk");
@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     {
         inputActions = new PlayerInputActions();
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
     }
     private void OnEnable()
     {
@@ -93,6 +94,11 @@ public class Player : MonoBehaviour
         Vector3 world = Camera.main.ScreenToWorldPoint(mouse);
 
         Vector2Int grid = Util.WorldToGrid(world);//클릭한 곳의 그리드상 위치
+        if (!Util.IsInGrid(grid.x, grid.y))
+        {
+            Debug.Log("보드 바깥쪽");
+            return;
+        }
         CellVisualizer to = GameManager.Visualizer.CellVisualizers[Util.GridToIndex(grid.x, grid.y)];
         destination = to.transform.position;
         Vector2Int currentGridPos = Util.WorldToGrid(transform.position);//현재 캐릭터의 오브젝트 위치
@@ -100,20 +106,34 @@ public class Player : MonoBehaviour
 
         if (GameManager.Visualizer.IsMovable(from, to) && Util.IsNeighbor(currentGridPos, grid, 2))
         {
-            this.moveDir = (to.transform.position - transform.position).normalized;
+            Vector3 dir = (destination - transform.position).normalized;
+            Quaternion rot = Quaternion.LookRotation(dir);
+            transform.rotation = rot;//회전은 바로 적용
+            StartCoroutine(Moving());
         }
     }
-    private void Update()
+   
+    IEnumerator Moving()
     {
-        float distance = (destination.x - transform.position.x) + (destination.z - transform.position.z);
-        if (distance > 0.1f)
+        while((destination - transform.position).sqrMagnitude > 0.2f)
         {
-            transform.Translate(Time.deltaTime * moveSpeed * moveDir, Space.World);
+            Vector3 newPos = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
+            rb.MovePosition(newPos);
+            yield return null;
         }
-        else
-        {
-            moveDir = Vector3.zero;
-        }
-
+        GameManager.Visualizer.PlayerArrived(PlayerType.Player);
     }
+    //private void Update()
+    //{
+    //    float distance = (destination.x - transform.position.x) + (destination.z - transform.position.z);
+    //    if (distance > 0.1f)
+    //    {
+    //        transform.Translate(Time.deltaTime * moveSpeed * moveDir, Space.World);
+    //    }
+    //    else
+    //    {
+    //        moveDir = Vector3.zero;
+    //    }
+
+    //}
 }

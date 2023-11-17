@@ -76,7 +76,7 @@ public class GameManager : Singleton<GameManager>
                     toolBox.Open();
                     break;
                 case GameState.Playing:
-                    mazeVisualizer.ShowMoveRange(PlayerType.Player);
+                    mazeVisualizer.PlayerArrived(PlayerType.Player);
                     Player.InputState = InputState.Player;
                     break;
                 case GameState.End:

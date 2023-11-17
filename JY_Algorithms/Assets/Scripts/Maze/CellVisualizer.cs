@@ -5,6 +5,7 @@ public class CellVisualizer : MonoBehaviour
     GameObject[] walls;
     Renderer[] wall_Renderers;
     Renderer ground_Renderer;
+    Renderer territory_Renderer;
 
     public Material default_Wall;
     public Material default_Ground;
@@ -14,12 +15,46 @@ public class CellVisualizer : MonoBehaviour
     public Material confirmed_Wall;
     public Material next_Ground;
     public Material next_Wall;
+    public Material player_Mat;
+    public Material npc_01_Mat;
+    public Material npc_02_Mat;
+    public Material npc_03_Mat;
+
+    PlayerType playerType;
+    public PlayerType PlayerType
+    {
+        get => playerType;
+        set
+        {
+            playerType = value;
+            switch (playerType)
+            {
+                case PlayerType.None:
+                    territory_Renderer.material = default_Wall;
+                    break;
+                case PlayerType.Player:
+                    territory_Renderer.material = player_Mat;
+                    break;
+                case PlayerType.NPC01:
+                    territory_Renderer.material = npc_01_Mat;
+                    break;
+                case PlayerType.NPC02:
+                    territory_Renderer.material = npc_02_Mat;
+                    break;
+                case PlayerType.NPC03:
+                    territory_Renderer.material = npc_03_Mat;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
     public int x { get; set; }
     public int y { get; set; }
     private void Awake()
     {
-        
+        territory_Renderer = transform.GetChild(5).GetComponent<Renderer>();
         ground_Renderer = transform.GetChild(0).GetComponent<Renderer>();
         int length = transform.childCount - 1;
         wall_Renderers = new Renderer[length];

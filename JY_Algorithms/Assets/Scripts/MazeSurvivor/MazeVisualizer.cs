@@ -8,6 +8,7 @@ using UnityEngine;
 
 public enum PlayerType
 {
+    None,
     Player,
     NPC01,
     NPC02,
@@ -491,7 +492,7 @@ public class MazeVisualizer : MonoBehaviour
         }
         return result;
     }
-    public void ShowMoveRange(PlayerType type)
+    public void PlayerArrived(PlayerType type)
     {
         Transform target = null;
         Queue<CellVisualizer> queue = null;
@@ -514,22 +515,32 @@ public class MazeVisualizer : MonoBehaviour
                 break;
         }
 
+        while(queue.Count > 0)
+        {
+            CellVisualizer cell = queue.Dequeue();
+            cell.OnSet_Default_Material();
+        }
+
         Vector2Int grid = Util.WorldToGrid(target.transform.position);
         CellVisualizer origin = cellVisualizers[GridToIndex(grid.x, grid.y)];
         queue.Enqueue(origin);
 
-        Vector2Int[] neighbors = Util.GetNeighbors(grid.x, grid.y);//보드 안쪽의 상하좌우 셀 가져오기
-        foreach(Vector2Int neighbor in neighbors)
-        {
-            CellVisualizer cell = cellVisualizers[GridToIndex(neighbor.x, neighbor.y)];
-            if (IsMovable(origin, cell))//벽이 막혀있지 않으면
-            {
-                queue.Enqueue(cellVisualizers[GridToIndex(neighbor.x, neighbor.y)]);
-            }
-        }
-        foreach(CellVisualizer cell in queue)
-        {
-            cell.OnSet_Path_Material();
-        }
+        GameManager.Inst.OpenQuestionPanel();
+        //Vector2Int[] neighbors = Util.GetNeighbors(grid.x, grid.y);//보드 안쪽의 상하좌우 셀 가져오기
+        //foreach(Vector2Int neighbor in neighbors)
+        //{
+        //    CellVisualizer cell = cellVisualizers[GridToIndex(neighbor.x, neighbor.y)];
+        //    if (IsMovable(origin, cell))//벽이 막혀있지 않으면
+        //    {
+        //        queue.Enqueue(cellVisualizers[GridToIndex(neighbor.x, neighbor.y)]);
+        //    }
+        //}
+
+
+        //문제풀이창 닫힌 후 실행
+        //foreach(CellVisualizer cell in queue)
+        //{
+        //    cell.OnSet_Path_Material();
+        //}
     }
 }
