@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.PlayerSettings;
 
 public class Player1Tank : PlayerBase
 {    
@@ -26,10 +25,14 @@ public class Player1Tank : PlayerBase
         inputActions.Player1.Enable();
         inputActions.Player1.Move.performed += OnMove;
         inputActions.Player1.Move.canceled += OnMove;
+        inputActions.Player1.Fire.performed += OnChargeStart;
+        inputActions.Player1.Fire.canceled += OnFire;
     }
 
     private void OnDisable()
     {
+        inputActions.Player1.Fire.canceled -= OnFire;
+        inputActions.Player1.Fire.performed -= OnChargeStart;
         inputActions.Player1.Move.canceled -= OnMove;
         inputActions.Player1.Move.performed -= OnMove;
         inputActions.Player1.Disable();
@@ -46,9 +49,13 @@ public class Player1Tank : PlayerBase
                 Vector3 lookDir = hitInfo.point - turret.position;
                 lookDir.y = 0;
                 lookTarget = Quaternion.LookRotation(lookDir, Vector3.up);
+
             }
 
             turret.rotation = Quaternion.Slerp(turret.rotation, lookTarget, Time.deltaTime * turretSpinSpeed);
+            //aimSlider.transform.rotation = Quaternion.Slerp(aimSlider.transform.rotation, lookTarget, Time.deltaTime * turretSpinSpeed);
+
+
         }
     }
 }
