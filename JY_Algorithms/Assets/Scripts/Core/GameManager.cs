@@ -42,8 +42,7 @@ public class GameManager : Singleton<GameManager>
         mazeVisualizer = FindAnyObjectByType<MazeVisualizer>();
         inputBox = FindAnyObjectByType<InputBox_Test>();
         pools = FindAnyObjectByType<Pools>();
-        quizData_English = new();
-        quizData_English.InitQuizData();
+        
     }
     private void Start()
     {
@@ -55,7 +54,8 @@ public class GameManager : Singleton<GameManager>
             kruskal.on_DoneWithMakeMaze += () => StartCoroutine(WaitCoroutine());
             Visualizer.MakeMaze();
         }
-
+        quizData_English = new();
+        quizData_English.InitQuizData();
     }
     IEnumerator WaitCoroutine()
     {
