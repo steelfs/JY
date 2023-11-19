@@ -20,7 +20,7 @@ public class CellVisualizer : MonoBehaviour
     public Material npc_02_Mat;
     public Material npc_03_Mat;
 
-    PlayerType playerType;
+    PlayerType playerType = PlayerType.None;
     public PlayerType PlayerType
     {
         get => playerType;
@@ -30,7 +30,7 @@ public class CellVisualizer : MonoBehaviour
             switch (playerType)
             {
                 case PlayerType.None:
-                    territory_Renderer.material = default_Wall;
+                    territory_Renderer.material = default_Ground;
                     break;
                 case PlayerType.Player:
                     territory_Renderer.material = player_Mat;
@@ -57,14 +57,16 @@ public class CellVisualizer : MonoBehaviour
         territory_Renderer = transform.GetChild(5).GetComponent<Renderer>();
         ground_Renderer = transform.GetChild(0).GetComponent<Renderer>();
         int length = transform.childCount - 1;
-        wall_Renderers = new Renderer[length];
-        walls = new GameObject[length];
-        for (int i = 1; i < transform.childCount; i++)
+        wall_Renderers = new Renderer[4];
+        walls = new GameObject[4];
+        for (int i = 1; i < 5; i++)
         {
             walls[i - 1] = transform.GetChild(i).gameObject;
             wall_Renderers[i - 1] = transform.GetChild(i).GetComponent<Renderer>();
         }
+
     }
+
     public void RefreshWalls(byte data)
     {
         for (int i = 0; i < walls.Length; i++)

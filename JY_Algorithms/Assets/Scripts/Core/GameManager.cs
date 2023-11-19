@@ -57,7 +57,7 @@ public class GameManager : Singleton<GameManager>
         quizData_English = new();
         quizData_English.InitQuizData();
     }
-    IEnumerator WaitCoroutine()
+    IEnumerator WaitCoroutine()//MazeGenerator에서 미로생성 완료 후 델리게이트로 호출
     {
         yield return new WaitForSeconds(1);
         GameState = GameState.Start;
@@ -76,7 +76,7 @@ public class GameManager : Singleton<GameManager>
             {
                 case GameState.Start:
                     StartCoroutine(SpawnPlayerAndItems());
-                    toolBox.Open();
+                    toolBox.Open();//오른쪽 툴박스 보여주기
                     break;
                 case GameState.Playing:
                     mazeVisualizer.PlayerArrived(PlayerType.Player);

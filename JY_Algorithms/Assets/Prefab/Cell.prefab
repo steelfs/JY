@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 46f6a2c786c854544867a0254e927586, type: 2}
+  - {fileID: 2100000, guid: b6d434923fbd20646b408213ae4fa197, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -238,6 +238,10 @@ MonoBehaviour:
   confirmed_Wall: {fileID: 2100000, guid: dca9dd43ee182284894f0bb273c0770d, type: 2}
   next_Ground: {fileID: 2100000, guid: cc891001ae5a37a438d044b543cab860, type: 2}
   next_Wall: {fileID: 2100000, guid: 9e19775c58ce3f744970372340feb7d9, type: 2}
+  player_Mat: {fileID: 2100000, guid: 46f6a2c786c854544867a0254e927586, type: 2}
+  npc_01_Mat: {fileID: 2100000, guid: bdaa024b63cb788418e25e957ec735bf, type: 2}
+  npc_02_Mat: {fileID: 2100000, guid: 17d2cffa130c620468e4d53e8c3a63a6, type: 2}
+  npc_03_Mat: {fileID: 2100000, guid: d02336b1fd4153546a46306db58cad7d, type: 2}
 --- !u!1 &6312289307743925524
 GameObject:
   m_ObjectHideFlags: 0
