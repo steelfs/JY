@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class PlayerBase : MonoBehaviour
     public float moveSpeed = 1.0f;
     public float rotateSpeed = 360.0f;
 
+    public ShellType shellType = ShellType.Normal;
+
     protected bool isAlive = true;
     protected Vector2 inputDir = Vector2.zero;
 
@@ -24,6 +27,14 @@ public class PlayerBase : MonoBehaviour
     GameObject explosionEffect;
 
     bool isCharging = false;
+    float chargingRate = 0;
+
+    Transform fireTransform;
+
+    public float coolTime = 2.0f;
+    float currentCoolTime = 0.0f;
+
+    public Action<float> onCoolTimeChange;
 
     protected virtual void Awake()
     {
@@ -35,7 +46,11 @@ public class PlayerBase : MonoBehaviour
 
         inputActions = new PlayerInputActions();
 
+        child = transform.GetChild(0);
+        child = child.GetChild(3);
+        fireTransform = child.GetChild(0);
         explosionEffect = transform.GetChild(1).gameObject;
+
     }
     private void Start()
     {
@@ -48,6 +63,9 @@ public class PlayerBase : MonoBehaviour
 
     private void FixedUpdate()
     {
+        currentCoolTime -= Time.fixedDeltaTime;
+        onCoolTimeChange?.Invoke(1 - currentCoolTime / coolTime);
+
         rigid.MovePosition(transform.position + Time.fixedDeltaTime * moveSpeed * inputDir.y * transform.forward);
         rigid.MoveRotation(
             Quaternion.Euler(0, Time.fixedDeltaTime * rotateSpeed * inputDir.x, 0) * transform.rotation);
@@ -74,7 +92,7 @@ public class PlayerBase : MonoBehaviour
             Vector3 explosionDir = hitDir + transform.up * hitDir.sqrMagnitude * 2;
             rigid.constraints = RigidbodyConstraints.None;
 
-            Vector3 torqueAxis = Quaternion.Euler(0, Random.Range(80.0f,100.0f), 0) * explosionDir;
+            Vector3 torqueAxis = Quaternion.Euler(0, UnityEngine.Random.Range(80.0f,100.0f), 0) * explosionDir;
             //Vector3 torqueAxis = Quaternion.Euler(0, 90.0f, 0) * hitDir;
 
             rigid.AddForce(explosionDir, ForceMode.Impulse);
@@ -110,6 +128,7 @@ public class PlayerBase : MonoBehaviour
         while (timeElapsed < fullChargeTime)
         {
             timeElapsed += Time.deltaTime;
+            chargingRate = timeElapsed / fullChargeTime;
             aimSlider.value = timeElapsed;
             yield return null;
         }
@@ -122,9 +141,11 @@ public class PlayerBase : MonoBehaviour
         if (isCharging)
         {
             aimSlider.value = 0;
-            Debug.Log("발사");            
+            Factory.Inst.GetShell(shellType, fireTransform, chargingRate);
         }
         isCharging = false;
+        chargingRate = 0.0f;
+        currentCoolTime = coolTime;
     }
 
     protected void OnMove(InputAction.CallbackContext context)
@@ -134,12 +155,23 @@ public class PlayerBase : MonoBehaviour
 
     protected void OnChargeStart(InputAction.CallbackContext context)
     {
-        StartCoroutine(Charging());
+        if(currentCoolTime <= 0)
+        {
+            StartCoroutine(Charging());
+        }
     }
 
     protected void OnFire(InputAction.CallbackContext context)
     {
-        StopAllCoroutines();
-        Fire();
+        if (currentCoolTime <= 0)
+        {
+            StopAllCoroutines();
+            Fire();
+        }
+    }
+
+    public void SetShell(ShellType shellType)
+    {
+        this.shellType = shellType;
     }
 }

@@ -49,13 +49,14 @@ public class Player1Tank : PlayerBase
                 Vector3 lookDir = hitInfo.point - turret.position;
                 lookDir.y = 0;
                 lookTarget = Quaternion.LookRotation(lookDir, Vector3.up);
-
             }
 
             turret.rotation = Quaternion.Slerp(turret.rotation, lookTarget, Time.deltaTime * turretSpinSpeed);
-            //aimSlider.transform.rotation = Quaternion.Slerp(aimSlider.transform.rotation, lookTarget, Time.deltaTime * turretSpinSpeed);
+            aimSlider.transform.localRotation = turret.rotation;
 
-
+            float angle = Vector3.SignedAngle(transform.forward, turret.forward, turret.up);
+            Quaternion parentQ = aimSlider.transform.parent.rotation;
+            aimSlider.transform.rotation = Quaternion.Euler(0, angle, 0) * parentQ;
         }
     }
 }
