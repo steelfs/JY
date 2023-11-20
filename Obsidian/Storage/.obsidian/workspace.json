@@ -15,8 +15,8 @@
               "state": {
                 "file": "Maze_Survivor.canvas",
                 "viewState": {
-                  "x": -52.5,
-                  "y": -36.5,
+                  "x": -200,
+                  "y": -419,
                   "zoom": 0
                 }
               }
@@ -151,17 +151,17 @@
   },
   "active": "1e3119a662e813a2",
   "lastOpenFiles": [
-    "이론수업.md",
+    "Tip.md",
     "Maze_Survivor.canvas",
-    "무제 파일.md",
-    "아이템 선정 과정.canvas",
     "프로그램 구현 순서.md",
+    "이론수업.md",
+    "아이템 선정 과정.canvas",
+    "무제 파일.md",
     "Algorithm/Maze_BackTracking.canvas",
     "문제해결/HP가 줄어들 때 알파값이 증가해야 할 때.md",
     "Algorithm/Recursive_Division.canvas",
     "Algorithm/Maze_Prim.canvas",
     "Algorithm/Kruskal.canvas",
-    "Tip.md",
     "Algorithm/Maze_Eller.canvas",
     "문제해결",
     "Algorithm/Maze_Wilson.canvas",
