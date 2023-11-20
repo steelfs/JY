@@ -31,6 +31,8 @@ public class QuizPanel : MonoBehaviour
     TMP_InputField inputField;
     public TMP_InputField InputField => inputField;
     StringBuilder Player_StringBuilder;
+    Quiz quiz = null;
+
 
     bool isCorrectAnswer = true;
     const int ChanceCount = 3;
@@ -107,26 +109,43 @@ public class QuizPanel : MonoBehaviour
         Open();
         Open_SelectAnswer();
         StartCoroutine(Print_SelectQuiz());
-
     }
     IEnumerator Print_SelectQuiz()
     {
-        Quiz quiz = GameManager.QuizData_English.Quizzes[current_Player_Position % 10];
+        this.quiz = GameManager.QuizData_English.Quizzes[(current_Player_Position % 10)];//
+        quiz.ShuffleOptions();//정답 순서 섞기
         string question = quiz.Question;
-        quiz_Text.text = question;
+        Player_StringBuilder.Clear();
+        for (int i = 0; i < question.Length; i++)//문제 출력
+        {
+            Player_StringBuilder.Append(question[i]);
+            quiz_Text.text = Player_StringBuilder.ToString();
+            yield return moment;
+        }
 
-        for (int i = 0; i < options.Length; i++)
+        for (int i = 0; i < options.Length; i++)//보기 출력
         {
             string option = quiz.Options[i];
             Player_StringBuilder.Clear();
             for (int j = 0; j < option.Length; j++)
             {
                 Player_StringBuilder.Append(option[j]);
-                options[i].text = Player_StringBuilder.ToString();
+                options[i].text = $"{i + 1}) {Player_StringBuilder.ToString()}";
                 yield return moment;
             }
         }
-    
+    }
+    public void CheckingAnswer(int selectedNumber)
+    {
+        if (this.quiz.CorrectAnswer_Index != selectedNumber)
+        {
+            GameManager.Inst.CloseQuestionPanel();
+            GameManager.Visualizer.ShowMoveRange();
+        }
+        else
+        {
+
+        }
     }
     void Open_SelectAnswer()
     {

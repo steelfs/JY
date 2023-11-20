@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEditor.Search;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public enum PlayerType
 {
@@ -534,20 +536,24 @@ public class MazeVisualizer : MonoBehaviour
         }
         else
         {
-            Vector2Int[] neighbors = Util.GetNeighbors(origin.x, origin.y);//현재 위치에서 주변 셀들의 그리드좌표 받아오기
-            foreach(Vector2Int neighbor in neighbors)
-            {
-                CellVisualizer cell = CellVisualizers[GridToIndex(neighbor.x, neighbor.y)];
-                queue.Enqueue(cell);
-            }
-            foreach(CellVisualizer cell in queue)
+            ShowMoveRange();
+        }
+    }
+    public void ShowMoveRange()
+    {
+        CellVisualizer pivotCell = playerMovingQueue.Peek();
+        Vector2Int[] neighbors = Util.GetNeighbors(pivotCell.x, pivotCell.y);//현재 위치에서 주변 셀들의 그리드좌표 받아오기
+        foreach (Vector2Int neighbor in neighbors)
+        {
+            CellVisualizer cell = CellVisualizers[GridToIndex(neighbor.x, neighbor.y)];
+            playerMovingQueue.Enqueue(cell);
+        }
+        foreach (CellVisualizer cell in playerMovingQueue)
+        {
+            if (IsMovable(pivotCell, cell))
             {
                 cell.OnSet_Path_Material();
             }
         }
-
-
-
-
     }
 }

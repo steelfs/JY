@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Quiz_Option_Base : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class Quiz_Option_Base : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public int optionNumber;
     TextMeshProUGUI optionText;
@@ -21,7 +21,10 @@ public class Quiz_Option_Base : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         optionText.color = Color.red;
     }
-
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        GameManager.QuizPanel.CheckingAnswer(this.optionNumber);
+    }
     public void OnPointerExit(PointerEventData eventData)
     {
         optionText.color = Color.black;
@@ -39,4 +42,6 @@ public class Quiz_Option_Base : MonoBehaviour, IPointerEnterHandler, IPointerExi
             yield return moment;
         }
     }
+
+   
 }

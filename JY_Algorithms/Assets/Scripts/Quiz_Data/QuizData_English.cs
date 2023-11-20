@@ -7,31 +7,32 @@ using UnityEngine;
 public class Quiz
 {
     public string Question { get; private set; }
-    public int CorrectAnswer { get; private set; }
+    public int CorrectAnswer_Index { get; private set; }
+    string correctAnswer;
     public string[] Options { get; private set; }
+    public int Index { get; set; } // CellVisualizer 를 찾아올때 사용할 인덱스
 
     public Quiz(string question, string[] options)
     {
         this.Question = question;
-        this.Options = ShuffleOptions(options, out int newCorrectIndex);
-        this.CorrectAnswer = newCorrectIndex + 1;
+        this.Options = options; 
+        this.correctAnswer = Options[0];
+        ShuffleOptions();
     }
 
-    private string[] ShuffleOptions(string[] options, out int newCorrectIndex)
+    public void ShuffleOptions()
     {
-        string correctAnswer = options[0];
         // 옵션을 랜덤하게 섞는다
-        for (int i = 0; i < options.Length; i++)
+        for (int i = 0; i < Options.Length; i++)
         {
-            int j = UnityEngine.Random.Range(i, options.Length);
-            string temp = options[i];
-            options[i] = options[j];
-            options[j] = temp;
+            int j = UnityEngine.Random.Range(i, Options.Length);
+            string temp = Options[i];
+            Options[i] = Options[j];
+            Options[j] = temp;
         }
 
         // 새로운 정답의 위치를 찾는다
-        newCorrectIndex = Array.IndexOf(options, correctAnswer);
-        return options;
+        this.CorrectAnswer_Index = Array.IndexOf(Options, correctAnswer) + 1;//correctAnswer와 같은 값이 들어있는 인덱스에 1더해서 정답으로 설정
     }
 }
 public class QuizData_English 
@@ -47,26 +48,28 @@ public class QuizData_English
         List<int> shuffledKeys = new List<int>(quizData.Keys);
         Util.ShuffleList(shuffledKeys);
         int index = 0;
-        for (int i = 1; i < GameManager.Visualizer.CellVisualizers.Length + 1; i++)
+        for (int i = 0; i < GameManager.Visualizer.CellVisualizers.Length ; i++)
         {
             index = i % 10;
-            quizzes[i] = quizData[shuffledKeys[index]];
+            Quiz quiz = quizData[shuffledKeys[index]];
+            quizzes[i] = quiz;
+            quiz.Index = i;
         }
     }
     public QuizData_English()
     {
         quizData = new Dictionary<int, Quiz>//정답을 1번에 배치
         {
-            {1, new Quiz("'a' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) 하나의", "2) 두개의 ", "3) 두배의", "4) ~개 이상의"})},
-            {2, new Quiz("'about' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) ~에 대하여", "2) ~와 같이 ", "3) ~처럼", "4) ~ 때문에"})},
-            {3, new Quiz("'above' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) ~위에", "2) ~처럼 ", "3) ~같이", "4) 어쩌면"})},
-            {4, new Quiz("'academy' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) 학술원, 학교", "2) 병원 ", "3) 체육관", "4) 집"})},
-            {5, new Quiz("'accent' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) 억양, 액센트 ", "2) 억세다, 기가 센", "3) 사건, 사고", "4) 과거"})},
-            {6, new Quiz("'accident' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) 사고, 우연", "2)  ~처럼", "3) 필연적으로", "4) 할수없이"})},
-            {7, new Quiz("'across' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) 건너편에, 가로질러 ", "2) 알맞은 ", "3) 틀리다", "4) 늙은"})},
-            {8, new Quiz("'act' 의 뜻으로 가장 알맞은 것은?", new string[] { "1)  행동하다, 연기하다", "2) 노래하다", "3) 가까운", "4) 멈추다, 정지하다"})},
-            {9, new Quiz("'add' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) 추가하다", "2) 빼다 ", "3) 나누다", "4) 곱하다"})},
-            {10, new Quiz("'address' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) 주소", "2) 대학교 ", "3) 병원", "4) 회사"})},
+            {0, new Quiz("'a' 의 뜻으로 가장 알맞은 것은?", new string[] { "하나의", "두개의 ", "두배의", "~개 이상의"})},
+            {1, new Quiz("'about' 의 뜻으로 가장 알맞은 것은?", new string[] { "~에 대하여", "~와 같이 ", "~처럼", "~ 때문에"})},
+            {2, new Quiz("'above' 의 뜻으로 가장 알맞은 것은?", new string[] { "~위에", "~처럼 ", "~같이", "어쩌면"})},
+            {3, new Quiz("'academy' 의 뜻으로 가장 알맞은 것은?", new string[] { "학술원, 학교", "병원 ", "체육관", "집"})},
+            {4, new Quiz("'accent' 의 뜻으로 가장 알맞은 것은?", new string[] { "억양, 액센트 ", "억세다, 기가 센", "사건, 사고", "과거"})},
+            {5, new Quiz("'accident' 의 뜻으로 가장 알맞은 것은?", new string[] { "사고, 우연", "~처럼", "필연적으로", "할수없이"})},
+            {6, new Quiz("'across' 의 뜻으로 가장 알맞은 것은?", new string[] { "건너편에, 가로질러 ", "알맞은 ", "틀리다", "늙은"})},
+            {7, new Quiz("'act' 의 뜻으로 가장 알맞은 것은?", new string[] { "행동하다, 연기하다", "노래하다", "가까운", "멈추다, 정지하다"})},
+            {8, new Quiz("'add' 의 뜻으로 가장 알맞은 것은?", new string[] { "추가하다", "빼다 ", "나누다", "곱하다"})},
+            {9, new Quiz("'address' 의 뜻으로 가장 알맞은 것은?", new string[] { "주소", "대학교 ", "병원", "회사"})},
 
         };
     }
