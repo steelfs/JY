@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
 
     private void OnPressEnter(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
-        GameManager.QuestionPanel.FreeInput_Accepted();
+        GameManager.QuizPanel.FreeInput_Accepted();
     }
 
     private void OnCloseQuestionPanel(UnityEngine.InputSystem.InputAction.CallbackContext _)

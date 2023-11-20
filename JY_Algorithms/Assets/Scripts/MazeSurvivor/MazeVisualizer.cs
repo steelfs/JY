@@ -525,7 +525,29 @@ public class MazeVisualizer : MonoBehaviour
         CellVisualizer origin = cellVisualizers[GridToIndex(grid.x, grid.y)];
         queue.Enqueue(origin);
 
-        GameManager.Inst.OpenQuestionPanel();
+        if (origin.PlayerType != type)
+        {
+            //패널 오픈
+            GameManager.QuizPanel.current_Player_Position = GridToIndex(grid.x, grid.y);//플레이어의 현재위치를 인덱스로 저장 (위치에 저장된 문제를 불러올 때 사용)
+            GameManager.Inst.OpenQuestionPanel();
+
+        }
+        else
+        {
+            Vector2Int[] neighbors = Util.GetNeighbors(origin.x, origin.y);//현재 위치에서 주변 셀들의 그리드좌표 받아오기
+            foreach(Vector2Int neighbor in neighbors)
+            {
+                CellVisualizer cell = CellVisualizers[GridToIndex(neighbor.x, neighbor.y)];
+                queue.Enqueue(cell);
+            }
+            foreach(CellVisualizer cell in queue)
+            {
+                cell.OnSet_Path_Material();
+            }
+        }
+
+
+
 
     }
 }

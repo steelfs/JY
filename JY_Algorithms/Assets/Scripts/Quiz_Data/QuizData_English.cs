@@ -55,10 +55,10 @@ public class QuizData_English
     }
     public QuizData_English()
     {
-        quizData = new Dictionary<int, Quiz>
+        quizData = new Dictionary<int, Quiz>//정답을 1번에 배치
         {
             {1, new Quiz("'a' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) 하나의", "2) 두개의 ", "3) 두배의", "4) ~개 이상의"})},
-            {2, new Quiz("'about' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) ~에 대하여", " ~와 같이 ", "3) ~처럼", "4) ~ 때문에"})},
+            {2, new Quiz("'about' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) ~에 대하여", "2) ~와 같이 ", "3) ~처럼", "4) ~ 때문에"})},
             {3, new Quiz("'above' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) ~위에", "2) ~처럼 ", "3) ~같이", "4) 어쩌면"})},
             {4, new Quiz("'academy' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) 학술원, 학교", "2) 병원 ", "3) 체육관", "4) 집"})},
             {5, new Quiz("'accent' 의 뜻으로 가장 알맞은 것은?", new string[] { "1) 억양, 액센트 ", "2) 억세다, 기가 센", "3) 사건, 사고", "4) 과거"})},

@@ -23,7 +23,7 @@ public class GameManager : Singleton<GameManager>
     MazeVisualizer_Test visualizer_Test;
     MazeVisualizer mazeVisualizer;
     Kruskal kruskal;
-    QuestionPanel questionPanel;
+    QuizPanel quizPanel;
     ToolBox toolBox;
     QuizData_English quizData_English;
     public static InputBox_Test InputBox => Inst.inputBox;
@@ -32,12 +32,13 @@ public class GameManager : Singleton<GameManager>
     public static MazeVisualizer Visualizer => Inst.mazeVisualizer;
     public static Player Player => Inst.player;
     public static Kruskal Kruskal => Inst.kruskal;
-    public static QuestionPanel QuestionPanel => Inst.questionPanel;
+    public static QuizPanel QuizPanel => Inst.quizPanel;
+    public static QuizData_English QuizData_English => Inst.quizData_English;
     public static ToolBox ToolBox => Inst.toolBox;
     private void Awake()
     {
         toolBox = FindAnyObjectByType<ToolBox>();
-        questionPanel = FindAnyObjectByType<QuestionPanel>();
+        quizPanel = FindAnyObjectByType<QuizPanel>();
         visualizer_Test = FindAnyObjectByType<MazeVisualizer_Test>();
         mazeVisualizer = FindAnyObjectByType<MazeVisualizer>();
         inputBox = FindAnyObjectByType<InputBox_Test>();
@@ -187,13 +188,13 @@ public class GameManager : Singleton<GameManager>
     public void OpenQuestionPanel()//UI 패널 오픈
     {
         Player.InputState = InputState.UI;
-        QuestionPanel.Question_Type = QuestionType.Free_Input;
-        QuestionPanel.Open();
+        QuizPanel.Question_Type = QuestionType.Select_Answer;//이 부분은 시작 전 드롭다운 메뉴로 FreeInput or Select Answer 둘 중 선택할 수 있게 해야함
+        QuizPanel.on_QuizPopUp();
         // 일정 확률로 Free_Input or SelectAnswer
     }
     public void CloseQuestionPanel() 
     {
-        QuestionPanel.Close();
+        QuizPanel.Close();
         Player.InputState = InputState.Player;
     }
 
