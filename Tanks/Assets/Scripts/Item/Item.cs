@@ -5,16 +5,15 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    ShellType shellType = ShellType.Normal;
-
-    private void Start()
+    public ShellType shellType = ShellType.Normal;
+    private void OnEnable()
     {
         Array enums = Enum.GetValues(typeof(ShellType));
 
         shellType = (ShellType)(UnityEngine.Random.Range(0, enums.Length));
 
         Renderer renderer = GetComponentInChildren<Renderer>();
-        switch(shellType)
+        switch (shellType)
         {
             case ShellType.Normal:
                 renderer.material.color = Color.red;
@@ -26,6 +25,10 @@ public class Item : MonoBehaviour
                 renderer.material.color = Color.blue;
                 break;
         }
+    }
+    private void Start()
+    {
+       
     }
 
     private void OnCollisionEnter(Collision collision)
