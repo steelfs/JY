@@ -1,12 +1,6 @@
 {
 	"nodes":[
-		{"id":"b1477b161d63a1c9","x":-336,"y":-224,"width":250,"height":50,"type":"text","text":"정답을 맞췄을 때"},
-		{"id":"a6f5a7f65f995b30","x":-620,"y":-224,"width":250,"height":50,"type":"text","text":"틀렸을 때"},
-		{"id":"2d660e1fd22d5349","x":-620,"y":-115,"width":250,"height":155,"type":"text","text":"패널 닫기\n큐에있는 셀 NextMaterial 설정\n"},
-		{"id":"0762ad0efabd25df","x":-335,"y":-115,"width":295,"height":155,"type":"text","text":"패널 닫기\nTerritory Material설정\nCellVisualizer의 PlayerType 바꿔주기(영역설정)"}
+		{"id":"dd3b33fa164c83f1","x":-440,"y":-260,"width":480,"height":240,"type":"text","text":"NPC1, 2, 3\nPlayerSpawnCoroutine에서  남은 3곳에 소환\n\n일정 시간마다 Neighbor 셀로 이동,\n일정 확률로 정답을 맞춤\n\n영역이 설정될 때마다 MazeVisualizer 로 신호를 보내 count++:\ncount 가 CellVisualizers.Length와 같아지면 스코어링 시작\n\n\nMonarch Like BGM"}
 	],
-	"edges":[
-		{"id":"2ff4a62e3891bb9c","fromNode":"a6f5a7f65f995b30","fromSide":"bottom","toNode":"2d660e1fd22d5349","toSide":"top"},
-		{"id":"ee8963922dc2ab59","fromNode":"b1477b161d63a1c9","fromSide":"bottom","toNode":"0762ad0efabd25df","toSide":"top"}
-	]
+	"edges":[]
 }

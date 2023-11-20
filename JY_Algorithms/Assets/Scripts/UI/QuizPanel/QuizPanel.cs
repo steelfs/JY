@@ -144,7 +144,9 @@ public class QuizPanel : MonoBehaviour
         }
         else
         {
-
+            GameManager.Visualizer.SetTerritory();
+            GameManager.Inst.CloseQuestionPanel();
+            GameManager.Visualizer.ShowMoveRange();
         }
     }
     void Open_SelectAnswer()

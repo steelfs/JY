@@ -556,4 +556,9 @@ public class MazeVisualizer : MonoBehaviour
             }
         }
     }
+    public void SetTerritory()
+    {
+        CellVisualizer pivotCell = playerMovingQueue.Peek();
+        pivotCell.PlayerType = PlayerType.Player;
+    }
 }
