@@ -48,6 +48,17 @@ public enum Subject
 }
 public class GameManager : Singleton<GameManager>
 {
+    int[] quizCounts = new int[] { 800, 800, 800, 800, 800,1000 };
+    public int GetTotalQuizCount()
+    {
+        int result = 0;
+        foreach(int count in quizCounts)
+        {
+            result += count;
+        }
+        return result;
+    }
+    public int[] QuizCounts => quizCounts;
     public GameObject[] playerPrefabs;
     GameObject[] spawnedPrefabs;
     public GameObject playerPrefab;
@@ -68,6 +79,8 @@ public class GameManager : Singleton<GameManager>
 
     public bool IsTestMode = true;
 
+
+    public ScrollView scrollView;
     TitlePanel titlePanel;
 
     PlayerData playerData = null;
@@ -90,8 +103,10 @@ public class GameManager : Singleton<GameManager>
     public static QuizData_English QuizData_English => Inst.quizData_English;
     public static ToolBox ToolBox => Inst.toolBox;
 
+    public Action<PlayerData> on_UpdateScorePanel;
+
     CurrentScene currentScene = CurrentScene.Title;
-    CurrentScene CurrentScene
+    public CurrentScene CurrentScene
     {
         get => currentScene;
         set
@@ -106,15 +121,57 @@ public class GameManager : Singleton<GameManager>
                     }
                         titlePanel.Open();
                     break;
-                case CurrentScene.Lobby:
+                case CurrentScene.Lobby://newGame이 아닐 경우 playerData의 EditData함수 실행 후 Lobby로 상태 변경
+
+                    StartCoroutine(LoadLobbyScene());
                     break;
                 case CurrentScene.Field:
                     break;
             }
         }
     }
-    private void Awake()
+    IEnumerator LoadLobbyScene()
     {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Lobby");
+
+        // 씬이 로드될 때까지 기다림
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        // 씬 로딩이 완료된 후 실행할 코드
+        // 예: 스코어 패널 업데이트
+        if (playerData == null)
+        {
+            playerData = new PlayerData();
+        }
+        else
+        {
+            playerData.InitData(playerData.SubjectScores);
+        }
+
+        if (scrollView == null)//newGame선택시
+        {
+            scrollView = FindAnyObjectByType<ScrollView>();
+        }
+        scrollView.UpdateScorePanel(playerData);
+    }
+
+    public void NewGame() { CurrentScene = CurrentScene.Lobby; }
+    public void LoadGame()
+    {
+        if (playerData == null)
+        {
+            playerData = new();// 임시. 이곳에서 JsonSave파일을 불러와야한다
+        }
+        playerData.EditData(50);
+        CurrentScene = CurrentScene.Lobby;
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
         titlePanel = FindAnyObjectByType<TitlePanel>();
         CurrentScene = CurrentScene.Title;
         spawnedPrefabs = new GameObject[playerPrefabs.Length];
