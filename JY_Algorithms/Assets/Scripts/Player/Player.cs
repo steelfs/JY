@@ -48,7 +48,6 @@ public class Player : MonoBehaviour
     {
         inputActions = new PlayerInputActions();
         anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
     }
     private void OnEnable()
     {
@@ -61,7 +60,11 @@ public class Player : MonoBehaviour
 
 
     }
+    public void GetComponents()
+    {
+        rb = GetComponent<Rigidbody>();
 
+    }
     private void OnPressEnter(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         GameManager.QuizPanel.FreeInput_Accepted();

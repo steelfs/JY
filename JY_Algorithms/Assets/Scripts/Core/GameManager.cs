@@ -126,6 +126,7 @@ public class GameManager : Singleton<GameManager>
                     StartCoroutine(LoadLobbyScene());
                     break;
                 case CurrentScene.Field:
+                    StartCoroutine(LoadFieldScene());
                     break;
             }
         }
@@ -157,7 +158,17 @@ public class GameManager : Singleton<GameManager>
         }
         scrollView.UpdateScorePanel(playerData);
     }
+    IEnumerator LoadFieldScene()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Field");
 
+        // 씬이 로드될 때까지 기다림
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        Init_FieldScene();
+    }
     public void NewGame() { CurrentScene = CurrentScene.Lobby; }
     public void LoadGame()
     {
@@ -282,7 +293,10 @@ public class GameManager : Singleton<GameManager>
         spawnPos.y -= 2;
         Vector3 rotation = Util.GetRandomRotation(grid.x, grid.y);// 벽이 없는 방향중 랜덤한 방향으로 회전
         GameObject player_ = Instantiate(playerPrefab, spawnPos, Quaternion.Euler(rotation));
-        this.player = player_.GetComponent<Player>();
+        this.player = player_.AddComponent<Player>();
+        player.AddComponent<Rigidbody>();
+        player.AddComponent<BoxCollider>();
+        player.GetComponents();
         player.InputState = InputState.None;
 
         yield return new WaitForSeconds(1.0f);
