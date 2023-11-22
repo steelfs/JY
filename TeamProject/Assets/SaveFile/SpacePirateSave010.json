@@ -1,0 +1,185 @@
+{
+    "dataIndex": 10,
+    "currentStage": 1,
+    "stageClear": 0,
+    "startPos": {
+        "x": -17.347999572753908,
+        "y": 0.9049999713897705,
+        "z": 4.6020002365112309
+    },
+    "saveTime": "2023-11-22 오후 1:22:01",
+    "sceanName": 4,
+    "playerData": {
+        "abilityPoint": 50,
+        "playerName": "Player",
+        "level": 1,
+        "exp": 0,
+        "expMax": 50,
+        "base_MaxHP": 100.0,
+        "currentHP": 96.0,
+        "current_Stamina": 14.0,
+        "base_MaxStamina": 15.0,
+        "BaseDarkForce": 4300,
+        "base_ATT": 10,
+        "base_DP": 10,
+        "base_STR": 5,
+        "base_INT": 5,
+        "base_LUK": 5,
+        "base_DEX": 5,
+        "baseCriticalPower": 1.7999999523162842,
+        "damage_Min": 0.5
+    },
+    "equipments_Data": {
+        "Total_STR": 0,
+        "Total_INT": 0,
+        "Total_LUK": 0,
+        "Total_DEX": 0,
+        "Total_CriticalRate": 0.0,
+        "Total_DodgeRate": 0.0,
+        "codes": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "weapon_ItemLevel": 0,
+        "weapon_AttackPoint": 0,
+        "weapon_DefencePoint": 0,
+        "weapon_ItemName": ""
+    },
+    "equipSlotLength": 0,
+    "equipData": [
+        {
+            "values": 1,
+            "itemIndex": 11,
+            "slotIndex": 0,
+            "itemEnhanceValue": 6
+        },
+        {
+            "values": 1,
+            "itemIndex": 11,
+            "slotIndex": 1,
+            "itemEnhanceValue": 1
+        },
+        {
+            "values": 1,
+            "itemIndex": 46,
+            "slotIndex": 2,
+            "itemEnhanceValue": 1
+        },
+        {
+            "values": 1,
+            "itemIndex": 50,
+            "slotIndex": 3,
+            "itemEnhanceValue": 1
+        },
+        {
+            "values": 1,
+            "itemIndex": 48,
+            "slotIndex": 4,
+            "itemEnhanceValue": 1
+        },
+        {
+            "values": 1,
+            "itemIndex": 48,
+            "slotIndex": 5,
+            "itemEnhanceValue": 1
+        }
+    ],
+    "consumeSlotLength": 0,
+    "consumeData": [
+        {
+            "values": 100,
+            "itemIndex": 3,
+            "slotIndex": 0,
+            "itemEnhanceValue": 0
+        },
+        {
+            "values": 30,
+            "itemIndex": 1,
+            "slotIndex": 1,
+            "itemEnhanceValue": 0
+        },
+        {
+            "values": 30,
+            "itemIndex": 2,
+            "slotIndex": 2,
+            "itemEnhanceValue": 0
+        }
+    ],
+    "etcSlotLength": 0,
+    "etcData": [],
+    "craftSlotLength": 0,
+    "craftData": [
+        {
+            "values": 1,
+            "itemIndex": 24,
+            "slotIndex": 0,
+            "itemEnhanceValue": 0
+        },
+        {
+            "values": 0,
+            "itemIndex": 19,
+            "slotIndex": 1,
+            "itemEnhanceValue": 0
+        },
+        {
+            "values": 1,
+            "itemIndex": 23,
+            "slotIndex": 2,
+            "itemEnhanceValue": 0
+        },
+        {
+            "values": 1,
+            "itemIndex": 13,
+            "slotIndex": 3,
+            "itemEnhanceValue": 0
+        },
+        {
+            "values": 8,
+            "itemIndex": 20,
+            "slotIndex": 4,
+            "itemEnhanceValue": 0
+        },
+        {
+            "values": 6,
+            "itemIndex": 18,
+            "slotIndex": 5,
+            "itemEnhanceValue": 0
+        },
+        {
+            "values": 6,
+            "itemIndex": 25,
+            "slotIndex": 6,
+            "itemEnhanceValue": 0
+        }
+    ],
+    "skillDatas": [
+        {
+            "skillLevel": 1,
+            "bindingSlot": 1,
+            "skillType": 0
+        },
+        {
+            "skillLevel": 1,
+            "bindingSlot": 2,
+            "skillType": 1
+        },
+        {
+            "skillLevel": 1,
+            "bindingSlot": 3,
+            "skillType": 2
+        },
+        {
+            "skillLevel": 1,
+            "bindingSlot": 4,
+            "skillType": 3
+        },
+        {
+            "skillLevel": 1,
+            "bindingSlot": 5,
+            "skillType": 4
+        }
+    ],
+    "questList": []
+}

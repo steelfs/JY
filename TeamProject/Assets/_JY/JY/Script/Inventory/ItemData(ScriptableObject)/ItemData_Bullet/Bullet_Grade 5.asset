@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f833ed0944c0a4cb234ca11d12a563, type: 3}
+  m_Name: Bullet_Grade 5
+  m_EditorClassIdentifier: 
+  ItemType: 2
+  code: 37
+  itemName: Bullet_Grade5
+  modelPrefab: {fileID: 8742705896149449633, guid: 4f35fb9945ddd6a498d9acb1de90e729, type: 3}
+  itemIcon: {fileID: 21300000, guid: 3ee87668cb0b4c94b919373ffcb6ff26, type: 3}
+  price: 160000
+  maxStackCount: 1000
+  itemDescription: 5
+  CraftType: 0
+  successRate: 50
+  Critical_Success_Item: {fileID: 0}
+  attckPoint: 40

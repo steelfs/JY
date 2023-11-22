@@ -1,0 +1,39 @@
+
+[ float ]
+체력 : hp
+최대체력 : maxHp
+스테미나 : stamina
+최대스테미나 : maxStamina
+
+[ uint ]
+공격력 : att
+방어력 : dp
+
+- - - - - - (추가할거) - - - - - -
+근력 스텟 - 근거리 데미지 float
+mStrength
+민첩 스텟 - 원거리 데미지 float
+mDexterity
+행운 스텟 - 크리티컬 확률 float
+mLucx
+
+공격력 float
+mAttack
+방어력 float
+mDefence
+크리티컬 확률 float
+mCritical
+시야 int
+mSight
+
+정신력 float
+mSpirit
+화상 float
+mBuring
+감전 float
+mElectric
+독 float
+mPosion
+공포 float
+mFear
+

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: ab987be410e907a44bf93287600549fa
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - centerTile: {fileID: 1927106134723284363, guid: ec16faef0b0024e41a754becf4fb858e, type: 3}
+  - sideTile: {fileID: 8797011225861172393, guid: d7fd6b3f4d9c0734c8f549322c904b1e, type: 3}
+  - vertexTile: {fileID: 1653467421318594525, guid: bfad40b9d2c389b4ca690d028842d1e5, type: 3}
+  - wall: {fileID: 3841216844985782899, guid: 46a180535354e0a469ea8689de80d961, type: 3}
+  - pointLight: {fileID: 2473895127990609703, guid: 9754fdad34fac1749a1727a4fc601cc8, type: 3}
+  - pillar: {fileID: 3138847464301115210, guid: b9e116fb37ae8d84fb4fd0e03d5f35d7, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

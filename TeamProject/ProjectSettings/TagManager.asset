@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Tile
+  - SaveList
+  - IOPopupWindow
+  - WindowList
+  - DataFactory
+  - TitleButton
+  - Npc
+  - Ground
+  - Enemy
+  - FxTemporaire
+  - OpeningCam
+  - Missile
+  - CameraTarget
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - MousePlane
+  - Water
+  - UI
+  - Units
+  - Item
+  - Ground
+  - Enhancer_Before
+  - MixerDescription
+  - Player
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - Floor
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

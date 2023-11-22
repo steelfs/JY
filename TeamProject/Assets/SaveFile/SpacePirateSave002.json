@@ -1,0 +1,182 @@
+{
+    "dataIndex": 2,
+    "currentStage": 0,
+    "stageClear": 3,
+    "startPos": {
+        "x": -17.71502685546875,
+        "y": 6.014366626739502,
+        "z": -28.171585083007814
+    },
+    "saveTime": "2023-10-13 오후 1:05:20",
+    "sceanName": 5,
+    "playerData": {
+        "abilityPoint": 75,
+        "playerName": "Player",
+        "level": 6,
+        "exp": 29,
+        "expMax": 123,
+        "base_MaxHP": 175.0,
+        "currentHP": 175.0,
+        "current_Stamina": 28.0,
+        "base_MaxStamina": 30.0,
+        "BaseDarkForce": 4928800,
+        "base_ATT": 10,
+        "base_DP": 10,
+        "base_STR": 5,
+        "base_INT": 5,
+        "base_LUK": 5,
+        "base_DEX": 5,
+        "baseCriticalPower": 1.7999999523162842,
+        "damage_Min": 0.5
+    },
+    "equipments_Data": {
+        "Total_STR": 0,
+        "Total_INT": 0,
+        "Total_LUK": 0,
+        "Total_DEX": 50,
+        "Total_CriticalRate": 0.0,
+        "Total_DodgeRate": 0.0,
+        "codes": [
+            46,
+            10,
+            51,
+            22
+        ],
+        "weapon_ItemLevel": 1,
+        "weapon_AttackPoint": 20,
+        "weapon_DefencePoint": 1,
+        "weapon_ItemName": "Rifle"
+    },
+    "equipSlotLength": 0,
+    "equipData": [
+        {
+            "values": 1,
+            "itemIndex": 9,
+            "slotIndex": 2,
+            "itemEnhanceValue": 1
+        }
+    ],
+    "consumeSlotLength": 0,
+    "consumeData": [
+        {
+            "values": 99,
+            "itemIndex": 3,
+            "slotIndex": 0,
+            "itemEnhanceValue": 0
+        },
+        {
+            "values": 2,
+            "itemIndex": 1,
+            "slotIndex": 1,
+            "itemEnhanceValue": 0
+        }
+    ],
+    "etcSlotLength": 0,
+    "etcData": [],
+    "craftSlotLength": 0,
+    "craftData": [
+        {
+            "values": 1,
+            "itemIndex": 16,
+            "slotIndex": 0,
+            "itemEnhanceValue": 0
+        },
+        {
+            "values": 1,
+            "itemIndex": 23,
+            "slotIndex": 1,
+            "itemEnhanceValue": 0
+        },
+        {
+            "values": 1,
+            "itemIndex": 25,
+            "slotIndex": 2,
+            "itemEnhanceValue": 0
+        }
+    ],
+    "skillDatas": [
+        {
+            "skillLevel": 1,
+            "bindingSlot": 1,
+            "skillType": 0
+        },
+        {
+            "skillLevel": 1,
+            "bindingSlot": 2,
+            "skillType": 1
+        },
+        {
+            "skillLevel": 1,
+            "bindingSlot": 3,
+            "skillType": 2
+        },
+        {
+            "skillLevel": 1,
+            "bindingSlot": 4,
+            "skillType": 3
+        },
+        {
+            "skillLevel": 1,
+            "bindingSlot": 5,
+            "skillType": 4
+        }
+    ],
+    "questList": [
+        {
+            "questInfo": "클리어 조건",
+            "questIndex": 0,
+            "questType": 0,
+            "questState": 1,
+            "questIProgress": [
+                1,
+                1,
+                0
+            ]
+        },
+        {
+            "questInfo": "대형로봇 토벌",
+            "questIndex": 1000,
+            "questType": 1,
+            "questState": 1,
+            "questIProgress": [
+                0
+            ]
+        },
+        {
+            "questInfo": "중형 유닛 부시기",
+            "questIndex": 1001,
+            "questType": 1,
+            "questState": 1,
+            "questIProgress": [
+                10
+            ]
+        },
+        {
+            "questInfo": "소형 부시기",
+            "questIndex": 1002,
+            "questType": 1,
+            "questState": 1,
+            "questIProgress": [
+                10
+            ]
+        },
+        {
+            "questInfo": "MP포션 수집",
+            "questIndex": 2000,
+            "questType": 2,
+            "questState": 1,
+            "questIProgress": [
+                0
+            ]
+        },
+        {
+            "questInfo": "HP 포션 수집",
+            "questIndex": 2001,
+            "questType": 2,
+            "questState": 1,
+            "questIProgress": [
+                2
+            ]
+        }
+    ]
+}

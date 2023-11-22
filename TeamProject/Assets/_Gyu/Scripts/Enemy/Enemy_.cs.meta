@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 784f4bbe2ccf1104f93b10a42aa12bce
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - EnemyAc_Riffle: {instanceID: 0}
+  - EnemyAc_Sword: {instanceID: 0}
+  - NoneAudio: {instanceID: 0}
+  - RiffleAudio: {instanceID: 0}
+  - SwordAudio: {instanceID: 0}
+  - SelectedAudio: {instanceID: 0}
+  - GrapPosition: {instanceID: 0}
+  - Riffle: {fileID: 1387595760026213463, guid: 3066df790cd6dd84589aab27e76874aa, type: 3}
+  - Sword: {fileID: 3534807905636233986, guid: dfe5cd2d934092340bd2798c887ae5c1, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

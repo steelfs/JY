@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc36f109a09320b49ade6d638ecd078b, type: 3}
+  m_Name: Shield_Extended
+  m_EditorClassIdentifier: 
+  ItemType: 1
+  code: 6
+  itemName: Shield_Extended
+  modelPrefab: {fileID: 7191577408742150895, guid: c98d702ae5dee0e40a3e3a2a5d8425d4, type: 3}
+  itemIcon: {fileID: -1250176964, guid: 7c4692057e49c9b4bb3fe1a0d8736b1d, type: 3}
+  price: 0
+  maxStackCount: 1
+  itemDescription: "\uAC15\uD654 \uC2E4\uB4DC"

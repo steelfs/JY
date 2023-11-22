@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb22d601c6195445b654ca66909ef60, type: 3}
+  m_Name: Advanced_Red_Crystal
+  m_EditorClassIdentifier: 
+  ItemType: 4
+  code: 27
+  itemName: Advanced_Red_Crystal
+  modelPrefab: {fileID: 4056250787380624432, guid: c41a2280566e1ac4191d0f251fc78011, type: 3}
+  itemIcon: {fileID: 21300000, guid: 3ba425b9a18c1754abf7ac7e4e13b254, type: 3}
+  price: 50000
+  maxStackCount: 20
+  itemDescription: "\uAC15\uB82C\uD55C \uAE30\uC6B4\uC774 \uB290\uAEF4\uC9C0\uB294
+    \uD06C\uB9AC\uC2A4\uD0C8\uC774\uB2E4. \uC5B4\uB514\uC5D0 \uC4F0\uC774\uB294 \uBB3C\uAC74\uC77C\uAE4C?"
+  questBinding: []
+  CraftType: 6
+  successRate: 10
+  Critical_Success_Item: {fileID: 0}
+  STR: 50
+  INT: 0
+  LUK: 0
+  DEX: 0
+  attack_Point: 100
+  defence_Point: 100

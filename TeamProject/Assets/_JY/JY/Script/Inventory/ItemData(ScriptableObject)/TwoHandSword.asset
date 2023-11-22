@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc36f109a09320b49ade6d638ecd078b, type: 3}
+  m_Name: TwoHandSword
+  m_EditorClassIdentifier: 
+  ItemType: 1
+  code: 20
+  itemName: TwoHandSword
+  modelPrefab: {fileID: 6660370603909060218, guid: 684797b2836d61e438b92cf9d14bc03a, type: 3}
+  itemIcon: {fileID: 43337394, guid: 7c4692057e49c9b4bb3fe1a0d8736b1d, type: 3}
+  price: 0
+  maxStackCount: 1
+  itemDescription: "\uB450\uC190\uAC80"

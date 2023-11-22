@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb22d601c6195445b654ca66909ef60, type: 3}
+  m_Name: Yellow_Crystal
+  m_EditorClassIdentifier: 
+  ItemType: 4
+  code: 31
+  itemName: Yellow_Crystal
+  modelPrefab: {fileID: 2684661518406936468, guid: 89d6174da7ce2df48a8d14494ed410dc, type: 3}
+  itemIcon: {fileID: 21300000, guid: 9905b439cfdab734381a48991d7488f1, type: 3}
+  price: 50000
+  maxStackCount: 20
+  itemDescription: "\uB530\uB73B\uD55C \uB290\uB08C\uC758 \uBCF4\uC11D\uC774\uB2E4. "
+  questBinding: []
+  CraftType: 8
+  successRate: 0
+  Critical_Success_Item: {fileID: 0}
+  STR: 10
+  INT: 10
+  LUK: 10
+  DEX: 10
+  attack_Point: 0
+  defence_Point: 0

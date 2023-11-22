@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474120e3fa2b50647815d8a4712d0669, type: 3}
+  m_Name: Crew's_Hat
+  m_EditorClassIdentifier: 
+  ItemType: 1
+  code: 47
+  itemName: "\uC120\uC6D0\uC758 \uBAA8\uC790"
+  modelPrefab: {fileID: 5723156827907725018, guid: 3483a8efb79b11f43925cd189b96ab41, type: 3}
+  itemIcon: {fileID: 21300000, guid: 22824e664bb10e4429c8650c44dd6f19, type: 3}
+  price: 5000
+  maxStackCount: 1
+  itemDescription: "\uC120\uC6D0\uC758 \uBAA8\uC790"
+  EquipType: 1
+  defence_Point: 20
+  attack_Point: 3

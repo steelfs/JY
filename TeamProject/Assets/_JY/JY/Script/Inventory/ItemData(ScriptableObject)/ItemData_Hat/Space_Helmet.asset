@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474120e3fa2b50647815d8a4712d0669, type: 3}
+  m_Name: Space_Helmet
+  m_EditorClassIdentifier: 
+  ItemType: 1
+  code: 49
+  itemName: SpaceHelm
+  modelPrefab: {fileID: 5798576363139874498, guid: 1d2cb7c3db0255942a5be75177b6c0ca, type: 3}
+  itemIcon: {fileID: 21300000, guid: fe23efb579c84a34d8684cbf6ba775b4, type: 3}
+  price: 20000
+  maxStackCount: 1
+  itemDescription: SpaceHelm
+  EquipType: 1
+  defence_Point: 60
+  attack_Point: 20

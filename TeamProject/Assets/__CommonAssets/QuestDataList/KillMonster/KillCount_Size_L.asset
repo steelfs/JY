@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db4e79a31082550468168bc6955ff779, type: 3}
+  m_Name: KillCount_Size_L
+  m_EditorClassIdentifier: 
+  type: 1
+  iconImage: {fileID: 21300000, guid: 3756222a571afa946bdc300fe3e08105, type: 3}
+  title: "\uB300\uD615\uB85C\uBD07 \uD1A0\uBC8C"
+  description: "\uB300\uD615\uB85C\uBD07\uC774 \uC5B4\uCA4C\uAD6C\uC800\uCA4C\uAD6C
+    \uD558\uB098 \uBD80\uC154\uBD10\uB77C"
+  clearObjectives: "\uB300\uD615\uB85C\uBD07 1\uAE30 \uBD80\uC2DC\uAE30"
+  rewardCoin: 15
+  rewardItem: 0100000002000000
+  itemCount: 0f00000019000000
+  requestItem: 
+  questMosters: 03000000
+  requiredCount: 01000000
