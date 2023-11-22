@@ -2,21 +2,75 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public enum GameState
+public enum GameState// 임시
 {
     None,
     Start,
     Playing,
     End
 }
+public enum CurrentScene
+{
+    Title,
+    Lobby,
+    Field
+}
+public enum TotalRank
+{
+    Silver,
+    Gold,
+    Sapphire,
+    Platinum
+}
+public enum Detail_Rank
+{
+    Silver_01,
+    Silver_02,
+    Silver_03,
+    Silver_04,
+    Gold_01,
+    Gold_02,
+    Gold_03,
+    Gold_04,
+}
+public enum Subject
+{
+    Eng,
+    Math,
+    Coding,
+    History,
+    Common,
+    Japanese
+}
 public class GameManager : Singleton<GameManager>
 {
+    public GameObject[] playerPrefabs;
+    GameObject[] spawnedPrefabs;
     public GameObject playerPrefab;
+    int activeOrder = 0;
+    int ActiveOrder
+    {
+        get => activeOrder;
+        set
+        {
+            activeOrder = value;
+            foreach(GameObject prefab in spawnedPrefabs)
+            {
+                prefab.SetActive(false);
+            }
+            spawnedPrefabs[activeOrder].SetActive(true);
+        }
+    }
 
     public bool IsTestMode = true;
 
+    TitlePanel titlePanel;
+
+    PlayerData playerData = null;
     Player player;
     Pools pools;
     InputBox_Test inputBox;
@@ -35,7 +89,71 @@ public class GameManager : Singleton<GameManager>
     public static QuizPanel QuizPanel => Inst.quizPanel;
     public static QuizData_English QuizData_English => Inst.quizData_English;
     public static ToolBox ToolBox => Inst.toolBox;
+
+    CurrentScene currentScene = CurrentScene.Title;
+    CurrentScene CurrentScene
+    {
+        get => currentScene;
+        set
+        {
+            currentScene = value;
+            switch (currentScene)
+            {
+                case CurrentScene.Title:
+                    if (SceneManager.GetActiveScene().name != "Title")
+                    {
+                        SceneManager.LoadScene("Title");
+                    }
+                        titlePanel.Open();
+                    break;
+                case CurrentScene.Lobby:
+                    break;
+                case CurrentScene.Field:
+                    break;
+            }
+        }
+    }
     private void Awake()
+    {
+        titlePanel = FindAnyObjectByType<TitlePanel>();
+        CurrentScene = CurrentScene.Title;
+        spawnedPrefabs = new GameObject[playerPrefabs.Length];
+    }
+
+    /// <summary>
+    /// 케릭터 선택시 실행될 함수
+    /// 인스펙터의 NewGame버튼에서 호출
+    /// </summary>
+    public void SpawnPlayerPrefabs()
+    {
+        for (int i = 0; i < playerPrefabs.Length; i++)
+        {
+            GameObject obj = Instantiate(playerPrefabs[i], Vector3.zero, Quaternion.Euler(0, 180, 0));
+            obj.AddComponent<ChoosePanel_Animal>();
+            spawnedPrefabs[i] = obj;
+            obj.SetActive(false);
+        }
+        spawnedPrefabs[2].transform.position = Vector3.up * 6;//Mole 물개 프리팹
+        spawnedPrefabs[0].SetActive(true);
+    }
+       
+    /// <summary>
+    /// 케릭터를 바꾸는 함수 Increase = 오른쪽, Decrease = 왼쪽
+    /// </summary>
+    public void IncreaseActiveOrder() { ActiveOrder = (activeOrder + 1) % spawnedPrefabs.Length; }
+    public void DecreaseActiveOrder() 
+    {
+        if (activeOrder < 1)
+        {
+            ActiveOrder = spawnedPrefabs.Length - 1;
+        }
+        else
+        {
+            ActiveOrder = (activeOrder - 1) % spawnedPrefabs.Length; 
+        }
+    }
+
+    private void Init_FieldScene()
     {
         toolBox = FindAnyObjectByType<ToolBox>();
         quizPanel = FindAnyObjectByType<QuizPanel>();
@@ -43,10 +161,7 @@ public class GameManager : Singleton<GameManager>
         mazeVisualizer = FindAnyObjectByType<MazeVisualizer>();
         inputBox = FindAnyObjectByType<InputBox_Test>();
         pools = FindAnyObjectByType<Pools>();
-        
-    }
-    private void Start()
-    {
+
         if (!IsTestMode)
         {
             Visualizer.MazeType = MazeType.kruskal;
@@ -58,6 +173,8 @@ public class GameManager : Singleton<GameManager>
         quizData_English = new();
         quizData_English.InitQuizData();
     }
+
+
     IEnumerator WaitCoroutine()//MazeGenerator에서 미로생성 완료 후 델리게이트로 호출
     {
         yield return new WaitForSeconds(1);

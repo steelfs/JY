@@ -13,11 +13,11 @@
             "state": {
               "type": "canvas",
               "state": {
-                "file": "Maze_Survivor.canvas",
+                "file": "SQUIZ.canvas",
                 "viewState": {
-                  "x": -200,
-                  "y": -419,
-                  "zoom": 0
+                  "x": -94.33333333333331,
+                  "y": -211.99999999999997,
+                  "zoom": -0.289506617194985
                 }
               }
             }
@@ -88,7 +88,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Maze_Survivor.canvas",
+                "file": "SQUIZ.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +105,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Maze_Survivor.canvas",
+                "file": "SQUIZ.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -128,7 +128,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Maze_Survivor.canvas"
+                "file": "SQUIZ.canvas"
               }
             }
           }
@@ -151,8 +151,10 @@
   },
   "active": "1e3119a662e813a2",
   "lastOpenFiles": [
+    "Stock/전 세계 기준 평균 거래대금이 가장 많으며 살아있는 업종.md",
+    "SQUIZ.canvas",
+    "Stock",
     "Tip.md",
-    "Maze_Survivor.canvas",
     "프로그램 구현 순서.md",
     "이론수업.md",
     "아이템 선정 과정.canvas",
